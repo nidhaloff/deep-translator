@@ -3,7 +3,7 @@
 """Tests for `deep_translator` package."""
 
 import pytest
-
+from deep_translator import exceptions, GoogleTranslator
 
 @pytest.fixture
 def response():
@@ -12,11 +12,11 @@ def response():
     See more at: http://doc.pytest.org/en/latest/fixture.html
     """
     pass
-    # with pytest.raises(LanguageNotSupportedException):
-    #     GoogleTranslator(source="", target="")
-    #
-    # with pytest.raises(LanguageNotSupportedException):
-    #     GoogleTranslator(source="auto", target="nothing")
+    with pytest.raises(exceptions.LanguageNotSupportedException):
+        GoogleTranslator(source="", target="")
+
+    with pytest.raises(exceptions.LanguageNotSupportedException):
+        GoogleTranslator(source="auto", target="nothing")
 
 
 def test_content(response):
