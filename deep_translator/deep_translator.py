@@ -2,9 +2,9 @@
 
 from bs4 import BeautifulSoup
 import requests
-from models import BaseTranslator
-from constants import BASE_URLS, LANGUAGES_TO_CODES
-from exceptions import LanguageNotSupportedException, NotValidPayload
+from .models import BaseTranslator
+from .constants import BASE_URLS, LANGUAGES_TO_CODES
+from .exceptions import LanguageNotSupportedException, NotValidPayload
 
 
 class GoogleTranslator(BaseTranslator):
