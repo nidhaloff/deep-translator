@@ -22,8 +22,8 @@ deploy:
   distributions: sdist bdist_wheel
   user: nidhaloff
   password:
-    secure: PLEASE_REPLACE_ME
+    secure: __token__
   on:
     tags: true
     repo: nidhaloff/deep_translator
-    python: 3.8
+    python: 3.7
