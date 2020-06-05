@@ -4,9 +4,6 @@
 
 import pytest
 
-from deep_translator import GoogleTranslator
-from exceptions import LanguageNotSupportedException, NotValidPayload
-
 
 @pytest.fixture
 def response():
