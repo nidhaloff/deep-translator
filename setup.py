@@ -11,7 +11,7 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 
-with open('requirements.txt') as reqs:
+with open('./requirements.txt') as reqs:
     requirements = reqs.read()
 
 setup_requirements = ['pytest-runner', ]
@@ -50,6 +50,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/nidhaloff/deep_translator',
-    version='0.0.1',
+    version='0.1.0',
     zip_safe=False,
 )
