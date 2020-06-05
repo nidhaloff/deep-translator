@@ -11,9 +11,10 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 
-with open('./requirements.txt') as reqs:
-    requirements = reqs.read()
-
+# with open('./re') as reqs:
+#     requirements = reqs.read()
+# print(requirements)
+# exit()
 setup_requirements = ['pytest-runner', ]
 
 test_requirements = ['pytest>=3', ]
@@ -39,7 +40,7 @@ setup(
             'deep_translator=deep_translator.cli:main',
         ],
     },
-    install_requires=requirements,
+    install_requires=[],
     license="MIT license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
