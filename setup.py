@@ -40,7 +40,7 @@ setup(
             'deep_translator=deep_translator.cli:main',
         ],
     },
-    install_requires=[],
+    install_requires=['requests', 'bs4', 'beautifulsoup4'],
     license="MIT license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
