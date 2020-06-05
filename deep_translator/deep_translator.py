@@ -1,6 +1,10 @@
 """Main module."""
 
-from bs4 import BeautifulSoup
+try:
+    from bs4 import BeautifulSoup
+except:
+    raise Exception("Import Error")
+
 import requests
 from .models import BaseTranslator
 from .constants import BASE_URLS, LANGUAGES_TO_CODES
