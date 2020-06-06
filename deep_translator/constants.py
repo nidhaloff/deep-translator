@@ -1,7 +1,7 @@
 
 BASE_URLS = {
     "GOOGLE_TRANSLATE": "https://translate.google.com/m",
-    "PONS": "https://en.pons.com/translate"
+    "PONS": "https://en.pons.com/translate/"
 }
 
 CODES_TO_LANGUAGES = {

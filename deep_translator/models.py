@@ -10,7 +10,7 @@ class BaseTranslator(ABC):
         pass
 
     @abstractmethod
-    def translate(self, payload):
+    def translate(self, payload, payload_tag):
         pass
 
 

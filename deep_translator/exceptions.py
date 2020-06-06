@@ -20,3 +20,14 @@ class NotValidPayload(BaseError):
                  message='payload must be a valid text with maximum 5000 character, otherwise it cannot be translated'):
         super(NotValidPayload, self).__init__(val, message)
 
+
+class ElementNotFoundInGetRequest(BaseError):
+    def __init__(self,
+                 val,
+                 message='Element was not found in the get request.'):
+        super(ElementNotFoundInGetRequest, self).__init__(val, message)
+
+
+class NotValidLength(BaseError):
+    def __init__(self, val, message="Length of payload need to be between 0 and 5000"):
+        super(NotValidLength, self).__init__(val, message)

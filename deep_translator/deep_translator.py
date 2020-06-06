@@ -1,38 +1,45 @@
 """Main module."""
 
-try:
-    from bs4 import BeautifulSoup
-except:
-    raise Exception("Import Error")
 
+from bs4 import BeautifulSoup
 import requests
-from .models import BaseTranslator
-from .constants import BASE_URLS, LANGUAGES_TO_CODES
-from .exceptions import LanguageNotSupportedException, NotValidPayload
+from models import BaseTranslator
+from constants import BASE_URLS, LANGUAGES_TO_CODES, CODES_TO_LANGUAGES
+from exceptions import LanguageNotSupportedException, NotValidPayload, ElementNotFoundInGetRequest, NotValidLength
+from parent import ParentTranslator
+import string
 
 
-class GoogleTranslator(BaseTranslator):
-
+class GoogleTranslator(ParentTranslator):
+    """
+    class that uses google translate to translate texts
+    """
     def __init__(self, source="auto", target="en"):
+        """
+        @param source: source language to translate from
+        @param target: target language to translate to
+        """
         self.__base_url = BASE_URLS.get("GOOGLE_TRANSLATE")
-        super(GoogleTranslator, self).__init__()
 
         if self._validate_languages([source.lower(), target.lower()]):
             self._source = self._map_language_to_code(source.lower())
             self._target = self._map_language_to_code(target.lower())
 
-    def _validate_payload(self, payload):
-        if not isinstance(payload, str):
-            return False
-        elif not payload:
-            return False
-        elif len(payload) > 5000:
-            return False
-        else:
-            return True
+        super(GoogleTranslator, self).__init__(base_url=self.__base_url,
+                                               source=self._source,
+                                               target=self._target,
+                                               element_tag='div',
+                                               element_query={"class": "t0"},
+                                               hl=self._target,
+                                               sl=self._source,
+                                               q=None)
 
     def _map_language_to_code(self, language):
+        """
 
+        @param language: type of language
+        @return: mapped value of the language or raise an exception if the language is not supported
+        """
         if language in LANGUAGES_TO_CODES.values() or language == 'auto':
             return language
         elif language in LANGUAGES_TO_CODES.keys():
@@ -40,34 +47,83 @@ class GoogleTranslator(BaseTranslator):
         else:
             raise LanguageNotSupportedException(language)
 
+    def translate(self, payload, payload_tag='q'):
+        return super().translate(payload, payload_tag)
+
+
+class PonsTranslator(ParentTranslator):
+    """
+    class that uses PONS translator to translate words
+    """
+    def __init__(self, source="french", target="english"):
+        """
+        @param source: source language to translate from
+        @param target: target language to translate to
+        """
+        self.__base_url = BASE_URLS.get("PONS")
+
+        if self._validate_languages([source.lower(), target.lower()]):
+            self._source = self._map_language_to_code(source.lower())
+            self._target = self._map_language_to_code(target.lower())
+
+        super().__init__(base_url=self.__base_url,
+                         source=self._source,
+                         target=self._target,
+                         element_tag='div',
+                         element_query={"class": "target"}
+                         )
+
+    def _map_language_to_code(self, language):
+        """
+
+        @param language: type of language
+        @return: mapped value of the language or raise an exception if the language is not supported
+        """
+        if language in LANGUAGES_TO_CODES.values():
+            return CODES_TO_LANGUAGES[language]
+        elif language in LANGUAGES_TO_CODES.keys():
+            return language
+        else:
+            raise LanguageNotSupportedException(language)
+
     def _validate_languages(self, languages):
+        """
+
+        @param languages: languages to validate
+        @return: True or raise an exception
+        """
         for lang in languages:
-            if lang != 'auto' and lang not in LANGUAGES_TO_CODES.keys():
-                if lang != 'auto' and lang not in LANGUAGES_TO_CODES.values():
+            if lang not in LANGUAGES_TO_CODES.keys():
+                if lang not in LANGUAGES_TO_CODES.values():
                     raise LanguageNotSupportedException(lang)
         return True
 
-    def translate(self, payload):
+    def translate(self, payload, payload_tag=None):
+        from requests.utils import quote
+        url = "{}{}-{}/{}".format(self.__base_url, self._source, self._target, quote(payload))
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        elements = soup.findAll(self._element_tag, self._element_query)
+        # elements = soup.body.find_all('a')
+        eof = []
+        for el in elements:
+            temp = ''
+            for e in el.findAll('a'):
+                if e.parent.name == 'div':
+                    if e and "/translate/{}-{}/".format(self._target, self._source) in e.get('href'):
+                        temp += e.get_text() + ' '
+            eof.append(temp)
 
-        valid = self._validate_payload(payload)
-        if not valid:
-            raise NotValidPayload(payload)
-
-        try:
-            payload = payload.strip()
-            params = {
-                      "hl": self._target,
-                      "sl": self._source,
-                      "q": payload
-            }
-
-            res = requests.get(self.__base_url, params=params)
-            soup = BeautifulSoup(res.text, 'html.parser')
-            res = soup.find("div", {"class": "t0"})
-            return res.get_text(strip=True)
-
-        except Exception as e:
-            print(e.args)
-            raise
+        return [word for word in eof if word and len(word) > 1]
 
 
+if __name__ == '__main__':
+    # res = GoogleTranslator(source='auto', target='french').translate(payload="A paragraph is a series of related sentences developing a central idea, called the topic. Try to think about paragraphs in terms of thematic unity: a paragraph is a sentence or a group of sentences that supports one central, unified idea. Paragraphs add one idea at a time to your broader argument.")
+    # res = GoogleTranslator(source='auto', target='french').translate_text(path='../examples/test.txt')
+    # res = GoogleTranslator(source='auto', target='french').translate_sentences([
+    #     "this is good",
+    #     "das Wetter ist schön",
+    #     "un verme verde in un bicchiere verde"
+    # ])
+    res = PonsTranslator(source="english", target="arabic").translate(payload='good')
+    print(res)
