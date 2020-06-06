@@ -3,9 +3,9 @@
 
 from bs4 import BeautifulSoup
 import requests
-from models import BaseTranslator
-from constants import  LANGUAGES_TO_CODES
-from exceptions import LanguageNotSupportedException, NotValidPayload, ElementNotFoundInGetRequest, NotValidLength
+from .models import BaseTranslator
+from .constants import  LANGUAGES_TO_CODES
+from .exceptions import LanguageNotSupportedException, NotValidPayload, ElementNotFoundInGetRequest, NotValidLength
 
 
 class ParentTranslator(BaseTranslator):
@@ -57,7 +57,7 @@ class ParentTranslator(BaseTranslator):
                     raise LanguageNotSupportedException(lang)
         return True
 
-    def translate(self, payload, payload_tag):
+    def translate(self, payload, payload_tag, **kwargs):
         """
         main function that uses google translate to translate a text
         @param payload: desired text to translate
@@ -89,7 +89,7 @@ class ParentTranslator(BaseTranslator):
             print(e.args)
             raise
 
-    def translate_file(self, path):
+    def translate_file(self, path, **kwargs):
         try:
             with open(path) as f:
                 text = f.read()
@@ -98,7 +98,7 @@ class ParentTranslator(BaseTranslator):
         except Exception as e:
             raise e
 
-    def translate_sentences(self, sentences=None):
+    def translate_sentences(self, sentences=None, **kwargs):
         """
         translate many sentences together. This makes sense if you have sentences with different languages
         and you want to translate all to unified language. This is handy because it detects

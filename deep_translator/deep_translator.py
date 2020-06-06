@@ -47,7 +47,7 @@ class GoogleTranslator(ParentTranslator):
         else:
             raise LanguageNotSupportedException(language)
 
-    def translate(self, payload, payload_tag='q'):
+    def translate(self, payload, payload_tag='q', **kwargs):
         return super().translate(payload, payload_tag)
 
 
@@ -98,7 +98,7 @@ class PonsTranslator(ParentTranslator):
                     raise LanguageNotSupportedException(lang)
         return True
 
-    def translate(self, payload, payload_tag=None):
+    def translate(self, payload, payload_tag=None, **kwargs):
         from requests.utils import quote
         url = "{}{}-{}/{}".format(self.__base_url, self._source, self._target, quote(payload))
         response = requests.get(url)
