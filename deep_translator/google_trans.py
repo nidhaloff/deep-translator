@@ -1,8 +1,8 @@
 from abc import ABC
 
-from constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
-from exceptions import LanguageNotSupportedException, ElementNotFoundInGetRequest, NotValidPayload, NotValidLength
-from parent import BaseTranslator
+from .constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
+from .exceptions import LanguageNotSupportedException, ElementNotFoundInGetRequest, NotValidPayload, NotValidLength
+from .parent import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
 
