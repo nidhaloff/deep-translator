@@ -1,6 +1,7 @@
 """Top-level package for deep_translator."""
-from .google_trans import GoogleTranslator
-from .pons import PonsTranslator
+from __future__ import absolute_import
+from google_trans import GoogleTranslator
+from pons import PonsTranslator
 # import exceptions
 
 __author__ = """Nidhal Baccouri"""

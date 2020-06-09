@@ -1,10 +1,9 @@
-from abc import ABC
-
+from __future__ import absolute_import
 from bs4 import BeautifulSoup
 import requests
-from .constants import BASE_URLS, PONS_LANGUAGES_TO_CODES, PONS_CODES_TO_LANGUAGES
-from .exceptions import LanguageNotSupportedException, ElementNotFoundInGetRequest
-from .parent import BaseTranslator
+from constants import BASE_URLS, PONS_LANGUAGES_TO_CODES, PONS_CODES_TO_LANGUAGES
+from exceptions import LanguageNotSupportedException, ElementNotFoundInGetRequest
+from parent import BaseTranslator
 from requests.utils import quote
 
 

@@ -1,6 +1,6 @@
 """Main module."""
-
-from .exceptions import NotValidPayload
+from __future__ import absolute_import
+from exceptions import NotValidPayload
 from abc import ABC, abstractmethod
 
 
