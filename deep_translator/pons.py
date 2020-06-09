@@ -2,7 +2,7 @@
 from bs4 import BeautifulSoup
 import requests
 from deep_translator.constants import BASE_URLS, PONS_LANGUAGES_TO_CODES, PONS_CODES_TO_LANGUAGES
-from deep_translator.exceptions import LanguageNotSupportedException, ElementNotFoundInGetRequest
+from deep_translator.exceptions import LanguageNotSupportedException, ElementNotFoundInGetRequest, NotValidPayload
 from deep_translator.parent import BaseTranslator
 from requests.utils import quote
 
@@ -18,7 +18,7 @@ class PonsTranslator(BaseTranslator):
         """
         self.__base_url = BASE_URLS.get("PONS")
 
-        if self.is_language_supported(source, target, translator='pons'):
+        if self.is_language_supported(source, target):
             self._source, self._target = self._map_language_to_code(source, target)
 
         super().__init__(base_url=self.__base_url,
@@ -50,34 +50,49 @@ class PonsTranslator(BaseTranslator):
                     raise LanguageNotSupportedException(lang)
         return True
 
-    def translate(self, payload, **kwargs):
+    def translate(self, word, **kwargs):
 
-        url = "{}{}-{}/{}".format(self.__base_url, self._source, self._target, quote(payload))
-        response = requests.get(url)
-        soup = BeautifulSoup(response.text, 'html.parser')
-        elements = soup.findAll(self._element_tag, self._element_query)
-        if not elements:
-            raise ElementNotFoundInGetRequest(elements)
+        if self._validate_payload(word):
+            url = "{}{}-{}/{}".format(self.__base_url, self._source, self._target, quote(word))
+            response = requests.get(url)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            elements = soup.findAll(self._element_tag, self._element_query)
+            if not elements:
+                raise ElementNotFoundInGetRequest(elements)
 
-        eof = []
-        for el in elements:
-            temp = ''
-            for e in el.findAll('a'):
-                if e.parent.name == 'div':
-                    if e and "/translate/{}-{}/".format(self._target, self._source) in e.get('href'):
-                        temp += e.get_text() + ' '
-            eof.append(temp)
+            eof = []
+            for el in elements:
+                temp = ''
+                for e in el.findAll('a'):
+                    if e.parent.name == 'div':
+                        if e and "/translate/{}-{}/".format(self._target, self._source) in e.get('href'):
+                            temp += e.get_text() + ' '
+                            if not kwargs.get('return_all'):
+                                return temp
+                eof.append(temp)
 
-        return [word for word in eof if word and len(word) > 1]
+            if 'return_all' in kwargs and kwargs.get('return_all'):
+                return [word for word in eof if word and len(word) > 1]
+
+    def translate_words(self, words, **kwargs):
+        if not words:
+            raise NotValidPayload(words)
+
+        translated_words = []
+        for word in words:
+            translated_words.append(self.translate(payload=word))
+        return translated_words
 
 
 if __name__ == '__main__':
-    # res = GoogleTranslator(source='auto', target='french').translate(payload="A paragraph is a series of related sentences developing a central idea, called the topic. Try to think about paragraphs in terms of thematic unity: a paragraph is a sentence or a group of sentences that supports one central, unified idea. Paragraphs add one idea at a time to your broader argument.")
+
     # res = GoogleTranslator(source='auto', target='french').translate_text(path='../examples/test.txt')
     # res = GoogleTranslator(source='auto', target='french').translate_sentences([
     #     "this is good",
     #     "das Wetter ist schön",
     #     "un verme verde in un bicchiere verde"
     # ])
-    res = PonsTranslator(source="english", target="arabic").translate(payload='good')
+    # res = PonsTranslator(source="en", target="ar").translate(payload='good')
+    res = PonsTranslator(source="en", target="ar").translate_words(words=('good', 'cute', 'angry'))
+
     print(res)

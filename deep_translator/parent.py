@@ -1,6 +1,6 @@
 """Main module."""
 
-from deep_translator.exceptions import NotValidPayload
+from deep_translator.exceptions import NotValidPayload, NotValidLength
 from abc import ABC, abstractmethod
 
 
@@ -29,52 +29,25 @@ class BaseTranslator(ABC):
         self.payload_key = payload_key
         super(BaseTranslator, self).__init__()
 
-    def validate_payload(self, payload):
+    @staticmethod
+    def _validate_payload(payload, min_chars=1, max_chars=5000):
         """
         validate the payload text to translate
         @param payload: text to translate
         @return: bool
         """
-        if not payload or not isinstance(payload, str):
-            return False
 
+        if not payload or not isinstance(payload, str):
+            raise NotValidPayload(payload)
+        if not BaseTranslator.__check_length(payload, min_chars, max_chars):
+            raise NotValidLength
         return True
 
-    def _check_length(self, payload, min_chars=0, max_chars=5000):
+    @staticmethod
+    def __check_length(payload, min_chars, max_chars):
         return True if min_chars < len(payload) < max_chars else False
 
     @abstractmethod
     def translate(self, payload, **kwargs):
         pass
 
-    def translate_file(self, path, **kwargs):
-        try:
-            with open(path) as f:
-                text = f.read()
-
-            return self.translate(payload=text)
-        except Exception as e:
-            raise e
-
-    def translate_sentences(self, sentences=None, **kwargs):
-        """
-        translate many sentences together. This makes sense if you have sentences with different languages
-        and you want to translate all to unified language. This is handy because it detects
-        automatically the language of each sentence and then translate it.
-
-        @param sentences: list of sentences to translate
-        @return: list of all translated sentences
-        """
-        if not sentences:
-            raise NotValidPayload
-
-        translated_sentences = []
-        try:
-            for sentence in sentences:
-                translated = self.translate(payload=sentence)
-                translated_sentences.append(translated)
-
-            return translated_sentences
-
-        except Exception as e:
-            raise e

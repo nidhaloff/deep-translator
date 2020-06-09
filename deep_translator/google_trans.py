@@ -59,13 +59,7 @@ class GoogleTranslator(BaseTranslator, ABC):
         @return: str: translated text
         """
 
-        if not self.validate_payload(payload):
-            raise NotValidPayload(payload)
-
-        if not self._check_length(payload):
-            raise NotValidLength(payload)
-
-        try:
+        if self._validate_payload(payload):
             payload = payload.strip()
 
             if self.payload_key:
@@ -79,8 +73,37 @@ class GoogleTranslator(BaseTranslator, ABC):
 
             return element.get_text(strip=True)
 
+    def translate_file(self, path, **kwargs):
+        try:
+            with open(path) as f:
+                text = f.read()
+
+            return self.translate(payload=text)
         except Exception as e:
-            raise Exception(str(e.args))
+            raise e
+
+    def translate_sentences(self, sentences=None, **kwargs):
+        """
+        translate many sentences together. This makes sense if you have sentences with different languages
+        and you want to translate all to unified language. This is handy because it detects
+        automatically the language of each sentence and then translate it.
+
+        @param sentences: list of sentences to translate
+        @return: list of all translated sentences
+        """
+        if not sentences:
+            raise NotValidPayload(sentences)
+
+        translated_sentences = []
+        try:
+            for sentence in sentences:
+                translated = self.translate(payload=sentence)
+                translated_sentences.append(translated)
+
+            return translated_sentences
+
+        except Exception as e:
+            raise e
 
 
 if __name__ == '__main__':

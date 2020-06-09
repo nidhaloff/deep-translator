@@ -2,9 +2,10 @@
 Usage
 =====
 
-To use deep_translator in a project::
 
-    from deep_translator import GoogleTranslator
+.. code-block:: python
+
+    from deep_translator import GoogleTranslator, PonsTranslator
 
     english_text = 'happy coding'
 
@@ -16,8 +17,9 @@ To use deep_translator in a project::
 
 
     # Alternatively, you can pass languages by their name:
-
     result_german = GoogleTranslator(source='english', target='german').translate(payload=english_text)
 
-    # soon also support for the PONS translator.
+    ###################### Use Pons as a translator  ###########################
+    word = 'good'
+    translated_word = PonsTranslator(source='english', target='french').translate(word)
 

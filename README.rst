@@ -38,14 +38,16 @@ in this tool starting with google translate
 Features
 --------
 
-* deep-translator uses google translate to translate a text. Therefore, all languages are supported
-* TODO: add support for the PONS translator (pons.com)
+* Support for google translate
+* Support for Pons translator (pons.com)
+* Translate directly from a text file
+* Translate different paragraphs in different languages
 
 
 Usage
 =====
 
-To use deep_translator in a project::
+.. code-block:: python
 
     from deep_translator import GoogleTranslator
 
@@ -57,10 +59,16 @@ To use deep_translator in a project::
 
     result_german = GoogleTranslator(source='auto', target='de').translate(payload=english_text)
 
-
     # Alternatively, you can pass languages by their name:
-
     result_german = GoogleTranslator(source='english', target='german').translate(payload=english_text)
 
-    # soon also support for the PONS translator. Take a look in the examples folder for more :)
+    ##################### or maybe you want to translate a text file ? #############################
+    translated_text = GoogleTranslator(source='auto', target='german').translate_file('path/to/file')
+
+    # or maybe you have many sentences in different languages and want to automate the translation process
+    translated = GoogleTranslator(source='auto', target='de').translate_sentences(your_list_of_sentences)
+
+    ###################### or use Pons as a translator  ###########################
+    word = 'good'
+    translated_word = PonsTranslator(source='english', target='french').translate(word)
 
