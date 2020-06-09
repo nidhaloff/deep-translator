@@ -4,7 +4,7 @@ BASE_URLS = {
     "PONS": "https://en.pons.com/translate/"
 }
 
-CODES_TO_LANGUAGES = {
+GOOGLE_CODES_TO_LANGUAGES = {
     'af': 'afrikaans',
     'sq': 'albanian',
     'am': 'amharic',
@@ -113,4 +113,32 @@ CODES_TO_LANGUAGES = {
     'he': 'Hebrew'
 }
 
-LANGUAGES_TO_CODES = {v: k for k, v in CODES_TO_LANGUAGES.items()}
+GOOGLE_LANGUAGES_TO_CODES = {v: k for k, v in GOOGLE_CODES_TO_LANGUAGES.items()}
+
+
+PONS_CODES_TO_LANGUAGES = {
+    'ar': 'arabic',
+    'bg': 'bulgarian',
+    'zh-cn': 'chinese',
+    'cs': 'czech',
+    'da': 'danish',
+    'nl': 'dutch',
+    'en': 'english',
+    'fr': 'french',
+    'de': 'german',
+    'el': 'greek',
+    'hu': 'hungarian',
+    'it': 'italian',
+    'la': 'latin',
+    'no': 'norwegian',
+    'pl': 'polish',
+    'pt': 'portuguese',
+    'ru': 'russian',
+    'sl': 'slovenian',
+    'es': 'spanish',
+    'sv': 'swedish',
+    'tr': 'turkish',
+    'elv': 'elvish'
+}
+
+PONS_LANGUAGES_TO_CODES = {v: k for k, v in PONS_CODES_TO_LANGUAGES.items()}

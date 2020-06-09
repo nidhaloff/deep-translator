@@ -1,14 +1,10 @@
 """Main module."""
 
-
-from bs4 import BeautifulSoup
-import requests
-from .models import BaseTranslator
-from .constants import  LANGUAGES_TO_CODES
-from .exceptions import LanguageNotSupportedException, NotValidPayload, ElementNotFoundInGetRequest, NotValidLength
+from exceptions import NotValidPayload
+from abc import ABC, abstractmethod
 
 
-class ParentTranslator(BaseTranslator):
+class BaseTranslator(ABC):
     """
     class that serve as a parent translator class for other different translators
     """
@@ -16,6 +12,7 @@ class ParentTranslator(BaseTranslator):
                  base_url=None,
                  source="auto",
                  target="en",
+                 payload_key=None,
                  element_tag=None,
                  element_query=None,
                  **url_params):
@@ -29,9 +26,10 @@ class ParentTranslator(BaseTranslator):
         self._url_params = url_params
         self._element_tag = element_tag
         self._element_query = element_query
-        super(ParentTranslator, self).__init__()
+        self.payload_key = payload_key
+        super(BaseTranslator, self).__init__()
 
-    def _validate_payload(self, payload):
+    def validate_payload(self, payload):
         """
         validate the payload text to translate
         @param payload: text to translate
@@ -45,49 +43,9 @@ class ParentTranslator(BaseTranslator):
     def _check_length(self, payload, min_chars=0, max_chars=5000):
         return True if min_chars < len(payload) < max_chars else False
 
-    def _validate_languages(self, languages):
-        """
-
-        @param languages: languages to validate
-        @return: True or raise an exception
-        """
-        for lang in languages:
-            if lang != 'auto' and lang not in LANGUAGES_TO_CODES.keys():
-                if lang != 'auto' and lang not in LANGUAGES_TO_CODES.values():
-                    raise LanguageNotSupportedException(lang)
-        return True
-
-    def translate(self, payload, payload_tag, **kwargs):
-        """
-        main function that uses google translate to translate a text
-        @param payload: desired text to translate
-        @param payload_tag: tag of the payload in the url parameters
-        @return: str: translated text
-        """
-
-        if not self._validate_payload(payload):
-            raise NotValidPayload(payload)
-
-        if not self._check_length(payload):
-            raise NotValidLength(payload)
-
-        try:
-            payload = payload.strip()
-
-            if payload_tag in self._url_params.keys():
-                self._url_params[payload_tag] = payload
-
-            res = requests.get(self.__base_url, params=self._url_params)
-            soup = BeautifulSoup(res.text, 'html.parser')
-            element = soup.find(self._element_tag, self._element_query)
-            if not element:
-                raise ElementNotFoundInGetRequest(element)
-
-            return element.get_text(strip=True)
-
-        except Exception as e:
-            print(e.args)
-            raise
+    @abstractmethod
+    def translate(self, payload, **kwargs):
+        pass
 
     def translate_file(self, path, **kwargs):
         try:
