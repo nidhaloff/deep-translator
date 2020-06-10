@@ -2,6 +2,6 @@
 History
 =======
 
-0.1.2 stable release
+0.1.4 stable release
 ---------------------
 

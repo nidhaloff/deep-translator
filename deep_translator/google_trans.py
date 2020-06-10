@@ -1,4 +1,3 @@
-from abc import ABC
 
 from deep_translator.constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
 from deep_translator.exceptions import LanguageNotSupportedException, ElementNotFoundInGetRequest, NotValidPayload, NotValidLength
@@ -7,7 +6,7 @@ from bs4 import BeautifulSoup
 import requests
 
 
-class GoogleTranslator(BaseTranslator, ABC):
+class GoogleTranslator(BaseTranslator):
     """
     class that uses google translate to translate texts
     """
@@ -65,8 +64,8 @@ class GoogleTranslator(BaseTranslator, ABC):
             if self.payload_key:
                 self._url_params[self.payload_key] = payload
 
-            res = requests.get(self.__base_url, params=self._url_params)
-            soup = BeautifulSoup(res.text, 'html.parser')
+            response = requests.get(self.__base_url, params=self._url_params)
+            soup = BeautifulSoup(response.text, 'html.parser')
             element = soup.find(self._element_tag, self._element_query)
             if not element:
                 raise ElementNotFoundInGetRequest(element)

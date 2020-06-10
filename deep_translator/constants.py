@@ -1,7 +1,10 @@
 
+
 BASE_URLS = {
     "GOOGLE_TRANSLATE": "https://translate.google.com/m",
-    "PONS": "https://en.pons.com/translate/"
+    "PONS": "https://en.pons.com/translate/",
+    "YANDEX": "https://translate.yandex.com/",
+    "LINGUEE": "https://www.linguee.com/"
 }
 
 GOOGLE_CODES_TO_LANGUAGES = {
@@ -115,7 +118,6 @@ GOOGLE_CODES_TO_LANGUAGES = {
 
 GOOGLE_LANGUAGES_TO_CODES = {v: k for k, v in GOOGLE_CODES_TO_LANGUAGES.items()}
 
-
 PONS_CODES_TO_LANGUAGES = {
     'ar': 'arabic',
     'bg': 'bulgarian',
@@ -142,3 +144,35 @@ PONS_CODES_TO_LANGUAGES = {
 }
 
 PONS_LANGUAGES_TO_CODES = {v: k for k, v in PONS_CODES_TO_LANGUAGES.items()}
+
+LINGUEE_LANGUAGES_TO_CODES = {
+    "maltese": "mt",
+    "english": "en",
+    "german": "de",
+    "bulgarian": "bg",
+    "polish": "pl",
+    "portuguese": "pt",
+    "hungarian": "hu",
+    "romanian": "ro",
+    "russian": "ru",
+    #"serbian": "sr",
+    "dutch": "nl",
+    "slovakian": "sk",
+    "greek": "el",
+    "slovenian": "sl",
+    "danish": "da",
+    "italian": "it",
+    "spanish": "es",
+    "finnish": "fi",
+    "chinese": "zh",
+    "french": "fr",
+    #"croatian": "hr",
+    "czech": "cs",
+    "laotian": "lo",
+    "swedish": "sv",
+    "latvian": "lv",
+    "estonian": "et",
+    "japanese": "ja"
+}
+
+LINGUEE_CODE_TO_LANGUAGE = {v: k for k, v in LINGUEE_LANGUAGES_TO_CODES.items()}

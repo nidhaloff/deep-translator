@@ -36,7 +36,7 @@ class PonsTranslator(BaseTranslator):
         @return: mapped value of the language or raise an exception if the language is not supported
         """
         for language in languages:
-            if language in PONS_LANGUAGES_TO_CODES.values() or language == 'auto':
+            if language in PONS_LANGUAGES_TO_CODES.values():
                 yield PONS_CODES_TO_LANGUAGES[language]
             elif language in PONS_LANGUAGES_TO_CODES.keys():
                 yield language
@@ -94,5 +94,4 @@ if __name__ == '__main__':
     # ])
     # res = PonsTranslator(source="en", target="ar").translate(payload='good')
     res = PonsTranslator(source="en", target="ar").translate_words(words=('good', 'cute', 'angry'))
-
     print(res)
