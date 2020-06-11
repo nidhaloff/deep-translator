@@ -6,6 +6,6 @@ from .linguee import LingueeTranslator
 
 __author__ = """Nidhal Baccouri"""
 __email__ = 'nidhalbacc@gmail.com'
-__version__ = '0.4.1'
+__version__ = '0.4.2'
 
 __all__ = [GoogleTranslator, PonsTranslator, LingueeTranslator]
