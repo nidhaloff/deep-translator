@@ -33,15 +33,17 @@ support for all languages since it uses google translate under the hood.
 More features are coming soon, mainly support for the PONS translator and others.
 
 Basically, my goal is to integrate support for multiple famous translators
-in this tool starting with google translate
+in this tool.
 
 Features
 --------
 
 * Support for google translate
 * Support for Pons translator (pons.com)
+* Support for the Linguee translator
 * Translate directly from a text file
-* Translate different paragraphs in different languages
+* Get multiple translation for a word
+* Automate the translation of different paragraphs in different languages
 
 
 Usage
