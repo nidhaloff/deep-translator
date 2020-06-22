@@ -11,6 +11,8 @@ class PonsTranslator(BaseTranslator):
     """
     class that uses PONS translator to translate words
     """
+    supported_languages = list(PONS_LANGUAGES_TO_CODES.keys())
+
     def __init__(self, source="french", target="english"):
         """
         @param source: source language to translate from

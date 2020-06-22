@@ -10,6 +10,7 @@ class GoogleTranslator(BaseTranslator):
     """
     class that uses google translate to translate texts
     """
+    supported_languages = list(GOOGLE_LANGUAGES_TO_CODES.keys())
 
     def __init__(self, source="auto", target="en"):
         """

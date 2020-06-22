@@ -46,11 +46,11 @@ setup(
     include_package_data=True,
     keywords='deep_translator',
     name='deep_translator',
-    packages=find_packages(include=['deep_translator', 'deep_translator.*']),
+    packages=find_packages(include=['deep_translator']),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/nidhaloff/deep_translator',
-    version='0.4.2',
+    version='1.0.0',
     zip_safe=False,
 )

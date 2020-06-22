@@ -7,6 +7,8 @@ from requests.utils import quote
 
 
 class LingueeTranslator(BaseTranslator):
+    supported_languages = list(LINGUEE_LANGUAGES_TO_CODES.keys())
+
     def __init__(self, source, target):
         """
         @param source: source language to translate from
