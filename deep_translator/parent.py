@@ -49,5 +49,5 @@ class BaseTranslator(ABC):
 
     @abstractmethod
     def translate(self, payload, **kwargs):
-        pass
+        return NotImplemented('You need to implement the translate method!')
 
