@@ -19,7 +19,7 @@ def test_content(google_translator):
     """Sample pytest test function with the pytest fixture as an argument."""
     # from bs4 import BeautifulSoup
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
-    assert google_translator.translate(payload='좋은') == "good"
+    assert google_translator.translate(text='좋은') == "good"
 
 
 def test_inputs():
@@ -32,8 +32,8 @@ def test_inputs():
 
 def test_payload(google_translator):
     with pytest.raises(exceptions.NotValidPayload):
-        google_translator.translate(payload="")
+        google_translator.translate(text="")
     with pytest.raises(exceptions.NotValidPayload):
-        google_translator.translate(payload=123)
+        google_translator.translate(text=123)
 
 

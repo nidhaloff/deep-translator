@@ -1,0 +1,86 @@
+
+from deep_translator.constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
+from deep_translator.exceptions import NotValidPayload
+from deep_translator.parent import BaseTranslator
+import requests
+
+
+class MyMemoryTranslator(BaseTranslator):
+    """
+    class that uses google translate to translate texts
+    """
+    supported_languages = list(GOOGLE_LANGUAGES_TO_CODES.keys())
+
+    def __init__(self, source, target, **kwargs):
+        """
+        @param source: source language to translate from
+        @param target: target language to translate to
+        """
+        self.__base_url = BASE_URLS.get("MYMEMORY")
+        self._source = source
+        self._target = target
+
+        self.email = kwargs.get('email', None)
+        super(MyMemoryTranslator, self).__init__(base_url=self.__base_url,
+                                                 source=self._source,
+                                                 target=self._target,
+                                                 payload_key='q',
+                                                 langpair='{}|{}'.format(self._source, self._target))
+
+    def translate(self, text, **kwargs):
+        """
+        main function that uses google translate to translate a text
+        @param text: desired text to translate
+        @return: str: translated text
+        """
+
+        if self._validate_payload(text):
+            text = text.strip()
+
+            if self.payload_key:
+                self._url_params[self.payload_key] = text
+            if self.email:
+                self._url_params['de'] = self.email
+
+            response = requests.get(self.__base_url, params=self._url_params, headers=self.headers)
+            data = response.json()
+            if not data:
+                raise Exception("Translation was not found in response!")
+
+            translation = data.get('responseData').get('translatedText')
+            if translation:
+                return translation
+
+            elif not translation:
+                all_matches = data.get('matches')
+                matches = (match['translation'] for match in all_matches)
+                next_match = next(matches)
+                return next_match if not kwargs.get('return_all') else list(all_matches)
+
+    def translate_sentences(self, sentences=None, **kwargs):
+        """
+        translate many sentences together. This makes sense if you have sentences with different languages
+        and you want to translate all to unified language. This is handy because it detects
+        automatically the language of each sentence and then translate it.
+
+        @param sentences: list of sentences to translate
+        @return: list of all translated sentences
+        """
+        if not sentences:
+            raise NotValidPayload(sentences)
+
+        translated_sentences = []
+        try:
+            for sentence in sentences:
+                translated = self.translate(text=sentence, **kwargs)
+                translated_sentences.append(translated)
+
+            return translated_sentences
+
+        except Exception as e:
+            raise e
+
+
+if __name__ == '__main__':
+    res = MyMemoryTranslator(source="en", target="zh").translate(text='cute')
+    print(res)

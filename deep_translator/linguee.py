@@ -24,7 +24,7 @@ class LingueeTranslator(BaseTranslator):
                          target=self._target,
                          element_tag='a',
                          element_query={'class': 'dictLink featured'},
-                         payload_key=None,  # key of payload in the url
+                         payload_key=None,  # key of text in the url
                         )
 
     def _map_language_to_code(self, *languages, **kwargs):

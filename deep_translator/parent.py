@@ -27,12 +27,14 @@ class BaseTranslator(ABC):
         self._element_tag = element_tag
         self._element_query = element_query
         self.payload_key = payload_key
+        self.headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebit/535.19'
+                                      '(KHTML, like Gecko) Chrome/18.0.1025.168 Safari/535.19'}
         super(BaseTranslator, self).__init__()
 
     @staticmethod
     def _validate_payload(payload, min_chars=1, max_chars=5000):
         """
-        validate the payload text to translate
+        validate the text text to translate
         @param payload: text to translate
         @return: bool
         """
@@ -48,6 +50,6 @@ class BaseTranslator(ABC):
         return True if min_chars < len(payload) < max_chars else False
 
     @abstractmethod
-    def translate(self, payload, **kwargs):
+    def translate(self, text, **kwargs):
         return NotImplemented('You need to implement the translate method!')
 

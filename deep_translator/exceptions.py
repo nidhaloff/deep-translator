@@ -17,7 +17,7 @@ class LanguageNotSupportedException(BaseError):
 class NotValidPayload(BaseError):
     def __init__(self,
                  val,
-                 message='payload must be a valid text with maximum 5000 character, otherwise it cannot be translated'):
+                 message='text must be a valid text with maximum 5000 character, otherwise it cannot be translated'):
         super(NotValidPayload, self).__init__(val, message)
 
 
@@ -29,5 +29,5 @@ class ElementNotFoundInGetRequest(BaseError):
 
 
 class NotValidLength(BaseError):
-    def __init__(self, val, message="Length of payload need to be between 0 and 5000"):
+    def __init__(self, val, message="Length of text need to be between 0 and 5000"):
         super(NotValidLength, self).__init__(val, message)

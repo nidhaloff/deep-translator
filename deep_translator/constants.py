@@ -4,7 +4,8 @@ BASE_URLS = {
     "GOOGLE_TRANSLATE": "https://translate.google.com/m",
     "PONS": "https://en.pons.com/translate/",
     "YANDEX": "https://translate.yandex.com/",
-    "LINGUEE": "https://www.linguee.com/"
+    "LINGUEE": "https://www.linguee.com/",
+    "MYMEMORY": "http://api.mymemory.translated.net/get"
 }
 
 GOOGLE_CODES_TO_LANGUAGES = {

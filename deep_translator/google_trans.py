@@ -27,7 +27,7 @@ class GoogleTranslator(BaseTranslator):
                                                target=self._target,
                                                element_tag='div',
                                                element_query={"class": "t0"},
-                                               payload_key='q',  # key of payload in the url
+                                               payload_key='q',  # key of text in the url
                                                hl=self._target,
                                                sl=self._source)
 
@@ -52,18 +52,18 @@ class GoogleTranslator(BaseTranslator):
                     raise LanguageNotSupportedException(lang)
         return True
 
-    def translate(self, payload, **kwargs):
+    def translate(self, text, **kwargs):
         """
         main function that uses google translate to translate a text
-        @param payload: desired text to translate
+        @param text: desired text to translate
         @return: str: translated text
         """
 
-        if self._validate_payload(payload):
-            payload = payload.strip()
+        if self._validate_payload(text):
+            text = text.strip()
 
             if self.payload_key:
-                self._url_params[self.payload_key] = payload
+                self._url_params[self.payload_key] = text
 
             response = requests.get(self.__base_url, params=self._url_params)
             soup = BeautifulSoup(response.text, 'html.parser')
@@ -78,7 +78,7 @@ class GoogleTranslator(BaseTranslator):
             with open(path) as f:
                 text = f.read()
 
-            return self.translate(payload=text)
+            return self.translate(text=text)
         except Exception as e:
             raise e
 
@@ -97,7 +97,7 @@ class GoogleTranslator(BaseTranslator):
         translated_sentences = []
         try:
             for sentence in sentences:
-                translated = self.translate(payload=sentence)
+                translated = self.translate(text=sentence)
                 translated_sentences.append(translated)
 
             return translated_sentences
@@ -107,5 +107,5 @@ class GoogleTranslator(BaseTranslator):
 
 
 if __name__ == '__main__':
-    res = GoogleTranslator(source="auto", target="de").translate(payload='this is a good day')
+    res = GoogleTranslator(source="auto", target="de").translate(text='this is a good day')
     print(res)
