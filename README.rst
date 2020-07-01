@@ -51,20 +51,20 @@ Usage
 
 .. code-block:: python
 
-    from deep_translator import MyMemoryTranslator, PonsTranslator, LingueeTranslator
+    from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator
 
     english_text = 'happy coding'
 
-    result_german = MyMemoryTranslator(source='auto', target='de').translate(payload=english_text)
+    result_german = GoogleTranslator(source='auto', target='de').translate(payload=english_text)
 
     # Alternatively, you can pass languages by their name:
-    translated = MyMemoryTranslator(source='english', target='german').translate(payload=english_text)
+    translated = GoogleTranslator(source='english', target='german').translate(payload=english_text)
 
     # or maybe you want to translate a text file ?
-    translated = MyMemoryTranslator(source='auto', target='german').translate_file('path/to/file')
+    translated = GoogleTranslator(source='auto', target='german').translate_file('path/to/file')
 
     # or maybe you have many sentences in different languages and want to automate the translation process
-    translated = MyMemoryTranslator(source='auto', target='de').translate_sentences(your_list_of_sentences)
+    translated = GoogleTranslator(source='auto', target='de').translate_sentences(your_list_of_sentences)
 
 
 or maybe you would like to use the Pons translator: Pons.com
