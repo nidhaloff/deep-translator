@@ -85,15 +85,3 @@ class PonsTranslator(BaseTranslator):
             translated_words.append(self.translate(payload=word))
         return translated_words
 
-
-if __name__ == '__main__':
-
-    # res = MyMemoryTranslator(source='auto', target='french').translate_text(path='../examples/test.txt')
-    # res = MyMemoryTranslator(source='auto', target='french').translate_sentences([
-    #     "this is good",
-    #     "das Wetter ist schön",
-    #     "un verme verde in un bicchiere verde"
-    # ])
-    # res = PonsTranslator(source="en", target="ar").translate(text='good')
-    res = PonsTranslator(source="en", target="ar").translate_words(words=('good', 'cute', 'angry'))
-    print(res)

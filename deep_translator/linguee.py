@@ -73,7 +73,3 @@ class LingueeTranslator(BaseTranslator):
         return translated_words
 
 
-if __name__ == '__main__':
-    res = LingueeTranslator(source="en", target="de").translate(word='cute', return_all=False)
-    print(res)
-
