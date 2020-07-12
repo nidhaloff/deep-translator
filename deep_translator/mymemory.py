@@ -17,7 +17,7 @@ class MyMemoryTranslator(BaseTranslator):
         @param target: target language to translate to
         """
         self.__base_url = BASE_URLS.get("MYMEMORY")
-        self._source = source
+        self._source = source if source != 'auto' else 'Autodetect'
         self._target = target
 
         self.email = kwargs.get('email', None)
@@ -79,4 +79,3 @@ class MyMemoryTranslator(BaseTranslator):
 
         except Exception as e:
             raise e
-

@@ -4,7 +4,7 @@ Usage
 
 .. code-block:: python
 
-    from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator
+    from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator, MyMemoryTranslator
 
     english_text = 'happy coding'
 
@@ -32,7 +32,7 @@ or maybe you would like to use the Pons translator: Pons.com
     translated_word = PonsTranslator(source='english', target='french').translate(word, return_all=True)
 
 
-Alternatively deep_translator now supports the Linguee translator:
+Alternatively deep_translator (version >= 1.0.0) supports the Linguee translator:
 
 
 .. code-block:: python
@@ -41,4 +41,12 @@ Alternatively deep_translator now supports the Linguee translator:
     translated_word = LingueeTranslator(source='english', target='french').translate(word)
 
     # set the argument return_all to True if you want to get all synonyms of the word to translate
-    translated_word = PonsTranslator(source='english', target='french').translate(word, return_all=True)
+    translated_word = LingueeTranslator(source='english', target='french').translate(word, return_all=True)
+
+
+The mymemory translator is also supported for version >= 1.0.2:
+
+.. code-block:: python
+
+    word = 'good'
+    translated_word = MyMemoryTranslator(source='english', target='french').translate(word)
