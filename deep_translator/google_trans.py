@@ -65,7 +65,10 @@ class GoogleTranslator(BaseTranslator):
             if self.payload_key:
                 self._url_params[self.payload_key] = text
 
-            response = requests.get(self.__base_url, params=self._url_params)
+            response = requests.get(self.__base_url,
+                                    params=self._url_params,
+                                    verify=kwargs.get('verify'))
+
             soup = BeautifulSoup(response.text, 'html.parser')
             element = soup.find(self._element_tag, self._element_query)
             if not element:
