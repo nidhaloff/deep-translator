@@ -52,7 +52,7 @@ class LingueeTranslator(BaseTranslator):
         if self._validate_payload(word):
             # %s-%s/translation/%s.html
             url = "{}{}-{}/translation/{}.html".format(self.__base_url, self._source, self._target, quote(word))
-            response = requests.get(url, verify=kwargs.get('verify'))
+            response = requests.get(url, verify=False)
             soup = BeautifulSoup(response.text, 'html.parser')
             elements = soup.find_all(self._element_tag, self._element_query)
             if not elements:

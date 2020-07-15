@@ -45,7 +45,7 @@ class MyMemoryTranslator(BaseTranslator):
             response = requests.get(self.__base_url,
                                     params=self._url_params,
                                     headers=self.headers,
-                                    verify=kwargs.get('verify'))
+                                    verify=False)
             data = response.json()
             if not data:
                 raise Exception("Translation was not found in response!")
