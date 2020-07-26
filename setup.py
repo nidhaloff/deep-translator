@@ -24,7 +24,7 @@ setup(
     author_email='nidhalbacc@gmail.com',
     python_requires='>=3.0',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
@@ -51,6 +51,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/nidhaloff/deep_translator',
-    version='1.0.4',
+    version='1.0.5',
     zip_safe=False,
 )

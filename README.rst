@@ -45,6 +45,16 @@ Features
 * Get multiple translation for a word
 * Automate the translation of different paragraphs in different languages
 
+Installation
+=============
+
+Install the stable release:
+
+.. code-block:: console
+
+    $ pip install deep_translator
+
+take a look at the docs if you want to install from source.
 
 Usage
 =====
@@ -55,10 +65,10 @@ Usage
 
     english_text = 'happy coding'
 
-    result_german = GoogleTranslator(source='auto', target='de').translate(payload=english_text)
+    result_german = GoogleTranslator(source='auto', target='de').translate(text=english_text)
 
     # Alternatively, you can pass languages by their name:
-    translated = GoogleTranslator(source='english', target='german').translate(payload=english_text)
+    translated = GoogleTranslator(source='english', target='german').translate(text=english_text)
 
     # or maybe you want to translate a text file ?
     translated = GoogleTranslator(source='auto', target='german').translate_file('path/to/file')
