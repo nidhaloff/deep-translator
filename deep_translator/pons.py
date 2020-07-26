@@ -56,7 +56,7 @@ class PonsTranslator(BaseTranslator):
 
         if self._validate_payload(word):
             url = "{}{}-{}/{}".format(self.__base_url, self._source, self._target, quote(word))
-            response = requests.get(url, verify=False)
+            response = requests.get(url)
             soup = BeautifulSoup(response.text, 'html.parser')
             elements = soup.findAll(self._element_tag, self._element_query)
             if not elements:

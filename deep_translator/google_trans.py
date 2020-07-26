@@ -66,8 +66,7 @@ class GoogleTranslator(BaseTranslator):
                 self._url_params[self.payload_key] = text
 
             response = requests.get(self.__base_url,
-                                    params=self._url_params,
-                                    verify=False)
+                                    params=self._url_params)
 
             soup = BeautifulSoup(response.text, 'html.parser')
             element = soup.find(self._element_tag, self._element_query)
