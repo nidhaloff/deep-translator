@@ -11,13 +11,9 @@ deep_translator
         :target: https://deep-translator.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 .. image:: https://img.shields.io/pypi/l/deep-translator
-        :alt: PyPI - License
 .. image:: https://img.shields.io/pypi/dm/deep-translator
-        :alt: PyPI - Downloads
 .. image:: https://img.shields.io/pypi/status/deep-translator
-        :alt: PyPI - Status
 .. image:: https://img.shields.io/pypi/wheel/deep-translator
-        :alt: PyPI - Wheel
 
 A flexible python tool to translate between different languages in a simple way.
 
