@@ -21,9 +21,6 @@ deep_translator
 .. image:: https://img.shields.io/pypi/l/deep-translator
         :alt: PyPI - License
 
-.. image:: https://img.shields.io/pypi/pyversions/deep-translator
-        :alt: PyPI - Python Version
-
 .. image:: https://img.shields.io/pypi/dm/deep-translator
         :alt: PyPI - Downloads
 
