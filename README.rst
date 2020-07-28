@@ -2,10 +2,7 @@
 deep_translator
 ===============
 
-.. image:: https://img.shields.io/pypi/status/deep-translator
-        :alt: PyPI - Status
-.. image:: https://img.shields.io/pypi/wheel/deep-translator
-        :alt: PyPI - Wheel
+
 .. image:: https://img.shields.io/pypi/v/deep_translator.svg
         :target: https://pypi.python.org/pypi/deep_translator
 .. image:: https://img.shields.io/travis/nidhaloff/deep_translator.svg
@@ -17,6 +14,10 @@ deep_translator
         :alt: PyPI - License
 .. image:: https://img.shields.io/pypi/dm/deep-translator
         :alt: PyPI - Downloads
+.. image:: https://img.shields.io/pypi/status/deep-translator
+        :alt: PyPI - Status
+.. image:: https://img.shields.io/pypi/wheel/deep-translator
+        :alt: PyPI - Wheel
 
 A flexible python tool to translate between different languages in a simple way.
 
