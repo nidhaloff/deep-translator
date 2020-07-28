@@ -106,5 +106,14 @@ The mymemory translator is also supported for version >= 1.0.2:
     word = 'good'
     translated_word = MyMemoryTranslator(source='english', target='french').translate(word)
 
+========
+Links
+========
+Check this article on medium to know why you should use the deep-translator package and how to translate text using python.
+https://medium.com/@nidhalbacc/how-to-translate-text-with-python-9d203139dcf5
+
+========
+Finally
+========
 Take a look in the examples folder for more :)
-Please contribute and give me a feedback if you found the package useful/helpful or you are using it :)
+Feel free to contribute and give me a feedback if you found the package useful/helpful or you are using it :)
