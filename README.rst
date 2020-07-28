@@ -11,9 +11,17 @@ deep_translator
         :target: https://deep-translator.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 .. image:: https://img.shields.io/pypi/l/deep-translator
+        :target: https://pypi.python.org/pypi/deep_translator
+
 .. image:: https://img.shields.io/pypi/dm/deep-translator
+        :target: https://pypi.python.org/pypi/deep_translator
 .. image:: https://img.shields.io/pypi/status/deep-translator
+        :target: https://pypi.python.org/pypi/deep_translator
 .. image:: https://img.shields.io/pypi/wheel/deep-translator
+        :target: https://pypi.python.org/pypi/deep_translator
+
+.. image:: https://img.shields.io/twitter/url?url=https%3A%2F%2Ftwitter.com%2FNidhalBaccouri   :alt: Twitter URL
+
 
 A flexible python tool to translate between different languages in a simple way.
 
