@@ -55,6 +55,21 @@ More features are coming soon, mainly support for the PONS translator and others
 Basically, my goal is to integrate support for multiple famous translators
 in this tool.
 
+When you should use it
+-----------------------
+- If you want to translate text using python
+- If you want to translate from a file
+- If you want to get translations from many sources and not only one
+- If you want to automate translations
+- If you want to compare different translations
+
+Why you should use it
+----------------------
+- High level of abstraction
+- Easy to use and extend
+- It's the only python tool that integrates many translators
+- Stable
+
 Features
 --------
 
@@ -72,7 +87,7 @@ Install the stable release:
 
 .. code-block:: console
 
-    $ pip install deep_translator
+    $ pip install -U deep_translator
 
 take a look at the docs if you want to install from source.
 
@@ -81,7 +96,7 @@ Usage
 
 .. code-block:: python
 
-    from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator
+    from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator, MyMemoryTranslator
 
     english_text = 'happy coding'
 
