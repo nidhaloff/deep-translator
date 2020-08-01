@@ -3,7 +3,7 @@ from deep_translator.exceptions import LanguageNotSupportedException, ElementNot
 from deep_translator.parent import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
-from requests.utils import quote
+from requests.utils import requote_uri
 
 
 class LingueeTranslator(BaseTranslator):
@@ -51,7 +51,8 @@ class LingueeTranslator(BaseTranslator):
 
         if self._validate_payload(word):
             # %s-%s/translation/%s.html
-            url = "{}{}-{}/translation/{}.html".format(self.__base_url, self._source, self._target, quote(word))
+            url = "{}{}-{}/translation/{}.html".format(self.__base_url, self._source, self._target, word)
+            url = requote_uri(url)
             response = requests.get(url)
             soup = BeautifulSoup(response.text, 'html.parser')
             elements = soup.find_all(self._element_tag, self._element_query)

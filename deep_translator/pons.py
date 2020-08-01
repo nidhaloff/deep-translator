@@ -4,7 +4,7 @@ import requests
 from deep_translator.constants import BASE_URLS, PONS_LANGUAGES_TO_CODES, PONS_CODES_TO_LANGUAGES
 from deep_translator.exceptions import LanguageNotSupportedException, ElementNotFoundInGetRequest, NotValidPayload
 from deep_translator.parent import BaseTranslator
-from requests.utils import quote
+from requests.utils import requote_uri
 
 
 class PonsTranslator(BaseTranslator):
@@ -55,7 +55,8 @@ class PonsTranslator(BaseTranslator):
     def translate(self, word, **kwargs):
 
         if self._validate_payload(word):
-            url = "{}{}-{}/{}".format(self.__base_url, self._source, self._target, quote(word))
+            url = "{}{}-{}/{}".format(self.__base_url, self._source, self._target, word)
+            url = requote_uri(url)
             response = requests.get(url)
             soup = BeautifulSoup(response.text, 'html.parser')
             elements = soup.findAll(self._element_tag, self._element_query)
