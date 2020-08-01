@@ -50,3 +50,31 @@ The mymemory translator is also supported for version >= 1.0.2:
 
     word = 'good'
     translated_word = MyMemoryTranslator(source='english', target='french').translate(word)
+
+
+Usage from Terminal
+====================
+
+For a quick access, you can use the deep_translator from terminal. For this to work, you need to provide
+the right arguments, which are the translator you want to use, source language, target language and the text
+you want to translate.
+
+For example, provide "google" as an argument to use the google translator. Alternatively you can use
+the other supported translators. Just read the documentation to have an overview about the supported
+translators in this library.
+
+.. code-block:: console
+
+    $ deep_translator --translator "google" --source "english" --target "german" --text "happy coding"
+
+Or you can go for the short version:
+
+.. code-block:: console
+
+    $ deep_translator -trans "google" -src "english" -tg "german" -txt "happy coding"
+
+If you want, you can also pass the source and target language by their abbreviation
+
+.. code-block:: console
+
+    $ deep_translator -trans "google" -src "en" -tg "de" -txt "happy coding"
