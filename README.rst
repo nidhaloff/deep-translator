@@ -186,12 +186,18 @@ The Translator++ mobile app
     :alt: Icon of the app
 
 
-After developing the deep_translator, I realised how cool this could be if I can use it as an app on my mobile phone.
-Sure, there is google translate, pons and linguee apps etc.. but isn't it cool to make an app where all these
+After developing the deep_translator, I realised how cool this would be if I can use it as an app on my mobile phone.
+Sure, there is google translate, pons and linguee apps etc.. but isn't it cooler to make an app where all these
 translators are integrated?
 
 Long story short, I started working on the app. I decided to use the `kivy framework <https://kivy.org/#home/>`_ since
 I wanted to code in python and to develop a cross platform app.
+I open sourced the `Translator++ app <https://github.com/nidhaloff/deep-translator-app/>`_ on my github too.
+Feel free to take a look at the code or make a pull request ;)
+
+.. note::
+    The Translator++ app is based on the deep_translator package. I just built the app to prove the capabilities
+    of the deep_translator package ;)
 
 I published the first release on google play store on 02-08-2020
 
@@ -201,17 +207,15 @@ Here are some screenshots:
 
 .. image:: assets/translator1.jpg
     :width: 30%
-    :height: 500
+    :height: 200
     :alt: screenshot1
-
 .. image:: assets/translator2.jpg
     :width: 30%
-    :height: 500
+    :height: 200
     :alt: screenshot2
-
 .. image:: assets/spinner.jpg
     :width: 30%
-    :height: 500
+    :height: 200
     :alt: spinner
 
 - Tablet:
