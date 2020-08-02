@@ -36,7 +36,7 @@ deep_translator
 Translation for humans
 -----------------------
 
-A flexible python tool to translate between different languages in a simple way.
+A flexible python tool to translate between different languages in a simple way using multiple translators.
 
 
 * Free software: MIT license
@@ -69,6 +69,7 @@ Why you should use it
 - Easy to use and extend
 - It's the only python tool that integrates many translators
 - Stable
+- Support for most famous universal translators
 
 Features
 --------
@@ -176,8 +177,52 @@ Links
 Check this article on medium to know why you should use the deep-translator package and how to translate text using python.
 https://medium.com/@nidhalbacc/how-to-translate-text-with-python-9d203139dcf5
 
+===========================
+The Translator++ mobile app
+===========================
+
+.. image:: assets/app-icon.png
+    :width: 100
+    :alt: Icon of the app
+
+
+After developing the deep_translator, I realised how cool this could be if I can use it as an app on my mobile phone.
+Sure, there is google translate, pons and linguee apps etc.. but isn't it cool to make an app where all these
+translators are integrated?
+
+Long story short, I started working on the app. I decided to use the `kivy framework <https://kivy.org/#home/>`_ since
+I wanted to code in python and to develop a cross platform app.
+
+I published the first release on google play store on 02-08-2020
+
+Here are some screenshots:
+
+- Phone
+
+.. image:: assets/translator1.jpg
+    :width: 30%
+    :height: 500
+    :alt: screenshot1
+
+.. image:: assets/translator2.jpg
+    :width: 30%
+    :height: 500
+    :alt: screenshot2
+
+.. image:: assets/spinner.jpg
+    :width: 30%
+    :height: 500
+    :alt: spinner
+
+- Tablet:
+
+.. image:: assets/hz_view.png
+    :width: 100%
+    :height: 300
+    :alt: screenshot3
+
 ==========
-Next Step
+Next Steps
 ==========
 
 Take a look in the examples folder for more :)
