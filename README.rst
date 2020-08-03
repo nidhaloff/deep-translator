@@ -48,11 +48,10 @@ I needed to translate a text using python. It was hard to find a simple way to d
 There are other libraries that can be used for this task, but somehow,most of them
 are buggy, not supported anymore or complex.
 
-Therefore, I decided to build this simple tool, it is clean and easy to use and provide
-support for all languages since it uses google translate under the hood.
-More features are coming soon, mainly support for the PONS translator and others.
+Therefore, I decided to build this simple tool. It is clean and easy to use and provide
+support for all languages.
 
-Basically, my goal is to integrate support for multiple famous translators
+Basically, my goal was to integrate support for multiple famous translators
 in this tool.
 
 When you should use it
@@ -77,6 +76,7 @@ Features
 * Support for google translate
 * Support for Pons translator (pons.com)
 * Support for the Linguee translator
+* Support for the Mymemory translator
 * Translate directly from a text file
 * Get multiple translation for a word
 * Automate the translation of different paragraphs in different languages
@@ -100,21 +100,32 @@ Usage
 
     from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator, MyMemoryTranslator
 
-    english_text = 'happy coding'
+    text = 'happy coding'
 
-    result_german = GoogleTranslator(source='auto', target='de').translate(text=english_text)
+- Simple translation:
+
+.. code-block:: python
+
+    translated = GoogleTranslator(source='auto', target='de').translate(text=english_text)
 
     # Alternatively, you can pass languages by their name:
     translated = GoogleTranslator(source='english', target='german').translate(text=english_text)
 
-    # or maybe you want to translate a text file ?
+- Translate from a file:
+
+.. code-block:: python
+
     translated = GoogleTranslator(source='auto', target='german').translate_file('path/to/file')
+
+- Automate translation by detecting the source language
+
+.. code-block:: python
 
     # or maybe you have many sentences in different languages and want to automate the translation process
     translated = GoogleTranslator(source='auto', target='de').translate_sentences(your_list_of_sentences)
 
 
-or maybe you would like to use the Pons translator: Pons.com
+- Maybe you would like to use the Pons translator: Pons.com
 
 
 .. code-block:: python
@@ -126,7 +137,7 @@ or maybe you would like to use the Pons translator: Pons.com
     translated_word = PonsTranslator(source='english', target='french').translate(word, return_all=True)
 
 
-Alternatively deep_translator (version >= 1.0.0) supports the Linguee translator:
+- Alternatively deep_translator (version >= 1.0.0) supports the Linguee translator:
 
 
 .. code-block:: python
@@ -137,7 +148,7 @@ Alternatively deep_translator (version >= 1.0.0) supports the Linguee translator
     # set the argument return_all to True if you want to get all synonyms of the word to translate
     translated_word = LingueeTranslator(source='english', target='french').translate(word, return_all=True)
 
-The mymemory translator is also supported for version >= 1.0.2:
+- The mymemory translator is also supported for version >= 1.0.2:
 
 .. code-block:: python
 
@@ -230,4 +241,4 @@ Next Steps
 ==========
 
 Take a look in the examples folder for more :)
-Contributions are always welcome. Feel free to make a pull request and give me a feedback if you found the package useful/helpful or you are using it :)
+Contributions are always welcome. Feel free to make a pull request and give me a feedback if you found the package useful or you are using it :)
