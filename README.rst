@@ -96,11 +96,21 @@ take a look at the docs if you want to install from source.
 Usage
 =====
 
+
 .. code-block:: python
 
     from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator, MyMemoryTranslator
 
     text = 'happy coding'
+
+
+.. note::
+
+    You can check the supported languages of every translator by calling the
+    get_supported_languages function as a static method.
+
+- Example of checking the supported languages for the google translator:
+
 
 - Simple translation:
 
@@ -152,8 +162,8 @@ Usage
 
 .. code-block:: python
 
-    word = 'good'
-    translated_word = MyMemoryTranslator(source='english', target='french').translate(word)
+    word = 'Keep it up. You are awesome'
+    translated_word = MyMemoryTranslator(source='auto', target='french').translate(word)
 
 Usage from Terminal
 ====================

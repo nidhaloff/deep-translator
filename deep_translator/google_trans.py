@@ -1,6 +1,6 @@
 
 from deep_translator.constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
-from deep_translator.exceptions import LanguageNotSupportedException, ElementNotFoundInGetRequest, NotValidPayload, NotValidLength
+from deep_translator.exceptions import LanguageNotSupportedException, ElementNotFoundInGetRequest, NotValidPayload
 from deep_translator.parent import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
@@ -10,7 +10,8 @@ class GoogleTranslator(BaseTranslator):
     """
     class that uses google translate to translate texts
     """
-    supported_languages = list(GOOGLE_LANGUAGES_TO_CODES.keys())
+    _languages = GOOGLE_LANGUAGES_TO_CODES
+    supported_languages = list(_languages.keys())
 
     def __init__(self, source="auto", target="en"):
         """
@@ -30,6 +31,10 @@ class GoogleTranslator(BaseTranslator):
                                                payload_key='q',  # key of text in the url
                                                hl=self._target,
                                                sl=self._source)
+
+    @staticmethod
+    def get_supported_languages(as_dict=False):
+        return GoogleTranslator.supported_languages if not as_dict else GoogleTranslator._languages
 
     def _map_language_to_code(self, *languages, **kwargs):
         """

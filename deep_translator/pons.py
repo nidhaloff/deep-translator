@@ -11,9 +11,10 @@ class PonsTranslator(BaseTranslator):
     """
     class that uses PONS translator to translate words
     """
-    supported_languages = list(PONS_LANGUAGES_TO_CODES.keys())
+    _languages = PONS_LANGUAGES_TO_CODES
+    supported_languages = list(_languages.keys())
 
-    def __init__(self, source="french", target="english"):
+    def __init__(self, source, target="english"):
         """
         @param source: source language to translate from
         @param target: target language to translate to
@@ -30,6 +31,10 @@ class PonsTranslator(BaseTranslator):
                          element_tag='div',
                          element_query={"class": "target"}
                          )
+
+    @staticmethod
+    def get_supported_languages(as_dict=False):
+        return PonsTranslator.supported_languages if not as_dict else PonsTranslator._languages
 
     def _map_language_to_code(self, *languages, **kwargs):
         """

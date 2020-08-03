@@ -9,15 +9,16 @@ class MyMemoryTranslator(BaseTranslator):
     """
     class that uses google translate to translate texts
     """
-    supported_languages = list(GOOGLE_LANGUAGES_TO_CODES.keys())
+    _languages = GOOGLE_LANGUAGES_TO_CODES
+    supported_languages = list(_languages.keys())
 
-    def __init__(self, source, target, **kwargs):
+    def __init__(self, source="auto", target="en", **kwargs):
         """
         @param source: source language to translate from
         @param target: target language to translate to
         """
         self.__base_url = BASE_URLS.get("MYMEMORY")
-        self._source = source if source != 'auto' else 'Autodetect'
+        self._source = source if source != 'auto' else 'Lao'
         self._target = target
 
         self.email = kwargs.get('email', None)
@@ -26,6 +27,10 @@ class MyMemoryTranslator(BaseTranslator):
                                                  target=self._target,
                                                  payload_key='q',
                                                  langpair='{}|{}'.format(self._source, self._target))
+
+    @staticmethod
+    def get_supported_languages(as_dict=False):
+        return MyMemoryTranslator.supported_languages if not as_dict else MyMemoryTranslator._languages
 
     def translate(self, text, **kwargs):
         """
@@ -45,6 +50,7 @@ class MyMemoryTranslator(BaseTranslator):
             response = requests.get(self.__base_url,
                                     params=self._url_params,
                                     headers=self.headers)
+
             data = response.json()
             if not data:
                 raise Exception("Translation was not found in response!")
@@ -81,3 +87,8 @@ class MyMemoryTranslator(BaseTranslator):
 
         except Exception as e:
             raise e
+
+
+if __name__ == '__main__':
+    res = MyMemoryTranslator(source="auto", target="fr").translate("you are cute")
+    print(res)

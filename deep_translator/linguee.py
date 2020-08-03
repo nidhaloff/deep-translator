@@ -7,9 +7,10 @@ from requests.utils import requote_uri
 
 
 class LingueeTranslator(BaseTranslator):
-    supported_languages = list(LINGUEE_LANGUAGES_TO_CODES.keys())
+    _languages = LINGUEE_LANGUAGES_TO_CODES
+    supported_languages = list(_languages.keys())
 
-    def __init__(self, source, target):
+    def __init__(self, source, target="en"):
         """
         @param source: source language to translate from
         @param target: target language to translate to
@@ -26,6 +27,10 @@ class LingueeTranslator(BaseTranslator):
                          element_query={'class': 'dictLink featured'},
                          payload_key=None,  # key of text in the url
                         )
+
+    @staticmethod
+    def get_supported_languages(as_dict=False):
+        return LingueeTranslator.supported_languages if not as_dict else LingueeTranslator._languages
 
     def _map_language_to_code(self, *languages, **kwargs):
         """
