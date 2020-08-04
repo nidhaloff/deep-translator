@@ -88,7 +88,3 @@ class MyMemoryTranslator(BaseTranslator):
         except Exception as e:
             raise e
 
-
-if __name__ == '__main__':
-    res = MyMemoryTranslator(source="auto", target="fr").translate("you are cute")
-    print(res)

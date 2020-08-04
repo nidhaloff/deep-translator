@@ -21,8 +21,8 @@ def translate(args):
         print("given translator is not supported. Please use a supported translator from the deep_translator tool")
 
     res = translator.translate(args.text)
-    print(f" | Translation from {args.source} to {args.target} |")
-    print(f"Translated text: \n {res}")
+    print(" | Translation from {} to {} |".format(args.source, args.target))
+    print("Translated text: \n {}".format(res))
 
 
 def main():

@@ -1,5 +1,6 @@
 # Config file for automatic testing at travis-ci.com
-
+os: linux
+sudo: enabled
 language: python
 python:
   - 3.8
