@@ -36,7 +36,7 @@ deep_translator
 Translation for humans
 -----------------------
 
-A flexible python tool to translate between different languages in a simple way using multiple translators.
+A flexible **FREE** and **UNLIMITED** tool to translate between different languages in a simple way using multiple translators.
 
 
 * Free software: MIT license
@@ -45,10 +45,10 @@ A flexible python tool to translate between different languages in a simple way 
 Motivation
 -----------
 I needed to translate a text using python. It was hard to find a simple way to do it.
-There are other libraries that can be used for this task, but somehow,most of them
-are buggy, not supported anymore or complex.
+There are other libraries that can be used for this task, but most of them
+are **buggy, not free, limited, not supported anymore or complex to use.**
 
-Therefore, I decided to build this simple tool. It is clean and easy to use and provide
+Therefore, I decided to build this simple tool. It is 100% free, unlimited, easy to use and provide
 support for all languages.
 
 Basically, my goal was to integrate support for multiple famous translators
