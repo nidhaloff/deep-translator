@@ -74,6 +74,12 @@ class GoogleTranslator(BaseTranslator):
                                     params=self._url_params)
 
             soup = BeautifulSoup(response.text, 'html.parser')
+
+            print(soup)
+            src_lang = soup.findAll('a', {"class": "s1"})
+            for el in src_lang:
+                print(el)
+            exit()
             element = soup.find(self._element_tag, self._element_query)
             if not element:
                 raise ElementNotFoundInGetRequest(element)
@@ -112,3 +118,6 @@ class GoogleTranslator(BaseTranslator):
         except Exception as e:
             raise e
 
+
+if __name__ == '__main__':
+    res = GoogleTranslator(target='de').translate("you are cute")
