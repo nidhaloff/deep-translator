@@ -104,7 +104,6 @@ Usage
 
     from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator, MyMemoryTranslator, detect_language
 
-    text = 'happy coding'
 
 
 .. note::
@@ -139,6 +138,8 @@ Usage
 - Simple translation:
 
 .. code-block:: python
+
+    text = 'happy coding'
 
     translated = GoogleTranslator(source='auto', target='de').translate(text=text)
 
