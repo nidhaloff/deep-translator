@@ -50,8 +50,6 @@ class MyMemoryTranslator(BaseTranslator):
             response = requests.get(self.__base_url,
                                     params=self._url_params,
                                     headers=self.headers)
-
-            print(response.text)
             data = response.json()
             if not data:
                 raise Exception("Translation was not found in response!")
@@ -88,7 +86,3 @@ class MyMemoryTranslator(BaseTranslator):
 
         except Exception as e:
             raise e
-
-if __name__ == '__main__':
-    res = MyMemoryTranslator(source="auto", target='de').translate("bonjour la vie")
-
