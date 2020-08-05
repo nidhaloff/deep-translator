@@ -111,4 +111,3 @@ class GoogleTranslator(BaseTranslator):
 
         except Exception as e:
             raise e
-
