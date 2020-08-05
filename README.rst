@@ -140,10 +140,10 @@ Usage
 
 .. code-block:: python
 
-    translated = GoogleTranslator(source='auto', target='de').translate(text=english_text)
+    translated = GoogleTranslator(source='auto', target='de').translate(text=text)
 
     # Alternatively, you can pass languages by their name:
-    translated = GoogleTranslator(source='english', target='german').translate(text=english_text)
+    translated = GoogleTranslator(source='english', target='german').translate(text=text)
 
 - Translate from a file:
 
