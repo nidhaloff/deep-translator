@@ -28,5 +28,5 @@ def detect_language(text, api_key=None):
                 return lang
 
         except Exception as e:
-            print(e.args)
-            raise
+            print("Error occured while requesting from server: ", e.args)
+            raise e

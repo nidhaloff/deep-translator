@@ -61,10 +61,12 @@ When you should use it
 - If you want to get translations from many sources and not only one
 - If you want to automate translations
 - If you want to compare different translations
+- If you want to detect language automatically
 
 Why you should use it
 ----------------------
 - High level of abstraction
+- Automatic language detection
 - Easy to use and extend
 - It's the only python tool that integrates many translators
 - Stable
@@ -77,6 +79,7 @@ Features
 * Support for Pons translator (pons.com)
 * Support for the Linguee translator
 * Support for the Mymemory translator
+* Automatic language detection
 * Translate directly from a text file
 * Get multiple translation for a word
 * Automate the translation of different paragraphs in different languages
@@ -99,7 +102,7 @@ Usage
 
 .. code-block:: python
 
-    from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator, MyMemoryTranslator
+    from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator, MyMemoryTranslator, detect_language
 
     text = 'happy coding'
 
@@ -118,6 +121,19 @@ Usage
 
     # alternatively, you can the dictionary containing languages mapped to their abbreviation
     langs_dict = GoogleTranslator.get_supported_languages(as_dict=True)  # output: {arabic: ar, french: fr, english:en etc...}
+
+.. note::
+
+    You can also detect language automatically. Notice that this package is free and my goal is to keep it free.
+    Therefore, you will need to get your own api_key if you want to use the language detection function.
+    I figured out you can get one for free here: https://detectlanguage.com/documentation
+
+- Language detection:
+
+.. code-block:: python
+
+    lang = detect_language('bonjour la vie', api_key='your_api_key')
+    print(lang) # output: fr
 
 
 - Simple translation:
