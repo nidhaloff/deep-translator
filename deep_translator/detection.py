@@ -9,6 +9,8 @@ def detect_language(text, api_key=None):
     if not api_key:
         raise Exception("you need to get an API_KEY for this to work. "
                         "Get one for free here: https://detectlanguage.com/documentation")
+    if not text:
+        raise Exception("Please provide an input text")
 
     else:
         headers = config['headers']
