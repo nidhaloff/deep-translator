@@ -102,13 +102,17 @@ Usage
 
 .. code-block:: python
 
-    from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator, MyMemoryTranslator, detect_language
+    from deep_translator import (GoogleTranslator,
+                                 PonsTranslator,
+                                 LingueeTranslator,
+                                 MyMemoryTranslator,
+                                 detect_language)
 
 
 
 .. note::
 
-    You can check the supported languages of every translator by calling the
+    You can check the supported languages of each translator by calling the
     get_supported_languages function as a static method.
 
 - Example of checking the supported languages for the google translator:
