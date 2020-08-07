@@ -64,10 +64,20 @@ class LingueeTranslator(BaseTranslator):
             if not elements:
                 raise ElementNotFoundInGetRequest(elements)
 
+
+            filtered_elements = []
+            for el in elements:
+                try:
+                    pronoun = el.find('span', {'class': 'placeholder'})\
+                            .get_text(strip=True)
+                except AttributeError:
+                    pronoun = ''
+                filtered_elements.append(el.get_text(strip=True)\
+                        .replace(pronoun, ''))
             if 'return_all' in kwargs and kwargs.get('return_all'):
-                return [el.get_text(strip=True) for el in elements]
+                return filtered_elements
             else:
-                return elements[0].get_text(strip=True)
+                return filtered_elements[0]
 
     def translate_words(self, words, **kwargs):
         if not words:
