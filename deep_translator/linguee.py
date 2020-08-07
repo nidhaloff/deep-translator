@@ -52,7 +52,7 @@ class LingueeTranslator(BaseTranslator):
                     raise LanguageNotSupportedException(lang)
         return True
 
-    def translate(self, word, **kwargs):
+    def translate(self, word, return_all=False, **kwargs):
 
         if self._validate_payload(word):
             # %s-%s/translation/%s.html
@@ -64,20 +64,15 @@ class LingueeTranslator(BaseTranslator):
             if not elements:
                 raise ElementNotFoundInGetRequest(elements)
 
-
             filtered_elements = []
             for el in elements:
                 try:
-                    pronoun = el.find('span', {'class': 'placeholder'})\
-                            .get_text(strip=True)
+                    pronoun = el.find('span', {'class': 'placeholder'}).get_text(strip=True)
                 except AttributeError:
                     pronoun = ''
-                filtered_elements.append(el.get_text(strip=True)\
-                        .replace(pronoun, ''))
-            if 'return_all' in kwargs and kwargs.get('return_all'):
-                return filtered_elements
-            else:
-                return filtered_elements[0]
+                filtered_elements.append(el.get_text(strip=True).replace(pronoun, ''))
+
+            return filtered_elements if return_all else filtered_elements[0]
 
     def translate_words(self, words, **kwargs):
         if not words:
