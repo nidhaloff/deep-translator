@@ -57,7 +57,7 @@ class PonsTranslator(BaseTranslator):
                     raise LanguageNotSupportedException(lang)
         return True
 
-    def translate(self, word, **kwargs):
+    def translate(self, word, return_all=False, **kwargs):
 
         if self._validate_payload(word):
             url = "{}{}-{}/{}".format(self.__base_url, self._source, self._target, word)
@@ -77,10 +77,8 @@ class PonsTranslator(BaseTranslator):
                             temp += e.get_text() + ' '
                 eof.append(temp)
 
-            if 'return_all' in kwargs and kwargs.get('return_all'):
-                return [word for word in eof if word and len(word) > 1]
-            else:
-                return [word for word in eof if word and len(word) > 1][0]
+            word_list = [word for word in eof if word and len(word) > 1]
+            return word_list if return_all else word_list[0]
 
     def translate_words(self, words, **kwargs):
         if not words:
