@@ -2,7 +2,7 @@
 from bs4 import BeautifulSoup
 import requests
 from deep_translator.constants import BASE_URLS, PONS_LANGUAGES_TO_CODES, PONS_CODES_TO_LANGUAGES
-from deep_translator.exceptions import LanguageNotSupportedException, ElementNotFoundInGetRequest, NotValidPayload
+from deep_translator.exceptions import LanguageNotSupportedException, TranslationNotFound, NotValidPayload, ElementNotFoundInGetRequest
 from deep_translator.parent import BaseTranslator
 from requests.utils import requote_uri
 
@@ -66,18 +66,25 @@ class PonsTranslator(BaseTranslator):
             soup = BeautifulSoup(response.text, 'html.parser')
             elements = soup.findAll(self._element_tag, self._element_query)
             if not elements:
-                raise ElementNotFoundInGetRequest(elements)
+                raise ElementNotFoundInGetRequest(word)
 
-            eof = []
+            filtered_elements = []
             for el in elements:
                 temp = ''
                 for e in el.findAll('a'):
                     if e.parent.name == 'div':
                         if e and "/translate/{}-{}/".format(self._target, self._source) in e.get('href'):
                             temp += e.get_text() + ' '
-                eof.append(temp)
+                filtered_elements.append(temp)
 
-            word_list = [word for word in eof if word and len(word) > 1]
+            if not filtered_elements:
+                raise ElementNotFoundInGetRequest(word)
+
+            word_list = [word for word in filtered_elements if word and len(word) > 1]
+
+            if not word_list:
+                raise TranslationNotFound(word)
+
             return word_list if return_all else word_list[0]
 
     def translate_words(self, words, **kwargs):

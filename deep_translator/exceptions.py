@@ -21,10 +21,17 @@ class NotValidPayload(BaseError):
         super(NotValidPayload, self).__init__(val, message)
 
 
+class TranslationNotFound(BaseError):
+    def __init__(self,
+                 val,
+                 message='No translation was found using the current translator. Try another translator?'):
+        super(TranslationNotFound, self).__init__(val, message)
+
+
 class ElementNotFoundInGetRequest(BaseError):
     def __init__(self,
                  val,
-                 message='Element was not found in the get request.'):
+                 message='Required element was not found in the API response'):
         super(ElementNotFoundInGetRequest, self).__init__(val, message)
 
 
