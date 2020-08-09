@@ -1,6 +1,6 @@
-===============
+****************
 deep_translator
-===============
+****************
 
 
 .. image:: https://img.shields.io/pypi/v/deep_translator.svg
@@ -32,9 +32,9 @@ deep_translator
    :target: https://www.buymeacoffee.com/nidhaloff?new=1
 
 
-
+=======================
 Translation for humans
------------------------
+=======================
 
 A flexible **FREE** and **UNLIMITED** tool to translate between different languages in a simple way using multiple translators.
 
@@ -43,7 +43,8 @@ A flexible **FREE** and **UNLIMITED** tool to translate between different langua
 * Documentation: https://deep-translator.readthedocs.io.
 
 Motivation
------------
+###########
+
 I needed to translate a text using python. It was hard to find a simple way to do it.
 There are other libraries that can be used for this task, but most of them
 are **buggy, not free, limited, not supported anymore or complex to use.**
