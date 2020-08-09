@@ -28,6 +28,13 @@ class TranslationNotFound(BaseError):
         super(TranslationNotFound, self).__init__(val, message)
 
 
+class ElementNotFoundInGetRequest(BaseError):
+    def __init__(self,
+                 val,
+                 message='Required element was not found in the API response'):
+        super(ElementNotFoundInGetRequest, self).__init__(val, message)
+
+
 class NotValidLength(BaseError):
     def __init__(self, val, message="Length of text need to be between 0 and 5000"):
         super(NotValidLength, self).__init__(val, message)

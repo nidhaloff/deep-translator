@@ -1,5 +1,5 @@
 from deep_translator.constants import BASE_URLS, LINGUEE_LANGUAGES_TO_CODES, LINGUEE_CODE_TO_LANGUAGE
-from deep_translator.exceptions import LanguageNotSupportedException, TranslationNotFound, NotValidPayload, NotValidLength
+from deep_translator.exceptions import LanguageNotSupportedException, TranslationNotFound, NotValidPayload, ElementNotFoundInGetRequest
 from deep_translator.parent import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
@@ -62,7 +62,7 @@ class LingueeTranslator(BaseTranslator):
             soup = BeautifulSoup(response.text, 'html.parser')
             elements = soup.find_all(self._element_tag, self._element_query)
             if not elements:
-                raise TranslationNotFound(elements)
+                raise ElementNotFoundInGetRequest(elements)
 
             filtered_elements = []
             for el in elements:
@@ -71,6 +71,9 @@ class LingueeTranslator(BaseTranslator):
                 except AttributeError:
                     pronoun = ''
                 filtered_elements.append(el.get_text(strip=True).replace(pronoun, ''))
+
+            if not filtered_elements:
+                raise TranslationNotFound(word)
 
             return filtered_elements if return_all else filtered_elements[0]
 

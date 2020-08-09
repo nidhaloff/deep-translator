@@ -36,7 +36,7 @@ class GoogleTranslator(BaseTranslator):
     def get_supported_languages(as_dict=False):
         return GoogleTranslator.supported_languages if not as_dict else GoogleTranslator._languages
 
-    def _map_language_to_code(self, *languages, **kwargs):
+    def _map_language_to_code(self, *languages):
         """
 
         @param language: type of language
@@ -50,7 +50,7 @@ class GoogleTranslator(BaseTranslator):
             else:
                 raise LanguageNotSupportedException(language)
 
-    def is_language_supported(self, *languages, **kwargs):
+    def is_language_supported(self, *languages):
         for lang in languages:
             if lang != 'auto' and lang not in GOOGLE_LANGUAGES_TO_CODES.keys():
                 if lang != 'auto' and lang not in GOOGLE_LANGUAGES_TO_CODES.values():
@@ -76,7 +76,8 @@ class GoogleTranslator(BaseTranslator):
             soup = BeautifulSoup(response.text, 'html.parser')
             element = soup.find(self._element_tag, self._element_query)
             if not element:
-                raise TranslationNotFound(element)
+                # raise ElementNotFoundInGetRequest(element)
+                raise TranslationNotFound(text)
 
             return element.get_text(strip=True)
 
