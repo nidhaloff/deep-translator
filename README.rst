@@ -42,8 +42,9 @@ A flexible **FREE** and **UNLIMITED** tool to translate between different langua
 * Free software: MIT license
 * Documentation: https://deep-translator.readthedocs.io.
 
+==========
 Motivation
-###########
+==========
 
 I needed to translate a text using python. It was hard to find a simple way to do it.
 There are other libraries that can be used for this task, but most of them
@@ -55,8 +56,10 @@ support for all languages.
 Basically, my goal was to integrate support for multiple famous translators
 in this tool.
 
+======================
 When you should use it
------------------------
+======================
+
 - If you want to translate text using python
 - If you want to translate from a file
 - If you want to get translations from many sources and not only one
@@ -64,8 +67,10 @@ When you should use it
 - If you want to compare different translations
 - If you want to detect language automatically
 
+======================
 Why you should use it
-----------------------
+======================
+
 - High level of abstraction
 - Automatic language detection
 - Easy to use and extend
@@ -73,8 +78,9 @@ Why you should use it
 - Stable
 - Support for most famous universal translators
 
+========
 Features
---------
+========
 
 * Support for google translate
 * Support for Pons translator (pons.com)
@@ -86,6 +92,7 @@ Features
 * Automate the translation of different paragraphs in different languages
 * Translate directly from terminal (version >= 1.1.0)
 
+=============
 Installation
 =============
 
@@ -97,9 +104,16 @@ Install the stable release:
 
 take a look at the docs if you want to install from source.
 
+=====
 Usage
 =====
 
+In this section, demos on how to use all different integrated translators in this tool are provided.
+This includes the google, pons, linguee and mymemory translator (at least for now). Perhaps more
+translators will be integrated in the future.
+
+Imports
+========
 
 .. code-block:: python
 
@@ -110,13 +124,13 @@ Usage
                                  detect_language)
 
 
+Check Supported Languages
+==========================
 
 .. note::
 
     You can check the supported languages of each translator by calling the
     get_supported_languages function as a static method.
-
-- Example of checking the supported languages for the google translator:
 
 .. code-block:: python
 
@@ -126,13 +140,14 @@ Usage
     # alternatively, you can the dictionary containing languages mapped to their abbreviation
     langs_dict = GoogleTranslator.get_supported_languages(as_dict=True)  # output: {arabic: ar, french: fr, english:en etc...}
 
+Language Detection
+===================
+
 .. note::
 
     You can also detect language automatically. Notice that this package is free and my goal is to keep it free.
     Therefore, you will need to get your own api_key if you want to use the language detection function.
     I figured out you can get one for free here: https://detectlanguage.com/documentation
-
-- Language detection:
 
 .. code-block:: python
 
@@ -140,16 +155,30 @@ Usage
     print(lang) # output: fr
 
 
-- Simple translation:
+Google Translate
+=================
 
 .. code-block:: python
 
     text = 'happy coding'
 
-    translated = GoogleTranslator(source='auto', target='de').translate(text=text)
+- You can use automatic language detection to detect the source language:
 
-    # Alternatively, you can pass languages by their name:
+.. code-block:: python
+
+    translated = GoogleTranslator(source='auto', target='german').translate(text=text)
+
+- You can pass languages by name:
+
+.. code-block:: python
+
     translated = GoogleTranslator(source='english', target='german').translate(text=text)
+
+- Alternatively, you can pass languages by their abbreviation:
+
+.. code-block:: python
+
+    translated = GoogleTranslator(source='en', target='de').translate(text=text)
 
 - Translate from a file:
 
@@ -157,43 +186,83 @@ Usage
 
     translated = GoogleTranslator(source='auto', target='german').translate_file('path/to/file')
 
-- Automate translation by detecting the source language
+- Automate translation by detecting the source language and translate it automatically to the desired language
 
 .. code-block:: python
 
     # or maybe you have many sentences in different languages and want to automate the translation process
-    translated = GoogleTranslator(source='auto', target='de').translate_sentences(your_list_of_sentences)
+    translated = GoogleTranslator(source='auto', target='de').translate_sentences([your_list_of_sentences])
 
 
-- Maybe you would like to use the Pons translator: Pons.com
 
+PONS Translator
+===============
+
+.. note::
+
+    You can pass the languages by the name or by abbreviation just like
+    previous examples using GoogleTranslate
 
 .. code-block:: python
 
-    word = 'good'
+    word = 'awesome'
+
+- Simple Translation
+
+.. code-block:: python
+
     translated_word = PonsTranslator(source='english', target='french').translate(word)
+
+    # pass language by their abbreviation
+    translated_word = PonsTranslator(source='en', target='fr').translate(word)
+
+- Return all synonyms or words that matches
+
+.. code-block:: python
 
     # set the argument return_all to True if you want to get all synonyms of the word to translate
     translated_word = PonsTranslator(source='english', target='french').translate(word, return_all=True)
 
 
-- Alternatively deep_translator (version >= 1.0.0) supports the Linguee translator:
+
+Linguee Translator
+===================
 
 
 .. code-block:: python
 
     word = 'good'
+
+- Simple Translation
+
+.. code-block:: python
+
     translated_word = LingueeTranslator(source='english', target='french').translate(word)
+
+    # pass language by their abbreviation
+    translated_word = LingueeTranslator(source='en', target='fr').translate(word)
+
+- Return all synonyms or words that matches
+
+.. code-block:: python
 
     # set the argument return_all to True if you want to get all synonyms of the word to translate
     translated_word = LingueeTranslator(source='english', target='french').translate(word, return_all=True)
 
-- The mymemory translator is also supported for version >= 1.0.2:
+
+Mymemory Translator
+====================
+
+.. note::
+
+    You can use the automatic language detection with mymemory by passing
+    "auto" as a value for the source language
 
 .. code-block:: python
 
-    word = 'Keep it up. You are awesome'
-    translated_word = MyMemoryTranslator(source='auto', target='french').translate(word)
+    text = 'Keep it up. You are awesome'
+
+    translated = MyMemoryTranslator(source='auto', target='french').translate(text)
 
 Usage from Terminal
 ====================
@@ -221,6 +290,12 @@ If you want, you can also pass the source and target language by their abbreviat
 .. code-block:: console
 
     $ deep_translator -trans "google" -src "en" -tg "de" -txt "happy coding"
+
+Side Hint
+==========
+
+Generally, I find the google and mymemory translators suitable for translating sentences, whereas
+the pons and linguee translators are good choices if you want to translate words.
 
 ========
 Links
