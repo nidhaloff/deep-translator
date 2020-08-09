@@ -1,6 +1,6 @@
 
 from deep_translator.constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
-from deep_translator.exceptions import LanguageNotSupportedException, ElementNotFoundInGetRequest, NotValidPayload
+from deep_translator.exceptions import LanguageNotSupportedException, TranslationNotFound, NotValidPayload
 from deep_translator.parent import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
@@ -76,7 +76,7 @@ class GoogleTranslator(BaseTranslator):
             soup = BeautifulSoup(response.text, 'html.parser')
             element = soup.find(self._element_tag, self._element_query)
             if not element:
-                raise ElementNotFoundInGetRequest(element)
+                raise TranslationNotFound(element)
 
             return element.get_text(strip=True)
 

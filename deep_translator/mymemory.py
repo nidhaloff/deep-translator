@@ -1,6 +1,6 @@
 
 from deep_translator.constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
-from deep_translator.exceptions import NotValidPayload
+from deep_translator.exceptions import NotValidPayload, TranslationNotFound
 from deep_translator.parent import BaseTranslator
 import requests
 
@@ -52,7 +52,7 @@ class MyMemoryTranslator(BaseTranslator):
                                     headers=self.headers)
             data = response.json()
             if not data:
-                raise Exception("Translation was not found in response!")
+                TranslationNotFound(text)
 
             translation = data.get('responseData').get('translatedText')
             if translation:
