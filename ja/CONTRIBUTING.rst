@@ -55,26 +55,26 @@ deep_translator は、deep_translator の公式ドキュメントの一部、doc
 開発環境の構築
 ------------
 
-コントリビュートの準備はできましたか？ここからは`deep_translator`の開発環境を構築する方法について説明します。
+コントリビュートの準備はできましたか？ここからは deep_translator の開発環境を構築する方法について説明します。
 
-1. GitHub で`deep_translator` をフォークする.
+1. GitHub で deep_translator をフォークする.
 2. フォークしたものをローカルリポジトリとしてクローンする。::
 
     $ git clone git@github.com:your_name_here/deep_translator.git
 
-3. virtualenvの作成とインストールを行う。virtualenvwrapperがインストール済みとすると、以下のコマンドでローカルに開発環境を構築できる。::
+3. virtualenvの作成とインストールを行う。virtualenvwrapperがインストール済みとすると、以下のコマンドでローカルに開発環境を構築できる::
 
     $ mkvirtualenv deep_translator
     $ cd deep_translator /
     $ python setup.py develop
 
-4. ローカルで開発を行うために新しいブランチを作成する。::
+4. ローカルで開発を行うために新しいブランチを作成する::
 
     $ git checkout -b name-of-your-bugfix-or-feature
 
    これでローカルリポジトリに変更を加えることができるようになります。
 
-5. 変更が終わったらflake8のコードチェックとテストを通過するようにする。この時、toxで複数バージョンのPythonで動作することを確認する。::
+5. 変更が終わったらflake8のコードチェックとテストを通過するようにする。この時、toxで複数バージョンのPythonで動作することを確認する::
 
     $ flake8 deep_translator tests
     $ python setup.py test or pytest
@@ -99,8 +99,7 @@ deep_translator は、deep_translator の公式ドキュメントの一部、doc
 
 2. プルリクエストで機能が追加された場合、ドキュメントを更新する必要があります。新しい機能について関数内にdocstringで記述し、それに加えてリストREADME.rstのリストに追加してください。
 
-3.　プルリクエストはPython 3.5,3.6,3.7,3.8またはPyPyで動作することが望まれます。
-https://travisci.com/nidhaloff/deep_translator/pull_requests　を確認し、サポートされている全てのPythonバージョンでテストを通過することを確認してください。
+3. プルリクエストによる変更はPython 3.5、3.6、3.7、3.8またはPyPyで動作することが望まれます。https://travisci.com/nidhaloff/deep_translator/pull_requests　を確認し、サポートされている全てのPythonバージョンでテストを通過することを確認してください。
 
 
 ヒント
