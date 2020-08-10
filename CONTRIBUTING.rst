@@ -1,39 +1,21 @@
 .. highlight:: shell
 
 ============
-コントリビュートする方法
+Contributing
 ============
-
-このプロジェクトではコントリビュートを歓迎しています！どんなに小さい貢献でも、あなたのコントリビュートになります。
 
 Contributions are welcome, and they are greatly appreciated! Every little bit
 helps, and credit will always be given.
 
-次のようないくつかの方法で貢献することができます。
-
 You can contribute in many ways:
-
-コントリビュートの種類
 
 Types of Contributions
 ----------------------
 
-バグの報告
-
 Report Bugs
 ~~~~~~~~~~~
 
-https://github.com/nidhaloff/deep_translator/issues
-
-でバクを報告してください。
-
 Report bugs at https://github.com/nidhaloff/deep_translator/issues.
-
-バグを報告する時、以下の３項目を含めて投稿するようにしてください。
-
-* バグの発生したOSの種類とOSバージョンの情報
-* ソフトウェアの設定などのローカル環境の情報
-* バグを再現するための詳細な手順
 
 If you are reporting a bug, please include:
 
@@ -41,30 +23,17 @@ If you are reporting a bug, please include:
 * Any details about your local setup that might be helpful in troubleshooting.
 * Detailed steps to reproduce the bug.
 
-バグの修正
-
 Fix Bugs
 ~~~~~~~~
-
-このリポジトリのイシューを見ることで、バグの情報を確認できます。
-"bug" と "help wanted"でタグ付けされているものは、誰でもバグの修正にコントリビュートできます。
 
 Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
 wanted" is open to whoever wants to implement it.
 
-機能の追加
-
 Implement Features
 ~~~~~~~~~~~~~~~~~~
 
-
-このリポジトリのイシューを見ることで、追加したい機能が確認できます。
-"enhancement" と "help wanted"でタグ付けされているものは、誰でも実装にコントリビュートできます。
-
 Look through the GitHub issues for features. Anything tagged with "enhancement"
 and "help wanted" is open to whoever wants to implement it.
-
-ドキュメントの作成
 
 Write Documentation
 ~~~~~~~~~~~~~~~~~~~
