@@ -40,12 +40,12 @@
 deep_translator は、deep_translator の公式ドキュメントの一部、docstrings、あるいはウェブ上のブログ記事や記事など、常により多くのドキュメントを求めています。
 
 
-意見・提案
+新しい機能の提案
 ~~~~~~~~~~~~~~~
 
-意見・提案をする最も適切な方法は https://github.com/nidhaloff/deep_translator/issues に投稿することです。
+新しい提案をするには https://github.com/nidhaloff/deep_translator/issues に投稿してください。
 
-もし、新しい機能を提案したければ以下の項目を留意してください。:
+新しい機能を提案するときには、以下の項目を留意してください:
 
 * 新しい機能の動作をできるだけ詳しく説明してください。 
 * 実装しやすいように機能の規模は限定するようにしてください。
@@ -82,7 +82,7 @@ deep_translator は、deep_translator の公式ドキュメントの一部、doc
 
 　　flake8とtoxのインストールは、virtualenvでpip installを行うことで可能です。
 
-6. 変更をコミットし、自分のリモートリポジトリにプッシュする。::
+6. 変更をコミットし、自分のリモートリポジトリにプッシュする::
 
     $ git add .
     $ git commit -m "Your detailed description of your changes."
@@ -93,7 +93,7 @@ deep_translator は、deep_translator の公式ドキュメントの一部、doc
 プルリクエストにあたって
 -----------------------
 
-プルリクエストを送る前に以下のガイドラインに従っているか確認してください。:
+プルリクエストを送る前に以下のガイドラインに従っているか確認してください:
 
 1. プルリクエストにテストが含まれている。
 
@@ -106,7 +106,7 @@ https://travisci.com/nidhaloff/deep_translator/pull_requests　を確認し、�
 ヒント
 ----
 
-テストのサブセットを実行するには以下のコマンドが利用できます。::
+テストのサブセットを実行するには以下のコマンドが利用できます::
 
 $ pytest tests.test_deep_translator
 
