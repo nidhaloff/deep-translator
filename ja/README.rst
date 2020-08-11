@@ -33,86 +33,80 @@ deep_translator
 
 
 =======================
-Translation for humans
+自然言語の翻訳ツール
 =======================
 
-A flexible **FREE** and **UNLIMITED** tool to translate between different languages in a simple way using multiple translators.
+複数の翻訳サービスを使って、簡単な方法で異なる言語間で柔軟に翻訳を **無料** かつ **無制限**に行えるツールです
 
-
-* Free software: MIT license
-* Documentation: https://deep-translator.readthedocs.io.
+* フリーソフトウェア: MIT ライセンス
+* ドキュメント: https://deep-translator.readthedocs.io.
 
 ==========
-Motivation
+開発の動機
 ==========
 
-I needed to translate a text using python. It was hard to find a simple way to do it.
-There are other libraries that can be used for this task, but most of them
-are **buggy, not free, limited, not supported anymore or complex to use.**
+Pythonを使用してテキストを別の言語に翻訳するタスクがありました。しかし、それを行う簡単な方法を見つけるのは困難でした。なぜなら、このタスクに適用できるライブラリはいくつか存在しますが、それらのほとんどはバグが多いか、無料ではないか、何らかの制約があるか、全ての言語をサポートしていないか、使用するのが簡単ではありませんでした。
 
-Therefore, I decided to build this simple tool. It is 100% free, unlimited, easy to use and provide
-support for all languages.
+そこで、このタスクを簡単に行えるツールを作成することにしました。100％無料で無制限で使いやすく、すべての言語をサポートしています。
 
-Basically, my goal was to integrate support for multiple famous translators
-in this tool.
+このツールの目的は、複数の有名な翻訳サービスをこのツールに統合することにあります。
+
 
 ======================
-When you should use it
+使用例
 ======================
 
-- If you want to translate text using python
-- If you want to translate from a file
-- If you want to get translations from many sources and not only one
-- If you want to automate translations
-- If you want to compare different translations
-- If you want to detect language automatically
+- Pythonを使用してテキストを翻訳したい場合
+- ファイルのテキストを翻訳したい場合
+- 1つだけでなく、多くのソースから翻訳結果を取得したい場合
+- 翻訳を自動化したい場合
+- 異なる翻訳結果を比較したい場合
+- 言語を自動検出したい場合
 
 ======================
-Why you should use it
+このツールの強み
 ======================
 
-- High level of abstraction
-- Automatic language detection
-- Easy to use and extend
-- It's the only python tool that integrates many translators
-- Stable
-- Support for most famous universal translators
+- 高度な抽象化が施されている
+- 言語を自動で検出する
+- 拡張と使用が簡単である
+- 多くの翻訳サービスを統合して扱える唯一のpythonツールである
+- 安定している
+- 有名な翻訳サービスをサポートしている
 
 ========
-Features
+機能
 ========
 
-* Support for google translate
-* Support for Pons translator (pons.com)
-* Support for the Linguee translator
-* Support for the Mymemory translator
-* Automatic language detection
-* Translate directly from a text file
-* Get multiple translation for a word
-* Automate the translation of different paragraphs in different languages
-* Translate directly from terminal (version >= 1.1.0)
+* google翻訳のサポート
+* Pons  (pons.com)のサポート
+* Linguee のサポート
+* Mymemory のサポート
+* 自動言語検出
+* テキストファイルから直接翻訳する
+* 単語の複数の翻訳結果を取得する
+* 異なる言語の異なる段落の翻訳を自動化する
+* コマンドラインから直接翻訳する（バージョン1.1.0以上）
 
 =============
-Installation
+インストール方法
 =============
 
-Install the stable release:
+ツールの安定版をインストールする方法です:
 
 .. code-block:: console
 
     $ pip install -U deep_translator
 
-take a look at the docs if you want to install from source.
+ソースからインストールを行いたい場合、ドキュメントを参照してください。
 
 =====
-Usage
+使い方
 =====
 
-In this section, demos on how to use all different integrated translators in this tool are provided.
-This includes the google, pons, linguee and mymemory translator (at least for now). Perhaps more
-translators will be integrated in the future.
+このセクションでは、このツールで様々な統合トランスレータを利用するデモを行います。このデモでは、google、pons、linguee、mymemoryの翻訳サービスを扱います（現時点）。将来的には、より多くの翻訳サービスを統合する予定です。
 
-Imports
+インポート
 ========
 
 .. code-block:: python
@@ -124,30 +118,27 @@ Imports
                                  detect_language)
 
 
-Check Supported Languages
+サポートされている言語を確認する
 ==========================
 
-.. note::
+.. ポイント::
 
-    You can check the supported languages of each translator by calling the
-    get_supported_languages function as a static method.
+  　関数get_supported_languagesを静的メソッドとして呼び出すことにより、各翻訳サービスでサポートしている言語を確認できます。
 
 .. code-block:: python
 
-    # default return type is a list
+    # デフォルトではリストを返します
     langs_list = GoogleTranslator.get_supported_languages()  # output: [arabic, french, english etc...]
 
-    # alternatively, you can the dictionary containing languages mapped to their abbreviation
+    # 言語の省略形を辞書型にまとめて返すことも出来ます
     langs_dict = GoogleTranslator.get_supported_languages(as_dict=True)  # output: {arabic: ar, french: fr, english:en etc...}
 
-Language Detection
+言語検出
 ===================
 
-.. note::
+.. ポイント::
 
-    You can also detect language automatically. Notice that this package is free and my goal is to keep it free.
-    Therefore, you will need to get your own api_key if you want to use the language detection function.
-    I figured out you can get one for free here: https://detectlanguage.com/documentation
+　　言語を自動的に検出することもできます。当然、このパッケージは無料です。言語検出機能を無料で使用する場合は、個人でapi_keyを取得する必要があります。ここで無料で入手することができます:https://detectlanguage.com/documentation
 
 .. code-block:: python
 
@@ -155,77 +146,76 @@ Language Detection
     print(lang) # output: fr
 
 
-Google Translate
+Google 翻訳
 =================
 
 .. code-block:: python
 
     text = 'happy coding'
 
-- You can use automatic language detection to detect the source language:
+- ソースの言語に自動検出を使用できます:
 
 .. code-block:: python
 
     translated = GoogleTranslator(source='auto', target='german').translate(text=text)
 
-- You can pass languages by name:
+- ソースの言語の種類を指定することも出来ます:
 
 .. code-block:: python
 
     translated = GoogleTranslator(source='english', target='german').translate(text=text)
 
-- Alternatively, you can pass languages by their abbreviation:
+- 言語名は省略形で指定することも可能です:
 
 .. code-block:: python
 
     translated = GoogleTranslator(source='en', target='de').translate(text=text)
 
-- Translate from a file:
+- ファイルから翻訳を行うことも出来ます:
 
 .. code-block:: python
 
     translated = GoogleTranslator(source='auto', target='german').translate_file('path/to/file')
 
-- Automate translation by detecting the source language and translate it automatically to the desired language
+-　ソースの言語を検出し、望んだ言語に自動翻訳することが出来ます。
 
 .. code-block:: python
 
-    # or maybe you have many sentences in different languages and want to automate the translation process
+　　 # または、異なる言語の文章の翻訳を自動化したい時にも利用できます。
     translated = GoogleTranslator(source='auto', target='de').translate_sentences([your_list_of_sentences])
 
 
 
-PONS Translator
+PONS
 ===============
 
-.. note::
+.. ポイント::
 
-    You can pass the languages by the name or by abbreviation just like
-    previous examples using GoogleTranslate
+　　　Google翻訳同様に言語の名前を指定して翻訳することが出来ます。省略形で指定することも可能です。
 
 .. code-block:: python
 
     word = 'awesome'
 
-- Simple Translation
+- 簡単な翻訳方法
 
 .. code-block:: python
 
     translated_word = PonsTranslator(source='english', target='french').translate(word)
 
-    # pass language by their abbreviation
+    # 言語の省略形を指定する
     translated_word = PonsTranslator(source='en', target='fr').translate(word)
 
-- Return all synonyms or words that matches
+- 全ての同義語か一致する単語を返す
 
 .. code-block:: python
 
-    # set the argument return_all to True if you want to get all synonyms of the word to translate
+　　 # 翻訳結果の全ての同義語を取得したい場合、引数にreturn_allにTrueを指定してください
     translated_word = PonsTranslator(source='english', target='french').translate(word, return_all=True)
 
 
 
-Linguee Translator
+Linguee
 ===================
 
 
@@ -233,30 +223,28 @@ Linguee Translator
 
     word = 'good'
 
-- Simple Translation
+- 簡単な翻訳方法
 
 .. code-block:: python
 
     translated_word = LingueeTranslator(source='english', target='french').translate(word)
 
-    # pass language by their abbreviation
+    # 言語の省略形を指定する
     translated_word = LingueeTranslator(source='en', target='fr').translate(word)
 
-- Return all synonyms or words that matches
-
+- 全ての同義語か一致する単語を返す
 .. code-block:: python
 
-    # set the argument return_all to True if you want to get all synonyms of the word to translate
+    # 翻訳結果の全ての同義語を取得したい場合、引数にreturn_allにTrueを指定してください
     translated_word = LingueeTranslator(source='english', target='french').translate(word, return_all=True)
 
 
-Mymemory Translator
+Mymemory
 ====================
 
-.. note::
+.. ポイント::
 
-    You can use the automatic language detection with mymemory by passing
-    "auto" as a value for the source language
+　　sourceに"auto"を渡すことでmymemoryの自動言語検出を使用できます。
 
 .. code-block:: python
 
@@ -264,47 +252,46 @@ Mymemory Translator
 
     translated = MyMemoryTranslator(source='auto', target='french').translate(text)
 
-Usage from Terminal
+ターミナルでの使用方法
 ====================
 
-For a quick access, you can use the deep_translator from terminal. For this to work, you need to provide
-the right arguments, which are the translator you want to use, source language, target language and the text
-you want to translate.
 
-For example, provide "google" as an argument to use the google translator. Alternatively you can use
-the other supported translators. Just read the documentation to have an overview about the supported
-translators in this library.
+ターミナルからdeep_translatorをすぐに使用できます。使用するには、使用する翻訳サービス、翻訳元の言語、翻訳先の言語、翻訳するテキストなどを引数に指定する必要があります。
+たとえば、Google翻訳を使用するには、引数として「google」を指定します。引数を変更することで、サポートされている他の翻訳サービスに切り替えることも可能です。ドキュメントを読んで、このツールでサポートされている翻訳サービスを確認してください。
+
 
 .. code-block:: console
 
     $ deep_translator --translator "google" --source "english" --target "german" --text "happy coding"
 
-Or you can go for the short version:
+以下のように短く記述することもできます:
 
 .. code-block:: console
 
     $ deep_translator -trans "google" -src "english" -tg "german" -txt "happy coding"
 
-If you want, you can also pass the source and target language by their abbreviation
+
+翻訳元と翻訳先の言語を省略形で引数に指定することも出来ます。
 
 .. code-block:: console
 
     $ deep_translator -trans "google" -src "en" -tg "de" -txt "happy coding"
 
-Side Hint
+
+ヒント
 ==========
 
-Generally, I find the google and mymemory translators suitable for translating sentences, whereas
-the pons and linguee translators are good choices if you want to translate words.
+一般的に、google翻訳とmymemoryは文章に翻訳に適していますが、ponsとlingueeは単語の翻訳に適しています。
 
 ========
-Links
+リンク
 ========
-Check this article on medium to know why you should use the deep-translator package and how to translate text using python.
+
+deep_translatorの使用目的やpythonで翻訳をする方法を確認するために以下のmediumの記事を確認してください。
 https://medium.com/@nidhalbacc/how-to-translate-text-with-python-9d203139dcf5
 
 ===========================
-The Translator++ mobile app
+スマートフォンアプリ Translator++ 
 ===========================
 
 .. image:: assets/app-icon.png
@@ -312,24 +299,20 @@ The Translator++ mobile app
     :alt: Icon of the app
 
 
-After developing the deep_translator, I realised how cool this would be if I can use it as an app on my mobile phone.
-Sure, there is google translate, pons and linguee apps etc.. but isn't it cooler to make an app where all these
-translators are integrated?
+deep_translatorを開発しみて、スマートフォンのアプリとして使用できれば便利なのではないかと思い立ちました。
+google翻訳やpons、lingueeの個々のアプリは存在しますが、これらを統合して使用できるアプリを作れば便利ではないでしょうか。
 
-Long story short, I started working on the app. I decided to use the `kivy framework <https://kivy.org/#home/>`_ since
-I wanted to code in python and to develop a cross platform app.
-I open sourced the `Translator++ app <https://github.com/nidhaloff/deep-translator-app/>`_ on my github too.
-Feel free to take a look at the code or make a pull request ;)
+それを出発点として、アプリの開発を開始しました。Pythonで作成しつつ、クロスプラットフォームのアプリを開発したかったので、kivyフレームワーク<https://kivy.org/#home/>を使用することにしました。
+Translator ++もgithubでオープンソースとして公開しています。自由に編集やプルリクエストを行ってください;）
 
-.. note::
-    The Translator++ app is based on the deep_translator package. I just built the app to prove the capabilities
-    of the deep_translator package ;)
+.. ポイント::
+　　　Translator++はdeep_translatorパッケージがベースになっています。このアプリはパッケージの機能を試すために開発されています;)
 
-I published the first release on google play store on 02-08-2020
+02-08-2020にGoogle Playで初公開されました。
 
-Here are some screenshots:
+スクリーンショット:
 
-- Phone
+- スマートフォン
 
 .. image:: assets/translator1.jpg
     :width: 30%
@@ -344,7 +327,7 @@ Here are some screenshots:
     :height: 200
     :alt: spinner
 
-- Tablet:
+- タブレット:
 
 .. image:: assets/hz_view.png
     :width: 100%
@@ -352,8 +335,9 @@ Here are some screenshots:
     :alt: screenshot3
 
 ==========
-Next Steps
+次のステップ
 ==========
 
-Take a look in the examples folder for more :)
-Contributions are always welcome. Feel free to make a pull request and give me a feedback if you found the package useful or you are using it :)
+
+詳細は examples フォルダを確認してください :) 
+コントリビュートはいつでも歓迎しています。このパッケージが便利だと感じた方や使っている方がいたら、遠慮なくプルリクエストをしてフィードバックをください :)
