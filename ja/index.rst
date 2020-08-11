@@ -13,7 +13,7 @@ deep_translatorのドキュメントへようこそ！
    authors
    history
 
-目次と表
+目次
 ==================
 * :ref:`genindex`
 * :ref:`modindex`

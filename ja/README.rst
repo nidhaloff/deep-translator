@@ -340,7 +340,7 @@ Translator++はdeep_translatorパッケージがベースになっています�
     :alt: screenshot3
 
 ==========
-次のステップ
+次のステップに進むためには
 ==========
 
 詳細は examples フォルダを確認してください。

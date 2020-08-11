@@ -25,7 +25,7 @@ pipがインストールされていない場合は、以下のPythonインス�
 From sources
 ------------
 
-deep_translatorのソースはGithubからダウンロードできます.
+deep_translatorのソースはGithubのリポジトリからダウンロードできます.
 
 公開されているリポジトリのクローンも可能です:
 
