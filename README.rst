@@ -1,6 +1,6 @@
-****************
+##################
 deep_translator
-****************
+##################
 
 
 .. image:: https://img.shields.io/pypi/v/deep_translator.svg
@@ -113,7 +113,7 @@ This includes the google, pons, linguee and mymemory translator (at least for no
 translators will be integrated in the future.
 
 Imports
---------
+""""""""
 
 .. code-block:: python
 
@@ -121,11 +121,12 @@ Imports
                                  PonsTranslator,
                                  LingueeTranslator,
                                  MyMemoryTranslator,
-                                 detect_language)
+                                 single_detection,
+                                 batch_detection)
 
 
 Check Supported Languages
--------------------------
+""""""""""""""""""""""""""
 
 .. note::
 
@@ -141,7 +142,7 @@ Check Supported Languages
     langs_dict = GoogleTranslator.get_supported_languages(as_dict=True)  # output: {arabic: ar, french: fr, english:en etc...}
 
 Language Detection
--------------------
+"""""""""""""""""""
 
 .. note::
 
@@ -149,10 +150,20 @@ Language Detection
     Therefore, you will need to get your own api_key if you want to use the language detection function.
     I figured out you can get one for free here: https://detectlanguage.com/documentation
 
+- Single Text Detection
+
 .. code-block:: python
 
-    lang = detect_language('bonjour la vie', api_key='your_api_key')
+    lang = single_detection('bonjour la vie', api_key='your_api_key')
     print(lang) # output: fr
+
+- Batch Detection
+
+.. code-block:: python
+
+    lang = batch_detection(['bonjour la vie', 'hello world'], api_key='your_api_key')
+    print(lang) # output: [fr, en]
+
 
 
 Google Translate
