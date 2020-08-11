@@ -86,7 +86,8 @@ Features
 * Support for Pons translator (pons.com)
 * Support for the Linguee translator
 * Support for the Mymemory translator
-* Automatic language detection
+* Automatic single language detection
+* Batch language detection
 * Translate directly from a text file
 * Get multiple translation for a word
 * Automate the translation of different paragraphs in different languages
@@ -113,7 +114,7 @@ This includes the google, pons, linguee and mymemory translator (at least for no
 translators will be integrated in the future.
 
 Imports
-""""""""
+--------
 
 .. code-block:: python
 
@@ -126,7 +127,7 @@ Imports
 
 
 Check Supported Languages
-""""""""""""""""""""""""""
+---------------------------
 
 .. note::
 
@@ -142,7 +143,7 @@ Check Supported Languages
     langs_dict = GoogleTranslator.get_supported_languages(as_dict=True)  # output: {arabic: ar, french: fr, english:en etc...}
 
 Language Detection
-"""""""""""""""""""
+------------------
 
 .. note::
 
