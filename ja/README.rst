@@ -311,7 +311,7 @@ google翻訳やpons、lingueeの個々のアプリは存在しますが、これ
 
 ポイント
 
-Translator++はdeep_translatorパッケージがベースになっています。このアプリはパッケージの機能を試すために開発されています;)
+Translator++はdeep_translatorパッケージがベースになっています。このアプリはパッケージの機能を試すために開発されています。
 
 02-08-2020にGoogle Playで初公開されました。
 
