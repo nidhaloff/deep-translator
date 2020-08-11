@@ -113,7 +113,7 @@ This includes the google, pons, linguee and mymemory translator (at least for no
 translators will be integrated in the future.
 
 Imports
-========
+--------
 
 .. code-block:: python
 
@@ -125,7 +125,7 @@ Imports
 
 
 Check Supported Languages
-==========================
+-------------------------
 
 .. note::
 
@@ -141,7 +141,7 @@ Check Supported Languages
     langs_dict = GoogleTranslator.get_supported_languages(as_dict=True)  # output: {arabic: ar, french: fr, english:en etc...}
 
 Language Detection
-===================
+-------------------
 
 .. note::
 
@@ -156,7 +156,7 @@ Language Detection
 
 
 Google Translate
-=================
+-----------------
 
 .. code-block:: python
 
@@ -196,7 +196,7 @@ Google Translate
 
 
 PONS Translator
-===============
+----------------
 
 .. note::
 
@@ -226,7 +226,7 @@ PONS Translator
 
 
 Linguee Translator
-===================
+-------------------
 
 
 .. code-block:: python
@@ -251,7 +251,7 @@ Linguee Translator
 
 
 Mymemory Translator
-====================
+--------------------
 
 .. note::
 
@@ -265,7 +265,7 @@ Mymemory Translator
     translated = MyMemoryTranslator(source='auto', target='french').translate(text)
 
 Usage from Terminal
-====================
+--------------------
 
 For a quick access, you can use the deep_translator from terminal. For this to work, you need to provide
 the right arguments, which are the translator you want to use, source language, target language and the text
@@ -292,7 +292,7 @@ If you want, you can also pass the source and target language by their abbreviat
     $ deep_translator -trans "google" -src "en" -tg "de" -txt "happy coding"
 
 Side Hint
-==========
+----------
 
 Generally, I find the google and mymemory translators suitable for translating sentences, whereas
 the pons and linguee translators are good choices if you want to translate words.
@@ -302,6 +302,15 @@ Links
 ========
 Check this article on medium to know why you should use the deep-translator package and how to translate text using python.
 https://medium.com/@nidhalbacc/how-to-translate-text-with-python-9d203139dcf5
+
+
+==========
+Next Steps
+==========
+
+Take a look in the examples folder for more :)
+Contributions are always welcome.
+Read the Contribution guildlines `Here <https://deep-translator.readthedocs.io/en/latest/contributing.html/>`_
 
 ===========================
 The Translator++ mobile app
@@ -351,9 +360,3 @@ Here are some screenshots:
     :height: 300
     :alt: screenshot3
 
-==========
-Next Steps
-==========
-
-Take a look in the examples folder for more :)
-Contributions are always welcome. Feel free to make a pull request and give me a feedback if you found the package useful or you are using it :)
