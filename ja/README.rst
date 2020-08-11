@@ -138,7 +138,7 @@ Pythonを使用してテキストを別の言語に翻訳するタスクがあ�
 
 ポイント
 
-　　言語を自動的に検出することもできます。当然、このパッケージは無料です。言語検出機能を無料で使用する場合は、個人でapi_keyを取得する必要があります。ここで無料で入手することができます:https://detectlanguage.com/documentation
+言語を自動的に検出することもできます。当然、このパッケージは無料です。言語検出機能を無料で使用する場合は、個人でapi_keyを取得する必要があります。ここで無料で入手することができます:https://detectlanguage.com/documentation
 
 .. code-block:: python
 
@@ -177,12 +177,14 @@ Google 翻訳
 
     translated = GoogleTranslator(source='auto', target='german').translate_file('path/to/file')
 
--　ソースの言語を検出し、望んだ言語に自動翻訳することが出来ます。
+
+- ソースの言語を検出し、望んだ言語に自動翻訳することが出来ます。
 
 .. code-block:: python
 
-　　 # または、異なる言語の文章の翻訳を自動化したい時にも利用できます。
+    # または、異なる言語の文章の翻訳を自動化したい時にも利用できます。
     translated = GoogleTranslator(source='auto', target='de').translate_sentences([your_list_of_sentences])
+
 
 
 
@@ -191,7 +193,7 @@ PONS
 
 ポイント
 
-　　　Google翻訳同様に言語の名前を指定して翻訳することが出来ます。省略形で指定することも可能です。
+Google翻訳同様に言語の名前を指定して翻訳することが出来ます。省略形で指定することも可能です。
 
 .. code-block:: python
 
@@ -206,11 +208,13 @@ PONS
     # 言語の省略形を指定する
     translated_word = PonsTranslator(source='en', target='fr').translate(word)
 
+
 - 全ての同義語か一致する単語を返す
+
 .. code-block:: python
 
-　　 # 翻訳結果の全ての同義語を取得したい場合、引数にreturn_allにTrueを指定してください
-    translated_word = PonsTranslator(source='english', target='french').translate(word, return_all=True)
+    # 翻訳結果の全ての同義語を取得したい場合、引数にreturn_allにTrueを指定してください
+    translated_word = LingueeTranslator(source='english', target='french').translate(word, return_all=True)
 
 
 
@@ -232,6 +236,7 @@ Linguee
     translated_word = LingueeTranslator(source='en', target='fr').translate(word)
 
 - 全ての同義語か一致する単語を返す
+
 .. code-block:: python
 
     # 翻訳結果の全ての同義語を取得したい場合、引数にreturn_allにTrueを指定してください
@@ -243,7 +248,7 @@ Mymemory
 
 ポイント
 
-　　sourceに"auto"を渡すことでmymemoryの自動言語検出を使用できます。
+sourceに"auto"を渡すことでmymemoryの自動言語検出を使用できます。
 
 .. code-block:: python
 
@@ -301,11 +306,12 @@ https://medium.com/@nidhalbacc/how-to-translate-text-with-python-9d203139dcf5
 deep_translatorを開発しみて、スマートフォンのアプリとして使用できれば便利なのではないかと思い立ちました。
 google翻訳やpons、lingueeの個々のアプリは存在しますが、これらを統合して使用できるアプリを作れば便利ではないでしょうか。
 
-それを出発点として、アプリの開発を開始しました。Pythonで作成しつつ、クロスプラットフォームのアプリを開発したかったので、kivyフレームワーク<https://kivy.org/#home/>を使用することにしました。
-Translator ++もgithubでオープンソースとして公開しています。自由に編集やプルリクエストを行ってください;）
+それを出発点として、アプリの開発を開始しました。Pythonで作成しつつ、クロスプラットフォームのアプリを開発したかったので、`kivy フレームワーク <https://kivy.org/#home/>`_ を使用することにしました。
+`Translator++ app <https://github.com/nidhaloff/deep-translator-app/>`_ もgithubでオープンソースとして公開しています。自由に編集やプルリクエストを行ってください;）
 
 ポイント
-　　　Translator++はdeep_translatorパッケージがベースになっています。このアプリはパッケージの機能を試すために開発されています;)
+
+Translator++はdeep_translatorパッケージがベースになっています。このアプリはパッケージの機能を試すために開発されています;)
 
 02-08-2020にGoogle Playで初公開されました。
 
