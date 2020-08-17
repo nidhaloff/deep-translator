@@ -43,17 +43,17 @@ class GoogleTranslator(BaseTranslator):
         @return: mapped value of the language or raise an exception if the language is not supported
         """
         for language in languages:
-            if language in GOOGLE_LANGUAGES_TO_CODES.values() or language == 'auto':
+            if language in self._languages.values() or language == 'auto':
                 yield language
-            elif language in GOOGLE_LANGUAGES_TO_CODES.keys():
-                yield GOOGLE_LANGUAGES_TO_CODES[language]
+            elif language in self._languages.keys():
+                yield self._languages[language]
             else:
                 raise LanguageNotSupportedException(language)
 
     def is_language_supported(self, *languages):
         for lang in languages:
-            if lang != 'auto' and lang not in GOOGLE_LANGUAGES_TO_CODES.keys():
-                if lang != 'auto' and lang not in GOOGLE_LANGUAGES_TO_CODES.values():
+            if lang != 'auto' and lang not in self._languages.keys():
+                if lang != 'auto' and lang not in self._languages.values():
                     raise LanguageNotSupportedException(lang)
         return True
 

@@ -38,17 +38,17 @@ class LingueeTranslator(BaseTranslator):
         @return: mapped value of the language or raise an exception if the language is not supported
         """
         for language in languages:
-            if language in LINGUEE_LANGUAGES_TO_CODES.values():
-                yield LINGUEE_CODE_TO_LANGUAGE[language]
-            elif language in LINGUEE_LANGUAGES_TO_CODES.keys():
+            if language in self._languages.values():
+                yield self._languages[language]
+            elif language in self._languages.keys():
                 yield language
             else:
                 raise LanguageNotSupportedException(language)
 
     def is_language_supported(self, *languages, **kwargs):
         for lang in languages:
-            if lang not in LINGUEE_LANGUAGES_TO_CODES.keys():
-                if lang not in LINGUEE_LANGUAGES_TO_CODES.values():
+            if lang not in self._languages.keys():
+                if lang not in self._languages.values():
                     raise LanguageNotSupportedException(lang)
         return True
 

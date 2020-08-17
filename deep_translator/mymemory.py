@@ -1,6 +1,6 @@
 
 from deep_translator.constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
-from deep_translator.exceptions import NotValidPayload, TranslationNotFound
+from deep_translator.exceptions import NotValidPayload, TranslationNotFound, LanguageNotSupportedException
 from deep_translator.parent import BaseTranslator
 import requests
 
@@ -32,10 +32,32 @@ class MyMemoryTranslator(BaseTranslator):
     def get_supported_languages(as_dict=False):
         return MyMemoryTranslator.supported_languages if not as_dict else MyMemoryTranslator._languages
 
-    def translate(self, text, **kwargs):
+    def _map_language_to_code(self, *languages):
+        """
+
+        @param language: type of language
+        @return: mapped value of the language or raise an exception if the language is not supported
+        """
+        for language in languages:
+            if language in self._languages.values() or language == 'auto':
+                yield language
+            elif language in self._languages.keys():
+                yield self._languages[language]
+            else:
+                raise LanguageNotSupportedException(language)
+
+    def is_language_supported(self, *languages):
+        for lang in languages:
+            if lang != 'auto' and lang not in self._languages.keys():
+                if lang != 'auto' and lang not in self._languages.values():
+                    raise LanguageNotSupportedException(lang)
+        return True
+
+    def translate(self, text, return_all=False, **kwargs):
         """
         main function that uses google translate to translate a text
         @param text: desired text to translate
+        @param return_all: set True to return all synonyms
         @return: str: translated text
         """
 
@@ -62,7 +84,7 @@ class MyMemoryTranslator(BaseTranslator):
                 all_matches = data.get('matches')
                 matches = (match['translation'] for match in all_matches)
                 next_match = next(matches)
-                return next_match if not kwargs.get('return_all') else list(all_matches)
+                return next_match if not return_all else list(all_matches)
 
     def translate_sentences(self, sentences=None, **kwargs):
         """
