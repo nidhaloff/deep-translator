@@ -88,5 +88,5 @@ class LingueeTranslator(BaseTranslator):
 
 
 if __name__ == '__main__':
-    l = LingueeTranslator("en", "fr").translate("good")
+    l = LingueeTranslator("", "").translate("good")
     print("translated: ", l)

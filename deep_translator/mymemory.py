@@ -18,9 +18,11 @@ class MyMemoryTranslator(BaseTranslator):
         @param target: target language to translate to
         """
         self.__base_url = BASE_URLS.get("MYMEMORY")
-        self._source = source if source != 'auto' else 'Lao'
-        self._target = target
+        if self.is_language_supported(source, target):
+            self._source, self._target = self._map_language_to_code(source.lower(), target.lower())
+            self._source = self._source if self._source != 'auto' else 'Lao'
 
+        print(self._source, self._target)
         self.email = kwargs.get('email', None)
         super(MyMemoryTranslator, self).__init__(base_url=self.__base_url,
                                                  source=self._source,
@@ -108,3 +110,8 @@ class MyMemoryTranslator(BaseTranslator):
 
         except Exception as e:
             raise e
+
+
+if __name__ == '__main__':
+    m = MyMemoryTranslator("english", "french").translate("good")
+    print(m)
