@@ -292,13 +292,14 @@ sourceに"auto"を渡すことでmymemoryの自動言語検出を使用できま
 ========
 
 deep_translatorの使用目的やpythonで翻訳をする方法を確認するために以下のmediumの記事を確認してください。
+
 https://medium.com/@nidhalbacc/how-to-translate-text-with-python-9d203139dcf5
 
 ===========================
 スマートフォンアプリ Translator++ 
 ===========================
 
-.. image:: assets/app-icon.png
+.. image:: ../../assets/app-icon.png
     :width: 100
     :alt: Icon of the app
 
@@ -319,22 +320,22 @@ Translator++はdeep_translatorパッケージがベースになっています�
 
 - スマートフォン :
 
-.. image:: assets/translator1.jpg
+.. image:: ../../assets/translator1.jpg
     :width: 30%
     :height: 200
     :alt: screenshot1
-.. image:: assets/translator2.jpg
+.. image:: ../../assets/translator2.jpg
     :width: 30%
     :height: 200
     :alt: screenshot2
-.. image:: assets/spinner.jpg
+.. image:: ../../assets/spinner.jpg
     :width: 30%
     :height: 200
     :alt: spinner
 
 - タブレット:
 
-.. image:: assets/hz_view.png
+.. image:: ../../assets/hz_view.png
     :width: 100%
     :height: 300
     :alt: screenshot3

@@ -1,9 +1,13 @@
+
 Welcome to deep_translator's documentation!
 ======================================
+
+If you see this doc in other languages,you can see :doc:`Choose languages</other_lang>`. 
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   :name: mastertoc
 
    readme
    installation
@@ -12,7 +16,13 @@ Welcome to deep_translator's documentation!
    contributing
    authors
    history
+   other_lang
 
+.. toctree::
+   :hidden:
+
+   ja/index
+   
 Indices and tables
 ==================
 * :ref:`genindex`
