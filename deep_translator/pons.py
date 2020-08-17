@@ -43,7 +43,7 @@ class PonsTranslator(BaseTranslator):
         """
         for language in languages:
             if language in self._languages.values():
-                yield self._languages[language]
+                yield PONS_CODES_TO_LANGUAGES[language]
             elif language in self._languages.keys():
                 yield language
             else:
@@ -95,3 +95,7 @@ class PonsTranslator(BaseTranslator):
             translated_words.append(self.translate(payload=word))
         return translated_words
 
+
+if __name__ == '__main__':
+    l = PonsTranslator("en", "fr").translate("good")
+    print("translated: ", l)

@@ -39,7 +39,7 @@ class LingueeTranslator(BaseTranslator):
         """
         for language in languages:
             if language in self._languages.values():
-                yield self._languages[language]
+                yield LINGUEE_CODE_TO_LANGUAGE[language]
             elif language in self._languages.keys():
                 yield language
             else:
@@ -88,5 +88,5 @@ class LingueeTranslator(BaseTranslator):
 
 
 if __name__ == '__main__':
-    l = LingueeTranslator("", "").translate("good")
+    l = LingueeTranslator("en", "fr").translate("good")
     print("translated: ", l)
