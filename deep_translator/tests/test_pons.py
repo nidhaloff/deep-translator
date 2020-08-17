@@ -3,39 +3,39 @@
 """Tests for `deep_translator` package."""
 
 import pytest
-from deep_translator import exceptions, GoogleTranslator, MyMemoryTranslator
+from deep_translator import exceptions, PonsTranslator
 
 
 @pytest.fixture
-def mymemory():
-    return MyMemoryTranslator(source="en", target='fr')
+def pons():
+    return PonsTranslator(source="en", target='fr')
 
 
-def test_content(mymemory):
+def test_content(pons):
     """Sample pytest test function with the pytest fixture as an argument."""
     # from bs4 import BeautifulSoup
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
-    assert mymemory.translate(text='good') is not None
+    assert pons.translate(word='good') is not None
 
 
 def test_inputs():
     with pytest.raises(exceptions.LanguageNotSupportedException):
-        mymemory(source="", target="")
+        pons(source="", target="")
 
     with pytest.raises(exceptions.LanguageNotSupportedException):
-        mymemory(source="auto", target="nothing")
+        pons(source="auto", target="nothing")
 
 
-def test_payload(mymemory):
-
-    with pytest.raises(exceptions.NotValidPayload):
-        mymemory.translate(text="")
+def test_payload(pons):
 
     with pytest.raises(exceptions.NotValidPayload):
-        mymemory.translate(text=123)
+        pons.translate("")
 
     with pytest.raises(exceptions.NotValidPayload):
-        mymemory.translate(text={})
+        pons.translate(123)
 
     with pytest.raises(exceptions.NotValidPayload):
-        mymemory.translate(text=[])
+        pons.translate({})
+
+    with pytest.raises(exceptions.NotValidPayload):
+        pons.translate([])
