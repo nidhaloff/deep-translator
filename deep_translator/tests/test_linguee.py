@@ -20,10 +20,10 @@ def test_content(linguee):
 
 def test_inputs():
     with pytest.raises(exceptions.LanguageNotSupportedException):
-        linguee(source="", target="")
+        LingueeTranslator(source="", target="")
 
     with pytest.raises(exceptions.LanguageNotSupportedException):
-        linguee(source="auto", target="nothing")
+        LingueeTranslator(source="auto", target="nothing")
 
 
 def test_payload(linguee):

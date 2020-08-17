@@ -20,10 +20,10 @@ def test_content(pons):
 
 def test_inputs():
     with pytest.raises(exceptions.LanguageNotSupportedException):
-        pons(source="", target="")
+        PonsTranslator(source="", target="")
 
     with pytest.raises(exceptions.LanguageNotSupportedException):
-        pons(source="auto", target="nothing")
+        PonsTranslator(source="auto", target="nothing")
 
 
 def test_payload(pons):

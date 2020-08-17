@@ -87,3 +87,6 @@ class LingueeTranslator(BaseTranslator):
         return translated_words
 
 
+if __name__ == '__main__':
+    l = LingueeTranslator("en", "fr").translate("good")
+    print("translated: ", l)

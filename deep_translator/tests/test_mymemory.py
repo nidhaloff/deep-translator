@@ -3,7 +3,7 @@
 """Tests for `deep_translator` package."""
 
 import pytest
-from deep_translator import exceptions, GoogleTranslator, MyMemoryTranslator
+from deep_translator import exceptions, MyMemoryTranslator
 
 
 @pytest.fixture
@@ -20,10 +20,10 @@ def test_content(mymemory):
 
 def test_inputs():
     with pytest.raises(exceptions.LanguageNotSupportedException):
-        mymemory(source="", target="")
+        MyMemoryTranslator(source="", target="")
 
     with pytest.raises(exceptions.LanguageNotSupportedException):
-        mymemory(source="auto", target="nothing")
+        MyMemoryTranslator(source="auto", target="nothing")
 
 
 def test_payload(mymemory):
