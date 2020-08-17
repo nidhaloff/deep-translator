@@ -25,6 +25,11 @@ def test_inputs():
     with pytest.raises(exceptions.LanguageNotSupportedException):
         LingueeTranslator(source="auto", target="nothing")
 
+    l1 = LingueeTranslator("en", "fr")
+    l2 = LingueeTranslator("english", "french")
+    assert l1._source == l2._source
+    assert l1._target == l2._target
+
 
 def test_payload(linguee):
 

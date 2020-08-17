@@ -24,7 +24,10 @@ def test_inputs():
 
     with pytest.raises(exceptions.LanguageNotSupportedException):
         MyMemoryTranslator(source="auto", target="nothing")
-
+    m1 = MyMemoryTranslator("en", "fr")
+    m2 = MyMemoryTranslator("english", "french")
+    assert m1._source == m2._source
+    assert m1._target == m2._target
 
 def test_payload(mymemory):
 

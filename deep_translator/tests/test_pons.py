@@ -24,7 +24,10 @@ def test_inputs():
 
     with pytest.raises(exceptions.LanguageNotSupportedException):
         PonsTranslator(source="auto", target="nothing")
-
+    l1 = PonsTranslator("en", "fr")
+    l2 = PonsTranslator("english", "french")
+    assert l1._source == l2._source
+    assert l1._target == l2._target
 
 def test_payload(pons):
 

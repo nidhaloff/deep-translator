@@ -111,7 +111,3 @@ class MyMemoryTranslator(BaseTranslator):
         except Exception as e:
             raise e
 
-
-if __name__ == '__main__':
-    m = MyMemoryTranslator("english", "french").translate("good")
-    print(m)
