@@ -8,7 +8,7 @@ from deep_translator import exceptions, PonsTranslator
 
 @pytest.fixture
 def pons():
-    return PonsTranslator(source="en", target='fr')
+    return PonsTranslator(source="english", target='french')
 
 
 def test_content(pons):
