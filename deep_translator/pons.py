@@ -38,22 +38,21 @@ class PonsTranslator(BaseTranslator):
 
     def _map_language_to_code(self, *languages, **kwargs):
         """
-
         @param language: type of language
         @return: mapped value of the language or raise an exception if the language is not supported
         """
         for language in languages:
-            if language in PONS_LANGUAGES_TO_CODES.values():
+            if language in self._languages.values():
                 yield PONS_CODES_TO_LANGUAGES[language]
-            elif language in PONS_LANGUAGES_TO_CODES.keys():
+            elif language in self._languages.keys():
                 yield language
             else:
                 raise LanguageNotSupportedException(language)
 
     def is_language_supported(self, *languages, **kwargs):
         for lang in languages:
-            if lang not in PONS_LANGUAGES_TO_CODES.keys():
-                if lang not in PONS_LANGUAGES_TO_CODES.values():
+            if lang not in self._languages.keys():
+                if lang not in self._languages.values():
                     raise LanguageNotSupportedException(lang)
         return True
 

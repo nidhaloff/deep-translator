@@ -29,11 +29,22 @@ def test_inputs():
     with pytest.raises(exceptions.LanguageNotSupportedException):
         GoogleTranslator(source="auto", target="nothing")
 
+    g1 = GoogleTranslator("en", "fr")
+    g2 = GoogleTranslator("english", "french")
+    assert g1._source == g2._source
+    assert g1._target == g2._target
+
 
 def test_payload(google_translator):
+
     with pytest.raises(exceptions.NotValidPayload):
         google_translator.translate(text="")
+
     with pytest.raises(exceptions.NotValidPayload):
         google_translator.translate(text=123)
 
+    with pytest.raises(exceptions.NotValidPayload):
+        google_translator.translate(text={})
 
+    with pytest.raises(exceptions.NotValidPayload):
+        google_translator.translate(text=[])
