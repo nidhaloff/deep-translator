@@ -71,21 +71,21 @@ When you should use it
 Why you should use it
 ======================
 
+- It's the only python tool that integrates many translators
 - High level of abstraction
 - Automatic language detection
 - Easy to use and extend
-- It's the only python tool that integrates many translators
-- Stable
 - Support for most famous universal translators
+- Stable and maintained regularly
 
 ========
 Features
 ========
 
 * Support for google translate
-* Support for Pons translator (pons.com)
-* Support for the Linguee translator
-* Support for the Mymemory translator
+* Support for `Pons translator <https://de.pons.com//>`_
+* Support for the `Linguee translator <https://www.linguee.com//>`_
+* Support for the `Mymemory translator <https://mymemory.translated.net//>`_
 * Automatic single language detection
 * Batch language detection
 * Translate directly from a text file
@@ -112,6 +112,12 @@ Usage
 In this section, demos on how to use all different integrated translators in this tool are provided.
 This includes the google, pons, linguee and mymemory translator (at least for now). Perhaps more
 translators will be integrated in the future.
+
+.. note::
+
+    You can always pass the languages by the name or by abbreviation.
+
+    *Example*: If you want to use english as a source or target language, you can pass **english** or **en** as an argument
 
 Imports
 --------
@@ -178,13 +184,13 @@ Google Translate
 
 .. code-block:: python
 
-    translated = GoogleTranslator(source='auto', target='german').translate(text=text)
+    translated = GoogleTranslator(source='auto', target='de').translate(text=text)
 
 - You can pass languages by name:
 
 .. code-block:: python
 
-    translated = GoogleTranslator(source='english', target='german').translate(text=text)
+    translated = GoogleTranslator(source='auto', target='german').translate(text=text)
 
 - Alternatively, you can pass languages by their abbreviation:
 
@@ -202,9 +208,67 @@ Google Translate
 
 .. code-block:: python
 
-    # or maybe you have many sentences in different languages and want to automate the translation process
+    # this is useful if you have many sentences in different languages and want to automate the translation process
     translated = GoogleTranslator(source='auto', target='de').translate_sentences([your_list_of_sentences])
 
+
+Mymemory Translator
+--------------------
+
+.. note::
+
+    As in google translate, you can use the automatic language detection with mymemory by using "auto" as an
+    argument for the source language. However, this feature in the mymemory translator is not so powerful as
+    in google translate.
+
+- Simple translation
+
+.. code-block:: python
+
+    text = 'Keep it up. You are awesome'
+
+    translated = MyMemoryTranslator(source='auto', target='french').translate(text)
+
+- Translate a list of sentences or paragraphs
+
+.. code-block:: python
+
+    texts = ["hallo welt", "guten morgen"]
+    translated = MyMemoryTranslator('de', 'english').translate_sentences(texts)
+
+- Translate from file
+
+.. code-block:: python
+
+    path = "your_file.txt"
+
+    translated = MyMemoryTranslator(source='en', target='fr').translate_file(path)
+
+
+
+Linguee Translator
+-------------------
+
+
+.. code-block:: python
+
+    word = 'good'
+
+- Simple Translation
+
+.. code-block:: python
+
+    translated_word = LingueeTranslator(source='english', target='french').translate(word)
+
+    # pass language by their abbreviation
+    translated_word = LingueeTranslator(source='en', target='fr').translate(word)
+
+- Return all synonyms or words that matches
+
+.. code-block:: python
+
+    # set the argument return_all to True if you want to get all synonyms of the word to translate
+    translated_word = LingueeTranslator(source='english', target='french').translate(word, return_all=True)
 
 
 PONS Translator
@@ -237,45 +301,6 @@ PONS Translator
 
 
 
-Linguee Translator
--------------------
-
-
-.. code-block:: python
-
-    word = 'good'
-
-- Simple Translation
-
-.. code-block:: python
-
-    translated_word = LingueeTranslator(source='english', target='french').translate(word)
-
-    # pass language by their abbreviation
-    translated_word = LingueeTranslator(source='en', target='fr').translate(word)
-
-- Return all synonyms or words that matches
-
-.. code-block:: python
-
-    # set the argument return_all to True if you want to get all synonyms of the word to translate
-    translated_word = LingueeTranslator(source='english', target='french').translate(word, return_all=True)
-
-
-Mymemory Translator
---------------------
-
-.. note::
-
-    You can use the automatic language detection with mymemory by passing
-    "auto" as a value for the source language
-
-.. code-block:: python
-
-    text = 'Keep it up. You are awesome'
-
-    translated = MyMemoryTranslator(source='auto', target='french').translate(text)
-
 Usage from Terminal
 --------------------
 
@@ -306,7 +331,7 @@ If you want, you can also pass the source and target language by their abbreviat
 Side Hint
 ----------
 
-Generally, I find the google and mymemory translators suitable for translating sentences, whereas
+Generally, I find the google and mymemory translators suitable for translating texts/paragraphs, whereas
 the pons and linguee translators are good choices if you want to translate words.
 
 ========

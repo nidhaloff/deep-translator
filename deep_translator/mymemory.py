@@ -24,7 +24,6 @@ class MyMemoryTranslator(BaseTranslator):
             self._source, self._target = self._map_language_to_code(source.lower(), target.lower())
             self._source = self._source if self._source != 'auto' else 'Lao'
 
-        print(self._source, self._target)
         self.email = kwargs.get('email', None)
         super(MyMemoryTranslator, self).__init__(base_url=self.__base_url,
                                                  source=self._source,
@@ -143,3 +142,9 @@ class MyMemoryTranslator(BaseTranslator):
             return self.translate(text=text)
         except Exception as e:
             raise e
+
+
+if __name__ == '__main__':
+
+    res = MyMemoryTranslator('de', 'english').translate_sentences(["hallo welt", "guten morgen"])
+    print(res)
