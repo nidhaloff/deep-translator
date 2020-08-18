@@ -143,8 +143,3 @@ class MyMemoryTranslator(BaseTranslator):
         except Exception as e:
             raise e
 
-
-if __name__ == '__main__':
-
-    res = MyMemoryTranslator('de', 'english').translate_sentences(["hallo welt", "guten morgen"])
-    print(res)

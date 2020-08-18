@@ -105,6 +105,22 @@ Install the stable release:
 
 take a look at the docs if you want to install from source.
 
+============
+Quick Start
+============
+
+.. code-block:: python
+
+    from deep_translator import GoogleTranslator
+    translated = GoogleTranslator(source='auto', target='de').translate("keep it up, you are awesome")  # output -> Weiter so, du bist großartig
+
+or from terminal
+
+.. code-block:: console
+
+    $ deep_translator -trans "google" -src "en" -tg "de" -txt "keep it up, you are awesome"
+
+
 =====
 Usage
 =====
@@ -270,6 +286,11 @@ Linguee Translator
     # set the argument return_all to True if you want to get all synonyms of the word to translate
     translated_word = LingueeTranslator(source='english', target='french').translate(word, return_all=True)
 
+- Translate a batch of words
+
+.. code-block:: python
+
+    translated_words = LingueeTranslator(source='english', target='french').translate_words(["good", "awesome"])
 
 PONS Translator
 ----------------
@@ -299,7 +320,11 @@ PONS Translator
     # set the argument return_all to True if you want to get all synonyms of the word to translate
     translated_word = PonsTranslator(source='english', target='french').translate(word, return_all=True)
 
+- Translate a batch of words
 
+.. code-block:: python
+
+    translated_words = LingueeTranslator(source='english', target='french').translate_words(["good", "awesome"])
 
 Usage from Terminal
 --------------------
