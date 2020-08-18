@@ -9,7 +9,7 @@ from .detection import single_detection, batch_detection
 
 __author__ = """Nidhal Baccouri"""
 __email__ = 'nidhalbacc@gmail.com'
-__version__ = '1.1.7'
+__version__ = '1.1.8'
 
 __all__ = [GoogleTranslator,
            PonsTranslator,
