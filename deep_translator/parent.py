@@ -1,4 +1,4 @@
-"""Main module."""
+"""parent translator class"""
 
 from deep_translator.exceptions import NotValidPayload, NotValidLength
 from abc import ABC, abstractmethod
@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 
 class BaseTranslator(ABC):
     """
-    class that serve as a parent translator class for other different translators
+    Abstract class that serve as a parent translator for other different translators
     """
     def __init__(self,
                  base_url=None,
@@ -34,7 +34,7 @@ class BaseTranslator(ABC):
     @staticmethod
     def _validate_payload(payload, min_chars=1, max_chars=5000):
         """
-        validate the text text to translate
+        validate the target text to translate
         @param payload: text to translate
         @return: bool
         """
@@ -42,14 +42,27 @@ class BaseTranslator(ABC):
         if not payload or not isinstance(payload, str):
             raise NotValidPayload(payload)
         if not BaseTranslator.__check_length(payload, min_chars, max_chars):
-            raise NotValidLength
+            raise NotValidLength(payload, min_chars, max_chars)
         return True
 
     @staticmethod
     def __check_length(payload, min_chars, max_chars):
+        """
+        check length of the provided target text to translate
+        @param payload: text to translate
+        @param min_chars: minimum characters allowed
+        @param max_chars: maximum characters allowed
+        @return: bool
+        """
         return True if min_chars < len(payload) < max_chars else False
 
     @abstractmethod
     def translate(self, text, **kwargs):
+        """
+        translate a text using a translator under the hood and return the translated text
+        @param text: text to translate
+        @param kwargs: additional arguments
+        @return: str
+        """
         return NotImplemented('You need to implement the translate method!')
 

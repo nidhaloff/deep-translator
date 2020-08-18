@@ -1,4 +1,5 @@
 """Console script for deep_translator."""
+
 import argparse
 import sys
 from .google_trans import GoogleTranslator
@@ -8,6 +9,11 @@ from .linguee import LingueeTranslator
 
 
 def translate(args):
+    """
+    function used to provide translations from the parsed terminal arguments
+    @param args: parsed terminal arguments
+    @return: None
+    """
     translator = None
     if args.translator == 'google':
         translator = GoogleTranslator(source=args.source, target=args.target)
@@ -26,7 +32,10 @@ def translate(args):
 
 
 def main():
-    """Console script for deep_translator."""
+    """
+    function responsible for parsing terminal arguments and provide them for further use in the translation process
+
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--translator', '-trans',
                         default='google', type=str, help="name of the translator you want to use")
@@ -36,12 +45,8 @@ def main():
 
     args = parser.parse_args()
     translate(args)
-    # print("Arguments: " + str(args))
-    # print("Replace this message by putting your code into "
-    #       "deep_translator.cli.main")
-    # return 0
+    # sys.exit()
 
 
 if __name__ == "__main__":
-    # sys.exit(main())  # pragma: no cover
     main()

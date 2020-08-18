@@ -44,3 +44,6 @@ def test_payload(linguee):
 
     with pytest.raises(exceptions.NotValidPayload):
         linguee.translate([])
+
+    with pytest.raises(exceptions.NotValidLength):
+        linguee.translate("a"*51)

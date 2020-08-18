@@ -29,6 +29,7 @@ def test_inputs():
     assert l1._source == l2._source
     assert l1._target == l2._target
 
+
 def test_payload(pons):
 
     with pytest.raises(exceptions.NotValidPayload):
@@ -42,3 +43,6 @@ def test_payload(pons):
 
     with pytest.raises(exceptions.NotValidPayload):
         pons.translate([])
+
+    with pytest.raises(exceptions.NotValidLength):
+        pons.translate("a" * 51)

@@ -1,13 +1,15 @@
-
+"""
+mymemory translator API
+"""
 from deep_translator.constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
-from deep_translator.exceptions import NotValidPayload, TranslationNotFound, LanguageNotSupportedException
+from deep_translator.exceptions import NotValidPayload, TranslationNotFound, LanguageNotSupportedException, RequestError
 from deep_translator.parent import BaseTranslator
 import requests
 
 
 class MyMemoryTranslator(BaseTranslator):
     """
-    class that uses google translate to translate texts
+    class that uses the mymemory translator to translate texts
     """
     _languages = GOOGLE_LANGUAGES_TO_CODES
     supported_languages = list(_languages.keys())
@@ -32,13 +34,18 @@ class MyMemoryTranslator(BaseTranslator):
 
     @staticmethod
     def get_supported_languages(as_dict=False):
+        """
+         return the supported languages by the mymemory translator
+         @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
+         @return: list or dict
+         """
         return MyMemoryTranslator.supported_languages if not as_dict else MyMemoryTranslator._languages
 
     def _map_language_to_code(self, *languages):
         """
-
-        @param language: type of language
-        @return: mapped value of the language or raise an exception if the language is not supported
+          map language to its corresponding code (abbreviation) if the language was passed by its full name by the user
+          @param languages: list of languages
+          @return: mapped value of the language or raise an exception if the language is not supported
         """
         for language in languages:
             if language in self._languages.values() or language == 'auto':
@@ -49,6 +56,11 @@ class MyMemoryTranslator(BaseTranslator):
                 raise LanguageNotSupportedException(language)
 
     def is_language_supported(self, *languages):
+        """
+        check if the language is supported by the translator
+        @param languages: list of languages
+        @return: bool or raise an Exception
+        """
         for lang in languages:
             if lang != 'auto' and lang not in self._languages.keys():
                 if lang != 'auto' and lang not in self._languages.values():
@@ -57,13 +69,14 @@ class MyMemoryTranslator(BaseTranslator):
 
     def translate(self, text, return_all=False, **kwargs):
         """
-        main function that uses google translate to translate a text
+        function that uses the mymemory translator to translate a text
         @param text: desired text to translate
-        @param return_all: set True to return all synonyms
-        @return: str: translated text
+        @type text: str
+        @param return_all: set to True to return all synonym/similars of the translated text
+        @return: str or list
         """
 
-        if self._validate_payload(text):
+        if self._validate_payload(text, max_chars=500):
             text = text.strip()
 
             if self.payload_key:
@@ -74,6 +87,10 @@ class MyMemoryTranslator(BaseTranslator):
             response = requests.get(self.__base_url,
                                     params=self._url_params,
                                     headers=self.headers)
+
+            if response.status_code != 200:
+                raise RequestError()
+
             data = response.json()
             if not data:
                 TranslationNotFound(text)
@@ -111,3 +128,18 @@ class MyMemoryTranslator(BaseTranslator):
         except Exception as e:
             raise e
 
+    def translate_file(self, path, **kwargs):
+        """
+         translate directly from file
+         @param path: path to the target file
+         @type path: str
+         @param kwargs: additional args
+         @return: str
+         """
+        try:
+            with open(path) as f:
+                text = f.read()
+
+            return self.translate(text=text)
+        except Exception as e:
+            raise e

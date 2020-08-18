@@ -29,6 +29,7 @@ def test_inputs():
     assert m1._source == m2._source
     assert m1._target == m2._target
 
+
 def test_payload(mymemory):
 
     with pytest.raises(exceptions.NotValidPayload):
@@ -42,3 +43,6 @@ def test_payload(mymemory):
 
     with pytest.raises(exceptions.NotValidPayload):
         mymemory.translate(text=[])
+
+    with pytest.raises(exceptions.NotValidLength):
+        mymemory.translate(text="a"*501)
