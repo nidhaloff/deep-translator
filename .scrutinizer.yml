@@ -1,0 +1,11 @@
+checks:
+    python:
+        code_rating: true
+        duplicate_code: true
+
+build:
+  nodes:
+    analysis:
+      tests:
+        override:
+          - py-scrutinizer-run
