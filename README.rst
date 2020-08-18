@@ -359,6 +359,43 @@ Side Hint
 Generally, I find the google and mymemory translators suitable for translating texts/paragraphs, whereas
 the pons and linguee translators are good choices if you want to translate words.
 
+======
+Tests
+======
+
+- Install dev requirements
+
+.. code-block:: console
+
+    $ pip install -r requirements_dev.txt
+
+- Or just install pytest
+
+.. code-block:: console
+
+    $ pip install pytest
+
+
+- you can run tests individually for each translator by passing the prefix **test_** followed by the translator name as an argument to pytest.
+
+.. code-block:: console
+
+    $ pytest test_google_trans
+    $ pytest test_linguee
+    $ pytest test_mymemory
+    $ pytest test_pons
+
+- Alternatively, you can run the test suite
+
+.. code-block:: console
+
+    $ pytest -ra
+
+
+
+
+
+
 ========
 Links
 ========
