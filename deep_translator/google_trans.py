@@ -136,7 +136,3 @@ class GoogleTranslator(BaseTranslator):
         except Exception as e:
             raise e
 
-
-if __name__ == '__main__':
-    res = GoogleTranslator("auto", "de").translate("keep it up, you are awesome")
-    print(res)
