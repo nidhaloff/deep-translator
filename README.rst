@@ -13,15 +13,21 @@ deep_translator
 .. image:: https://img.shields.io/pypi/l/deep-translator
         :target: https://pypi.python.org/pypi/deep_translator
 
-.. image:: https://img.shields.io/pypi/dm/deep-translator
-        :target: https://pypi.python.org/pypi/deep_translator
 .. image:: https://img.shields.io/pypi/status/deep-translator
         :target: https://pypi.python.org/pypi/deep_translator
-.. image:: https://img.shields.io/pypi/wheel/deep-translator
-        :target: https://pypi.python.org/pypi/deep_translator
+
+.. image:: https://pepy.tech/badge/deep-translator
+    :target: https://pepy.tech/project/deep-translator
+
+.. image:: https://pepy.tech/badge/deep-translator/month
+    :target: https://pepy.tech/project/deep-translator/month
+
 
 .. image:: https://img.shields.io/github/last-commit/nidhaloff/gpx_converter
         :alt: GitHub last commit
+        :target: https://pypi.python.org/pypi/deep_translator
+
+.. image:: https://img.shields.io/pypi/wheel/deep-translator
         :target: https://pypi.python.org/pypi/deep_translator
 
 .. image:: https://img.shields.io/twitter/url?url=https%3A%2F%2Ftwitter.com%2FNidhalBaccouri
@@ -30,7 +36,6 @@ deep_translator
 
 .. image:: https://img.shields.io/badge/$-buy%20me%20a%20coffee-ff69b4.svg?style=social
    :target: https://www.buymeacoffee.com/nidhaloff?new=1
-
 
 =======================
 Translation for humans
