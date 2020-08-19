@@ -23,7 +23,7 @@ deep_translator
     :target: https://pepy.tech/project/deep-translator/month
 
 
-.. image:: https://img.shields.io/github/last-commit/nidhaloff/gpx_converter
+.. image:: https://img.shields.io/github/last-commit/nidhaloff/deep_translator
         :alt: GitHub last commit
         :target: https://pypi.python.org/pypi/deep_translator
 
