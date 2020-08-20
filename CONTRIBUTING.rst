@@ -109,9 +109,35 @@ Before you submit a pull request, check that it meets these guidelines:
 Tips
 ----
 
-To run a subset of tests::
 
-$ pytest tests.test_deep_translator
+- Install dev requirements
+
+.. code-block:: console
+
+    $ pip install -r requirements_dev.txt
+
+- Or just install pytest
+
+.. code-block:: console
+
+    $ pip install pytest
+
+
+- you can run tests individually for each translator by passing the prefix **test_** followed by the translator name as an argument to pytest.
+
+.. code-block:: console
+
+    $ pytest test_google_trans
+    $ pytest test_linguee
+    $ pytest test_mymemory
+    $ pytest test_pons
+
+- Alternatively, you can run the test suite
+
+.. code-block:: console
+
+    $ pytest -ra
+
 
 
 Deploying
