@@ -27,7 +27,8 @@ class BaseTranslator(ABC):
         self._element_tag = element_tag
         self._element_query = element_query
         self.payload_key = payload_key
-        self.headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebit/535.19'
+        self.headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) '
+                                      'AppleWebit/535.19'
                                       '(KHTML, like Gecko) Chrome/18.0.1025.168 Safari/535.19'}
         super(BaseTranslator, self).__init__()
 
@@ -65,4 +66,6 @@ class BaseTranslator(ABC):
         @return: str
         """
         return NotImplemented('You need to implement the translate method!')
+
+
 
