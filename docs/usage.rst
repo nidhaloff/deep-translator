@@ -203,7 +203,7 @@ PONS Translator
     translated_words = LingueeTranslator(source='english', target='french').translate_words(["good", "awesome"])
 
 Yandex Translator
-----------------
+------------------
 
 .. note::
 
