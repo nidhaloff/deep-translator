@@ -4,6 +4,7 @@ from .google_trans import GoogleTranslator
 from .pons import PonsTranslator
 from .linguee import LingueeTranslator
 from .mymemory import MyMemoryTranslator
+from .yandex import YandexTranslator
 from .detection import single_detection, batch_detection
 
 
@@ -15,5 +16,6 @@ __all__ = [GoogleTranslator,
            PonsTranslator,
            LingueeTranslator,
            MyMemoryTranslator,
+           YandexTranslator,
            single_detection,
            batch_detection]

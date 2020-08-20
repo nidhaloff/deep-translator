@@ -204,6 +204,33 @@ PONS Translator
 
     translated_words = LingueeTranslator(source='english', target='french').translate_words(["good", "awesome"])
 
+Yandex Translator
+----------------
+
+.. note::
+
+    You need to require an private api key if you want to use the yandex translator.
+    visit the official website for more information about how to get one
+
+- Language detection
+
+.. code-block:: python
+
+    lang = YandexTranslator('your_api_key').detect('Hallo, Welt')
+    print(f"language detected: {lang}")  # output -> language detected: 'de'
+
+- Text translation
+
+.. code-block:: python
+
+    # with auto detection | meaning provide only the target language and let yandex detect the source
+    translated = YandexTranslator('your_api_key').translate('Hallo, Welt', 'en')
+    print(f"translated text: {translated}")  # output -> translated text: Hello world
+
+    # provide source and target language explicitly
+    translated = YandexTranslator('your_api_key').translate('Hallo, Welt', 'de-en')
+    print(f"translated text: {translated}")  # output -> translated text: Hello world
+
 Usage from Terminal
 --------------------
 
