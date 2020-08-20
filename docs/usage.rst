@@ -3,9 +3,7 @@ Usage
 =====
 
 
-In this section, demos on how to use all different integrated translators in this tool are provided.
-This includes the google, pons, linguee and mymemory translator (at least for now). Perhaps more
-translators will be integrated in the future.
+In this section, demos on how to use all different integrated translators are provided.
 
 .. note::
 
@@ -209,7 +207,7 @@ Yandex Translator
 
 .. note::
 
-    You need to require an private api key if you want to use the yandex translator.
+    You need to require an **private api key** if you want to use the yandex translator.
     visit the official website for more information about how to get one
 
 - Language detection
