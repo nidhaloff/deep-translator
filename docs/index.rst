@@ -21,7 +21,7 @@ If you see this doc in other languages,you can see :doc:`Choose languages</other
 .. toctree::
    :hidden:
 
-   ja/index
+   ./ja/index
 
 Indices and tables
 ==================
