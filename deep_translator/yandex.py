@@ -5,7 +5,7 @@ import requests
 from requests import exceptions
 from deep_translator.constants import BASE_URLS
 from deep_translator.exceptions import (RequestError,
-                                        YandexDefaultException, TranslationNotFound)
+                                        YandexDefaultException, TranslationNotFound, TooManyRequests)
 
 
 class YandexTranslator(object):
@@ -95,8 +95,13 @@ def translate(self, text, lang, proxies=None):
         raise YandexDefaultException(503)
     else:
         response = response.json()
+
+    if response['code'] == 429:
+        raise TooManyRequests()
+
     if response['code'] != 200:
         raise YandexDefaultException(response['code'])
+
     if not response['text']:
         raise TranslationNotFound()
 

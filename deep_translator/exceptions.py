@@ -81,6 +81,18 @@ class RequestError(Exception):
         return self.message
 
 
+class TooManyRequests(Exception):
+    """
+    exception thrown if an error occured during the request call, e.g a connection problem.
+    """
+
+    def __init__(self, message="Server Error: You made too many requests to the server. According to google, you are allowed to make 5 requests per second and up to 200k requests per day. You can wait and try again later or you can try the translate_batch function"):
+        self.message = message
+
+    def __str__(self):
+        return self.message
+
+
 class YandexDefaultException(Exception):
     """
     Default YandexTranslate exception from the official website

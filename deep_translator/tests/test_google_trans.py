@@ -52,3 +52,6 @@ def test_payload(google_translator):
 
     with pytest.raises(exceptions.NotValidLength):
         google_translator.translate("a"*5001)
+
+    #for _ in range(1):
+    #assert google_translator.translate(text='좋은') == "good"

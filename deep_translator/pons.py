@@ -8,7 +8,8 @@ from deep_translator.exceptions import (LanguageNotSupportedException,
                                         TranslationNotFound,
                                         NotValidPayload,
                                         ElementNotFoundInGetRequest,
-                                        RequestError)
+                                        RequestError,
+                                        TooManyRequests)
 from deep_translator.parent import BaseTranslator
 from requests.utils import requote_uri
 
@@ -86,6 +87,9 @@ class PonsTranslator(BaseTranslator):
             url = "{}{}-{}/{}".format(self.__base_url, self._source, self._target, word)
             url = requote_uri(url)
             response = requests.get(url)
+
+            if response.status_code == 429:
+                raise TooManyRequests()
 
             if response.status_code != 200:
                 raise RequestError()

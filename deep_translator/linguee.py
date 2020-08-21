@@ -7,7 +7,8 @@ from deep_translator.exceptions import (LanguageNotSupportedException,
                                         TranslationNotFound,
                                         NotValidPayload,
                                         ElementNotFoundInGetRequest,
-                                        RequestError)
+                                        RequestError,
+                                        TooManyRequests)
 from deep_translator.parent import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
@@ -88,6 +89,10 @@ class LingueeTranslator(BaseTranslator):
             url = "{}{}-{}/translation/{}.html".format(self.__base_url, self._source, self._target, word)
             url = requote_uri(url)
             response = requests.get(url)
+
+            if response.status_code == 429:
+                raise TooManyRequests()
+
             if response.status_code != 200:
                 raise RequestError()
             soup = BeautifulSoup(response.text, 'html.parser')

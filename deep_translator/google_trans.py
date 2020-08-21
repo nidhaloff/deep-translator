@@ -3,10 +3,11 @@ google translator API
 """
 
 from deep_translator.constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
-from deep_translator.exceptions import LanguageNotSupportedException, TranslationNotFound, NotValidPayload, RequestError
+from deep_translator.exceptions import TooManyRequests, LanguageNotSupportedException, TranslationNotFound, NotValidPayload, RequestError
 from deep_translator.parent import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
+from time import sleep
 
 
 class GoogleTranslator(BaseTranslator):
@@ -84,9 +85,13 @@ class GoogleTranslator(BaseTranslator):
                 self._url_params[self.payload_key] = text
 
             response = requests.get(self.__base_url,
-                                    params=self._url_params)
+                                    params=self._url_params, headers ={'User-agent': 'your bot 0.1'})
+
+            if response.status_code == 429:
+                raise TooManyRequests()
 
             if response.status_code != 200:
+                print("status code", response.status_code)
                 raise RequestError()
 
             soup = BeautifulSoup(response.text, 'html.parser')
@@ -136,3 +141,24 @@ class GoogleTranslator(BaseTranslator):
         except Exception as e:
             raise e
 
+    def translate_batch(self, batch=None):
+        """
+        translate a list of texts
+        @param batch: list of texts you want to translate
+        @return: list of translations
+        """
+        if not batch:
+            raise Exception("Enter your text list that you want to translate")
+
+        arr = []
+        for text in batch:
+            translated = self.translate(text)
+            arr.append(translated)
+            sleep(2)
+
+        return arr
+
+
+if __name__ == '__main__':
+    res = GoogleTranslator(target="fr").translate("good")
+    print(res)

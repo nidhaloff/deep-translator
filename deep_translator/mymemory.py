@@ -2,9 +2,14 @@
 mymemory translator API
 """
 from deep_translator.constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
-from deep_translator.exceptions import NotValidPayload, TranslationNotFound, LanguageNotSupportedException, RequestError
+from deep_translator.exceptions import (NotValidPayload,
+                                        TranslationNotFound,
+                                        LanguageNotSupportedException,
+                                        RequestError,
+                                        TooManyRequests)
 from deep_translator.parent import BaseTranslator
 import requests
+from time import sleep
 
 
 class MyMemoryTranslator(BaseTranslator):
@@ -87,6 +92,8 @@ class MyMemoryTranslator(BaseTranslator):
                                     params=self._url_params,
                                     headers=self.headers)
 
+            if response.status_code == 429:
+                raise TooManyRequests()
             if response.status_code != 200:
                 raise RequestError()
 
@@ -143,3 +150,19 @@ class MyMemoryTranslator(BaseTranslator):
         except Exception as e:
             raise e
 
+    def translate_batch(self, batch=None):
+        """
+        translate a list of texts
+        @param batch: list of texts you want to translate
+        @return: list of translations
+        """
+        if not batch:
+            raise Exception("Enter your text list that you want to translate")
+
+        arr = []
+        for text in batch:
+            translated = self.translate(text)
+            arr.append(translated)
+            sleep(2)
+
+        return arr
