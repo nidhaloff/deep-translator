@@ -8,6 +8,8 @@ from deep_translator.parent import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
 from time import sleep
+import warnings
+import logging
 
 
 class GoogleTranslator(BaseTranslator):
@@ -127,6 +129,8 @@ class GoogleTranslator(BaseTranslator):
         @param sentences: list of sentences to translate
         @return: list of all translated sentences
         """
+        warnings.warn("deprecated. Use the translate_batch function instead", DeprecationWarning, stacklevel=2)
+        logging.warning("deprecated. Use the translate_batch function instead")
         if not sentences:
             raise NotValidPayload(sentences)
 
@@ -158,7 +162,3 @@ class GoogleTranslator(BaseTranslator):
 
         return arr
 
-
-if __name__ == '__main__':
-    res = GoogleTranslator(target="fr").translate("good")
-    print(res)

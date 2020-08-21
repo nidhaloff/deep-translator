@@ -1,6 +1,9 @@
 """
 mymemory translator API
 """
+import logging
+import warnings
+
 from deep_translator.constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
 from deep_translator.exceptions import (NotValidPayload,
                                         TranslationNotFound,
@@ -120,6 +123,9 @@ class MyMemoryTranslator(BaseTranslator):
         @param sentences: list of sentences to translate
         @return: list of all translated sentences
         """
+        warn_msg = "deprecated. Use the translate_batch function instead"
+        warnings.warn(warn_msg, DeprecationWarning, stacklevel=2)
+        logging.warning(warn_msg)
         if not sentences:
             raise NotValidPayload(sentences)
 

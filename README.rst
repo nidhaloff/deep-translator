@@ -148,7 +148,7 @@ Imports
                                  PonsTranslator,
                                  LingueeTranslator,
                                  MyMemoryTranslator,
-                                 YandexTranslator
+                                 YandexTranslator,
                                  single_detection,
                                  batch_detection)
 
@@ -207,31 +207,29 @@ Google Translate
 
     translated = GoogleTranslator(source='auto', target='de').translate(text=text)
 
-- You can pass languages by name:
+- You can pass languages by name or by abbreviation:
 
 .. code-block:: python
 
     translated = GoogleTranslator(source='auto', target='german').translate(text=text)
 
-- Alternatively, you can pass languages by their abbreviation:
+    # Alternatively, you can pass languages by their abbreviation:
+    translated = GoogleTranslator(source='en', target='de').translate(text=text)
+
+- Translate batch of texts
 
 .. code-block:: python
 
-    translated = GoogleTranslator(source='en', target='de').translate(text=text)
+    texts = ["hallo welt", "guten morgen"]
+
+    # the translate_sentences function is deprecated, use the translate_batch function instead
+    translated = MyMemoryTranslator('de', 'en').translate_batch(texts)
 
 - Translate from a file:
 
 .. code-block:: python
 
     translated = GoogleTranslator(source='auto', target='german').translate_file('path/to/file')
-
-- Automate translation by detecting the source language and translate it automatically to the desired language
-
-.. code-block:: python
-
-    # this is useful if you have many sentences in different languages and want to automate the translation process
-    translated = GoogleTranslator(source='auto', target='de').translate_sentences([your_list_of_sentences])
-
 
 Mymemory Translator
 --------------------
@@ -250,12 +248,14 @@ Mymemory Translator
 
     translated = MyMemoryTranslator(source='auto', target='french').translate(text)
 
-- Translate a list of sentences or paragraphs
+- Translate batch of texts
 
 .. code-block:: python
 
     texts = ["hallo welt", "guten morgen"]
-    translated = MyMemoryTranslator('de', 'english').translate_sentences(texts)
+
+    # the translate_sentences function is deprecated, use the translate_batch function instead
+    translated = MyMemoryTranslator('de', 'en').translate_batch(texts)
 
 - Translate from file
 
@@ -266,10 +266,8 @@ Mymemory Translator
     translated = MyMemoryTranslator(source='en', target='fr').translate_file(path)
 
 
-
 Linguee Translator
 -------------------
-
 
 .. code-block:: python
 
@@ -351,12 +349,25 @@ Yandex Translator
 .. code-block:: python
 
     # with auto detection | meaning provide only the target language and let yandex detect the source
-    translated = YandexTranslator('your_api_key').translate('Hallo, Welt', 'en')
+    translated = YandexTranslator('your_api_key').translate(source="auto", target="en", text='Hallo, Welt')
     print(f"translated text: {translated}")  # output -> translated text: Hello world
 
     # provide source and target language explicitly
-    translated = YandexTranslator('your_api_key').translate('Hallo, Welt', 'de-en')
+    translated = YandexTranslator('your_api_key').translate(source="de", target="en", text='Hallo, Welt')
     print(f"translated text: {translated}")  # output -> translated text: Hello world
+
+- File translation
+
+.. code-block:: python
+
+    translated = YandexTranslator('your_api_key').translate_file(source="auto", target="en", path="path_to_your_file")
+
+- Batch translation
+
+.. code-block:: python
+
+    translated = YandexTranslator('your_api_key').translate_batch(source="auto", target="de", batch=["hello world", "happy coding"])
+
 
 Usage from Terminal
 --------------------
