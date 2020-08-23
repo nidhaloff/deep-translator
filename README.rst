@@ -3,7 +3,7 @@ deep_translator
 ##################
 
 .. image:: assets/icon.jpg
-    :width: 300
+    :width: 100
     :align: center
     :alt: deep-translator-icon
 
