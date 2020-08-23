@@ -5,7 +5,8 @@ BASE_URLS = {
     "PONS": "https://en.pons.com/translate/",
     "YANDEX": "https://translate.yandex.net/api/{version}/tr.json/{endpoint}",
     "LINGUEE": "https://www.linguee.com/",
-    "MYMEMORY": "http://api.mymemory.translated.net/get"
+    "MYMEMORY": "http://api.mymemory.translated.net/get",
+    "QCRI": "https://mt.qcri.org/api/v1/{endpoint}?"
 }
 
 GOOGLE_CODES_TO_LANGUAGES = {
