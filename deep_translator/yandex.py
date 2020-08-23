@@ -5,7 +5,7 @@ import requests
 from requests import exceptions
 from deep_translator.constants import BASE_URLS
 from deep_translator.exceptions import (RequestError,
-                                        YandexDefaultException, TranslationNotFound, TooManyRequests)
+                                        ServerException, TranslationNotFound, TooManyRequests)
 
 
 class YandexTranslator(object):
@@ -18,7 +18,7 @@ class YandexTranslator(object):
         @param api_key: your yandex api key
         """
         if not api_key:
-            raise YandexDefaultException(401)
+            raise ServerException(401)
         self.__base_url = BASE_URLS.get("YANDEX")
 
         self.api_key = api_key
@@ -44,12 +44,12 @@ class YandexTranslator(object):
             print("url: ", url)
             response = requests.get(url, params={"key": self.api_key}, proxies=proxies)
         except requests.exceptions.ConnectionError:
-            raise YandexDefaultException(503)
+            raise ServerException(503)
         else:
             data = response.json()
 
         if response.status_code != 200:
-            raise YandexDefaultException(response.status_code)
+            raise ServerException(response.status_code)
         return data.get("dirs")
 
     def detect(self, text, proxies=None):
@@ -66,9 +66,9 @@ class YandexTranslator(object):
         except RequestError:
             raise
         except ConnectionError:
-            raise YandexDefaultException(503)
+            raise ServerException(503)
         except ValueError:
-            raise YandexDefaultException(response.status_code)
+            raise ServerException(response.status_code)
         else:
             response = response.json()
         language = response['lang']
@@ -76,7 +76,7 @@ class YandexTranslator(object):
         if status_code != 200:
             raise RequestError()
         elif not language:
-            raise YandexDefaultException(501)
+            raise ServerException(501)
         return language
 
     def translate(self, source, target, text, proxies=None):
@@ -90,7 +90,7 @@ class YandexTranslator(object):
             url = self.__base_url.format(version=self.api_version, endpoint="translate")
             response = requests.post(url, data=params, proxies=proxies)
         except ConnectionError:
-            raise YandexDefaultException(503)
+            raise ServerException(503)
         else:
             response = response.json()
 
@@ -98,7 +98,7 @@ class YandexTranslator(object):
             raise TooManyRequests()
 
         if response['code'] != 200:
-            raise YandexDefaultException(response['code'])
+            raise ServerException(response['code'])
 
         if not response['text']:
             raise TranslationNotFound()

@@ -93,7 +93,7 @@ class TooManyRequests(Exception):
         return self.message
 
 
-class YandexDefaultException(Exception):
+class ServerException(Exception):
     """
     Default YandexTranslate exception from the official website
     """
@@ -109,5 +109,5 @@ class YandexDefaultException(Exception):
     }
 
     def __init__(self, status_code, *args):
-        message = self.errors.get(status_code)
-        super(YandexDefaultException, self).__init__(message, *args)
+        message = self.errors.get(status_code, "API server error")
+        super(ServerException, self).__init__(message, *args)

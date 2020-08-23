@@ -99,6 +99,8 @@ Features
 * Support for the `Linguee translator <https://www.linguee.com//>`_
 * Support for the `Mymemory translator <https://mymemory.translated.net//>`_
 * Support for the `Yandex translator <https://yandex.com/>`_ (version >= 1.2.1)
+* Support for the `QCRI translator <https://mt.qcri.org/api/>`_ (version >= 1.2.4)
+
 * Automatic single language detection
 * Batch language detection
 * Translate directly from a text file
@@ -272,6 +274,38 @@ Mymemory Translator
 
     translated = MyMemoryTranslator(source='en', target='fr').translate_file(path)
 
+QCRI Translator
+--------------------
+
+.. note::
+
+    In order to use the QCRI translator, you need to generate a free api key. Visit https://mt.qcri.org/api/
+    for more information
+
+- Check languages
+
+.. code-block:: python
+
+    # as a property
+    print("language pairs: ", QCRI("your_api_key").languages)
+
+- Check domains
+
+.. code-block:: python
+
+    # as a property
+    print("domains: ", QCRI("your_api_key").domains)
+
+- Text translation
+
+.. code-block:: python
+
+    text = 'Education is great'
+
+    translated = QCRI("your_api_key").translate(source='en', target='ar', domain="news", text=text)
+    # output -> التعليم هو عظيم
+
+    # see docs for batch translation and more.
 
 Linguee Translator
 -------------------

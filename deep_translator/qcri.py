@@ -1,11 +1,12 @@
 
 import requests
+from requests.utils import requote_uri
 from deep_translator.constants import BASE_URLS
 from deep_translator.exceptions import (RequestError,
-                                        YandexDefaultException, TranslationNotFound, TooManyRequests)
+                                        ServerException, TranslationNotFound, TooManyRequests)
 
 
-class YandexTranslator(object):
+class QCRI(object):
     """
     class that wraps functions, which use the yandex translator under the hood to translate word(s)
     """
@@ -15,125 +16,71 @@ class YandexTranslator(object):
         @param api_key: your qrci api key. Get one for free here https://mt.qcri.org/api/v1/ref
         """
 
-        # key: "72e9e2cc7c992db4dcbdd6fb9f91a0d1"
         if not api_key:
-            raise YandexDefaultException(401)
-        self.__base_url = BASE_URLS.get("QRCI")
+            raise ServerException(401)
+        self.__base_url = BASE_URLS.get("QCRI")
 
         self.api_key = api_key
-        self.api_version = "v1.5"
         self.api_endpoints = {
-            "langs": "getLangs",
-            "detect": "detect",
-            "translate": "translate",
-        }
-        endpoints = {
             "get_languages": "getLanguagePairs",
             "get_domains": "getDomains",
             "translate": "translate",
-
         }
 
-        params = {
-            "key": api_key
+        self.params = {
+            "key": self.api_key
         }
-        pairs = requests.get(self.__base_url.format(endpoint=endpoints["get_languages"]), params=params)
 
-        print(pairs.url, pairs.text)
+    def _get(self, endpoint, params=None, return_text=True):
+        if not params:
+            params = self.params
+        try:
+            res = requests.get(self.__base_url.format(endpoint=self.api_endpoints[endpoint]), params=params)
+            return res.text if return_text else res
+        except Exception as e:
+            raise e
 
     def get_supported_languages(self):
-        return set(x.split("-")[0] for x in self.dirs)
+
+        pairs = self._get("get_languages")
+        return pairs
 
     @property
     def languages(self):
         return self.get_supported_languages()
 
+    def get_domains(self):
+        domains = self._get("get_domains")
+        return domains
+
     @property
-    def dirs(self, proxies=None):
+    def domains(self):
+        return self.get_domains()
 
-        try:
-            url = self.__base_url.format(version=self.api_version, endpoint="getLangs")
-            print("url: ", url)
-            response = requests.get(url, params={"key": self.api_key}, proxies=proxies)
-        except requests.exceptions.ConnectionError:
-            raise YandexDefaultException(503)
-        else:
-            data = response.json()
-
-        if response.status_code != 200:
-            raise YandexDefaultException(response.status_code)
-        return data.get("dirs")
-
-    def detect(self, text, proxies=None):
-        response = None
+    def translate(self, source, target, domain, text):
         params = {
-            "text": text,
-            "format": "plain",
             "key": self.api_key,
+            "langpair": "{}-{}".format(source, target),
+            "domain": domain,
+            "text": text
         }
+        print("params: ", params)
         try:
-            url = self.__base_url.format(version=self.api_version, endpoint="detect")
-            response = requests.post(url, data=params, proxies=proxies)
-
-        except RequestError:
-            raise
+            response = self._get("translate", params=params, return_text=False)
         except ConnectionError:
-            raise YandexDefaultException(503)
-        except ValueError:
-            raise YandexDefaultException(response.status_code)
+            raise ServerException(503)
+
         else:
-            response = response.json()
-        language = response['lang']
-        status_code = response['code']
-        if status_code != 200:
-            raise RequestError()
-        elif not language:
-            raise YandexDefaultException(501)
-        return language
+            if response.status_code != 200:
+                ServerException(response.status_code)
+            else:
+                res = response.json()
+                translation = res["translatedText"]
+                if not translation:
+                    raise TranslationNotFound(text)
+                return translation
 
-    def translate(self, source, target, text, proxies=None):
-        params = {
-            "text": text,
-            "format": "plain",
-            "lang": target if source == "auto" else "{}-{}".format(source, target),
-            "key": self.api_key
-        }
-        try:
-            url = self.__base_url.format(version=self.api_version, endpoint="translate")
-            response = requests.post(url, data=params, proxies=proxies)
-        except ConnectionError:
-            raise YandexDefaultException(503)
-        else:
-            response = response.json()
-
-        if response['code'] == 429:
-            raise TooManyRequests()
-
-        if response['code'] != 200:
-            raise YandexDefaultException(response['code'])
-
-        if not response['text']:
-            raise TranslationNotFound()
-
-        return response['text']
-
-    def translate_file(self, source, target, path):
-        """
-        translate from a file
-        @param source: source language
-        @param target: target language
-        @param path: path to file
-        @return: translated text
-        """
-        try:
-            with open(path) as f:
-                text = f.read()
-
-            return self.translate(source, target, text)
-        except Exception as e:
-            raise e
-
-    def translate_batch(self, source, target, batch):
+    def translate_batch(self, source, target, domain, batch):
         """
         translate a batch of texts
         @param source: source language
@@ -141,5 +88,5 @@ class YandexTranslator(object):
         @param batch: list of texts to translate
         @return: list of translations
         """
-        return [self.translate(source, target, text) for text in batch]
+        return [self.translate(source, target, domain, text) for text in batch]
 
