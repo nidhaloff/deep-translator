@@ -95,7 +95,7 @@ Google Translate
     texts = ["hallo welt", "guten morgen"]
 
     # the translate_sentences function is deprecated, use the translate_batch function instead
-    translated = MyMemoryTranslator('de', 'en').translate_batch(texts)
+    translated = GoogleTranslator('de', 'en').translate_batch(texts)
 
 - Translate from a file:
 

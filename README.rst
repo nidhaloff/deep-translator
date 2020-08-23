@@ -2,6 +2,13 @@
 deep_translator
 ##################
 
+.. image:: assets/icon.jpg
+    :width: 300
+    :align: center
+    :alt: deep-translator-icon
+
+|
+
 
 .. image:: https://img.shields.io/pypi/v/deep_translator.svg
         :target: https://pypi.python.org/pypi/deep_translator
@@ -223,7 +230,7 @@ Google Translate
     texts = ["hallo welt", "guten morgen"]
 
     # the translate_sentences function is deprecated, use the translate_batch function instead
-    translated = MyMemoryTranslator('de', 'en').translate_batch(texts)
+    translated = GoogleTranslator('de', 'en').translate_batch(texts)
 
 - Translate from a file:
 
