@@ -8,7 +8,7 @@ from deep_translator.exceptions import (RequestError,
 
 class QCRI(object):
     """
-    class that wraps functions, which use the yandex translator under the hood to translate word(s)
+    class that wraps functions, which use the QRCI translator under the hood to translate word(s)
     """
 
     def __init__(self, api_key=None):
@@ -64,7 +64,6 @@ class QCRI(object):
             "domain": domain,
             "text": text
         }
-        print("params: ", params)
         try:
             response = self._get("translate", params=params, return_text=False)
         except ConnectionError:

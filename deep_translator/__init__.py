@@ -6,6 +6,7 @@ from .linguee import LingueeTranslator
 from .mymemory import MyMemoryTranslator
 from .yandex import YandexTranslator
 from .qcri import QCRI
+from .deepl import DeepL
 from .detection import single_detection, batch_detection
 
 
@@ -19,5 +20,6 @@ __all__ = [GoogleTranslator,
            MyMemoryTranslator,
            YandexTranslator,
            QCRI,
+           DeepL,
            single_detection,
            batch_detection]

@@ -94,13 +94,13 @@ Why you should use it
 Features
 ========
 
-* Support for google translate
-* Support for `Pons translator <https://de.pons.com//>`_
-* Support for the `Linguee translator <https://www.linguee.com//>`_
-* Support for the `Mymemory translator <https://mymemory.translated.net//>`_
+* Support for `google translate <https://translate.google.com/>`_
+* Support for `Pons translator <https://de.pons.com/>`_
+* Support for the `Linguee translator <https://www.linguee.com/>`_
+* Support for the `Mymemory translator <https://mymemory.translated.net/>`_
 * Support for the `Yandex translator <https://yandex.com/>`_ (version >= 1.2.1)
 * Support for the `QCRI translator <https://mt.qcri.org/api/>`_ (version >= 1.2.4)
-
+* Support for the `DeepL translator <https://www.deepl.com/en/translator/>`_ (version >= 1.2.4)
 * Automatic single language detection
 * Batch language detection
 * Translate directly from a text file
