@@ -16,14 +16,16 @@ Imports
 
 .. code-block:: python
 
+
     from deep_translator import (GoogleTranslator,
                                  PonsTranslator,
                                  LingueeTranslator,
                                  MyMemoryTranslator,
                                  YandexTranslator,
+                                 DeepL,
+                                 QCRI,
                                  single_detection,
                                  batch_detection)
-
 
 Check Supported Languages
 ---------------------------
@@ -137,6 +139,31 @@ Mymemory Translator
 
     translated = MyMemoryTranslator(source='en', target='fr').translate_file(path)
 
+
+DeepL Translator
+-----------------
+
+.. note::
+
+    In order to use the DeepL translator, you need to generate an api key. Visit https://www.deepl.com/en/docs-api/
+    for more information
+
+- Simple translation
+
+.. code-block:: python
+
+    text = 'Keep it up. You are awesome'
+
+    translated = DeepL("your_api_key").translate(text)
+
+- Translate batch of texts
+
+.. code-block:: python
+
+    texts = ["hallo welt", "guten morgen"]
+
+    # the translate_sentences function is deprecated, use the translate_batch function instead
+    translated = DeepL("your_api_key").translate_batch(texts)
 
 QCRI Translator
 --------------------
