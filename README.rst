@@ -1,5 +1,5 @@
 ##################
-deep_translator
+deep-translator
 ##################
 
 .. image:: assets/icon.jpg
@@ -10,9 +10,9 @@ deep_translator
 |
 
 
-.. image:: https://img.shields.io/pypi/v/deep_translator.svg
+.. image:: https://img.shields.io/pypi/v/deep-translator.svg
         :target: https://pypi.python.org/pypi/deep_translator
-.. image:: https://img.shields.io/travis/nidhaloff/deep_translator.svg
+.. image:: https://img.shields.io/travis/nidhaloff/deep-translator.svg
         :target: https://travis-ci.com/nidhaloff/deep_translator
 .. image:: https://readthedocs.org/projects/deep-translator/badge/?version=latest
         :target: https://deep-translator.readthedocs.io/en/latest/?badge=latest
@@ -30,7 +30,7 @@ deep_translator
     :target: https://pepy.tech/project/deep-translator/month
 
 
-.. image:: https://img.shields.io/github/last-commit/nidhaloff/deep_translator
+.. image:: https://img.shields.io/github/last-commit/nidhaloff/deep-translator
         :alt: GitHub last commit
         :target: https://pypi.python.org/pypi/deep_translator
 
