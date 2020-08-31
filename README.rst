@@ -11,17 +11,17 @@ deep-translator
 
 
 .. image:: https://img.shields.io/pypi/v/deep-translator.svg
-        :target: https://pypi.python.org/pypi/deep_translator
+        :target: https://pypi.python.org/pypi/deep-translator
 .. image:: https://img.shields.io/travis/nidhaloff/deep-translator.svg
-        :target: https://travis-ci.com/nidhaloff/deep_translator
+        :target: https://travis-ci.com/nidhaloff/deep-translator
 .. image:: https://readthedocs.org/projects/deep-translator/badge/?version=latest
         :target: https://deep-translator.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 .. image:: https://img.shields.io/pypi/l/deep-translator
-        :target: https://pypi.python.org/pypi/deep_translator
+        :target: https://pypi.python.org/pypi/deep-translator
 
 .. image:: https://img.shields.io/pypi/status/deep-translator
-        :target: https://pypi.python.org/pypi/deep_translator
+        :target: https://pypi.python.org/pypi/deep-translator
 
 .. image:: https://pepy.tech/badge/deep-translator
     :target: https://pepy.tech/project/deep-translator
@@ -32,10 +32,10 @@ deep-translator
 
 .. image:: https://img.shields.io/github/last-commit/nidhaloff/deep-translator
         :alt: GitHub last commit
-        :target: https://pypi.python.org/pypi/deep_translator
+        :target: https://pypi.python.org/pypi/deep-translator
 
 .. image:: https://img.shields.io/pypi/wheel/deep-translator
-        :target: https://pypi.python.org/pypi/deep_translator
+        :target: https://pypi.python.org/pypi/deep-translator
 
 .. image:: https://img.shields.io/twitter/url?url=https%3A%2F%2Ftwitter.com%2FNidhalBaccouri
         :alt: Twitter URL
