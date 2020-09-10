@@ -29,7 +29,7 @@ import deep_translator
 #
 # needs_sphinx = '1.0'
 
-# html_logo = '../assets/icon.jpg'
+html_logo = '../assets/icon.jpg'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
@@ -85,7 +85,7 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'blue'
+html_theme = 'classic'
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the
