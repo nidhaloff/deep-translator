@@ -29,7 +29,7 @@ import deep_translator
 #
 # needs_sphinx = '1.0'
 
-html_logo = '../assets/icon.jpg'
+# html_logo = '../assets/icon.jpg'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
