@@ -92,7 +92,7 @@ html_theme = 'classic'
 # documentation.
 #
 html_theme_options = {
-    "rightsidebar": "true",
+    "rightsidebar": "false",
     "relbarbgcolor": "black"
 }
 
