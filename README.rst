@@ -462,12 +462,6 @@ If you want, you can also pass the source and target language by their abbreviat
 
     $ deep_translator -trans "google" -src "en" -tg "de" -txt "happy coding"
 
-Side Hint
-----------
-
-Generally, I find the google and mymemory translators suitable for translating texts/paragraphs, whereas
-the pons and linguee translators are good choices if you want to translate words.
-
 ======
 Tests
 ======
