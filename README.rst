@@ -81,6 +81,8 @@ Why you should use it
 ======================
 
 - It's the only python tool that integrates many translators
+- multi language support
+- supports batch translation
 - High level of abstraction
 - Automatic language detection
 - Easy to use and extend
