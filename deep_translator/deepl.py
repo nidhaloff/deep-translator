@@ -53,3 +53,7 @@ class DeepL(object):
         """
         return [self.translate(source, target, text) for text in batch]
 
+
+if __name__ == '__main__':
+    d = DeepL(api_key="key")
+    print(d)

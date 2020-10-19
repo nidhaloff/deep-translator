@@ -7,7 +7,7 @@ BASE_URLS = {
     "LINGUEE": "https://www.linguee.com/",
     "MYMEMORY": "http://api.mymemory.translated.net/get",
     "QCRI": "https://mt.qcri.org/api/v1/{endpoint}?",
-    "DEEPL": "https://api.deepl.com/{}/"
+    "DEEPL": "https://api.deepl.com/{version}/"
 }
 
 GOOGLE_CODES_TO_LANGUAGES = {
