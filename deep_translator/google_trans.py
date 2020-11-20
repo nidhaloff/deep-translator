@@ -95,7 +95,7 @@ class GoogleTranslator(BaseTranslator):
                 raise TooManyRequests()
 
             if response.status_code != 200:
-                print("status code", response.status_code)
+                # print("status code", response.status_code)
                 raise RequestError()
 
             soup = BeautifulSoup(response.text, 'html.parser')
