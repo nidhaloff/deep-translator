@@ -168,6 +168,6 @@ class GoogleTranslator(BaseTranslator):
 
 
 # if __name__ == '__main__':
-    # print(GoogleTranslator.supported_languages)
-    # txt = GoogleTranslator(source="en", target="ar").translate("Hello how are you")
-    # print("text: ", txt)
+#     for _ in range(10):
+#         txt = GoogleTranslator(source="en", target="ar").translate("Hello how are you")
+#         print("text: ", txt)
