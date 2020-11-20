@@ -38,6 +38,8 @@ class GoogleTranslator(BaseTranslator):
                                                hl=self._target,
                                                sl=self._source)
 
+        self._alt_element_query = {"class": "result-container"}
+
     @staticmethod
     def get_supported_languages(as_dict=False):
         """
@@ -100,7 +102,9 @@ class GoogleTranslator(BaseTranslator):
             element = soup.find(self._element_tag, self._element_query)
 
             if not element:
-                raise TranslationNotFound(text)
+                element = soup.find(self._element_tag, self._alt_element_query)
+                if not element:
+                    raise TranslationNotFound(text)
 
             return element.get_text(strip=True)
 
@@ -162,3 +166,8 @@ class GoogleTranslator(BaseTranslator):
 
         return arr
 
+
+# if __name__ == '__main__':
+    # print(GoogleTranslator.supported_languages)
+    # txt = GoogleTranslator(source="en", target="ar").translate("Hello how are you")
+    # print("text: ", txt)
