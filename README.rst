@@ -26,13 +26,6 @@ deep-translator
 .. image:: https://pepy.tech/badge/deep-translator
     :target: https://pepy.tech/project/deep-translator
 
-.. image:: https://pepy.tech/badge/deep-translator/month
-    :target: https://pepy.tech/project/deep-translator/month
-
-
-.. image:: https://img.shields.io/github/last-commit/nidhaloff/deep-translator
-        :alt: GitHub last commit
-        :target: https://pypi.python.org/pypi/deep-translator
 
 .. image:: https://img.shields.io/pypi/wheel/deep-translator
         :target: https://pypi.python.org/pypi/deep-translator
