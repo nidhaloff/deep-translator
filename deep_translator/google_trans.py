@@ -105,8 +105,12 @@ class GoogleTranslator(BaseTranslator):
                 element = soup.find(self._element_tag, self._alt_element_query)
                 if not element:
                     raise TranslationNotFound(text)
-
-            return element.get_text(strip=True)
+            if element.get_text(strip=True) == text:
+                self._url_params["tl"] = self._target
+                del self._url_params["hl"]
+                return self.translate(text)
+            else:
+                return element.get_text(strip=True)
 
     def translate_file(self, path, **kwargs):
         """
@@ -167,7 +171,7 @@ class GoogleTranslator(BaseTranslator):
         return arr
 
 
-# if __name__ == '__main__':
-#     for _ in range(10):
-#         txt = GoogleTranslator(source="en", target="ar").translate("Hello how are you")
-#         print("text: ", txt)
+if __name__ == '__main__':
+
+    txt =GoogleTranslator(source='en', target='nl').translate('why not Dutch') # GoogleTranslator(source='hindi', target='en').translate(text="ghar jaana hai")
+    print("text: ", txt)
