@@ -173,6 +173,5 @@ class GoogleTranslator(BaseTranslator):
 
 if __name__ == '__main__':
 
-    txt =GoogleTranslator(source='en', target='en')#.translate('好的') # GoogleTranslator(source='hindi', target='en').translate(text="ghar jaana hai")
-    print("langs: ", txt._languages)
-    # print("text: ", txt)
+    txt =GoogleTranslator(source='zh', target='en').translate('好的') # GoogleTranslator(source='hindi', target='en').translate(text="ghar jaana hai")
+    print("text: ", txt)

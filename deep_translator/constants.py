@@ -25,7 +25,7 @@ GOOGLE_CODES_TO_LANGUAGES = {
     'ca': 'catalan',
     'ceb': 'cebuano',
     'ny': 'chichewa',
-    'zh': 'chinese (simplified)',
+    'zh': 'chinese',
     'zh-cn': 'chinese (simplified)',
     'zh-tw': 'chinese (traditional)',
     'co': 'corsican',
