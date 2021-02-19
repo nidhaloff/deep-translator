@@ -511,6 +511,21 @@ Take a look in the examples folder for more :)
 Contributions are always welcome.
 Read the Contribution guildlines `Here <https://deep-translator.readthedocs.io/en/latest/contributing.html/>`_
 
+==========
+Credits
+==========
+
+Many thanks to @KirillSklyarenko for his work on integrating the microsoft translator
+
+==========
+License
+==========
+
+MIT license
+
+Copyright (c) 2020-present, Nidhal Baccouri
+
+
 ===========================
 The Translator++ mobile app
 ===========================
