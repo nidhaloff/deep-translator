@@ -7,7 +7,7 @@ BASE_URLS = {
     "LINGUEE": "https://www.linguee.com/",
     "MYMEMORY": "http://api.mymemory.translated.net/get",
     "QCRI": "https://mt.qcri.org/api/v1/{endpoint}?",
-    "DEEPL": "https://api.deepl.com/{version}/"
+    "DEEPL": "https://api.deepl.com/{version}/",
     "MICROSOFT_TRANSLATE": "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0"
 }
 
