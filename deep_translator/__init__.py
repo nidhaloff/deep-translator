@@ -8,6 +8,7 @@ from .yandex import YandexTranslator
 from .qcri import QCRI
 from .deepl import DeepL
 from .detection import single_detection, batch_detection
+from .microsoft import MicrosoftTranslator
 
 
 __author__ = """Nidhal Baccouri"""
@@ -19,6 +20,7 @@ __all__ = [GoogleTranslator,
            LingueeTranslator,
            MyMemoryTranslator,
            YandexTranslator,
+           MicrosoftTranslator,
            QCRI,
            DeepL,
            single_detection,
