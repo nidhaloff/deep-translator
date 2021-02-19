@@ -87,7 +87,7 @@ Features
 ========
 
 * Support for `google translate <https://translate.google.com/>`_
-* Support for the `microsoft translator < https://www.microsoft.com/en-us/translator/ />`_ (version >= 1.3.5)
+* Support for the `microsoft translator <https://www.microsoft.com/en-us/translator//>`_ (version >= 1.3.5)
 * Support for `Pons translator <https://de.pons.com/>`_
 * Support for the `Linguee translator <https://www.linguee.com/>`_
 * Support for the `Mymemory translator <https://mymemory.translated.net/>`_
