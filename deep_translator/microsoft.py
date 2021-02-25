@@ -68,7 +68,7 @@ class MicrosoftTranslator:
     def _map_language_to_code(self, language):
         """
         map the language to its corresponding code (abbreviation) if the language was passed by its full name by the user
-        @param languages: a string (if 1 lang) or a list (if multiple langs)
+        @param language: a string (if 1 lang) or a list (if multiple langs)
         @return: mapped value of the language or raise an exception if the language is not supported
         """
         if type(language) is str:
@@ -84,7 +84,7 @@ class MicrosoftTranslator:
     def is_language_supported(self, language):
         """
         check if the language is supported by the translator
-        @param languages: a string (if 1 lang) or a list (if multiple langs)
+        @param language: a string (if 1 lang) or a list (if multiple langs)
         @return: bool or raise an Exception
         """
         if type(language) is str:
@@ -105,7 +105,10 @@ class MicrosoftTranslator:
         # I have not added multiple text processing here since it is covered by the translate_batch method
         valid_microsoft_json = [{'text': text}]
         try:
-            requested = requests.post(self.__base_url, params=self.url_params, headers=self.headers, json=valid_microsoft_json)
+            requested = requests.post(self.__base_url,
+                                      params=self.url_params,
+                                      headers=self.headers,
+                                      json=valid_microsoft_json)
         except requests.exceptions.RequestException:
             exc_type, value, traceback = sys.exc_info()
             logging.warning(f"Returned error: {exc_type.__name__}")
