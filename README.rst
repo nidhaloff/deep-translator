@@ -431,6 +431,51 @@ Yandex Translator
 
     translated = YandexTranslator('your_api_key').translate_batch(source="auto", target="de", batch=["hello world", "happy coding"])
 
+Microsoft Translator
+------------------
+
+.. note::
+
+    You need to require an **api key** if you want to use the microsoft translator.
+    visit the official website for more information about how to get one.
+    Microsoft offers a free tier 0 subscription (2 million characters per month).
+
+- Required and optional attributes
+
+    There are two required attributes, namely "api_key" (string) and "target" (string or list).
+    Attribute "source" is optional.
+    Also, Microsoft API accepts a number of other optional attributes, you can find them here:  https://docs.microsoft.com/azure/cognitive-services/translator/reference/v3-0-translate
+    You can simply add them after the required attributes, see the example. 
+
+.. code-block:: python
+
+    text = 'happy coding'
+    translated = MicrosoftTranslator(api_key='some-key', target='de').translate(text=text)
+    translated_two_targets = MicrosoftTranslator(api_key='some-key', target=['de', 'ru']).translate(text=text)
+    translated_with_optional_attr = MicrosoftTranslator(api_key='some-key', target='de', textType='html']).translate(text=text)
+
+- You can pass languages by name or by abbreviation:
+
+.. code-block:: python
+
+    translated = MicrosoftTranslator(api_key='some-key', target='german').translate(text=text)
+
+    # Alternatively, you can pass languages by their abbreviation:
+    translated = MicrosoftTranslator(api_key='some-key', target='de').translate(text=text)
+
+- Translate batch of texts
+
+.. code-block:: python
+
+    texts = ["hallo welt", "guten morgen"]
+    translated = MicrosoftTranslator(api_key='some-key', target='english').translate_batch(texts)
+
+- Translate from a file:
+
+.. code-block:: python
+
+    translated = MicrosoftTranslator(api_key='some-key', target='german').translate_file('path/to/file')
+
 
 Usage from Terminal
 --------------------
