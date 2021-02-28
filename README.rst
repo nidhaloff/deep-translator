@@ -431,6 +431,7 @@ Yandex Translator
 
     translated = YandexTranslator('your_api_key').translate_batch(source="auto", target="de", batch=["hello world", "happy coding"])
 
+
 Microsoft Translator
 ------------------
 
@@ -445,7 +446,7 @@ Microsoft Translator
     There are two required attributes, namely "api_key" (string) and "target" (string or list).
     Attribute "source" is optional.
     Also, Microsoft API accepts a number of other optional attributes, you can find them here:  https://docs.microsoft.com/azure/cognitive-services/translator/reference/v3-0-translate
-    You can simply add them after the required attributes, see the example. 
+    You can simply add them after the required attributes, see the example.
 
 .. code-block:: python
 
