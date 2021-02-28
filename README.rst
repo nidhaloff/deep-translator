@@ -433,7 +433,7 @@ Yandex Translator
 
 
 Microsoft Translator
-------------------
+---------------------
 
 .. note::
 
