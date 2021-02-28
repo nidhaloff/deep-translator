@@ -111,7 +111,6 @@ class GoogleTranslator(BaseTranslator):
                 translated_alpha = ''.join(ch for ch in element.get_text(strip=True) if ch.isalnum())
                 if to_translate_alpha and translated_alpha and to_translate_alpha == translated_alpha:
                     self._url_params["tl"] = self._target
-                    print(self._url_params)
                     del self._url_params["hl"]
                     return self.translate(text)
             else:
@@ -176,14 +175,3 @@ class GoogleTranslator(BaseTranslator):
         return arr
 
 
-if __name__ == '__main__':
-
-    # txt =GoogleTranslator(target='irish').translate('how are you')
-    # print("text: ", txt)
-    translator = GoogleTranslator(target="irish")
-
-    text_to_translate = ""
-
-    translated_text = translator.translate(text_to_translate)
-
-    print(translated_text)
