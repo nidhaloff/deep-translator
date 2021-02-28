@@ -91,12 +91,10 @@ class GoogleTranslator(BaseTranslator):
             response = requests.get(self.__base_url,
                                     params=self._url_params, headers ={'User-agent': 'your bot 0.1'})
 
-            # print(response.url)
             if response.status_code == 429:
                 raise TooManyRequests()
 
             if response.status_code != 200:
-                # print("status code", response.status_code)
                 raise RequestError()
 
             soup = BeautifulSoup(response.text, 'html.parser')
