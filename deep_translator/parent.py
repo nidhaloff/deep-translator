@@ -1,6 +1,6 @@
 """parent translator class"""
 
-from deep_translator.exceptions import NotValidPayload, NotValidLength
+from deep_translator.exceptions import NotValidPayload, NotValidLength, InvalidSourceOrTargetLanguage
 from abc import ABC, abstractmethod
 import string
 
@@ -21,6 +21,9 @@ class BaseTranslator(ABC):
         @param source: source language to translate from
         @param target: target language to translate to
         """
+        if source == target:
+            raise InvalidSourceOrTargetLanguage(source)
+
         self.__base_url = base_url
         self._source = source
         self._target = target

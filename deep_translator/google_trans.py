@@ -173,3 +173,6 @@ class GoogleTranslator(BaseTranslator):
         return arr
 
 
+# if __name__ == '__main__':
+    # text = GoogleTranslator(source="en", target="en").translate("how are you")
+    # print(text)

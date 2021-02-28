@@ -36,6 +36,18 @@ class NotValidPayload(BaseError):
         super(NotValidPayload, self).__init__(val, message)
 
 
+class InvalidSourceOrTargetLanguage(BaseError):
+    """
+    exception thrown if the user enters an invalid payload
+    """
+
+    def __init__(self,
+                 val,
+                 message="source and target language can't be the same"):
+        super(InvalidSourceOrTargetLanguage, self).__init__(val, message)
+
+
+
 class TranslationNotFound(BaseError):
     """
     exception thrown if no translation was found for the text provided by the user
