@@ -40,7 +40,7 @@ class BaseTranslator(ABC):
         @return: bool
         """
 
-        if not payload or not isinstance(payload, str):
+        if not payload or not isinstance(payload, str) or not payload.strip():
             raise NotValidPayload(payload)
         if not BaseTranslator.__check_length(payload, min_chars, max_chars):
             raise NotValidLength(payload, min_chars, max_chars)

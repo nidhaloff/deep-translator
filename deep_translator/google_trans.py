@@ -91,6 +91,7 @@ class GoogleTranslator(BaseTranslator):
             response = requests.get(self.__base_url,
                                     params=self._url_params, headers ={'User-agent': 'your bot 0.1'})
 
+            # print(response.url)
             if response.status_code == 429:
                 raise TooManyRequests()
 
@@ -105,10 +106,13 @@ class GoogleTranslator(BaseTranslator):
                 element = soup.find(self._element_tag, self._alt_element_query)
                 if not element:
                     raise TranslationNotFound(text)
-            if element.get_text(strip=True) == text.strip() and text.strip().replace(' ', '').isalpha():
-                self._url_params["tl"] = self._target
-                del self._url_params["hl"]
-                return self.translate(text)
+            if element.get_text(strip=True) == text.strip():
+                to_translate_alpha = ''.join(ch for ch in text.strip() if ch.isalnum())
+                translated_alpha = ''.join(ch for ch in element.get_text(strip=True) if ch.isalnum())
+                if to_translate_alpha and translated_alpha and to_translate_alpha == translated_alpha:
+                    self._url_params["tl"] = self._target
+                    del self._url_params["hl"]
+                    return self.translate(text)
             else:
                 return element.get_text(strip=True)
 
@@ -173,5 +177,12 @@ class GoogleTranslator(BaseTranslator):
 
 if __name__ == '__main__':
 
-    txt =GoogleTranslator(source='en', target='nl').translate('why not dutch') # GoogleTranslator(source='hindi', target='en').translate(text="ghar jaana hai")
-    print("text: ", txt)
+    # txt =GoogleTranslator(target='irish').translate('how are you')
+    # print("text: ", txt)
+    translator = GoogleTranslator(target="irish")
+
+    text_to_translate = "Hello, how are you!?"
+
+    translated_text = translator.translate(text_to_translate)
+
+    print(translated_text)
