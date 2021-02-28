@@ -2,6 +2,7 @@
 
 from deep_translator.exceptions import NotValidPayload, NotValidLength
 from abc import ABC, abstractmethod
+import string
 
 
 class BaseTranslator(ABC):
@@ -40,8 +41,13 @@ class BaseTranslator(ABC):
         @return: bool
         """
 
-        if not payload or not isinstance(payload, str) or not payload.strip():
+        if not payload or not isinstance(payload, str) or not payload.strip() or payload.isdigit():
             raise NotValidPayload(payload)
+
+        # check if payload contains only symbols
+        if all(i in string.punctuation for i in payload):
+            raise NotValidPayload(payload)
+
         if not BaseTranslator.__check_length(payload, min_chars, max_chars):
             raise NotValidLength(payload, min_chars, max_chars)
         return True

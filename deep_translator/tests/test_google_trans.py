@@ -20,9 +20,6 @@ def test_content(google_translator):
     # from bs4 import BeautifulSoup
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
     assert google_translator.translate(text='좋은') == "good"
-    assert google_translator.translate(text='1234') == '1234'
-    assert google_translator.translate(text='{}') == '{}'
-    assert google_translator.translate(text='%@') == '%@'
 
 
 def test_inputs():
@@ -43,6 +40,9 @@ def test_payload(google_translator):
 
     with pytest.raises(exceptions.NotValidPayload):
         google_translator.translate(text="")
+        google_translator.translate(text='1234')
+        google_translator.translate(text='{}')
+        google_translator.translate(text='%@')
 
     with pytest.raises(exceptions.NotValidPayload):
         google_translator.translate(text=123)
