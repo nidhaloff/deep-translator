@@ -150,7 +150,7 @@ class MyMemoryTranslator(BaseTranslator):
          """
         try:
             with open(path) as f:
-                text = f.read()
+                text = f.read().strip()
 
             return self.translate(text=text)
         except Exception as e:

@@ -130,7 +130,7 @@ class MicrosoftTranslator:
         """
         try:
             with open(path) as f:
-                text = f.read()
+                text = f.read().strip()
             return self.translate(text)
         except Exception as e:
             raise e

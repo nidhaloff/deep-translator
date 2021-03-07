@@ -124,9 +124,8 @@ class GoogleTranslator(BaseTranslator):
         """
         try:
             with open(path) as f:
-                text = f.read()
-
-            return self.translate(text=text)
+                text = f.read().strip()
+            return self.translate(text)
         except Exception as e:
             raise e
 
@@ -164,15 +163,20 @@ class GoogleTranslator(BaseTranslator):
         if not batch:
             raise Exception("Enter your text list that you want to translate")
 
+        print("Please wait.. This may take a couple of seconds because deep_translator sleeps "
+              "for two seconds after each request in order to not spam the google server.")
         arr = []
-        for text in batch:
+        for i, text in enumerate(batch):
+
             translated = self.translate(text)
             arr.append(translated)
+            print("sentence number ", i+1, " has been translated successfully")
             sleep(2)
 
         return arr
 
 
 # if __name__ == '__main__':
-    # text = GoogleTranslator(source="en", target="en").translate("how are you")
+    # batch = ["how are you", "give me that man!", "where are you?"]
+    # text = GoogleTranslator(source="en", target="de").translate_batch(batch)
     # print(text)
