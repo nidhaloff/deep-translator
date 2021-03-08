@@ -98,6 +98,7 @@ class GoogleTranslator(BaseTranslator):
                 raise RequestError()
 
             soup = BeautifulSoup(response.text, 'html.parser')
+
             element = soup.find(self._element_tag, self._element_query)
 
             if not element:
