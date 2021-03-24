@@ -46,3 +46,8 @@ def test_payload(pons):
 
     with pytest.raises(exceptions.NotValidLength):
         pons.translate("a" * 51)
+
+
+def test_translate_words(pons):
+    words = ['hello', 'world']
+    translated_words = pons.translate_words(words)

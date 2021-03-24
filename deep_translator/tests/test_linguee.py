@@ -47,3 +47,8 @@ def test_payload(linguee):
 
     with pytest.raises(exceptions.NotValidLength):
         linguee.translate("a"*51)
+
+
+def test_translate_words(linguee):
+    words = ['hello', 'world']
+    translated_words = linguee.translate_words(words)
