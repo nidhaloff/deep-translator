@@ -136,3 +136,9 @@ class ServerException(Exception):
     def __init__(self, status_code, *args):
         message = self.errors.get(status_code, "API server error")
         super(ServerException, self).__init__(message, *args)
+
+
+class AuthorizationException(Exception):
+    def __init__(self, api_key, *args):
+        msg = 'Unauthorized access with the api key ' + api_key
+        super().__init__(msg, *args)
