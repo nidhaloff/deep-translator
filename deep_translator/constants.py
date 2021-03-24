@@ -191,3 +191,32 @@ microsoft_languages_response = requests.get(microsoft_languages_api_url)
 translation_dict = microsoft_languages_response.json()['translation']
 
 MICROSOFT_CODES_TO_LANGUAGES = {translation_dict[k]['name'].lower(): k for k in translation_dict.keys()}
+
+DEEPL_LANGUAGE_TO_CODE = {
+    "bulgarian": "bg",
+    "czech": "cs",
+    "danish": "da",
+    "german": "de",
+    "greek": "el",
+    "english": "en",
+    "spanish": "es",
+    "estonian": "et",
+    "finnish": "fi",
+    "french": "fr",
+    "hungarian": "hu",
+    "italian": "it",
+    "japanese": "ja",
+    "lithuanian": "lt",
+    "latvian": "lv",
+    "dutch": "nl",
+    "polish": "pl",
+    "portuguese": "pt",
+    "romanian": "ro",
+    "russian": "ru",
+    "slovak": "sk",
+    "slovenian": "sl",
+    "swedish": "sv",
+    "chinese": "zh"
+}
+
+DEEPL_CODE_TO_LANGUAGE = {v: k for k, v in DEEPL_LANGUAGE_TO_CODE.items()}
