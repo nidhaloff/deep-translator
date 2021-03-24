@@ -58,3 +58,7 @@ def test_payload(google_translator):
 
     #for _ in range(1):
     #assert google_translator.translate(text='좋은') == "good"
+
+
+def test_one_character_words():
+    assert GoogleTranslator(source='es', target='en').translate('o') == 'or'

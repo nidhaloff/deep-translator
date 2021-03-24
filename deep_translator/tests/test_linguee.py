@@ -49,6 +49,10 @@ def test_payload(linguee):
         linguee.translate("a"*51)
 
 
+
 def test_translate_words(linguee):
     words = ['hello', 'world']
     translated_words = linguee.translate_words(words)
+
+def test_one_character_words():
+    assert LingueeTranslator(source='es', target='en').translate('y') == 'and'
