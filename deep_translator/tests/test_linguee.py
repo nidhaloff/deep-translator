@@ -47,3 +47,7 @@ def test_payload(linguee):
 
     with pytest.raises(exceptions.NotValidLength):
         linguee.translate("a"*51)
+
+
+def test_one_character_words():
+    assert LingueeTranslator(source='es', target='en').translate('y') == 'and'

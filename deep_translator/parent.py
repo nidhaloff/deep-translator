@@ -64,7 +64,7 @@ class BaseTranslator(ABC):
         @param max_chars: maximum characters allowed
         @return: bool
         """
-        return True if min_chars < len(payload) < max_chars else False
+        return True if min_chars <= len(payload) < max_chars else False
 
     @abstractmethod
     def translate(self, text, **kwargs):
