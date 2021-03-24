@@ -131,6 +131,6 @@ class PonsTranslator(BaseTranslator):
 
         translated_words = []
         for word in words:
-            translated_words.append(self.translate(payload=word))
+            translated_words.append(self.translate(word=word))
         return translated_words
 
