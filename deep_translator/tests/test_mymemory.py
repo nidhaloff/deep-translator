@@ -46,3 +46,8 @@ def test_payload(mymemory):
 
     with pytest.raises(exceptions.NotValidLength):
         mymemory.translate(text="a"*501)
+
+
+def test_one_character_words(mymemory):
+    assert mymemory.translate('I')
+

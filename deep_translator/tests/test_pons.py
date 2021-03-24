@@ -46,3 +46,7 @@ def test_payload(pons):
 
     with pytest.raises(exceptions.NotValidLength):
         pons.translate("a" * 51)
+
+
+def test_one_character_words(pons):
+    assert pons.translate('I')
