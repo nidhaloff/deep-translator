@@ -486,8 +486,7 @@ the right arguments, which are the translator you want to use, source language, 
 you want to translate.
 
 For example, provide "google" as an argument to use the google translator. Alternatively you can use
-the other supported translators. Just read the documentation to have an overview about the supported
-translators in this library.
+the other supported translators. Just read the documentation to have an overview about the supported translators in this library.
 
 .. code-block:: console
 
@@ -504,6 +503,12 @@ If you want, you can also pass the source and target language by their abbreviat
 .. code-block:: console
 
     $ deep_translator -trans "google" -src "en" -tg "de" -txt "happy coding"
+
+If you want the list of languages supported by a translator service, just pass the translator service as an argument to the -trans flag followed by the -lang/--languages flag. For example:
+
+.. code-block:: console
+
+    $ deep_translator -trans "google" -lang
 
 ======
 Tests
@@ -619,4 +624,3 @@ Here are some screenshots:
     :width: 100%
     :height: 300
     :alt: screenshot3
-
