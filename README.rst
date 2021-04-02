@@ -486,7 +486,7 @@ the right arguments, which are the translator you want to use, source language, 
 you want to translate.
 
 For example, provide "google" as an argument to use the google translator. Alternatively you can use
-the other supported translators.
+the other supported translators. Just read the documentation to have an overview about the supported translators in this library.
 
 .. code-block:: console
 
