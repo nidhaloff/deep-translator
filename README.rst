@@ -81,6 +81,8 @@ Why you should use it
 - Easy to use and extend
 - Support for most famous universal translators
 - Stable and maintained regularly
+- The API is very easy to use
+- Proxy integration is supported
 
 ========
 Features
@@ -94,6 +96,7 @@ Features
 * Support for the `Yandex translator <https://yandex.com/>`_ (version >= 1.2.1)
 * Support for the `QCRI translator <https://mt.qcri.org/api/>`_ (version >= 1.2.4)
 * Support for the `DeepL translator <https://www.deepl.com/en/translator/>`_ (version >= 1.2.5)
+* Support for proxy usage
 * Automatic single language detection
 * Batch language detection
 * Translate directly from a text file
@@ -122,7 +125,20 @@ Quick Start
     from deep_translator import GoogleTranslator
     translated = GoogleTranslator(source='auto', target='de').translate("keep it up, you are awesome")  # output -> Weiter so, du bist großartig
 
-or from terminal
+or using proxies:
+
+.. code-block:: python
+
+    from deep_translator import GoogleTranslator
+
+    proxies_example = {
+        "https": "34.195.196.27:8080",
+        "http": "34.195.196.27:8080"
+    }
+    translated = GoogleTranslator(source='auto', target='de', proxies=proxies_example).translate("keep it up, you are awesome")  # output -> Weiter so, du bist großartig
+
+
+or even directly from terminal:
 
 .. code-block:: console
 
