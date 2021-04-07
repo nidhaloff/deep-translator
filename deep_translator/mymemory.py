@@ -22,12 +22,13 @@ class MyMemoryTranslator(BaseTranslator):
     _languages = GOOGLE_LANGUAGES_TO_CODES
     supported_languages = list(_languages.keys())
 
-    def __init__(self, source="auto", target="en", **kwargs):
+    def __init__(self, source="auto", target="en", proxies=None, **kwargs):
         """
         @param source: source language to translate from
         @param target: target language to translate to
         """
         self.__base_url = BASE_URLS.get("MYMEMORY")
+        self.proxies = proxies
         if self.is_language_supported(source, target):
             self._source, self._target = self._map_language_to_code(source.lower(), target.lower())
             self._source = self._source if self._source != 'auto' else 'Lao'
@@ -93,7 +94,8 @@ class MyMemoryTranslator(BaseTranslator):
 
             response = requests.get(self.__base_url,
                                     params=self._url_params,
-                                    headers=self.headers)
+                                    headers=self.headers,
+                                    proxies=self.proxies)
 
             if response.status_code == 429:
                 raise TooManyRequests()
