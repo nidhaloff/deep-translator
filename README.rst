@@ -493,6 +493,26 @@ Microsoft Translator
 
     translated = MicrosoftTranslator(api_key='some-key', target='german').translate_file('path/to/file')
 
+Proxy usage
+-------------
+
+deep-translator provide out of the box usage of proxies. Just define your proxies config as a dictionary
+and pass it to the corresponding translator. Below is an example using the GoogleTranslator but this feature
+can be used with all supported translators.
+
+.. code-block:: python
+
+    from deep_translator import GoogleTranslator
+
+    # define your proxy configs:
+    proxies_example = {
+        "https": "your https proxy",  # example: 34.195.196.27:8080
+        "http": "your http proxy if available"
+    }
+    translated = GoogleTranslator(source='auto', target='de', proxies=proxies_example).translate("this package is awesome")
+
+
+
 
 Usage from Terminal
 --------------------
