@@ -22,12 +22,13 @@ class LingueeTranslator(BaseTranslator):
     _languages = LINGUEE_LANGUAGES_TO_CODES
     supported_languages = list(_languages.keys())
 
-    def __init__(self, source, target="en"):
+    def __init__(self, source, target="en", proxies=None):
         """
         @param source: source language to translate from
         @param target: target language to translate to
         """
         self.__base_url = BASE_URLS.get("LINGUEE")
+        self.proxies = proxies
 
         if self.is_language_supported(source, target):
             self._source, self._target = self._map_language_to_code(source.lower(), target.lower())
@@ -88,7 +89,7 @@ class LingueeTranslator(BaseTranslator):
             # %s-%s/translation/%s.html
             url = "{}{}-{}/translation/{}.html".format(self.__base_url, self._source, self._target, word)
             url = requote_uri(url)
-            response = requests.get(url)
+            response = requests.get(url, proxies=self.proxies)
 
             if response.status_code == 429:
                 raise TooManyRequests()

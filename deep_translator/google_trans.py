@@ -19,12 +19,13 @@ class GoogleTranslator(BaseTranslator):
     _languages = GOOGLE_LANGUAGES_TO_CODES
     supported_languages = list(_languages.keys())
 
-    def __init__(self, source="auto", target="en"):
+    def __init__(self, source="auto", target="en", proxies=None, **kwargs):
         """
         @param source: source language to translate from
         @param target: target language to translate to
         """
         self.__base_url = BASE_URLS.get("GOOGLE_TRANSLATE")
+        self.proxies = proxies
 
         if self.is_language_supported(source, target):
             self._source, self._target = self._map_language_to_code(source.lower(), target.lower())
@@ -36,7 +37,8 @@ class GoogleTranslator(BaseTranslator):
                                                element_query={"class": "t0"},
                                                payload_key='q',  # key of text in the url
                                                hl=self._target,
-                                               sl=self._source)
+                                               sl=self._source,
+                                               **kwargs)
 
         self._alt_element_query = {"class": "result-container"}
 
@@ -89,8 +91,8 @@ class GoogleTranslator(BaseTranslator):
                 self._url_params[self.payload_key] = text
 
             response = requests.get(self.__base_url,
-                                    params=self._url_params, headers ={'User-agent': 'your bot 0.1'})
-
+                                    params=self._url_params,
+                                    proxies=self.proxies)
             if response.status_code == 429:
                 raise TooManyRequests()
 
@@ -180,7 +182,8 @@ class GoogleTranslator(BaseTranslator):
         return arr
 
 
-# if __name__ == '__main__':
-#     batch = ["tude", "fleck", "incongruous"]
-#     text = GoogleTranslator(source="en", target="de").translate_batch(batch)
-#     print(text)
+if __name__ == '__main__':
+    # test proxy config
+    proxies = None
+    text = GoogleTranslator(source="en", target="de", proxies=proxies).translate("you are good")
+    print(text)

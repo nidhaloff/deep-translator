@@ -17,7 +17,7 @@ class MicrosoftTranslator:
     _languages = MICROSOFT_CODES_TO_LANGUAGES
     supported_languages = list(_languages.values())
 
-    def __init__(self, api_key=None, region=None, source=None, target=None, **kwargs):
+    def __init__(self, api_key=None, region=None, source=None, target=None, proxies=None, **kwargs):
         """
         @params api_key and target are the required params
         @param api_key: your Microsoft API key
@@ -27,6 +27,8 @@ class MicrosoftTranslator:
             raise ServerException(401)
         else:
             self.api_key = api_key
+
+        self.proxies = proxies
         self.headers = {
             "Ocp-Apim-Subscription-Key": self.api_key,
             "Content-type": "application/json",
@@ -108,7 +110,8 @@ class MicrosoftTranslator:
             requested = requests.post(self.__base_url,
                                       params=self.url_params,
                                       headers=self.headers,
-                                      json=valid_microsoft_json)
+                                      json=valid_microsoft_json,
+                                      proxies=self.proxies)
         except requests.exceptions.RequestException:
             exc_type, value, traceback = sys.exc_info()
             logging.warning(f"Returned error: {exc_type.__name__}")
