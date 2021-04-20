@@ -589,6 +589,23 @@ Links
 Check this article on medium to know why you should use the deep-translator package and how to translate text using python.
 https://medium.com/@nidhalbacc/how-to-translate-text-with-python-9d203139dcf5
 
+======
+Help
+======
+
+If you are facing any problems, please feel free to open an issue.
+Additionally, you can make contact with the author for further information/questions.
+
+Do you like deep-translator?
+You can always help the development of this project by:
+
+- Following on github and/or twitter
+- Promote the project (ex: by giving it a star on github)
+- Watch the github repo for new releases
+- Tweet about the package
+- Help others with issues on github
+- Create issues and pull requests
+- Sponsor the project
 
 ==========
 Next Steps
