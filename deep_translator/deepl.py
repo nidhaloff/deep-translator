@@ -12,24 +12,32 @@ class DeepL(object):
     """
     _languages = DEEPL_LANGUAGE_TO_CODE
 
-    def __init__(self, api_key=None):
+    def __init__(self, api_key=None, source="auto", target="en"):
         """
         @param api_key: your DeepL api key.
         Get one here: https://www.deepl.com/docs-api/accessing-the-api/
+        @param source: source language
+        @param target: target language
         """
         if not api_key:
             raise ServerException(401)
         self.version = 'v2'
         self.api_key = api_key
+        self.source = self._map_language_to_code(source)
+        self.target = self._map_language_to_code(target)
         self.__base_url = BASE_URLS.get("DEEPL").format(version=self.version)
 
-    def translate(self, source, target, text):
+    def translate(self, text):
+        """
+        @param text: text to translate
+        @return: translated text
+        """
         # Create the request parameters.
         translate_endpoint = 'translate'
         params = {
             "auth_key": self.api_key,
-            "target_lang": self._map_language_to_code(target),
-            "source_lang": self._map_language_to_code(source),
+            "source_lang": self.source,
+            "target_lang": self.target,
             "text": text
         }
         # Do the request and check the connection.
@@ -49,15 +57,12 @@ class DeepL(object):
         # Process and return the response.
         return res['translations'][0]['text']
 
-    def translate_batch(self, source, target, batch):
+    def translate_batch(self, batch):
         """
-        translate a batch of texts
-        @param source: source language
-        @param target: target language
         @param batch: list of texts to translate
         @return: list of translations
         """
-        return [self.translate(source, target, text) for text in batch]
+        return [self.translate(text) for text in batch]
 
     def _is_language_supported(self, lang):
         # The language is supported when is in the dicionary.
