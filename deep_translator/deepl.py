@@ -16,6 +16,8 @@ class DeepL(object):
         """
         @param api_key: your DeepL api key.
         Get one here: https://www.deepl.com/docs-api/accessing-the-api/
+        @param source: source language
+        @param target: target language
         """
         if not api_key:
             raise ServerException(401)
@@ -26,6 +28,10 @@ class DeepL(object):
         self.__base_url = BASE_URLS.get("DEEPL").format(version=self.version)
 
     def translate(self, text):
+        """
+        @param text: text to translate
+        @return: translated text
+        """
         # Create the request parameters.
         translate_endpoint = 'translate'
         params = {
@@ -53,9 +59,6 @@ class DeepL(object):
 
     def translate_batch(self, batch):
         """
-        translate a batch of texts
-        @param source: source language
-        @param target: target language
         @param batch: list of texts to translate
         @return: list of translations
         """
