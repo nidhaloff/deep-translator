@@ -12,7 +12,7 @@ class DeepL(object):
     """
     _languages = DEEPL_LANGUAGE_TO_CODE
 
-    def __init__(self, api_key=None, source="auto", target="en"):
+    def __init__(self, api_key=None, source="en", target="en"):
         """
         @param api_key: your DeepL api key.
         Get one here: https://www.deepl.com/docs-api/accessing-the-api/
