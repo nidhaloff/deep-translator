@@ -12,7 +12,7 @@ class DeepL(object):
     """
     _languages = DEEPL_LANGUAGE_TO_CODE
 
-    def __init__(self, api_key=None, source="en", target="en"):
+    def __init__(self, api_key=None, source="en", target="en", use_free_api=True):
         """
         @param api_key: your DeepL api key.
         Get one here: https://www.deepl.com/docs-api/accessing-the-api/
@@ -25,7 +25,10 @@ class DeepL(object):
         self.api_key = api_key
         self.source = self._map_language_to_code(source)
         self.target = self._map_language_to_code(target)
-        self.__base_url = BASE_URLS.get("DEEPL").format(version=self.version)
+        if use_free_api:
+            self.__base_url = BASE_URLS.get("DEEPL_FREE").format(version=self.version)
+        else:
+            self.__base_url = BASE_URLS.get("DEEPL").format(version=self.version)
 
     def translate(self, text):
         """
@@ -74,3 +77,9 @@ class DeepL(object):
         elif lang in self._languages.values():
             return lang
         raise LanguageNotSupportedException(lang)
+
+
+if __name__ == '__main__':
+    d = DeepL(target="de")
+    t = d.translate("I have no idea")
+    print("text: ", t)
