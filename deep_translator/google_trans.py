@@ -182,10 +182,4 @@ class GoogleTranslator(BaseTranslator):
         return arr
 
 
-if __name__ == '__main__':
-    # test proxy config
-    # proxies = None
-    # text = GoogleTranslator(source="en", target="de", proxies=proxies).translate("you are good")
-    # print(text)
-    import json
-    r = json.dump("nidhal")
+
