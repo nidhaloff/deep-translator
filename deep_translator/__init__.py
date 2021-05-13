@@ -13,7 +13,7 @@ from .microsoft import MicrosoftTranslator
 
 __author__ = """Nidhal Baccouri"""
 __email__ = 'nidhalbacc@gmail.com'
-__version__ = '1.4.2'
+__version__ = '1.4.3'
 
 __all__ = [GoogleTranslator,
            PonsTranslator,
