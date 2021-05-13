@@ -301,7 +301,11 @@ DeepL Translator
 
     text = 'Keep it up. You are awesome'
 
-    translated = DeepL("your_api_key").translate(text)
+    translated = DeepL(api_key="your_api_key", source="en", target="en", use_free_api=True).translate(text)
+
+.. note::
+        deep-translator uses free deepl api by default. If you have the pro version then simply set the use_free_api to false.
+
 
 - Translate batch of texts
 
