@@ -292,8 +292,9 @@ DeepL Translator
 
 .. note::
 
-    In order to use the DeepL translator, you need to generate an api key. Visit https://www.deepl.com/en/docs-api/
-    for more information
+    In order to use the DeepL translator, you need to generate an api key. Deepl offers a Pro and a free API.
+    deep-translator supports both Pro and free APIs. Just check the examples below.
+    Visit https://www.deepl.com/en/docs-api/ for more information on how to generate your Deepl api key
 
 - Simple translation
 
