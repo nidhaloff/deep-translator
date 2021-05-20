@@ -12,33 +12,23 @@ import warnings
 import logging
 
 
-class PapagoTranslator(BaseTranslator):
+class PapagoTranslator(object):
     """
     class that wraps functions, which use google translate under the hood to translate text(s)
     """
     _languages = PAPAGO_LANGUAGE_TO_CODE
     supported_languages = list(_languages.keys())
 
-    def __init__(self, source="auto", target="en", proxies=None, **kwargs):
+    def __init__(self, client_id, secret_key, source="auto", target="en"):
         """
         @param source: source language to translate from
         @param target: target language to translate to
         """
         self.__base_url = BASE_URLS.get("PAPAGO_API")
-        self.proxies = proxies
-
+        self.client_id = client_id
+        self.secret_key = secret_key
         if self.is_language_supported(source, target):
             self._source, self._target = self._map_language_to_code(source.lower(), target.lower())
-
-        super(PapagoTranslator, self).__init__(base_url=self.__base_url,
-                                               source=self._source,
-                                               target=self._target,
-                                               element_tag='div',
-                                               element_query={"id": "txtTarget"},
-                                               payload_key='st',  # key of text in the url
-                                               tk=self._target,
-                                               sk=self._source,
-                                               **kwargs)
 
     @staticmethod
     def get_supported_languages(as_dict=False):
