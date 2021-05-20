@@ -1,6 +1,7 @@
 """
 google translator API
 """
+import json
 
 from deep_translator.constants import BASE_URLS, PAPAGO_LANGUAGE_TO_CODE
 from deep_translator.exceptions import TooManyRequests, LanguageNotSupportedException, TranslationNotFound, NotValidPayload, RequestError
@@ -72,31 +73,29 @@ class PapagoTranslator(object):
         @return: str: translated text
         """
 
-        if self._validate_payload(text):
-            text = text.strip()
+        payload = {
+            "source": self._source,
+            "target": self._target,
+            "text": text
+        }
+        headers = {
+            'X-Naver-Client-Id': self.client_id,
+            'X-Naver-Client-Secret': self.secret_key,
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+        response = requests.post(self.__base_url, headers=headers, data=payload)
+        if response.status_code != 200:
+            raise Exception(f'Translation error! -> status code: {response.status_code}')
+        res_body = json.loads(response.text)
+        if "message" not in res_body:
+            raise TranslationNotFound(text)
 
-            if self.payload_key:
-                self._url_params[self.payload_key] = text
-
-            response = requests.get(self.__base_url,
-                                    params=self._url_params,
-                                    proxies=self.proxies)
-            print("url: ", response.url)
-            if response.status_code == 429:
-                raise TooManyRequests()
-
-            if response.status_code != 200:
-                raise RequestError()
-
-            soup = BeautifulSoup(response.text, 'html.parser')
-            print("soup: ", soup)
-            #exit()
-            element = soup.find(self._element_tag, self._element_query)
-            print("element: ", element)
-            if not element:
-                raise TranslationNotFound(text)
-            else:
-                return element.get_text(strip=True)
+        msg = res_body.get("message")
+        result = msg.get("result", None)
+        if not result:
+            raise TranslationNotFound(text)
+        translated_text = result.get("translatedText")
+        return translated_text
 
     def translate_file(self, path, **kwargs):
         """
@@ -146,22 +145,11 @@ class PapagoTranslator(object):
         """
         if not batch:
             raise Exception("Enter your text list that you want to translate")
-
-        print("Please wait.. This may take a couple of seconds because deep_translator sleeps "
-              "for two seconds after each request in order to not spam the google server.")
         arr = []
         for i, text in enumerate(batch):
 
             translated = self.translate(text)
             arr.append(translated)
-            print("sentence number ", i+1, " has been translated successfully")
-            sleep(2)
-
         return arr
 
-
-
-if __name__ == '__main__':
-    t = PapagoTranslator(source="en", target="de").translate("cute")
-    print(t)
 
