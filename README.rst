@@ -96,6 +96,7 @@ Features
 * Support for the `Yandex translator <https://yandex.com/>`_ (version >= 1.2.1)
 * Support for the `QCRI translator <https://mt.qcri.org/api/>`_ (version >= 1.2.4)
 * Support for the `DeepL translator <https://www.deepl.com/en/translator/>`_ (version >= 1.2.5)
+* Support for the `Papago translator <https://papago.naver.com/>`_ (version >= 1.4.4)
 * Support for proxy usage
 * Automatic single language detection
 * Batch language detection
@@ -168,6 +169,7 @@ Imports
                                  LingueeTranslator,
                                  MyMemoryTranslator,
                                  YandexTranslator,
+                                 PapagoTranslator,
                                  DeepL,
                                  QCRI,
                                  single_detection,
@@ -497,6 +499,21 @@ Microsoft Translator
 .. code-block:: python
 
     translated = MicrosoftTranslator(api_key='some-key', target='german').translate_file('path/to/file')
+
+
+Papago Translator
+---------------------
+
+.. note::
+
+    You need to require a **client id** and **client secret key** if you want to use the papago translator.
+    visit the official website for more information about how to get one.
+
+.. code-block:: python
+
+    text = 'happy coding'
+    translated = PapagoTranslator(client_id='your_client_id', secret_key='your_secret_key', source='en', target='ko').translate(text=text)  # output: 행복한 부호화
+
 
 Proxy usage
 -------------
