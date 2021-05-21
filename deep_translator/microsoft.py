@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import requests
-# import uuid
 import logging
 import sys
 

@@ -1,9 +1,8 @@
 
 import requests
-from requests.utils import requote_uri
 from deep_translator.constants import BASE_URLS
-from deep_translator.exceptions import (RequestError,
-                                        ServerException, TranslationNotFound, TooManyRequests)
+from deep_translator.exceptions import (
+                                        ServerException, TranslationNotFound)
 
 
 class QCRI(object):
