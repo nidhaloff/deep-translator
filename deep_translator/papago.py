@@ -2,13 +2,9 @@
 google translator API
 """
 import json
-
 from deep_translator.constants import BASE_URLS, PAPAGO_LANGUAGE_TO_CODE
-from deep_translator.exceptions import TooManyRequests, LanguageNotSupportedException, TranslationNotFound, NotValidPayload, RequestError
-from deep_translator.parent import BaseTranslator
-from bs4 import BeautifulSoup
+from deep_translator.exceptions import LanguageNotSupportedException, TranslationNotFound, NotValidPayload
 import requests
-from time import sleep
 import warnings
 import logging
 
