@@ -34,6 +34,9 @@ deep-translator
         :alt: Twitter URL
         :target: https://twitter.com/NidhalBaccouri
 
+|
+|
+
 .. contents:: Table of Contents
     :depth: 3
 
