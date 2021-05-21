@@ -11,7 +11,7 @@ class QCRI(object):
     class that wraps functions, which use the QRCI translator under the hood to translate word(s)
     """
 
-    def __init__(self, api_key=None):
+    def __init__(self, api_key=None, source="en", target="en"):
         """
         @param api_key: your qrci api key. Get one for free here https://mt.qcri.org/api/v1/ref
         """
@@ -19,7 +19,8 @@ class QCRI(object):
         if not api_key:
             raise ServerException(401)
         self.__base_url = BASE_URLS.get("QCRI")
-
+        self.source = source
+        self.target = target
         self.api_key = api_key
         self.api_endpoints = {
             "get_languages": "getLanguagePairs",
@@ -57,10 +58,10 @@ class QCRI(object):
     def domains(self):
         return self.get_domains()
 
-    def translate(self, source, target, domain, text):
+    def translate(self, text, domain):
         params = {
             "key": self.api_key,
-            "langpair": "{}-{}".format(source, target),
+            "langpair": "{}-{}".format(self.source, self.target),
             "domain": domain,
             "text": text
         }
@@ -79,13 +80,12 @@ class QCRI(object):
                     raise TranslationNotFound(text)
                 return translation
 
-    def translate_batch(self, source, target, domain, batch):
+    def translate_batch(self, batch, domain):
         """
         translate a batch of texts
-        @param source: source language
-        @param target: target language
+        @domain: domain
         @param batch: list of texts to translate
         @return: list of translations
         """
-        return [self.translate(source, target, domain, text) for text in batch]
+        return [self.translate(domain, text) for text in batch]
 
