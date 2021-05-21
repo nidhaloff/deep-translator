@@ -16,11 +16,14 @@ class PapagoTranslator(object):
     _languages = PAPAGO_LANGUAGE_TO_CODE
     supported_languages = list(_languages.keys())
 
-    def __init__(self, client_id, secret_key, source="auto", target="en"):
+    def __init__(self, client_id=None, secret_key=None, source="auto", target="en"):
         """
         @param source: source language to translate from
         @param target: target language to translate to
         """
+        if not client_id or not secret_key:
+            raise Exception("Please pass your client id and secret key! visit the papago website for more infos")
+
         self.__base_url = BASE_URLS.get("PAPAGO_API")
         self.client_id = client_id
         self.secret_key = secret_key

@@ -8,7 +8,7 @@ BASE_URLS = {
     "MYMEMORY": "http://api.mymemory.translated.net/get",
     "QCRI": "https://mt.qcri.org/api/v1/{endpoint}?",
     "DEEPL": "https://api.deepl.com/{version}/",
-    "DEEPL_FREE": "https://api-free.deepl.com",
+    "DEEPL_FREE": "https://api-free.deepl.com/v2/",
     "MICROSOFT_TRANSLATE": "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0",
     "PAPAGO": "https://papago.naver.com/",
     "PAPAGO_API": "https://openapi.naver.com/v1/papago/n2mt"
