@@ -12,7 +12,7 @@ class YandexTranslator(object):
     class that wraps functions, which use the yandex translator under the hood to translate word(s)
     """
 
-    def __init__(self, api_key=None, source="en", target="de"):
+    def __init__(self, api_key=None, source="en", target="de", **kwargs):
         """
         @param api_key: your yandex api key
         """
@@ -80,7 +80,7 @@ class YandexTranslator(object):
             raise ServerException(501)
         return language
 
-    def translate(self, text, proxies=None):
+    def translate(self, text, proxies=None, **kwargs):
         params = {
             "text": text,
             "format": "plain",
@@ -106,7 +106,7 @@ class YandexTranslator(object):
 
         return response['text']
 
-    def translate_file(self, path):
+    def translate_file(self, path, **kwargs):
         """
         translate from a file
         @param path: path to file
@@ -120,10 +120,10 @@ class YandexTranslator(object):
         except Exception as e:
             raise e
 
-    def translate_batch(self, batch):
+    def translate_batch(self, batch, **kwargs):
         """
         translate a batch of texts
         @param batch: list of texts to translate
         @return: list of translations
         """
-        return [self.translate(text) for text in batch]
+        return [self.translate(text, **kwargs) for text in batch]

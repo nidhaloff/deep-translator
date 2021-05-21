@@ -43,7 +43,7 @@ class GoogleTranslator(BaseTranslator):
         self._alt_element_query = {"class": "result-container"}
 
     @staticmethod
-    def get_supported_languages(as_dict=False):
+    def get_supported_languages(as_dict=False, **kwargs):
         """
         return the supported languages by the google translator
         @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
@@ -160,7 +160,7 @@ class GoogleTranslator(BaseTranslator):
         except Exception as e:
             raise e
 
-    def translate_batch(self, batch=None):
+    def translate_batch(self, batch=None, **kwargs):
         """
         translate a list of texts
         @param batch: list of texts you want to translate
@@ -174,7 +174,7 @@ class GoogleTranslator(BaseTranslator):
         arr = []
         for i, text in enumerate(batch):
 
-            translated = self.translate(text)
+            translated = self.translate(text, **kwargs)
             arr.append(translated)
             print("sentence number ", i+1, " has been translated successfully")
             sleep(2)

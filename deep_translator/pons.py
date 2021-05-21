@@ -21,7 +21,7 @@ class PonsTranslator(BaseTranslator):
     _languages = PONS_LANGUAGES_TO_CODES
     supported_languages = list(_languages.keys())
 
-    def __init__(self, source, target="en", proxies=None):
+    def __init__(self, source, target="en", proxies=None, **kwargs):
         """
         @param source: source language to translate from
         @param target: target language to translate to
@@ -40,7 +40,7 @@ class PonsTranslator(BaseTranslator):
                          )
 
     @staticmethod
-    def get_supported_languages(as_dict=False):
+    def get_supported_languages(as_dict=False, **kwargs):
         """
           return the supported languages by the linguee translator
           @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
@@ -131,6 +131,6 @@ class PonsTranslator(BaseTranslator):
 
         translated_words = []
         for word in words:
-            translated_words.append(self.translate(word=word))
+            translated_words.append(self.translate(word=word, **kwargs))
         return translated_words
 

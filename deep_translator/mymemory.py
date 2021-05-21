@@ -41,7 +41,7 @@ class MyMemoryTranslator(BaseTranslator):
                                                  langpair='{}|{}'.format(self._source, self._target))
 
     @staticmethod
-    def get_supported_languages(as_dict=False):
+    def get_supported_languages(as_dict=False, **kwargs):
         """
          return the supported languages by the mymemory translator
          @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
@@ -158,7 +158,7 @@ class MyMemoryTranslator(BaseTranslator):
         except Exception as e:
             raise e
 
-    def translate_batch(self, batch=None):
+    def translate_batch(self, batch=None, **kwargs):
         """
         translate a list of texts
         @param batch: list of texts you want to translate
@@ -169,7 +169,7 @@ class MyMemoryTranslator(BaseTranslator):
 
         arr = []
         for text in batch:
-            translated = self.translate(text)
+            translated = self.translate(text, **kwargs)
             arr.append(translated)
             sleep(2)
 

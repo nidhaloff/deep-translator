@@ -58,7 +58,7 @@ class MicrosoftTranslator:
         self.__base_url = BASE_URLS.get("MICROSOFT_TRANSLATE")
 
     @staticmethod
-    def get_supported_languages(as_dict=False):
+    def get_supported_languages(as_dict=False, **kwargs):
         """
         return the languages supported by the microsoft translator
         @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
@@ -66,7 +66,7 @@ class MicrosoftTranslator:
         """
         return MicrosoftTranslator.supported_languages if not as_dict else MicrosoftTranslator._languages
 
-    def _map_language_to_code(self, language):
+    def _map_language_to_code(self, language, **kwargs):
         """
         map the language to its corresponding code (abbreviation) if the language was passed by its full name by the user
         @param language: a string (if 1 lang) or a list (if multiple langs)
@@ -82,7 +82,7 @@ class MicrosoftTranslator:
             else:
                 raise LanguageNotSupportedException(lang)
 
-    def is_language_supported(self, language):
+    def is_language_supported(self, language, **kwargs):
         """
         check if the language is supported by the translator
         @param language: a string (if 1 lang) or a list (if multiple langs)
@@ -96,7 +96,7 @@ class MicrosoftTranslator:
                     raise LanguageNotSupportedException(lang)
         return True
 
-    def translate(self, text):
+    def translate(self, text, **kwargs):
         """
         function that uses microsoft translate to translate a text
         @param text: desired text to translate
@@ -124,7 +124,7 @@ class MicrosoftTranslator:
             all_translations = [i['text'] for i in requested.json()[0]['translations']]
             return "\n".join(all_translations)
 
-    def translate_file(self, path):
+    def translate_file(self, path, **kwargs):
         """
         translate from a file
         @param path: path to file
@@ -137,10 +137,10 @@ class MicrosoftTranslator:
         except Exception as e:
             raise e
 
-    def translate_batch(self, batch):
+    def translate_batch(self, batch, **kwargs):
         """
         translate a batch of texts
         @param batch: list of texts to translate
         @return: list of translations
         """
-        return [self.translate(text) for text in batch]
+        return [self.translate(text, **kwargs) for text in batch]

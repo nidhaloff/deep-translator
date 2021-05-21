@@ -16,7 +16,7 @@ class PapagoTranslator(object):
     _languages = PAPAGO_LANGUAGE_TO_CODE
     supported_languages = list(_languages.keys())
 
-    def __init__(self, client_id=None, secret_key=None, source="auto", target="en"):
+    def __init__(self, client_id=None, secret_key=None, source="auto", target="en", **kwargs):
         """
         @param source: source language to translate from
         @param target: target language to translate to
@@ -31,7 +31,7 @@ class PapagoTranslator(object):
             self._source, self._target = self._map_language_to_code(source.lower(), target.lower())
 
     @staticmethod
-    def get_supported_languages(as_dict=False):
+    def get_supported_languages(as_dict=False, **kwargs):
         """
         return the supported languages by the google translator
         @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
@@ -136,7 +136,7 @@ class PapagoTranslator(object):
         except Exception as e:
             raise e
 
-    def translate_batch(self, batch=None):
+    def translate_batch(self, batch=None, **kwargs):
         """
         translate a list of texts
         @param batch: list of texts you want to translate
@@ -147,7 +147,7 @@ class PapagoTranslator(object):
         arr = []
         for i, text in enumerate(batch):
 
-            translated = self.translate(text)
+            translated = self.translate(text, **kwargs)
             arr.append(translated)
         return arr
 
