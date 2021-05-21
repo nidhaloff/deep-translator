@@ -34,15 +34,6 @@ deep-translator
         :alt: Twitter URL
         :target: https://twitter.com/NidhalBaccouri
 
-|
-|
-
-.. contents:: Table of Contents
-    :depth: 3
-
-|
-|
-
 
 =======================
 Translation for humans
@@ -53,6 +44,17 @@ A flexible **FREE** and **UNLIMITED** tool to translate between different langua
 
 * Free software: MIT license
 * Documentation: https://deep-translator.readthedocs.io.
+
+
+|
+|
+
+.. contents:: Table of Contents
+    :depth: 3
+
+|
+|
+
 
 ==========
 Motivation
