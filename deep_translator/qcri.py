@@ -74,7 +74,7 @@ class QCRI(object):
                 ServerException(response.status_code)
             else:
                 res = response.json()
-                translation = res["translatedText"]
+                translation = res.get("translatedText")
                 if not translation:
                     raise TranslationNotFound(text)
                 return translation
