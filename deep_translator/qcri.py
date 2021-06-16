@@ -1,6 +1,6 @@
 
 import requests
-from deep_translator.constants import BASE_URLS
+from deep_translator.constants import BASE_URLS, QCRI_LANGUAGE_TO_CODE
 from deep_translator.exceptions import (
                                         ServerException, TranslationNotFound)
 
@@ -40,10 +40,12 @@ class QCRI(object):
         except Exception as e:
             raise e
 
-    def get_supported_languages(self):
-
+    def get_supported_languages(self, **kwargs):
+        # Have no use for this as the format is not what we need
+        # Save this for whenever
         pairs = self._get("get_languages")
-        return pairs
+        # Using a this one instead
+        return QCRI_LANGUAGE_TO_CODE
 
     @property
     def languages(self):

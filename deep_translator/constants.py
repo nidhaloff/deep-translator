@@ -238,3 +238,13 @@ PAPAGO_CODE_TO_LANGUAGE = {
 }
 
 PAPAGO_LANGUAGE_TO_CODE = {v: k for v, k in PAPAGO_CODE_TO_LANGUAGE.items()}
+
+QCRI_CODE_TO_LANGUAGE = {
+    'ar': 'Arabic',
+    'en': 'English',
+    'es': 'Spanish'
+}
+
+QCRI_LANGUAGE_TO_CODE = {
+    v: k for k, v in QCRI_CODE_TO_LANGUAGE.items()
+}
