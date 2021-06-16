@@ -1,75 +1,162 @@
 """Console script for deep_translator."""
 
-import argparse
-import sys
+import click
 from .google_trans import GoogleTranslator
 from .mymemory import MyMemoryTranslator
-from .pons import PonsTranslator
+from .deepl import DeepL
+from .qcri import QCRI
 from .linguee import LingueeTranslator
+from .pons import PonsTranslator
+from .yandex import YandexTranslator
+from .microsoft import MicrosoftTranslator
+from .papago import PapagoTranslator
+
+CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
 
-def translate(args):
+def translate(translator, source, target, text, api_key):
     """
     function used to provide translations from the parsed terminal arguments
+    @param translator: translator name parsed from terminal arguments
+    @param source: source language parsed from terminal arguments
+    @param target: target language parsed from terminal arguments
+    @param text: text that will be translated parsed from terminal arguments
+    @param api_key: api key for translators that requires them
+    @return: None
+    """
+    if translator == "google":
+        translator = GoogleTranslator(source=source, target=target)
+    elif translator == "mymemory":
+        translator = MyMemoryTranslator(source=source, target=target)
+    elif translator == "deepl":
+        translator = DeepL(source=source, target=target, api_key=api_key)
+    elif translator == "qcri":
+        translator = QCRI(source=source, target=target, api_key=api_key)
+    elif translator == "linguee":
+        translator = LingueeTranslator(source=source, target=target)
+    elif translator == "pons":
+        translator = PonsTranslator(source=source, target=target)
+    elif translator == "yandex":
+        translator = YandexTranslator(
+            source=source,
+            target=target,
+            api_key=api_key
+        )
+    elif translator == "microsoft":
+        translator = MicrosoftTranslator(
+            source=source,
+            target=target,
+            api_key=api_key
+        )
+    elif translator == "papago":
+        translator = PapagoTranslator(
+            source=source,
+            target=target,
+            api_key=api_key
+        )
+    else:
+        click.echo(
+            "The given translator is not supported."
+            " Please use a translator supported by the deep_translator tool"
+        )
+        return
+
+    res = translator.translate(text)
+    click.echo(f" | Translation from {source} to {target} |")
+    click.echo(f"Translated text: \n {res}")
+
+
+def print_supported_languages(requested_translator, api_key):
+    """
+    function used to print the languages supported by the translator service
+    from the parsed terminal arguments
     @param args: parsed terminal arguments
     @return: None
     """
     translator = None
-    if args.translator == 'google':
-        translator = GoogleTranslator(source=args.source, target=args.target)
-    elif args.translator == 'pons':
-        translator = PonsTranslator(source=args.source, target=args.target)
-    elif args.translator == 'linguee':
-        translator = LingueeTranslator(source=args.source, target=args.target)
-    elif args.translator == 'mymemory':
-        translator = MyMemoryTranslator(source=args.source, target=args.target)
-    else:
-        print("given translator is not supported. Please use a supported translator from the deep_translator tool")
-
-    res = translator.translate(args.text)
-    print(" | Translation from {} to {} |".format(args.source, args.target))
-    print("Translated text: \n {}".format(res))
-
-def return_supported_languages(args):
-    """
-    function used to return the languages supported by the translator service from the parsed terminal arguments
-    @param args: parsed terminal arguments
-    @return: None
-    """
-    if args.translator == 'google':
+    if requested_translator == "google":
         translator = GoogleTranslator
-    elif args.translator == 'pons':
-        translator = PonsTranslator
-    elif args.translator == 'linguee':
-        translator = LingueeTranslator
-    elif args.translator == 'mymemory':
+    elif requested_translator == "mymemory":
         translator = MyMemoryTranslator
+    elif requested_translator == "qcri":
+        translator = QCRI(api_key=api_key)
+    elif requested_translator == "linguee":
+        translator = LingueeTranslator
+    elif requested_translator == "pons":
+        translator = PonsTranslator
+    elif requested_translator == "yandex":
+        translator = YandexTranslator(api_key=api_key)
+    elif requested_translator == "microsoft":
+        translator = MicrosoftTranslator(api_key=api_key)
+    elif requested_translator == "papago":
+        translator = PapagoTranslator(api_key=api_key)
     else:
-        print("given translator is not supported. Please use a supported translator from the deep_translator tool")
+        click.echo(
+            "The given translator is not supported."
+            " Please use a translator supported by the deep_translator tool"
+        )
+        return
 
-    translator_supported_languages = translator.get_supported_languages(as_dict=True)
-    print(f'Languages supported by \'{args.translator}\' are :\n')
-    print(translator_supported_languages)
+    supported_languages = translator.get_supported_languages(as_dict=True)
+    click.echo(f"Languages supported by '{requested_translator}' are :")
+    for k, v in supported_languages.items():
+        click.echo(f"|- {k}: {v}")
 
 
-def main():
+@click.command(context_settings=CONTEXT_SETTINGS)
+@click.option(
+    "--translator",
+    "-trans",
+    default="google",
+    type=str,
+    help="name of the translator you want to use",
+    show_default=True,
+)
+@click.option(
+    "--source",
+    "-src",
+    type=str,
+    help="source language to translate from"
+)
+@click.option(
+    "--target",
+    "-tg",
+    type=str,
+    help="target language to translate to"
+)
+@click.option(
+    "--text",
+    "-txt",
+    type=str,
+    help="text you want to translate"
+)
+@click.option(
+    "--api-key",
+    type=str,
+    help="required for DeepL, QCRI, Yandex, Microsoft and Papago translators"
+)
+@click.option(
+    "--languages",
+    "-lang",
+    is_flag=True,
+    help="list all the languages available with the translator."
+    " Run with deep_translator -trans <translator service> -lang",
+)
+def main(translator, source, target, text, api_key, languages):
     """
-    function responsible for parsing terminal arguments and provide them for further use in the translation process
-
+    \f
+    function responsible for parsing terminal arguments and provide them for
+    further use in the translation process
     """
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--translator', '-trans',
-                        default='google', type=str, help="name of the translator you want to use", required=True)
-    parser.add_argument('--source', '-src', type=str, help="source language to translate from")
-    parser.add_argument('--target', '-tg', type=str, help="target language to translate to")
-    parser.add_argument('--text', '-txt', type=str, help="text you want to translate")
-    parser.add_argument('--languages', '-lang',action='store_true', help="all the languages available with the translator. Run the command deep_translator -trans <translator service> -lang")
-
-    args = parser.parse_args()
-    if args.languages:
-        return_supported_languages(args)
+    api_key_required = ["deepl", "qcri", "yandex", "microsoft", "papago"]
+    if translator in api_key_required and not api_key:
+        click.echo(
+            "This translator requires an api key provided through --api-key"
+        )
+    elif languages:
+        print_supported_languages(translator, api_key)
     else:
-        translate(args)
+        translate(translator, source, target, text, api_key)
     # sys.exit()
 
 
