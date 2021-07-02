@@ -1,6 +1,6 @@
 import requests
-from deep_translator.constants import BASE_URLS, DEEPL_LANGUAGE_TO_CODE
-from deep_translator.exceptions import (ServerException,
+from constants import BASE_URLS, DEEPL_LANGUAGE_TO_CODE
+from exceptions import (ServerException,
                                         TranslationNotFound,
                                         LanguageNotSupportedException,
                                         AuthorizationException)

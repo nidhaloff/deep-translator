@@ -4,13 +4,13 @@ mymemory translator API
 import logging
 import warnings
 
-from deep_translator.constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
-from deep_translator.exceptions import (NotValidPayload,
+from constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
+from exceptions import (NotValidPayload,
                                         TranslationNotFound,
                                         LanguageNotSupportedException,
                                         RequestError,
                                         TooManyRequests)
-from deep_translator.parent import BaseTranslator
+from parent import BaseTranslator
 import requests
 from time import sleep
 

@@ -4,8 +4,8 @@ import requests
 import logging
 import sys
 
-from deep_translator.constants import BASE_URLS, MICROSOFT_CODES_TO_LANGUAGES
-from deep_translator.exceptions import LanguageNotSupportedException, ServerException, MicrosoftAPIerror
+from constants import BASE_URLS, MICROSOFT_CODES_TO_LANGUAGES
+from exceptions import LanguageNotSupportedException, ServerException, MicrosoftAPIerror
 
 
 class MicrosoftTranslator:

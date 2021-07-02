@@ -82,7 +82,7 @@ class NotValidLength(BaseError):
 
 class RequestError(Exception):
     """
-    exception thrown if an error occured during the request call, e.g a connection problem.
+    exception thrown if an error occurred during the request call, e.g a connection problem.
     """
 
     def __init__(self, message="Request exception can happen due to an api connection error. "
@@ -108,7 +108,7 @@ class MicrosoftAPIerror(Exception):
 
 class TooManyRequests(Exception):
     """
-    exception thrown if an error occured during the request call, e.g a connection problem.
+    exception thrown if an error occurred during the request call, e.g a connection problem.
     """
 
     def __init__(self, message="Server Error: You made too many requests to the server. According to google, you are allowed to make 5 requests per second and up to 200k requests per day. You can wait and try again later or you can try the translate_batch function"):

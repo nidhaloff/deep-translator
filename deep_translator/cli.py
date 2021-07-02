@@ -1,15 +1,15 @@
 """Console script for deep_translator."""
 
 import click
-from .google_trans import GoogleTranslator
-from .mymemory import MyMemoryTranslator
-from .deepl import DeepL
-from .qcri import QCRI
-from .linguee import LingueeTranslator
-from .pons import PonsTranslator
-from .yandex import YandexTranslator
-from .microsoft import MicrosoftTranslator
-from .papago import PapagoTranslator
+from google_trans import GoogleTranslator
+from mymemory import MyMemoryTranslator
+from deepl import DeepL
+from qcri import QCRI
+from linguee import LingueeTranslator
+from pons import PonsTranslator
+from yandex import YandexTranslator
+from microsoft import MicrosoftTranslator
+from papago import PapagoTranslator
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
@@ -104,23 +104,33 @@ def print_supported_languages(requested_translator, api_key):
 
 
 @click.command(context_settings=CONTEXT_SETTINGS)
-@click.option(
-    "--translator",
-    "-trans",
-    default="google",
+# @click.option(
+#     "--translator",
+#     "-trans",
+#     default="google",
+#     type=str,
+#     help="name of the translator you want to use",
+#     show_default=True,
+# )
+
+@click.argument(
+    'translator',
+    required=True,
+    default='google',
     type=str,
-    help="name of the translator you want to use",
-    show_default=True,
 )
+
 @click.option(
     "--source",
     "-src",
+    required=True
     type=str,
     help="source language to translate from"
 )
 @click.option(
     "--target",
     "-tg",
+    required=True
     type=str,
     help="target language to translate to"
 )
@@ -144,6 +154,8 @@ def print_supported_languages(requested_translator, api_key):
 )
 def main(translator, source, target, text, api_key, languages):
     """
+    Use TRANSLATOR to translate source material into another language.
+    Available translators include: Google, MyMemory, QCRI, Linguee, Pons, Yandex, Microsoft (Bing), and Papago.
     \f
     function responsible for parsing terminal arguments and provide them for
     further use in the translation process

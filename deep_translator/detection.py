@@ -2,7 +2,7 @@
 language detection API
 """
 import requests
-from deep_translator.configs import config
+from configs import config
 from requests.exceptions import HTTPError
 
 

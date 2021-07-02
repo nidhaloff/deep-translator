@@ -2,9 +2,9 @@
 google translator API
 """
 
-from deep_translator.constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
-from deep_translator.exceptions import TooManyRequests, LanguageNotSupportedException, TranslationNotFound, NotValidPayload, RequestError
-from deep_translator.parent import BaseTranslator
+from constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
+from exceptions import TooManyRequests, LanguageNotSupportedException, TranslationNotFound, NotValidPayload, RequestError
+from parent import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
 from time import sleep

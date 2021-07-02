@@ -2,14 +2,14 @@
 linguee translator API
 """
 
-from deep_translator.constants import BASE_URLS, LINGUEE_LANGUAGES_TO_CODES, LINGUEE_CODE_TO_LANGUAGE
-from deep_translator.exceptions import (LanguageNotSupportedException,
+from constants import BASE_URLS, LINGUEE_LANGUAGES_TO_CODES, LINGUEE_CODE_TO_LANGUAGE
+from exceptions import (LanguageNotSupportedException,
                                         TranslationNotFound,
                                         NotValidPayload,
                                         ElementNotFoundInGetRequest,
                                         RequestError,
                                         TooManyRequests)
-from deep_translator.parent import BaseTranslator
+from parent import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
 from requests.utils import requote_uri

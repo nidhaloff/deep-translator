@@ -1,9 +1,7 @@
 
 import requests
-from deep_translator.constants import BASE_URLS, QCRI_LANGUAGE_TO_CODE
-from deep_translator.exceptions import (
-                                        ServerException, TranslationNotFound)
-
+from constants import BASE_URLS, QCRI_LANGUAGE_TO_CODE
+from exceptions import (ServerException, TranslationNotFound)
 
 class QCRI(object):
     """
