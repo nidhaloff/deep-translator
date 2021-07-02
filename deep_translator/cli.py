@@ -13,6 +13,75 @@ from papago import PapagoTranslator
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
+def main(translator, source, target, text, api_key, languages):
+    """
+    Use TRANSLATOR to translate source material into another language.\n
+    Available translators include: Google, MyMemory, QCRI, Linguee, Pons, Yandex, Microsoft (Bing), and Papago.\n
+    \n
+    \f
+    function responsible for parsing terminal arguments and provide them for
+    further use in the translation process
+    """
+    api_key_required = ["deepl", "qcri", "yandex", "microsoft", "papago"]
+    if translator in api_key_required and not api_key:
+        click.echo(
+            "This translator requires an api key provided through --api-key"
+        )
+    elif languages:
+        print_supported_languages(translator, api_key)
+    else:
+        translate(translator, source, target, text, api_key)
+    # sys.exit()
+
+@click.command(context_settings=CONTEXT_SETTINGS)
+# @click.option(
+#     "--translator",
+#     "-trans",
+#     default="google",
+#     type=str,
+#     help="name of the translator you want to use",
+#     show_default=True,
+# )
+
+@click.argument(
+    'translator',
+    required=True,
+    default='google',
+    type=str,
+)
+
+@click.option(
+    "--source",
+    "-src",
+    required=True,
+    type=str,
+    help="source language to translate from"
+)
+@click.option(
+    "--target",
+    "-tgt",
+    required=True,
+    type=str,
+    help="target language to translate to"
+)
+@click.option(
+    "--text",
+    "-txt",
+    type=str,
+    help="text you want to translate"
+)
+@click.option(
+    "--api-key",
+    type=str,
+    help="required for DeepL, QCRI, Yandex, Microsoft and Papago translators"
+)
+@click.option(
+    "--languages",
+    "-lang",
+    is_flag=True,
+    help="list all the languages available with the translator."
+    " Run with deep_translator <translator service> -lang",
+)
 
 def translate(translator, source, target, text, api_key):
     """
@@ -65,7 +134,6 @@ def translate(translator, source, target, text, api_key):
     click.echo(f" | Translation from {source} to {target} |")
     click.echo(f"Translated text: \n {res}")
 
-
 def print_supported_languages(requested_translator, api_key):
     """
     function used to print the languages supported by the translator service
@@ -101,76 +169,6 @@ def print_supported_languages(requested_translator, api_key):
     click.echo(f"Languages supported by '{requested_translator}' are :")
     for k, v in supported_languages.items():
         click.echo(f"|- {k}: {v}")
-
-
-@click.command(context_settings=CONTEXT_SETTINGS)
-# @click.option(
-#     "--translator",
-#     "-trans",
-#     default="google",
-#     type=str,
-#     help="name of the translator you want to use",
-#     show_default=True,
-# )
-
-@click.argument(
-    'translator',
-    required=True,
-    default='google',
-    type=str,
-)
-
-@click.option(
-    "--source",
-    "-src",
-    required=True
-    type=str,
-    help="source language to translate from"
-)
-@click.option(
-    "--target",
-    "-tg",
-    required=True
-    type=str,
-    help="target language to translate to"
-)
-@click.option(
-    "--text",
-    "-txt",
-    type=str,
-    help="text you want to translate"
-)
-@click.option(
-    "--api-key",
-    type=str,
-    help="required for DeepL, QCRI, Yandex, Microsoft and Papago translators"
-)
-@click.option(
-    "--languages",
-    "-lang",
-    is_flag=True,
-    help="list all the languages available with the translator."
-    " Run with deep_translator -trans <translator service> -lang",
-)
-def main(translator, source, target, text, api_key, languages):
-    """
-    Use TRANSLATOR to translate source material into another language.
-    Available translators include: Google, MyMemory, QCRI, Linguee, Pons, Yandex, Microsoft (Bing), and Papago.
-    \f
-    function responsible for parsing terminal arguments and provide them for
-    further use in the translation process
-    """
-    api_key_required = ["deepl", "qcri", "yandex", "microsoft", "papago"]
-    if translator in api_key_required and not api_key:
-        click.echo(
-            "This translator requires an api key provided through --api-key"
-        )
-    elif languages:
-        print_supported_languages(translator, api_key)
-    else:
-        translate(translator, source, target, text, api_key)
-    # sys.exit()
-
 
 if __name__ == "__main__":
     main()

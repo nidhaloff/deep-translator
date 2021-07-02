@@ -47,10 +47,11 @@ setup(
     description="A flexible python tool to translate between different languages in a simple way.",
     entry_points={
         'console_scripts': [
-            'deep_translator=deep_translator.cli:main',
+            'deep_translator = cli:main',
+            'dt = cli:main',
         ],
     },
-    install_requires=['requests', 'beautifulsoup4'],
+    install_requires=['requests', 'beautifulsoup4', 'Click'],
     license="MIT license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,

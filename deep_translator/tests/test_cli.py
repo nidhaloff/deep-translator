@@ -3,10 +3,10 @@
 """Tests for `deep_translator` package."""
 
 from click.testing import CliRunner
-import cli
+from deep_translator.cli import main
 
-def cli():
+def results_test():
     runner = CliRunner()
-    result = runner.invoke(cli.translate, [ 'google', 'auto', 'en', '좋은'])
+    result = runner.invoke(cli.main, [ 'google', 'auto', 'en', '좋은'])
     assert result.exit_code == 0
     assert result == 'good'
