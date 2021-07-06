@@ -6,10 +6,10 @@ import warnings
 
 from constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
 from exceptions import (NotValidPayload,
-                                        TranslationNotFound,
-                                        LanguageNotSupportedException,
-                                        RequestError,
-                                        TooManyRequests)
+                        TranslationNotFound,
+                        LanguageNotSupportedException,
+                        RequestError,
+                        TooManyRequests)
 from parent import BaseTranslator
 import requests
 from time import sleep

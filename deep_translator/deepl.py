@@ -1,9 +1,9 @@
 import requests
 from constants import BASE_URLS, DEEPL_LANGUAGE_TO_CODE
 from exceptions import (ServerException,
-                                        TranslationNotFound,
-                                        LanguageNotSupportedException,
-                                        AuthorizationException)
+                        TranslationNotFound,
+                        LanguageNotSupportedException,
+                        AuthorizationException)
 
 
 class DeepL(object):
