@@ -1,15 +1,15 @@
 """Console script for deep_translator."""
 
 import click
-from google_trans import GoogleTranslator
-from mymemory import MyMemoryTranslator
-from deepl import DeepL
-from qcri import QCRI
-from linguee import LingueeTranslator
-from pons import PonsTranslator
-from yandex import YandexTranslator
-from microsoft import MicrosoftTranslator
-from papago import PapagoTranslator
+from .google_trans import GoogleTranslator
+from .mymemory import MyMemoryTranslator
+from .deepl import DeepL
+from .qcri import QCRI
+from .linguee import LingueeTranslator
+from .pons import PonsTranslator
+from .yandex import YandexTranslator
+from .microsoft import MicrosoftTranslator
+from .papago import PapagoTranslator
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
@@ -41,18 +41,16 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 @click.option(
     "--api-key",
     type=str,
-    help="required for DeepL, QCRI, Yandex, Microsoft and Papago translators"
-)
+    help="required for DeepL, QCRI, Yandex, Microsoft and Papago translators")
 @click.option(
     "--languages",
     "-lang",
     is_flag=True,
     help="list all the languages available with the translator."
-    " Run with deep_translator <translator service> -lang",
-)
-def deep_translator(translator, source, target, text, api_key, languages):
+    " Run with deep_translator <translator service> -lang",)
+def main(translator, source, target, text, api_key, languages):
     """
-    Use TRANSLATOR to translate source material into another language.\n
+    Use TRANSLATOR to translate source material into another language.
     Available translators include: Google, MyMemory, QCRI, Linguee, Pons, Yandex, Microsoft (Bing), and Papago.\n
     \f
     function responsible for parsing terminal arguments and provide them for
@@ -156,4 +154,4 @@ def print_supported_languages(requested_translator, api_key):
         click.echo(f"|- {k}: {v}")
 
 if __name__ == "__main__":
-    deep_translator()
+    main()

@@ -1,6 +1,6 @@
 """parent translator class"""
 
-from exceptions import NotValidPayload, NotValidLength, InvalidSourceOrTargetLanguage
+from .exceptions import NotValidPayload, NotValidLength, InvalidSourceOrTargetLanguage
 from abc import ABC, abstractmethod
 import string
 class BaseTranslator(ABC):

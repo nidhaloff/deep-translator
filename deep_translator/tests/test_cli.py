@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-"""Tests for `deep_translator` package."""
+"""Tests for the CLI interface."""
 
 from click.testing import CliRunner
-from deep_translator.cli import main
+from deep_translator import cli
 
 def results_test():
     runner = CliRunner()

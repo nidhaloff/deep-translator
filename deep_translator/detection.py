@@ -2,7 +2,7 @@
 language detection API
 """
 import requests
-from configs import config
+from .configs import config # TODO: Discussion: Could this be moved here and remove configs.py entirely?
 from requests.exceptions import HTTPError
 
 
