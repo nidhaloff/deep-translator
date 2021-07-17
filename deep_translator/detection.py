@@ -2,9 +2,10 @@
 language detection API
 """
 import requests
-from .configs import config # TODO: Discussion: Could this be moved here and remove configs.py entirely?
 from requests.exceptions import HTTPError
 
+# Module global config
+config = {"url": 'https://ws.detectlanguage.com/0.2/detect',"headers": {'User-Agent': 'Detect Language API Python Client 1.4.0','Authorization': 'Bearer {}',}}
 
 def get_request_body(text, api_key, *args, **kwargs):
     """
