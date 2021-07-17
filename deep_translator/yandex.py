@@ -2,10 +2,8 @@
 Yandex translator API
 """
 import requests
-from deep_translator.constants import BASE_URLS
-from deep_translator.exceptions import (RequestError,
-                                        ServerException, TranslationNotFound, TooManyRequests)
-
+from .constants import BASE_URLS
+from .exceptions import (RequestError, ServerException, TranslationNotFound, TooManyRequests)
 
 class YandexTranslator(object):
     """

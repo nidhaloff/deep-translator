@@ -3,14 +3,14 @@ pons translator API
 """
 from bs4 import BeautifulSoup
 import requests
-from deep_translator.constants import BASE_URLS, PONS_LANGUAGES_TO_CODES, PONS_CODES_TO_LANGUAGES
-from deep_translator.exceptions import (LanguageNotSupportedException,
-                                        TranslationNotFound,
-                                        NotValidPayload,
-                                        ElementNotFoundInGetRequest,
-                                        RequestError,
-                                        TooManyRequests)
-from deep_translator.parent import BaseTranslator
+from .constants import BASE_URLS, PONS_LANGUAGES_TO_CODES, PONS_CODES_TO_LANGUAGES
+from .exceptions import (LanguageNotSupportedException,
+                        TranslationNotFound,
+                        NotValidPayload,
+                        ElementNotFoundInGetRequest,
+                        RequestError,
+                        TooManyRequests)
+from .parent import BaseTranslator
 from requests.utils import requote_uri
 
 

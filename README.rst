@@ -647,7 +647,7 @@ Next Steps
 
 Take a look in the examples folder for more :)
 Contributions are always welcome.
-Read the Contribution guildlines `Here <https://deep-translator.readthedocs.io/en/latest/contributing.html/>`_
+Read the Contribution guidelines `Here <https://deep-translator.readthedocs.io/en/latest/contributing.html/>`_
 
 ==========
 Credits
@@ -673,7 +673,7 @@ The Translator++ mobile app
     :alt: Icon of the app
 
 
-After developing the deep_translator, I realised how cool this would be if I can use it as an app on my mobile phone.
+After developing the deep_translator, I realized how cool this would be if I can use it as an app on my mobile phone.
 Sure, there is google translate, pons and linguee apps etc.. but isn't it cooler to make an app where all these
 translators are integrated?
 

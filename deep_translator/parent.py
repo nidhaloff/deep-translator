@@ -1,10 +1,8 @@
 """parent translator class"""
 
-from deep_translator.exceptions import NotValidPayload, NotValidLength, InvalidSourceOrTargetLanguage
+from .exceptions import NotValidPayload, NotValidLength, InvalidSourceOrTargetLanguage
 from abc import ABC, abstractmethod
 import string
-
-
 class BaseTranslator(ABC):
     """
     Abstract class that serve as a parent translator for other different translators
