@@ -10,6 +10,7 @@ from .qcri import QCRI
 from .deepl import DeepL
 from .detection import single_detection, batch_detection
 from .microsoft import MicrosoftTranslator
+from .papago import PapagoTranslator
 
 # TODO: Discussion: These should be declared in setup.cfg, setting them here is redundant
 # __author__ = """Nidhal Baccouri"""
