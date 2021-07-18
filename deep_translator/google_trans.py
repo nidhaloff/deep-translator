@@ -10,6 +10,7 @@ import requests
 from time import sleep
 import warnings
 import logging
+import pandas as pd
 
 
 class GoogleTranslator(BaseTranslator):
@@ -181,5 +182,10 @@ class GoogleTranslator(BaseTranslator):
 
         return arr
 
+    def excel_translation(self, path, column_name, dest_path):
+        df = pd.read_excel(path)
+        list1 = df[column_name].tolist()
 
-
+        translated_result = list(map(self.translate, list1))
+        df['Translated Text'] = translated_result
+        return df.to_excel(dest_path, index=False)
