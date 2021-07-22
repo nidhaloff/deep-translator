@@ -24,6 +24,5 @@ __all__ = [GoogleTranslator,
            MicrosoftTranslator,
            QCRI,
            DeepL,
-           main,
            single_detection,
            batch_detection]
