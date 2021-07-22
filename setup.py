@@ -11,7 +11,7 @@ setup(
     include_package_data=True,
     packages=find_packages(include=['deep_translator'],),
     entry_points={'console_scripts':[
-        'deep-translator=deep_translator.__main__:cli',
-        'dt=deep_translator.__main__:cli',
+        'deep-translator=deep_translator.main:cli',
+        'dt=deep_translator.main:cli',
     ],},
 )
