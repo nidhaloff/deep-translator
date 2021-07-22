@@ -12,18 +12,18 @@ from .detection import single_detection, batch_detection
 from .microsoft import MicrosoftTranslator
 
 # TODO: Discussion: These should be declared in setup.cfg, setting them here is redundant
-# __author__ = """Nidhal Baccouri"""
-# __email__ = 'nidhalbacc@gmail.com'
-# __version__ = '1.4.4'
+__author__ = """Nidhal Baccouri"""
+__email__ = 'nidhalbacc@gmail.com'
+__version__ = '1.5.0'
 
-# __all__ = [GoogleTranslator,
-#            PonsTranslator,
-#            LingueeTranslator,
-#            MyMemoryTranslator,
-#            YandexTranslator,
-#            MicrosoftTranslator,
-#            QCRI,
-#            DeepL,
-#            main,
-#            single_detection,
-#            batch_detection]
+__all__ = [GoogleTranslator,
+           PonsTranslator,
+           LingueeTranslator,
+           MyMemoryTranslator,
+           YandexTranslator,
+           MicrosoftTranslator,
+           QCRI,
+           DeepL,
+           main,
+           single_detection,
+           batch_detection]
