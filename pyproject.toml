@@ -10,7 +10,7 @@ homepage = "https://github.com/nidhaloff/deep_translator"
 repository = "https://github.com/nidhaloff/deep_translator"
 documentation = "https://deep-translator.readthedocs.io/en/latest/"
 keywords = ["deep_translator", "deepL", "DeepL", "translator", "translation", "automation", "web scraping", "google translator", "google translation", "google trans", "PONS", "YANDEX", "MyMemory translator", "Linguee", "QCRI", "Language", "Language detection", "detect language", "free translation", "unlimited translation", "translate for free"]
-classifiers = [    
+classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Intended Audience :: Education",
@@ -31,15 +31,15 @@ deep-translator = 'deep_translator.main:cli'
 dt = 'deep_translator.main:cli'
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.7"
 beautifulsoup4 = "^4.9.1"
 requests = "^2.23.0"
 click = "^8.0.1"
-pandas = {version = "^1.3.0", optional = true}
+#pandas = {version = "^1.3.0", optional = true}
 
 [tool.poetry.dev-dependencies]
 wheel = "flake8"
-tox = "^3.24.0"
+#tox = "^3.24.0"
 coverage = "^5.5"
 Sphinx = "^4.1.1"
 twine = "^3.4.2"
