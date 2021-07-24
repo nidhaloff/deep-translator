@@ -5,12 +5,13 @@
 from click.testing import CliRunner
 from deep_translator import main
 
-def results_test():
+
+def test_results():
     runner = CliRunner()
     result = runner.invoke(main.translate, [ 'google', 'auto', 'en', '좋은'])
     assert result.exit_code == 0
     assert result == 'good'
-    
+
     api_error = runner.invoke(main.translate, ['microsoft','auto','en','Zwei minimale Dellchen auf der Rückseite.'])
     assert api_error.exit_code == 0
     assert api_error == "This translator requires an api key provided through --api-key"
