@@ -3,21 +3,28 @@
 """Tests for the CLI interface."""
 
 from click.testing import CliRunner
-from deep_translator import main
+from deep_translator.main import cli
 
+class TestClass:
+    def test_translate(self):
+        runner = CliRunner()
+        result = runner.invoke(cli, ['translate', 'google', '-src=auto', '-tgt=en', '-txt=좋은'])
+        assert 'good' in result.output
+        assert result.exit_code == 0
 
-def test_results():
-    runner = CliRunner()
-    result = runner.invoke(main.translate, [ 'google', 'auto', 'en', '좋은'])
-    assert result.exit_code == 0
-    assert result == 'good'
+    def test_api_key_error(self):
+        runner = CliRunner()
+        result = runner.invoke(cli, ['translate', 'microsoft','-src=auto','-tgt=en','-txt=\'Zwei minimale Dellchen auf der Rückseite.\''])
+        assert "This translator requires an api key provided through --api-key" in result.output
+        assert result.exit_code == 1
 
-    api_error = runner.invoke(main.translate, ['microsoft','auto','en','Zwei minimale Dellchen auf der Rückseite.'])
-    assert api_error.exit_code == 0
-    assert api_error == "This translator requires an api key provided through --api-key"
+    def test_language_languages(self):
+        runner = CliRunner()
+        result = runner.invoke(cli, ['languages', 'google'])
+        assert result.exit_code == 0
 
-    language_list_test = runner.invoke(main.languages, ['google'])
-    assert language_list_test.exit_code == 0
-
-    language_list_invalid_test = runner.invoke(main.languages, ['notValidTranslator'])
-    assert language_list_invalid_test.exception == AttributeError
+    def test_invalid_language_languages(self):
+        runner = CliRunner()
+        result = runner.invoke(cli, ['languages', 'notValidTranslator'])
+        assert 'The given translator is not supported.' in str(result.exception)
+        assert result.exit_code == 1
