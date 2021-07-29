@@ -1,6 +1,7 @@
 """Console script for deep_translator."""
 
 import click
+import pandas as pd
 from .google_trans import GoogleTranslator
 from .mymemory import MyMemoryTranslator
 from .deepl import DeepL
@@ -113,6 +114,21 @@ def languages(translator, api_key):
     for k, v in supported_languages.items():
         click.echo(f"|- {k}: {v}")
     return 0
+
+@cli.command(context_settings=CONTEXT_SETTINGS, no_args_is_help=True)
+@click.option("--path", "-pt", required=True, type=str, help="location to the source file which you want to translate")
+@click.option("--column_name", "-col_name", required=True, type=str, help="name of the column which you want to translate")
+@click.option("--dest_path", "-dst_pth", required=True, type=str, help="location where you want to save the translated file")
+def excel_translation(path, column_name, dest_path):
+    df = pd.read_excel(path)
+    list1 = df[column_name].tolist()
+
+    translated_result = list(map(translate, list1))
+    df['Translated Text'] = translated_result
+    df.to_excel(dest_path, index=False)
+    click.echo(f"The final translated file is saved in {dest_path}")
+    return 0
+
 
 @cli.command()
 def list():
