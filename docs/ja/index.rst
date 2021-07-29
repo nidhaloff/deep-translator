@@ -1,7 +1,7 @@
 .. _jadoc:
 
 deep_translatorのドキュメントへようこそ！
-======================================
+===================================================
 
 違う言語でドキュメントを読みたい場合は :doc:`こちら<../other_lang>`.
 
@@ -9,10 +9,10 @@ deep_translatorのドキュメントへようこそ！
    :maxdepth: 2 
    :caption: Contents:
 
-   readme
+   README
    installation
    usage
-   modules
+   ../modules
    contributing
    authors
    history
