@@ -17,13 +17,15 @@ __author__ = """Nidhal Baccouri"""
 __email__ = 'nidhalbacc@gmail.com'
 __version__ = '1.5.0'
 
-__all__ = [GoogleTranslator,
-           PonsTranslator,
-           LingueeTranslator,
-           MyMemoryTranslator,
-           YandexTranslator,
-           MicrosoftTranslator,
-           QCRI,
-           DeepL,
-           single_detection,
-           batch_detection]
+__all__ = [
+    "GoogleTranslator",
+   "PonsTranslator",
+   "LingueeTranslator",
+   "MyMemoryTranslator",
+   "YandexTranslator",
+   "MicrosoftTranslator",
+   "QCRI",
+   "DeepL",
+   "single_detection",
+   "batch_detection"
+           ]
