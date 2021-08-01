@@ -58,7 +58,7 @@ author = "Nidhal Baccouri"
 # the built documents.
 #
 # The short X.Y version.
-with open("pyproject.toml", "r") as f:
+with open("../pyproject.toml", "r") as f:
     tom = toml.load(f)
 version = tom['tool']['poetry']['version']
 # The full version, including alpha/beta/rc tags.
