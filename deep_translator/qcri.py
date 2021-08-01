@@ -38,6 +38,7 @@ class QCRI(object):
         except Exception as e:
             raise e
 
+    @staticmethod
     def get_supported_languages(**kwargs):
         # Have no use for this as the format is not what we need
         # Save this for whenever
