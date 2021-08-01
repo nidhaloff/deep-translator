@@ -19,6 +19,7 @@
 #
 import os
 import sys
+import toml
 sys.path.insert(0, os.path.abspath('..'))
 
 # import deep_translator
@@ -57,7 +58,9 @@ author = "Nidhal Baccouri"
 # the built documents.
 #
 # The short X.Y version.
-# version = deep_translator.__version__
+with open("pyproject.toml", "r") as f:
+    tom = toml.load(f)
+version = tom['tool']['poetry']['version']
 # The full version, including alpha/beta/rc tags.
 # release = deep_translator.__version__
 

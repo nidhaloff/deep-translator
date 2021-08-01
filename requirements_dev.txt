@@ -1,9 +1,0 @@
-bump2version
-wheel
-flake8
-tox
-coverage
-Sphinx
-twine
-pytest
-pytest-runner
