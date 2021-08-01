@@ -32,7 +32,7 @@ class YandexTranslator(object):
     def get_supported_languages(as_dict=False, **kwargs):
         """ this method is just for consistency."""
         return """ this method is just for consistency. You need to create an instance of yandex and access
-                    supported languages using the languages property
+                    supported languages using the languages property or call _get_supported_languages
                 """
 
     def _get_supported_languages(self):
