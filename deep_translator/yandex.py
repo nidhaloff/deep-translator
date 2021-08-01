@@ -28,7 +28,14 @@ class YandexTranslator(object):
             "translate": "translate",
         }
 
-    def get_supported_languages(self):
+    @staticmethod
+    def get_supported_languages(as_dict=False, **kwargs):
+        """ this method is just for consistency."""
+        return """ this method is just for consistency. You need to create an instance of yandex and access
+                    supported languages using the languages property
+                """
+
+    def _get_supported_languages(self):
         return set(x.split("-")[0] for x in self.dirs)
 
     @property

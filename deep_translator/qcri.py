@@ -39,12 +39,12 @@ class QCRI(object):
             raise e
 
     @staticmethod
-    def get_supported_languages(**kwargs):
+    def get_supported_languages(as_dict=False, **kwargs):
         # Have no use for this as the format is not what we need
         # Save this for whenever
         # pairs = self._get("get_languages")
         # Using a this one instead
-        return [*QCRI_LANGUAGE_TO_CODE.keys()]
+        return [*QCRI_LANGUAGE_TO_CODE.keys()] if not as_dict else QCRI_LANGUAGE_TO_CODE
 
     @property
     def languages(self):

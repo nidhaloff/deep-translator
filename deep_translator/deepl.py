@@ -62,14 +62,14 @@ class DeepL(object):
 
     def translate_batch(self, batch, **kwargs):
         """
-        @param batch: list of texts to translate    
+        @param batch: list of texts to translate
         @return: list of translations
         """
         return [self.translate(text, **kwargs) for text in batch]
 
     @staticmethod
-    def get_supported_languages(**kwargs):
-        return [*DeepL._languages.keys()]
+    def get_supported_languages(as_dict=False, **kwargs):
+        return [*DeepL._languages.keys()] if not as_dict else DeepL._languages
 
     def _is_language_supported(self, lang, **kwargs):
         # The language is supported when is in the dicionary.
