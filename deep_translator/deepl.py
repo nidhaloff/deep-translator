@@ -67,6 +67,9 @@ class DeepL(object):
         """
         return [self.translate(text, **kwargs) for text in batch]
 
+    def get_supported_languages(**kwargs):
+        return [*DeepL._languages.keys()]
+
     def _is_language_supported(self, lang, **kwargs):
         # The language is supported when is in the dicionary.
         return lang == 'auto' or lang in self._languages.keys() or lang in self._languages.values()
