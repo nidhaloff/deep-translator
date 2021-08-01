@@ -2,6 +2,7 @@
 
 import click
 import pandas as pd
+from requests import api
 from .google_trans import GoogleTranslator
 from .mymemory import MyMemoryTranslator
 from .deepl import DeepL
@@ -116,14 +117,52 @@ def languages(translator, api_key):
     return 0
 
 @cli.command(context_settings=CONTEXT_SETTINGS, no_args_is_help=True)
+@click.argument('translator', required=True, default='google', type=str)
+@click.option("--api-key",type=str,help="required for DeepL, QCRI, Yandex, Microsoft and Papago translators")
 @click.option("--path", "-pt", required=True, type=str, help="location to the source file which you want to translate")
 @click.option("--column_name", "-col_name", required=True, type=str, help="name of the column which you want to translate")
 @click.option("--dest_path", "-dst_pth", required=True, type=str, help="location where you want to save the translated file")
-def excel_translation(path, column_name, dest_path):
+@click.option("--target", "-tgt", required=True, type=str, help="target language to translate to")
+def excel_translation(translator, api_key, path, column_name, dest_path, target):
+
+    api_key_required = ["deepl", "qcri", "yandex", "microsoft", "papago"]
+    if translator in api_key_required and not api_key:
+        click.echo(
+            "This translator requires an api key provided through --api-key")
+    else:
+        pass
+
+    if translator == "google":
+        translator = GoogleTranslator(target=target)
+    elif translator == "mymemory":
+        translator = MyMemoryTranslator(target=target)
+    elif translator == "deepl":
+        translator = DeepL(target=target, api_key=api_key)
+    elif translator == "qcri":
+        translator = QCRI(target=target, api_key=api_key)
+    elif translator == "linguee":
+        translator = LingueeTranslator(target=target)
+    elif translator == "pons":
+        translator = PonsTranslator(target=target)
+    elif translator == "yandex":
+        translator = YandexTranslator(
+            target=target,
+            api_key=api_key)
+    elif translator == "microsoft":
+        translator = MicrosoftTranslator(
+            target=target,
+            api_key=api_key)
+    elif translator == "papago":
+        translator = PapagoTranslator(
+            target=target,
+            api_key=api_key)
+    else:
+        raise AttributeError("The given translator is not supported.")
+
     df = pd.read_excel(path)
     list1 = df[column_name].tolist()
-
-    translated_result = list(map(translate, list1))
+    col_data = list(map(str, list1))
+    translated_result = list(map(translate(translator, api_key), col_data))
     df['Translated Text'] = translated_result
     df.to_excel(dest_path, index=False)
     click.echo(f"The final translated file is saved in {dest_path}")
