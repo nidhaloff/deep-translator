@@ -13,7 +13,7 @@ deep-translator
 .. image:: https://img.shields.io/pypi/v/deep-translator.svg
         :target: https://pypi.python.org/pypi/deep-translator
 .. image:: https://img.shields.io/travis/nidhaloff/deep-translator.svg
-        :target: https://travis-ci.com/nidhaloff/deep-translator
+        :target: https://github.com/nidhaloff/deep-translator/actions/workflows/build.yml
 .. image:: https://readthedocs.org/projects/deep-translator/badge/?version=latest
         :target: https://deep-translator.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
