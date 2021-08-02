@@ -23,8 +23,8 @@ you through the process.
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
 
-From sources
-------------
+From source code
+----------------
 
 The sources for deep_translator can be downloaded from the `Github repo`_.
 
@@ -44,7 +44,11 @@ Once you have a copy of the source, you can install it with:
 
 .. code-block:: console
 
-    $ python setup.py install
+    $ pip install /path/to/tarball/tarball_name.tar.gz
+    <<< for tarball installations
+    $ poetry shell
+    $ poetry install
+    <<< for cloned repos
 
 
 .. _Github repo: https://github.com/nidhaloff/deep_translator

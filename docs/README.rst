@@ -2,7 +2,7 @@
 deep-translator
 ##################
 
-.. image:: assets/icon.jpg
+.. image:: ../assets/icon.jpg
     :width: 100
     :align: center
     :alt: deep-translator-icon
@@ -125,7 +125,7 @@ Install the stable release:
 
 .. code-block:: console
 
-    $ pip install -U deep_translator
+    $ pip install -U deep-translator
 
 take a look at the docs if you want to install from source.
 
@@ -135,14 +135,14 @@ Quick Start
 
 .. code-block:: python
 
-    from deep_translator import GoogleTranslator
+    from deep-translator import GoogleTranslator
     translated = GoogleTranslator(source='auto', target='de').translate("keep it up, you are awesome")  # output -> Weiter so, du bist großartig
 
 or using proxies:
 
 .. code-block:: python
 
-    from deep_translator import GoogleTranslator
+    from deep-translator import GoogleTranslator
 
     proxies_example = {
         "https": "34.195.196.27:8080",
@@ -155,7 +155,7 @@ or even directly from terminal:
 
 .. code-block:: console
 
-    $ deep_translator -trans "google" -src "en" -tg "de" -txt "keep it up, you are awesome"
+    $ deep-translator -trans "google" -src "en" -tg "de" -txt "keep it up, you are awesome"
 
 
 =====
@@ -175,7 +175,7 @@ Imports
 
 .. code-block:: python
 
-    from deep_translator import (GoogleTranslator,
+    from deep-translator import (GoogleTranslator,
                                  MicrosoftTranslator,
                                  PonsTranslator,
                                  LingueeTranslator,
@@ -536,7 +536,7 @@ can be used with all supported translators.
 
 .. code-block:: python
 
-    from deep_translator import GoogleTranslator
+    from deep-translator import GoogleTranslator
 
     # define your proxy configs:
     proxies_example = {
@@ -551,71 +551,42 @@ can be used with all supported translators.
 Usage from Terminal
 --------------------
 
-For a quick access, you can use the deep_translator from terminal. For this to work, you need to provide
-the right arguments, which are the translator you want to use, source language, target language and the text
-you want to translate.
+Deep-translator supports a series of command line arguments for quick and simple access to the translators directly in your console.
 
-For example, provide "google" as an argument to use the google translator. Alternatively you can use
-the other supported translators. Just read the documentation to have an overview about the supported translators in this library.
+.. note::
 
-.. code-block:: console
+    The program accepts ``deep-translator`` or ``dt`` as a command, feel free to substitute whichever you prefer.
 
-    $ deep_translator --translator "google" --source "english" --target "german" --text "happy coding"
-
-Or you can go for the short version:
+For a list of available translators:
 
 .. code-block:: console
 
-    $ deep_translator -trans "google" -src "english" -tg "german" -txt "happy coding"
+    $ deep-translator list
 
-If you want, you can also pass the source and target language by their abbreviation
-
-.. code-block:: console
-
-    $ deep_translator -trans "google" -src "en" -tg "de" -txt "happy coding"
-
-If you want the list of languages supported by a translator service, just pass the translator service as an argument to the -trans flag followed by the -lang/--languages flag. For example:
+To translate a string or line of text:
 
 .. code-block:: console
 
-    $ deep_translator -trans "google" -lang
+    $ deep-translator google --source "english" --target "german" --text "happy coding"
+
+Alternate short option names, along with using language abbreviations:
+
+.. code-block:: console
+
+    $ deep-translator google -src "en" -tgt "de" -txt "happy coding"
+
+
+Finally, to retrieve a list of available languages for a given translator:
+
+.. code-block:: console
+
+    $ deep-translator languages google
 
 ======
 Tests
 ======
 
-- Install dev requirements
-
-.. code-block:: console
-
-    $ pip install -r requirements_dev.txt
-
-- Or just install pytest
-
-.. code-block:: console
-
-    $ pip install pytest
-
-
-- you can run tests individually for each translator by passing the prefix **test_** followed by the translator name as an argument to pytest.
-
-.. code-block:: console
-
-    $ pytest test_google_trans
-    $ pytest test_linguee
-    $ pytest test_mymemory
-    $ pytest test_pons
-
-- Alternatively, you can run the test suite
-
-.. code-block:: console
-
-    $ pytest -ra
-
-
-
-
-
+Developers can install the development version of deep-translator and execute unit tests to verify functionality. For more information on doing this, see `the contribution guidelines <https://deep-translator.readthedocs.io/en/latest/contributing.html/>`_
 
 ========
 Links
@@ -668,12 +639,12 @@ Copyright (c) 2020-present, Nidhal Baccouri
 The Translator++ mobile app
 ===========================
 
-.. image:: assets/app-icon.png
+.. image:: ../assets/app-icon.png
     :width: 100
     :alt: Icon of the app
 
 
-After developing the deep_translator, I realized how cool this would be if I can use it as an app on my mobile phone.
+After developing the deep-translator, I realized how cool this would be if I can use it as an app on my mobile phone.
 Sure, there is google translate, pons and linguee apps etc.. but isn't it cooler to make an app where all these
 translators are integrated?
 
@@ -683,8 +654,8 @@ I open sourced the `Translator++ app <https://github.com/nidhaloff/deep-translat
 Feel free to take a look at the code or make a pull request ;)
 
 .. note::
-    The Translator++ app is based on the deep_translator package. I just built the app to prove the capabilities
-    of the deep_translator package ;)
+    The Translator++ app is based on the deep-translator package. I just built the app to prove the capabilities
+    of the deep-translator package ;)
 
 I published the first release on google play store on 02-08-2020
 
@@ -692,22 +663,22 @@ Here are some screenshots:
 
 - Phone
 
-.. image:: assets/translator1.jpg
+.. image:: ../assets/translator1.jpg
     :width: 30%
     :height: 200
     :alt: screenshot1
-.. image:: assets/translator2.jpg
+.. image:: ../assets/translator2.jpg
     :width: 30%
     :height: 200
     :alt: screenshot2
-.. image:: assets/spinner.jpg
+.. image:: ../assets/spinner.jpg
     :width: 30%
     :height: 200
     :alt: spinner
 
 - Tablet:
 
-.. image:: assets/hz_view.png
+.. image:: ../assets/hz_view.png
     :width: 100%
     :height: 300
     :alt: screenshot3
