@@ -22,7 +22,7 @@ def cli():
 @click.option("--target", "-tgt", required=True, type=str, help="target language to translate to")
 @click.option("--text", "-txt", type=str,required = True,prompt="Enter the text you want to translate",help="text you want to translate")
 @click.option("--api-key",type=str,help="required for DeepL, QCRI, Yandex, Microsoft and Papago translators")
-def translate(translator, source, target, text, api_key, languages):
+def translate(translator, source, target, text, api_key):
     """
     Use TRANSLATOR to translate source material into another language.
     \f

@@ -38,12 +38,13 @@ class QCRI(object):
         except Exception as e:
             raise e
 
-    def get_supported_languages(self, **kwargs):
+    @staticmethod
+    def get_supported_languages(as_dict=False, **kwargs):
         # Have no use for this as the format is not what we need
         # Save this for whenever
-        pairs = self._get("get_languages")
+        # pairs = self._get("get_languages")
         # Using a this one instead
-        return QCRI_LANGUAGE_TO_CODE
+        return [*QCRI_LANGUAGE_TO_CODE.keys()] if not as_dict else QCRI_LANGUAGE_TO_CODE
 
     @property
     def languages(self):
