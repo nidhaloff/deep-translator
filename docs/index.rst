@@ -1,6 +1,6 @@
 
 Welcome to deep_translator's documentation!
-======================================
+===========================================
 
 If you see this doc in other languages,you can see :doc:`Choose languages</other_lang>`.
 
@@ -9,7 +9,7 @@ If you see this doc in other languages,you can see :doc:`Choose languages</other
    :caption: Contents:
    :name: mastertoc
 
-   readme
+   README
    installation
    usage
    modules
