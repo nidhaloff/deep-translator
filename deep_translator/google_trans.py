@@ -36,7 +36,7 @@ class GoogleTranslator(BaseTranslator):
                                                element_tag='div',
                                                element_query={"class": "t0"},
                                                payload_key='q',  # key of text in the url
-                                               hl=self._target,
+                                               tl=self._target,
                                                sl=self._source,
                                                **kwargs)
 
