@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "deep-translator"
-version = "1.5.2"
+version = "1.5.3"
 description = ""
 license = "MIT"
 authors = ["Nidhal Baccouri <nidhalbacc@gmail.com>"]
