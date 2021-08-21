@@ -90,9 +90,7 @@ class GoogleTranslator(BaseTranslator):
             if self.payload_key:
                 self._url_params[self.payload_key] = text
             
-            # temporary fix the problem with translation Russian into Ukrainian
-            if self._source == 'ru' and self._target == 'uk':
-                self._url_params['tl'] = 'uk'
+      
 
             response = requests.get(self.__base_url,
                                     params=self._url_params,
