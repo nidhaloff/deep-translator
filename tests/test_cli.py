@@ -5,6 +5,7 @@
 from click.testing import CliRunner
 from deep_translator.main import cli
 
+
 class TestClass:
     def test_translate(self):
         runner = CliRunner()
