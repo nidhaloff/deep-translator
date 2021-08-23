@@ -2,6 +2,7 @@
 Important History
 ==================
 
+- 1.5.4 @kuspia: restructured google trans url to resolve language conflicts. Supercedes fix in 1.5.3
 - 1.5.3 bug fix to resolve translation issues with russian-ukranian languages
 - 1.5.0 improved cli functionality with streamlined commands and numerous bugfixes.
 - 1.4.4 added support for papago, added opt params, fixed deepl free api
