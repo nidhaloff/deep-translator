@@ -2,9 +2,9 @@
 google translator API
 """
 
-from .constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
-from .exceptions import TooManyRequests, LanguageNotSupportedException, TranslationNotFound, NotValidPayload, RequestError
-from .parent import BaseTranslator
+from constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
+from exceptions import TooManyRequests, LanguageNotSupportedException, TranslationNotFound, NotValidPayload, RequestError
+from parent import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
 from time import sleep
@@ -89,8 +89,6 @@ class GoogleTranslator(BaseTranslator):
 
             if self.payload_key:
                 self._url_params[self.payload_key] = text
-            
-      
 
             response = requests.get(self.__base_url,
                                     params=self._url_params,
@@ -185,3 +183,7 @@ class GoogleTranslator(BaseTranslator):
 
 
 
+if __name__ == '__main__':
+    translator = GoogleTranslator(source='ru', target='uk')
+    t = translator.translate("Я разработчик") # => "I am a developer"
+    print(t)

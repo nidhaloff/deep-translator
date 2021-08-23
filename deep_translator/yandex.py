@@ -2,8 +2,9 @@
 Yandex translator API
 """
 import requests
-from .constants import BASE_URLS
-from .exceptions import (RequestError, ServerException, TranslationNotFound, TooManyRequests)
+from constants import BASE_URLS
+from exceptions import (RequestError, ServerException, TranslationNotFound, TooManyRequests)
+
 
 class YandexTranslator(object):
     """
