@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "deep-translator"
-version = "1.5.3"
+version = "1.5.1"
 description = ""
 license = "MIT"
 authors = ["Nidhal Baccouri <nidhalbacc@gmail.com>"]
@@ -23,7 +23,7 @@ classifiers = [
     "Topic :: Text Processing :: Linguistic",
     "Operating System :: OS Independent"]
 packages = [{include="deep_translator"}]
-# TODO: Add whatever additional documentation to be added here.
+
 include = [  ]
 
 [tool.poetry.scripts]
@@ -35,7 +35,6 @@ python = "^3.7"
 beautifulsoup4 = "^4.9.1"
 requests = "^2.23.0"
 click = "^8.0.1"
-#pandas = {version = "^1.3.0", optional = true}
 
 [tool.poetry.dev-dependencies]
 wheel = "flake8"
