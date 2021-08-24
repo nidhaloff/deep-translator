@@ -29,14 +29,7 @@ def test_abbreviations_and_languages_mapping():
             g2 = GoogleTranslator(lang)
             assert g1._source == g2._source
 
-def test_inputs():
-    with pytest.raises(exceptions.LanguageNotSupportedException):
-        GoogleTranslator(source="", target="")
-
-    with pytest.raises(exceptions.LanguageNotSupportedException):
-        GoogleTranslator(source="auto", target="nothing")
-
-    # Case Senstivity checks
+def case_sensitivity_checks():
     test_lang = 'Czech'
     test_text = 'Hi, the sky is dark while the moon is white. Hurrah!! Denver is a city name in Colorado.'
     translated_text = 'Ahoj, obloha je tmavá, zatímco měsíc je bílý. Hurá!! Denver je název města v Coloradu.'
@@ -54,14 +47,25 @@ def test_inputs():
             temp += i
         test_cases.append(temp)
     random_cases = 5
-    random_test_cases = random.sample(test_cases, random_cases) # randomly choosing any five cases since list is in order of 2^n
+    random_test_cases = random.sample(test_cases, random_cases)  # randomly choosing any five cases since list is in order of 2^n containing all cases
     for case in random_test_cases:
         assert GoogleTranslator(source='en', target=case).translate(test_text) == translated_text
 
-    # Languages with multiple names checks
+def multiple_names_lang_checks():
     assert GoogleTranslator(source='en', target='burMeSe').translate("Hello") == 'မင်္ဂလာပါ'
     assert GoogleTranslator(source='en', target='Oriya').translate("What's up?") == 'କଣ ଚାଲିଛି?'
     assert GoogleTranslator(source='en', target='kurManJi').translate("Nice is dice.") == 'Xweş xweş e.'
+
+
+def test_inputs():
+    with pytest.raises(exceptions.LanguageNotSupportedException):
+        GoogleTranslator(source="", target="")
+
+    with pytest.raises(exceptions.LanguageNotSupportedException):
+        GoogleTranslator(source="auto", target="nothing")
+
+    case_sensitivity_checks()
+    multiple_names_lang_checks()
 
 
 def test_payload(google_translator):
