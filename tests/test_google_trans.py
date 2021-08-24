@@ -4,7 +4,8 @@
 
 import pytest
 from deep_translator import exceptions, GoogleTranslator
-
+from deep_translator.constants import GOOGLE_CODES_TO_LANGUAGES
+import random
 
 @pytest.fixture
 def google_translator():
@@ -14,13 +15,19 @@ def google_translator():
     """
     return GoogleTranslator(target='en')
 
-
 def test_content(google_translator):
     """Sample pytest test function with the pytest fixture as an argument."""
     # from bs4 import BeautifulSoup
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
     assert google_translator.translate(text='좋은') == "good"
 
+
+def test_abbreviations_and_languages_mapping():
+    for abb, lang in GOOGLE_CODES_TO_LANGUAGES.items():
+        if(abb!= 'en'):
+            g1 = GoogleTranslator(abb)
+            g2 = GoogleTranslator(lang)
+            assert g1._source == g2._source
 
 def test_inputs():
     with pytest.raises(exceptions.LanguageNotSupportedException):
@@ -29,11 +36,32 @@ def test_inputs():
     with pytest.raises(exceptions.LanguageNotSupportedException):
         GoogleTranslator(source="auto", target="nothing")
 
-    # test abbreviations and languages
-    g1 = GoogleTranslator("en", "fr")
-    g2 = GoogleTranslator("english", "french")
-    assert g1._source == g2._source
-    assert g1._target == g2._target
+    # Case Senstivity checks
+    test_lang = 'Czech'
+    test_text = 'Hi, the sky is dark while the moon is white. Hurrah!! Denver is a city name in Colorado.'
+    translated_text = 'Ahoj, obloha je tmavá, zatímco měsíc je bílý. Hurá!! Denver je název města v Coloradu.'
+    test_cases = []
+    n = len(test_lang)
+    mx = 1 << n
+    test = test_lang.lower()
+    for i in range(mx):
+        combination = [k for k in test_lang]
+        for j in range(n):
+            if (((i >> j) & 1) == 1):
+                combination[j] = test_lang[j].upper()
+        temp = ""
+        for i in combination:
+            temp += i
+        test_cases.append(temp)
+    random_cases = 5
+    random_test_cases = random.sample(test_cases, random_cases) # randomly choosing any five cases since list is in order of 2^n
+    for case in random_test_cases:
+        assert GoogleTranslator(source='en', target=case).translate(test_text) == translated_text
+
+    # Languages with multiple names checks
+    assert GoogleTranslator(source='en', target='burMeSe').translate("Hello") == 'မင်္ဂလာပါ'
+    assert GoogleTranslator(source='en', target='Oriya').translate("What's up?") == 'କଣ ଚାଲିଛି?'
+    assert GoogleTranslator(source='en', target='kurManJi').translate("Nice is dice.") == 'Xweş xweş e.'
 
 
 def test_payload(google_translator):
@@ -58,7 +86,6 @@ def test_payload(google_translator):
 
     #for _ in range(1):
     #assert google_translator.translate(text='좋은') == "good"
-
 
 def test_one_character_words():
     assert GoogleTranslator(source='es', target='en').translate('o') == 'or'
