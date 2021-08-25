@@ -4,7 +4,7 @@
 
 import pytest
 from deep_translator import exceptions, GoogleTranslator
-from deep_translator.constants import GOOGLE_CODES_TO_LANGUAGES
+from deep_translator.constants import GOOGLE_CODES_TO_LANGUAGES, test_text_standard, TRANSLATED_RESULTS
 import random
 
 @pytest.fixture
@@ -14,20 +14,6 @@ def google_translator():
     See more at: http://doc.pytest.org/en/latest/fixture.html
     """
     return GoogleTranslator(target='en')
-
-def test_content(google_translator):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
-    assert google_translator.translate(text='좋은') == "good"
-
-
-def test_abbreviations_and_languages_mapping():
-    for abb, lang in GOOGLE_CODES_TO_LANGUAGES.items():
-        if(abb!= 'en'):
-            g1 = GoogleTranslator(abb)
-            g2 = GoogleTranslator(lang)
-            assert g1._source == g2._source
 
 def case_sensitivity_checks():
     test_lang = 'Czech'
@@ -56,6 +42,29 @@ def multiple_names_lang_checks():
     assert GoogleTranslator(source='en', target='Oriya').translate("What's up?") == 'କଣ ଚାଲିଛି?'
     assert GoogleTranslator(source='en', target='kurManJi').translate("Nice is dice.") == 'Xweş xweş e.'
 
+def test_random_tranlations_cases_multiple_names():
+    random_sample_size = 5
+    d = dict.fromkeys(list(TRANSLATED_RESULTS.keys()))
+    random_lang_names = random.sample(d.keys(), random_sample_size)
+    random_subset_dict = {k: TRANSLATED_RESULTS[k] for k in random_lang_names}
+    for lang, translation in random_subset_dict.items():
+        assert GoogleTranslator(source='en', target=lang).translate(test_text_standard) == translation
+
+    case_sensitivity_checks()
+    multiple_names_lang_checks()
+
+def test_content(google_translator):
+    """Sample pytest test function with the pytest fixture as an argument."""
+    # from bs4 import BeautifulSoup
+    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+    assert google_translator.translate(text='좋은') == "good"
+
+def test_abbreviations_and_languages_mapping():
+    for abb, lang in GOOGLE_CODES_TO_LANGUAGES.items():
+        if(abb!= 'en'):
+            g1 = GoogleTranslator(abb)
+            g2 = GoogleTranslator(lang)
+            assert g1._source == g2._source
 
 def test_inputs():
     with pytest.raises(exceptions.LanguageNotSupportedException):
@@ -63,10 +72,6 @@ def test_inputs():
 
     with pytest.raises(exceptions.LanguageNotSupportedException):
         GoogleTranslator(source="auto", target="nothing")
-
-    case_sensitivity_checks()
-    multiple_names_lang_checks()
-
 
 def test_payload(google_translator):
 
