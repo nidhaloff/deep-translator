@@ -32,9 +32,9 @@ class GoogleTranslator(BaseTranslator):
         #######################################
         source_lower = source
         target_lower = target
-        if not( source in self._languages.values()):
+        if not source in self._languages.values():
             source_lower=source.lower()
-        if not( target in self._languages.values()):
+        if not target in self._languages.values():
             target_lower=target.lower()
         #######################################
 
@@ -66,12 +66,12 @@ class GoogleTranslator(BaseTranslator):
         """
         Function to check if lang is a secondary name of any primary language
         @param lang: language name
-        @return: primary name of a language if found otherwise 0
+        @return: primary name of a language if found otherwise False
         """
         for primary_name, secondary_names in GOOGLE_LANGUAGES_SECONDARY_NAMES.items():
-            if (lang in secondary_names):
+            if lang in secondary_names:
                 return primary_name
-        return 0
+        return False
 
     def _map_language_to_code(self, *languages):
         """
