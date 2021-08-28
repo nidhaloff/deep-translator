@@ -4,16 +4,18 @@
 
 import pytest
 from deep_translator import exceptions, GoogleTranslator
-from deep_translator.constants import GOOGLE_CODES_TO_LANGUAGES, test_text_standard, TRANSLATED_RESULTS
+from deep_translator.constants import GOOGLE_CODES_TO_LANGUAGES
+from test_data import test_text_standard, TRANSLATED_RESULTS
 import random
+
 
 @pytest.fixture
 def google_translator():
     """Sample pytest fixture.
-
     See more at: http://doc.pytest.org/en/latest/fixture.html
     """
     return GoogleTranslator(target='en')
+
 
 def case_sensitivity_checks():
     test_lang = 'Czech'
