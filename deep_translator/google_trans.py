@@ -30,16 +30,16 @@ class GoogleTranslator(BaseTranslator):
         # code snipppet that converts the language into lower-case and skip lower-case conversion for abbreviations
         # since abbreviations like zh-CN if converted to lower-case will result into error
         #######################################
-        source_map = source
-        target_map = target
+        source_lower = source
+        target_lower = target
         if not( source in self._languages.values()):
-            source_map=source.lower()
+            source_lower=source.lower()
         if not( target in self._languages.values()):
-            target_map=target.lower()
+            target_lower=target.lower()
         #######################################
 
-        if self.is_language_supported(source_map, target_map):
-            self._source, self._target = self._map_language_to_code(source_map, target_map)
+        if self.is_language_supported(source_lower, target_lower):
+            self._source, self._target = self._map_language_to_code(source_lower, target_lower)
 
         super(GoogleTranslator, self).__init__(base_url=self.__base_url,
                                                source=self._source,
