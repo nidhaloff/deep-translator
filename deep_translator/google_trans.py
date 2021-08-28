@@ -84,10 +84,8 @@ class GoogleTranslator(BaseTranslator):
                 yield language
             elif language in self._languages.keys():
                 yield self._languages[language]
-            elif (self.is_secondary(language)!=0):
-                yield self._languages[self.is_secondary(language)]
             else:
-                raise LanguageNotSupportedException(language)
+                yield self._languages[self.is_secondary(language)]
 
     def is_language_supported(self, *languages):
         """
@@ -98,7 +96,7 @@ class GoogleTranslator(BaseTranslator):
         for lang in languages:
             if lang != 'auto' and lang not in self._languages.keys():
                 if lang != 'auto' and lang not in self._languages.values():
-                    if (self.is_secondary(lang)==0):
+                    if self.is_secondary(lang) == False:
                         raise LanguageNotSupportedException(lang)
         return True
 
