@@ -1,21 +1,24 @@
 """
-language detection API
+Language Detection API
 """
+import sys
 import requests
 from requests.exceptions import HTTPError
 
 # Module global config
-config = {"url": 'https://ws.detectlanguage.com/0.2/detect',"headers": {'User-Agent': 'Detect Language API Python Client 1.4.0','Authorization': 'Bearer {}',}}
+config = {"url": 'https://ws.detectlanguage.com/0.2/detect',
+          "headers": {'User-Agent': 'Detect Language API Python Client 1.4.0', 'Authorization': 'Bearer {}', }}
 
-def get_request_body(text, api_key, *args, **kwargs):
+
+def get_request_body(text, api_key, *_, **__):
     """
-    send a request and return the response body parsed as dictionary
-
-    @param text: target text that you want to detect its language
-    @type text: str
-    @type api_key: str
-    @param api_key: your private API key
-
+    Send a request and return the response body parsed as dictionary
+    Args:
+        text: str: target text that you want to detect its language.
+        api_key: str: your private API key.
+    Raises:
+        HTTPError
+        Exception
     """
     if not api_key:
         raise Exception("you need to get an API_KEY for this to work. "
@@ -35,19 +38,19 @@ def get_request_body(text, api_key, *args, **kwargs):
             return body
 
         except HTTPError as e:
-            print("Error occured while requesting from server: ", e.args)
+            print("Error occurred while requesting from server: ", e.args, file=sys.stderr)
             raise e
 
 
-def single_detection(text, api_key=None, detailed=False, *args, **kwargs):
+def single_detection(text, api_key=None, detailed=False, *_, **__):
     """
-    function responsible for detecting the language from a text
-
-    @param text: target text that you want to detect its language
-    @type text: str
-    @type api_key: str
-    @param api_key: your private API key
-    @param detailed: set to True if you want to get detailed information about the detection process
+    Function responsible for detecting the language from a text
+    Args:
+        text: str: target text that you want to detect its language.
+        api_key: str: your private API key.
+        detailed: bool: set to True if you want to get detailed information about the detection process.
+    Returns:
+        None or str
     """
     body = get_request_body(text, api_key)
     detections = body.get('detections')
@@ -59,13 +62,15 @@ def single_detection(text, api_key=None, detailed=False, *args, **kwargs):
         return lang
 
 
-def batch_detection(text_list, api_key, detailed=False, *args, **kwargs):
+def batch_detection(text_list, api_key, detailed=False, *_, **__):
     """
-    function responsible for detecting the language from a text
-
-    @param text_list: target batch that you want to detect its language
-    @param api_key: your private API key
-    @param detailed: set to True if you want to get detailed information about the detection process
+    Function responsible for detecting the language from a text
+    Args:
+        text_list: list:target batch that you want to detect its language
+        api_key: str: your private API key
+        detailed: bool: set to True if you want to get detailed information about the detection process
+    Returns:
+        str or list of languages
     """
     body = get_request_body(text_list, api_key)
     detections = body.get('detections')
@@ -74,4 +79,3 @@ def batch_detection(text_list, api_key, detailed=False, *args, **kwargs):
         return res
     else:
         return [obj['language'] for obj in res]
-

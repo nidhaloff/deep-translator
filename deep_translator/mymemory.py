@@ -1,15 +1,15 @@
 """
-mymemory translator API
+MyMemory Translator API
 """
 import logging
 import warnings
 
 from .constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
 from .exceptions import (NotValidPayload,
-                        TranslationNotFound,
-                        LanguageNotSupportedException,
-                        RequestError,
-                        TooManyRequests)
+                         TranslationNotFound,
+                         LanguageNotSupportedException,
+                         RequestError,
+                         TooManyRequests)
 from .parent import BaseTranslator
 import requests
 from time import sleep
@@ -17,15 +17,17 @@ from time import sleep
 
 class MyMemoryTranslator(BaseTranslator):
     """
-    class that uses the mymemory translator to translate texts
+    Class that uses the MyMemory translator to translate texts
     """
     _languages = GOOGLE_LANGUAGES_TO_CODES
     supported_languages = list(_languages.keys())
 
     def __init__(self, source="auto", target="en", proxies=None, **kwargs):
         """
-        @param source: source language to translate from
-        @param target: target language to translate to
+        Args:
+            source: str: source language to translate from.
+            target: str: target language to translate to.
+            proxies
         """
         self.__base_url = BASE_URLS.get("MYMEMORY")
         self.proxies = proxies
@@ -41,19 +43,27 @@ class MyMemoryTranslator(BaseTranslator):
                                                  langpair='{}|{}'.format(self._source, self._target))
 
     @staticmethod
-    def get_supported_languages(as_dict=False, **kwargs):
+    def get_supported_languages(as_dict=False, **_):
         """
-         return the supported languages by the mymemory translator
-         @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
-         @return: list or dict
-         """
+        Return the supported languages by the google translator
+        Args:
+            as_dict: bool: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
+        Returns:
+            list or dict
+        """
         return MyMemoryTranslator.supported_languages if not as_dict else MyMemoryTranslator._languages
 
     def _map_language_to_code(self, *languages):
         """
-          map language to its corresponding code (abbreviation) if the language was passed by its full name by the user
-          @param languages: list of languages
-          @return: mapped value of the language or raise an exception if the language is not supported
+        Map language to its corresponding code (abbreviation) if the language was passed by its full name by the user.
+        Args:
+            languages: list of languages.
+        Yields:
+            str
+        Raises:
+            Exception if the language is not supported.
+        Examples:
+            MyMemoryTranslatorObject._map_language_to_code("ko", "uk", "en")
         """
         for language in languages:
             if language in self._languages.values() or language == 'auto':
@@ -65,23 +75,37 @@ class MyMemoryTranslator(BaseTranslator):
 
     def is_language_supported(self, *languages):
         """
-        check if the language is supported by the translator
-        @param languages: list of languages
-        @return: bool or raise an Exception
+        Check if the language is supported by the translator
+        Args:
+            languages: list of languages.
+        Returns:
+            True
+        Raises
+            LanguageNotSupportedException
+        Examples:
+            MyMemoryTranslatorObject.is_language_supported("ko", "uk", "en")
         """
+
+        all_supported_languages = [*self._languages.keys(), *self._languages.values()]
         for lang in languages:
-            if lang != 'auto' and lang not in self._languages.keys():
-                if lang != 'auto' and lang not in self._languages.values():
-                    raise LanguageNotSupportedException(lang)
+            if lang != 'auto' and lang not in all_supported_languages:
+                raise LanguageNotSupportedException(lang)
         return True
 
     def translate(self, text, return_all=False, **kwargs):
         """
-        function that uses the mymemory translator to translate a text
-        @param text: desired text to translate
-        @type text: str
-        @param return_all: set to True to return all synonym/similars of the translated text
-        @return: str or list
+        Function that uses MyMemory translator to translate a word
+        Args:
+            text: str: text to translate.
+            return_all: bool: set to True to return all synonym/similars of the translated text
+        Keyword Args:
+            requests_kwargs: arbitrary args for requests.get.
+        Returns:
+             str or list or None
+        Raises:
+            TooManyRequests
+            RequestError
+            TranslationNotFound
         """
 
         if self._validate_payload(text, max_chars=500):
@@ -95,7 +119,8 @@ class MyMemoryTranslator(BaseTranslator):
             response = requests.get(self.__base_url,
                                     params=self._url_params,
                                     headers=self.headers,
-                                    proxies=self.proxies)
+                                    proxies=self.proxies,
+                                    **kwargs.get("requests_kwargs", {}))
 
             if response.status_code == 429:
                 raise TooManyRequests()
@@ -118,12 +143,17 @@ class MyMemoryTranslator(BaseTranslator):
 
     def translate_sentences(self, sentences=None, **kwargs):
         """
-        translate many sentences together. This makes sense if you have sentences with different languages
+        Translate many sentences together. This makes sense if you have sentences with different languages
         and you want to translate all to unified language. This is handy because it detects
         automatically the language of each sentence and then translate it.
 
-        @param sentences: list of sentences to translate
-        @return: list of all translated sentences
+        Args:
+            sentences: list of str: list of sentences to translate.
+        Returns:
+             list of all translated sentences.
+        Raises:
+            NotValidPayload
+            Exception
         """
         warn_msg = "deprecated. Use the translate_batch function instead"
         warnings.warn(warn_msg, DeprecationWarning, stacklevel=2)
@@ -142,27 +172,33 @@ class MyMemoryTranslator(BaseTranslator):
         except Exception as e:
             raise e
 
-    def translate_file(self, path, **kwargs):
+    def translate_file(self, path, **_):
         """
-         translate directly from file
-         @param path: path to the target file
-         @type path: str
-         @param kwargs: additional args
-         @return: str
-         """
+        Translate directly from file
+        Args:
+            path: str: path to the target file.
+        Returns:
+            str
+        Raises:
+             Exception
+        """
         try:
             with open(path) as f:
                 text = f.read().strip()
-
             return self.translate(text=text)
         except Exception as e:
             raise e
 
     def translate_batch(self, batch=None, **kwargs):
         """
-        translate a list of texts
-        @param batch: list of texts you want to translate
-        @return: list of translations
+        Translate a list of texts
+        Args:
+            batch: list: list of texts to translate.
+            kwargs: dict: arbitrary args for MyMemoryTranslatorObject.translate
+        Returns:
+             list of translations
+        Raises:
+            Exception
         """
         if not batch:
             raise Exception("Enter your text list that you want to translate")

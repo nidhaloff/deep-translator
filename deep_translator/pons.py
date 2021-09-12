@@ -1,30 +1,32 @@
 """
-pons translator API
+Pons Translator API
 """
 from bs4 import BeautifulSoup
 import requests
 from .constants import BASE_URLS, PONS_LANGUAGES_TO_CODES, PONS_CODES_TO_LANGUAGES
 from .exceptions import (LanguageNotSupportedException,
-                        TranslationNotFound,
-                        NotValidPayload,
-                        ElementNotFoundInGetRequest,
-                        RequestError,
-                        TooManyRequests)
+                         TranslationNotFound,
+                         NotValidPayload,
+                         ElementNotFoundInGetRequest,
+                         RequestError,
+                         TooManyRequests)
 from .parent import BaseTranslator
 from requests.utils import requote_uri
 
 
 class PonsTranslator(BaseTranslator):
     """
-    class that uses PONS translator to translate words
+    Class that uses PONS translator to translate words
     """
     _languages = PONS_LANGUAGES_TO_CODES
     supported_languages = list(_languages.keys())
 
-    def __init__(self, source, target="en", proxies=None, **kwargs):
+    def __init__(self, source, target="en", proxies=None, **_):
         """
-        @param source: source language to translate from
-        @param target: target language to translate to
+        Args:
+            source: str: source language to translate from.
+            target: str: target language to translate to.
+            proxies
         """
         self.__base_url = BASE_URLS.get("PONS")
         self.proxies = proxies
@@ -40,19 +42,27 @@ class PonsTranslator(BaseTranslator):
                          )
 
     @staticmethod
-    def get_supported_languages(as_dict=False, **kwargs):
+    def get_supported_languages(as_dict=False, **_):
         """
-          return the supported languages by the linguee translator
-          @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
-          @return: list or dict
-          """
+        Return the supported languages by the google translator
+        Args:
+            as_dict: bool: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
+        Returns:
+            list or dict
+        """
         return PonsTranslator.supported_languages if not as_dict else PonsTranslator._languages
 
-    def _map_language_to_code(self, *languages, **kwargs):
+    def _map_language_to_code(self, *languages, **_):
         """
-           map language to its corresponding code (abbreviation) if the language was passed by its full name by the user
-           @param languages: list of languages
-           @return: mapped value of the language or raise an exception if the language is not supported
+        Map language to its corresponding code (abbreviation) if the language was passed by its full name by the user.
+        Args:
+            languages: list of languages.
+        Yields:
+            str
+        Raises:
+            Exception if the language is not supported.
+        Examples:
+            PonsTranslatorObject._map_language_to_code("ko", "uk", "en")
         """
         for language in languages:
             if language in self._languages.values():
@@ -62,31 +72,46 @@ class PonsTranslator(BaseTranslator):
             else:
                 raise LanguageNotSupportedException(language)
 
-    def is_language_supported(self, *languages, **kwargs):
+    def is_language_supported(self, *languages, **_):
         """
-         check if the language is supported by the translator
-         @param languages: list of languages
-         @return: bool or raise an Exception
-         """
+        Check if the language is supported by the translator
+        Args:
+            languages: list of languages.
+        Returns:
+            True
+        Raises
+            LanguageNotSupportedException
+        Examples:
+            PonsTranslatorObject.is_language_supported("ko", "uk", "en")
+        """
+
+        all_supported_languages = [*self._languages.keys(), *self._languages.values()]
+
         for lang in languages:
-            if lang not in self._languages.keys():
-                if lang not in self._languages.values():
-                    raise LanguageNotSupportedException(lang)
+            if lang not in all_supported_languages:
+                raise LanguageNotSupportedException(lang)
         return True
 
     def translate(self, word, return_all=False, **kwargs):
         """
-        function that uses PONS to translate a word
-        @param word: word to translate
-        @type word: str
-        @param return_all: set to True to return all synonym of the translated word
-        @type return_all: bool
-        @return: str: translated word
+        Function that uses Pons translator to translate a word
+        Args:
+            word: str: word to translate.
+            return_all: bool: set to True to return all synonym/similar of the translated text
+        Keyword Args:
+            requests_kwargs: arbitrary args for requests.get.
+        Returns:
+             str or list or None
+        Raises:
+            TooManyRequests
+            RequestError
+            ElementNotFoundInGetRequest
+            TranslationNotFound
         """
         if self._validate_payload(word, max_chars=50):
             url = "{}{}-{}/{}".format(self.__base_url, self._source, self._target, word)
             url = requote_uri(url)
-            response = requests.get(url, proxies=self.proxies)
+            response = requests.get(url, proxies=self.proxies, **kwargs.get("requests_kwargs", {}))
 
             if response.status_code == 429:
                 raise TooManyRequests()
@@ -121,10 +146,14 @@ class PonsTranslator(BaseTranslator):
 
     def translate_words(self, words, **kwargs):
         """
-        translate a batch of words together by providing them in a list
-        @param words: list of words you want to translate
-        @param kwargs: additional args
-        @return: list of translated words
+        Translate a batch of words together by providing them in a list
+        Args:
+            words: list: list of texts to translate.
+            kwargs: dict: dict of arg for PonsTranslatorObject.translate
+        Returns:
+             list of translations
+        Raises:
+            NotValidPayload
         """
         if not words:
             raise NotValidPayload(words)
@@ -133,4 +162,3 @@ class PonsTranslator(BaseTranslator):
         for word in words:
             translated_words.append(self.translate(word=word, **kwargs))
         return translated_words
-

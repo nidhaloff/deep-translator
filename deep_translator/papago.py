@@ -1,5 +1,5 @@
 """
-google translator API
+Papago Translator API
 """
 import json
 from .constants import BASE_URLS, PAPAGO_LANGUAGE_TO_CODE
@@ -16,10 +16,15 @@ class PapagoTranslator(object):
     _languages = PAPAGO_LANGUAGE_TO_CODE
     supported_languages = list(_languages.keys())
 
-    def __init__(self, client_id=None, secret_key=None, source="auto", target="en", **kwargs):
+    def __init__(self, client_id=None, secret_key=None, source="auto", target="en", **_):
         """
-        @param source: source language to translate from
-        @param target: target language to translate to
+        Args:
+            client_id: str: client_id for use PapagoTranslator.
+            secret_key: str: secret_key for use PapagoTranslator.
+            source: str: source language to translate from.
+            target: str: target language to translate to.
+        Raises:
+            Exception
         """
         if not client_id or not secret_key:
             raise Exception("Please pass your client id and secret key! visit the papago website for more infos")
@@ -31,19 +36,27 @@ class PapagoTranslator(object):
             self._source, self._target = self._map_language_to_code(source.lower(), target.lower())
 
     @staticmethod
-    def get_supported_languages(as_dict=False, **kwargs):
+    def get_supported_languages(as_dict=False, **_):
         """
-        return the supported languages by the google translator
-        @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
-        @return: list or dict
+        Return the supported languages by the google translator
+        Args:
+            as_dict: bool: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
+        Returns:
+            list or dict
         """
         return PapagoTranslator.supported_languages if not as_dict else PapagoTranslator._languages
 
     def _map_language_to_code(self, *languages):
         """
-        map language to its corresponding code (abbreviation) if the language was passed by its full name by the user
-        @param languages: list of languages
-        @return: mapped value of the language or raise an exception if the language is not supported
+        Map language to its corresponding code (abbreviation) if the language was passed by its full name by the user.
+        Args:
+            languages: list of languages.
+        Yields:
+            str
+        Raises:
+            LanguageNotSupportedException if the language is not supported.
+        Examples:
+            PapagoTranslatorObject._map_language_to_code("ko", "uk", "en")
         """
         for language in languages:
             if language in self._languages.values() or language == 'auto':
@@ -55,21 +68,36 @@ class PapagoTranslator(object):
 
     def is_language_supported(self, *languages):
         """
-        check if the language is supported by the translator
-        @param languages: list of languages
-        @return: bool or raise an Exception
+        Check if the language is supported by the translator
+        Args:
+            languages: list of languages.
+        Returns:
+            True
+        Raises
+            LanguageNotSupportedException
+        Examples:
+            PapagoTranslatorObject.is_language_supported("ko", "uk", "en")
         """
+
+        all_supported_languages = [*self._languages.keys(), * self._languages.values()]
+
         for lang in languages:
-            if lang != 'auto' and lang not in self._languages.keys():
-                if lang != 'auto' and lang not in self._languages.values():
-                    raise LanguageNotSupportedException(lang)
+            if lang != 'auto' and lang not in all_supported_languages:
+                raise LanguageNotSupportedException(lang)
         return True
 
     def translate(self, text, **kwargs):
         """
-        function that uses google translate to translate a text
-        @param text: desired text to translate
-        @return: str: translated text
+        Function that uses Papago Translator to translate a word
+        Args:
+            text: str: word to translate.
+        Keyword Args:
+            requests_kwargs: arbitrary args for requests.post.
+        Returns:
+             str: translated text.
+        Raises:
+            Exception
+            TranslationNotFound
         """
 
         payload = {
@@ -82,7 +110,7 @@ class PapagoTranslator(object):
             'X-Naver-Client-Secret': self.secret_key,
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         }
-        response = requests.post(self.__base_url, headers=headers, data=payload)
+        response = requests.post(self.__base_url, headers=headers, data=payload, **kwargs.get("requests_kwargs", {}))
         if response.status_code != 200:
             raise Exception(f'Translation error! -> status code: {response.status_code}')
         res_body = json.loads(response.text)
@@ -96,13 +124,15 @@ class PapagoTranslator(object):
         translated_text = result.get("translatedText")
         return translated_text
 
-    def translate_file(self, path, **kwargs):
+    def translate_file(self, path, **_):
         """
-        translate directly from file
-        @param path: path to the target file
-        @type path: str
-        @param kwargs: additional args
-        @return: str
+        Translate directly from file
+        Args:
+             path: str: path to the target file.
+        Returns:
+            str
+        Raises:
+            Exception
         """
         try:
             with open(path) as f:
@@ -111,14 +141,19 @@ class PapagoTranslator(object):
         except Exception as e:
             raise e
 
-    def translate_sentences(self, sentences=None, **kwargs):
+    def translate_sentences(self, sentences=None, **_):
         """
-        translate many sentences together. This makes sense if you have sentences with different languages
+        Translate many sentences together. This makes sense if you have sentences with different languages
         and you want to translate all to unified language. This is handy because it detects
         automatically the language of each sentence and then translate it.
 
-        @param sentences: list of sentences to translate
-        @return: list of all translated sentences
+        Args:
+            sentences: list of str: list of sentences to translate.
+        Returns:
+             list of all translated sentences.
+        Raises:
+            NotValidPayload
+            Exception
         """
         warnings.warn("deprecated. Use the translate_batch function instead", DeprecationWarning, stacklevel=2)
         logging.warning("deprecated. Use the translate_batch function instead")
@@ -138,15 +173,19 @@ class PapagoTranslator(object):
 
     def translate_batch(self, batch=None, **kwargs):
         """
-        translate a list of texts
-        @param batch: list of texts you want to translate
-        @return: list of translations
+        Translate a list of texts
+        Args:
+            batch: list: list of texts to translate.
+            kwargs: dict: arbitrary args for PapagoTranslatorObject.translate
+        Returns:
+             list of translations
+        Raises:
+            Exception
         """
         if not batch:
             raise Exception("Enter your text list that you want to translate")
         arr = []
         for i, text in enumerate(batch):
-
             translated = self.translate(text, **kwargs)
             arr.append(translated)
         return arr

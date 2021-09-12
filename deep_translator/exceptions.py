@@ -1,12 +1,13 @@
 class BaseError(Exception):
     """
-    base error structure class
+    Base error structure class
     """
 
     def __init__(self, val, message):
         """
-        @param val: actual value
-        @param message: message shown to the user
+        Args:
+            val: actual value.
+            message: str: message shown to the user.
         """
         self.val = val
         self.message = message
@@ -18,7 +19,7 @@ class BaseError(Exception):
 
 class LanguageNotSupportedException(BaseError):
     """
-    exception thrown if the user uses a language that is not supported by the deep_translator
+    Exception thrown if the user uses a language that is not supported by the deep_translator
     """
 
     def __init__(self, val, message="There is no support for the chosen language"):
@@ -27,7 +28,7 @@ class LanguageNotSupportedException(BaseError):
 
 class NotValidPayload(BaseError):
     """
-    exception thrown if the user enters an invalid payload
+    Exception thrown if the user enters an invalid payload
     """
 
     def __init__(self,
@@ -38,7 +39,7 @@ class NotValidPayload(BaseError):
 
 class InvalidSourceOrTargetLanguage(BaseError):
     """
-    exception thrown if the user enters an invalid payload
+    Exception thrown if the user enters an invalid payload
     """
 
     def __init__(self,
@@ -47,10 +48,9 @@ class InvalidSourceOrTargetLanguage(BaseError):
         super(InvalidSourceOrTargetLanguage, self).__init__(val, message)
 
 
-
 class TranslationNotFound(BaseError):
     """
-    exception thrown if no translation was found for the text provided by the user
+    Exception thrown if no translation was found for the text provided by the user
     """
 
     def __init__(self,
@@ -61,7 +61,7 @@ class TranslationNotFound(BaseError):
 
 class ElementNotFoundInGetRequest(BaseError):
     """
-    exception thrown if the html element was not found in the body parsed by beautifulsoup
+    Exception thrown if the html element was not found in the body parsed by beautifulsoup
     """
 
     def __init__(self,
@@ -72,7 +72,7 @@ class ElementNotFoundInGetRequest(BaseError):
 
 class NotValidLength(BaseError):
     """
-    exception thrown if the provided text exceed the length limit of the translator
+    Exception thrown if the provided text exceed the length limit of the translator
     """
 
     def __init__(self, val, min_chars, max_chars):
@@ -82,7 +82,7 @@ class NotValidLength(BaseError):
 
 class RequestError(Exception):
     """
-    exception thrown if an error occurred during the request call, e.g a connection problem.
+    Exception thrown if an error occurred during the request call, e.g a connection problem.
     """
 
     def __init__(self, message="Request exception can happen due to an api connection error. "
@@ -95,12 +95,12 @@ class RequestError(Exception):
 
 class MicrosoftAPIerror(Exception):
     """
-    exception thrown if Microsoft API returns one of its errors
+    Exception thrown if Microsoft API returns one of its errors
     """
 
     def __init__(self, api_message):
         self.api_message = str(api_message)
-        self.message="Microsoft API returned the following error"
+        self.message = "Microsoft API returned the following error"
 
     def __str__(self):
         return "{}: {}".format(self.message, self.api_message)
@@ -108,10 +108,11 @@ class MicrosoftAPIerror(Exception):
 
 class TooManyRequests(Exception):
     """
-    exception thrown if an error occurred during the request call, e.g a connection problem.
+    Exception thrown if an error occurred during the request call, e.g a connection problem.
     """
 
-    def __init__(self, message="Server Error: You made too many requests to the server. According to google, you are allowed to make 5 requests per second and up to 200k requests per day. You can wait and try again later or you can try the translate_batch function"):
+    def __init__(self,
+                 message="Server Error: You made too many requests to the server. According to google, you are allowed to make 5 requests per second and up to 200k requests per day. You can wait and try again later or you can try the translate_batch function"):
         self.message = message
 
     def __str__(self):
