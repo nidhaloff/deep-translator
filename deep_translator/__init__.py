@@ -13,7 +13,7 @@ from .microsoft import MicrosoftTranslator
 from .papago import PapagoTranslator
 
 # TODO: Discussion: These should be declared in setup.cfg, setting them here is redundant
-__author__ = """Nidhal Baccouri"""
+__author__ = "Nidhal Baccouri"
 __email__ = 'nidhalbacc@gmail.com'
 __version__ = '1.5.0'
 
@@ -27,5 +27,4 @@ __all__ = [
     "QCRI",
     "DeepL",
     "single_detection",
-    "batch_detection"
-           ]
+    "batch_detection"]

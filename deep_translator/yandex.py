@@ -1,5 +1,5 @@
 """
-Yandex translator API
+Yandex Translator API
 """
 import requests
 from .constants import BASE_URLS
@@ -8,12 +8,17 @@ from .exceptions import (RequestError, ServerException, TranslationNotFound, Too
 
 class YandexTranslator(object):
     """
-    class that wraps functions, which use the yandex translator under the hood to translate word(s)
+    Class that wraps functions, which use the yandex translator under the hood to translate word(s)
     """
 
-    def __init__(self, api_key=None, source="en", target="de", **kwargs):
+    def __init__(self, api_key=None, source="en", target="de", **_):
         """
-        @param api_key: your yandex api key
+        Args:
+            api_key: str: your QCRI api key. Get one for free here https://mt.qcri.org/api/v1/ref
+            source: str: source language to translate from.
+            target: str: target language to translate to.
+        Raises:
+            ServerException
         """
         if not api_key:
             raise ServerException(401)
@@ -59,7 +64,7 @@ class YandexTranslator(object):
             raise ServerException(response.status_code)
         return data.get("dirs")
 
-    def detect(self, text, proxies=None):
+    def detect(self, text, proxies=None, **kwargs):
         response = None
         params = {
             "text": text,
@@ -68,7 +73,7 @@ class YandexTranslator(object):
         }
         try:
             url = self.__base_url.format(version=self.api_version, endpoint="detect")
-            response = requests.post(url, data=params, proxies=proxies)
+            response = requests.post(url, data=params, proxies=proxies, **kwargs.get("requests_kwargs", {}))
 
         except RequestError:
             raise
@@ -95,7 +100,7 @@ class YandexTranslator(object):
         }
         try:
             url = self.__base_url.format(version=self.api_version, endpoint="translate")
-            response = requests.post(url, data=params, proxies=proxies)
+            response = requests.post(url, data=params, proxies=proxies, **kwargs.get("requests_kwargs", {}))
         except ConnectionError:
             raise ServerException(503)
         else:
@@ -108,28 +113,35 @@ class YandexTranslator(object):
             raise ServerException(response['code'])
 
         if not response['text']:
-            raise TranslationNotFound()
+            raise TranslationNotFound(text)
 
         return response['text']
 
     def translate_file(self, path, **kwargs):
         """
-        translate from a file
-        @param path: path to file
-        @return: translated text
+        Translate directly from file
+        Args:
+             path: str: path to the target file.
+            kwargs: dict: arbitrary args for YandexTranslatorObject.translate
+        Returns:
+            str
+        Raises:
+            Exception
         """
         try:
             with open(path) as f:
                 text = f.read()
-
-            return self.translate(text)
+            return self.translate(text, **kwargs)
         except Exception as e:
             raise e
 
     def translate_batch(self, batch, **kwargs):
         """
-        translate a batch of texts
-        @param batch: list of texts to translate
-        @return: list of translations
+        Translate a list of texts
+        Args:
+            batch: list: list of texts to translate.
+            kwargs: dict: arbitrary args for YandexTranslatorObject.translate
+        Returns:
+             list of translations
         """
         return [self.translate(text, **kwargs) for text in batch]

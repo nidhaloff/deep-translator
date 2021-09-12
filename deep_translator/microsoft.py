@@ -1,3 +1,7 @@
+"""
+Microsoft Translator API
+"""
+
 # -*- coding: utf-8 -*-
 
 import requests
@@ -10,7 +14,7 @@ from .exceptions import LanguageNotSupportedException, ServerException, Microsof
 
 class MicrosoftTranslator:
     """
-    the class that wraps functions, which use the Microsoft translator under the hood to translate word(s)
+    The class that wraps functions, which use the Microsoft translator under the hood to translate word(s)
     """
 
     _languages = MICROSOFT_CODES_TO_LANGUAGES
@@ -18,9 +22,13 @@ class MicrosoftTranslator:
 
     def __init__(self, api_key=None, region=None, source=None, target=None, proxies=None, **kwargs):
         """
-        @params api_key and target are the required params
-        @param api_key: your Microsoft API key
-        @param region: your Microsoft Location
+        Args:
+            api_key: str: your Microsoft API key.
+            region: str: your Microsoft Location.
+            source: str: source language to translate from.
+            target: str: target language to translate to.
+            kwargs: arbitrary args.
+            proxies
         """
         if not api_key:
             raise ServerException(401)
@@ -58,21 +66,27 @@ class MicrosoftTranslator:
         self.__base_url = BASE_URLS.get("MICROSOFT_TRANSLATE")
 
     @staticmethod
-    def get_supported_languages(as_dict=False, **kwargs):
+    def get_supported_languages(as_dict=False, **_):
         """
-        return the languages supported by the microsoft translator
-        @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
-        @return: list or dict
+        Return the supported languages by the Microsoft translator
+        Args:
+            as_dict: bool: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
+        Returns:
+            list or dict
         """
         return MicrosoftTranslator.supported_languages if not as_dict else MicrosoftTranslator._languages
 
-    def _map_language_to_code(self, language, **kwargs):
+    def _map_language_to_code(self, language, **_):
         """
-        map the language to its corresponding code (abbreviation) if the language was passed by its full name by the user
-        @param language: a string (if 1 lang) or a list (if multiple langs)
-        @return: mapped value of the language or raise an exception if the language is not supported
+        Map language to its corresponding code (abbreviation) if the language was passed by its full name by the user.
+        Args:
+            language: list or str
+        Yields:
+            str
+        Raises:
+            LanguageNotSupportedException
         """
-        if type(language) is str:
+        if isinstance(language, str):
             language = [language]
         for lang in language:
             if lang in self._languages.values():
@@ -82,25 +96,35 @@ class MicrosoftTranslator:
             else:
                 raise LanguageNotSupportedException(lang)
 
-    def is_language_supported(self, language, **kwargs):
+    def is_language_supported(self, language, **_):
         """
-        check if the language is supported by the translator
-        @param language: a string (if 1 lang) or a list (if multiple langs)
-        @return: bool or raise an Exception
+        Check if the language is supported by the translator
+        Args:
+            language: list or str
+        Returns:
+            True
+        Raises:
+            LanguageNotSupportedException
         """
         if type(language) is str:
             language = [language]
+        all_supported_languages = [*self._languages.keys(), * self._languages.values()]
         for lang in language:
-            if lang not in self._languages.keys():
-                if lang not in self._languages.values():
-                    raise LanguageNotSupportedException(lang)
+            if lang not in all_supported_languages:
+                raise LanguageNotSupportedException(lang)
         return True
 
     def translate(self, text, **kwargs):
         """
-        function that uses microsoft translate to translate a text
-        @param text: desired text to translate
-        @return: str: translated text
+        Function that uses microsoft translate to translate a text
+        Args:
+            text: str: desired text to translate.
+        Keyword Args:
+            requests_kwargs: arbitrary args for requests.get.
+        Returns:
+            str: translated text.
+        Raises:
+            MicrosoftAPIerror
         """
         # a body must be a list of dicts to process multiple texts;
         # I have not added multiple text processing here since it is covered by the translate_batch method
@@ -110,25 +134,30 @@ class MicrosoftTranslator:
                                       params=self.url_params,
                                       headers=self.headers,
                                       json=valid_microsoft_json,
-                                      proxies=self.proxies)
+                                      proxies=self.proxies,
+                                      **kwargs.get("requests_kwargs", {}))
         except requests.exceptions.RequestException:
             exc_type, value, traceback = sys.exc_info()
             logging.warning(f"Returned error: {exc_type.__name__}")
 
         # Where Microsoft API responds with an api error, it returns a dict in response.json()
-        if type(requested.json()) is dict:
+        if isinstance(requested.json(), dict):
             error_message = requested.json()['error']
             raise MicrosoftAPIerror(error_message)
         # Where it responds with a translation, its response.json() is a list e.g. [{'translations': [{'text': 'Hello world!', 'to': 'en'}]}]
-        elif type(requested.json()) is list:
+        elif isinstance(requested.json(), list):
             all_translations = [i['text'] for i in requested.json()[0]['translations']]
             return "\n".join(all_translations)
 
-    def translate_file(self, path, **kwargs):
+    def translate_file(self, path, **_):
         """
-        translate from a file
-        @param path: path to file
-        @return: translated text
+        Translate directly from file
+        Args:
+             path: str: path to the target file.
+        Returns:
+            str
+        Raises:
+            Exception
         """
         try:
             with open(path) as f:
@@ -139,8 +168,11 @@ class MicrosoftTranslator:
 
     def translate_batch(self, batch, **kwargs):
         """
-        translate a batch of texts
-        @param batch: list of texts to translate
-        @return: list of translations
+        translate a list of texts
+        Args:
+            batch: list: list of texts to translate.
+            kwargs: dict: arbitrary args for MicrosoftTranslatorObject.translate
+        Returns:
+             list of translations
         """
         return [self.translate(text, **kwargs) for text in batch]

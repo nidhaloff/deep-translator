@@ -135,14 +135,14 @@ Quick Start
 
 .. code-block:: python
 
-    from deep-translator import GoogleTranslator
+    from deep_translator import GoogleTranslator
     translated = GoogleTranslator(source='auto', target='de').translate("keep it up, you are awesome")  # output -> Weiter so, du bist großartig
 
 or using proxies:
 
 .. code-block:: python
 
-    from deep-translator import GoogleTranslator
+    from deep_translator import GoogleTranslator
 
     proxies_example = {
         "https": "34.195.196.27:8080",
@@ -175,7 +175,7 @@ Imports
 
 .. code-block:: python
 
-    from deep-translator import (GoogleTranslator,
+    from deep_translator import (GoogleTranslator,
                                  MicrosoftTranslator,
                                  PonsTranslator,
                                  LingueeTranslator,
@@ -536,7 +536,7 @@ can be used with all supported translators.
 
 .. code-block:: python
 
-    from deep-translator import GoogleTranslator
+    from deep_translator import GoogleTranslator
 
     # define your proxy configs:
     proxies_example = {

@@ -12,16 +12,20 @@ from .microsoft import MicrosoftTranslator
 from .papago import PapagoTranslator
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
+
+
 @click.group()
 def cli():
     pass
+
 
 @cli.command(context_settings=CONTEXT_SETTINGS, no_args_is_help=True)
 @click.argument('translator', required=True, default='google', type=str)
 @click.option("--source", "-src", required=True, type=str, help="source language to translate from")
 @click.option("--target", "-tgt", required=True, type=str, help="target language to translate to")
-@click.option("--text", "-txt", type=str,required = True,prompt="Enter the text you want to translate",help="text you want to translate")
-@click.option("--api-key",type=str,help="required for DeepL, QCRI, Yandex, Microsoft and Papago translators")
+@click.option("--text", "-txt", type=str, required=True, prompt="Enter the text you want to translate",
+              help="text you want to translate")
+@click.option("--api-key", type=str, help="required for DeepL, QCRI, Yandex, Microsoft and Papago translators")
 def translate(translator, source, target, text, api_key):
     """
     Use TRANSLATOR to translate source material into another language.
@@ -72,6 +76,7 @@ def translate(translator, source, target, text, api_key):
     click.echo(f"Translated text: \n {res}")
     return 0
 
+
 @cli.command(context_settings=CONTEXT_SETTINGS, no_args_is_help=True)
 @click.argument('translator')
 @click.argument('api_key', required=False)
@@ -114,11 +119,14 @@ def languages(translator, api_key):
         click.echo(f"|- {k}: {v}")
     return 0
 
+
 @cli.command()
 def list():
     """Lists available translators."""
-    click.echo("Available translators include: Google, MyMemory, QCRI, Linguee, Pons, Yandex, Microsoft (Bing), and Papago.")
+    click.echo(
+        "Available translators include: Google, MyMemory, QCRI, Linguee, Pons, Yandex, Microsoft (Bing), and Papago.")
     return 0
+
 
 if __name__ == "__main__":
     cli()
