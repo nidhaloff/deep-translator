@@ -135,14 +135,14 @@ Quick Start
 
 .. code-block:: python
 
-    from deep-translator import GoogleTranslator
+    from deep_translator import GoogleTranslator
     translated = GoogleTranslator(source='auto', target='de').translate("keep it up, you are awesome")  # output -> Weiter so, du bist großartig
 
 or using proxies:
 
 .. code-block:: python
 
-    from deep-translator import GoogleTranslator
+    from deep_translator import GoogleTranslator
 
     proxies_example = {
         "https": "34.195.196.27:8080",
@@ -156,7 +156,7 @@ or even directly from terminal:
 .. code-block:: console
 
     $ deep-translator translate -src "en" -tgt "de" -txt "keep it up, you are awesome"
-    
+
 
 =====
 Usage
@@ -175,7 +175,7 @@ Imports
 
 .. code-block:: python
 
-    from deep-translator import (GoogleTranslator,
+    from deep_translator import (GoogleTranslator,
                                  MicrosoftTranslator,
                                  PonsTranslator,
                                  LingueeTranslator,
@@ -536,7 +536,7 @@ can be used with all supported translators.
 
 .. code-block:: python
 
-    from deep-translator import GoogleTranslator
+    from deep_translator import GoogleTranslator
 
     # define your proxy configs:
     proxies_example = {
@@ -567,13 +567,13 @@ To translate a string or line of text:
 
 .. code-block:: console
 
-    $ deep-translator google --source "english" --target "german" --text "happy coding"
+    $ deep_translator google --source "english" --target "german" --text "happy coding"
 
 Alternate short option names, along with using language abbreviations:
 
 .. code-block:: console
 
-    $ deep-translator google -src "en" -tgt "de" -txt "happy coding"
+    $ deep_translator google -src "en" -tgt "de" -txt "happy coding"
 
 
 Finally, to retrieve a list of available languages for a given translator:
