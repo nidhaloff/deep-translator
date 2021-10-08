@@ -155,7 +155,7 @@ or even directly from terminal:
 
 .. code-block:: console
 
-    $ deep_translator -trans "google" -src "en" -tg "de" -txt "keep it up, you are awesome"
+    $ deep-translator translate -src "en" -tgt "de" -txt "keep it up, you are awesome"
 
 
 =====
