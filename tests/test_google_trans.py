@@ -129,10 +129,6 @@ def google_translator():
     """
     return GoogleTranslator(target='en')
 
-def multiple_names_lang_checks():
-    assert GoogleTranslator(source='en', target='burMeSe').translate("Hello") == 'မင်္ဂလာပါ'
-    assert GoogleTranslator(source='en', target='Oriya').translate("What's up?") == 'କଣ ଚାଲିଛି?'
-    assert GoogleTranslator(source='en', target='kurManJi').translate("Nice is dice.") == 'Xweş xweş e.'
 
 def test_random_tranlations_cases_multiple_names():
     random_sample_size = 2
@@ -142,7 +138,6 @@ def test_random_tranlations_cases_multiple_names():
     for lang, translation in random_subset_dict.items():
         assert GoogleTranslator(source='en', target=lang).translate(test_text_standard) == translation
 
-    multiple_names_lang_checks()
 
 def test_content(google_translator):
     """Sample pytest test function with the pytest fixture as an argument."""
@@ -152,7 +147,7 @@ def test_content(google_translator):
 
 def test_abbreviations_and_languages_mapping():
     for abb, lang in GOOGLE_CODES_TO_LANGUAGES.items():
-        if(abb!= 'en'):
+        if abb != 'en':
             g1 = GoogleTranslator(abb)
             g2 = GoogleTranslator(lang)
             assert g1._source == g2._source
@@ -183,9 +178,6 @@ def test_payload(google_translator):
 
     with pytest.raises(exceptions.NotValidLength):
         google_translator.translate("a"*5001)
-
-    #for _ in range(1):
-    #assert google_translator.translate(text='좋은') == "good"
 
 def test_one_character_words():
     assert GoogleTranslator(source='es', target='en').translate('o') == 'or'
