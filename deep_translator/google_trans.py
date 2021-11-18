@@ -2,7 +2,7 @@
 google translator API
 """
 
-from .constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
+from .constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES, GOOGLE_LANGUAGES_SECONDARY_NAMES
 from .exceptions import TooManyRequests, LanguageNotSupportedException, TranslationNotFound, NotValidPayload, RequestError
 from .parent import BaseTranslator
 from bs4 import BeautifulSoup
@@ -27,8 +27,19 @@ class GoogleTranslator(BaseTranslator):
         self.__base_url = BASE_URLS.get("GOOGLE_TRANSLATE")
         self.proxies = proxies
 
-        if self.is_language_supported(source, target):
-            self._source, self._target = self._map_language_to_code(source.lower(), target.lower())
+        # code snipppet that converts the language into lower-case and skip lower-case conversion for abbreviations
+        # since abbreviations like zh-CN if converted to lower-case will result into error
+        #######################################
+        source_lower = source
+        target_lower = target
+        if not source in self._languages.values():
+            source_lower=source.lower()
+        if not target in self._languages.values():
+            target_lower=target.lower()
+        #######################################
+
+        if self.is_language_supported(source_lower, target_lower):
+            self._source, self._target = self._map_language_to_code(source_lower, target_lower)
 
         super(GoogleTranslator, self).__init__(base_url=self.__base_url,
                                                source=self._source,
@@ -51,6 +62,17 @@ class GoogleTranslator(BaseTranslator):
         """
         return GoogleTranslator.supported_languages if not as_dict else GoogleTranslator._languages
 
+    def is_secondary(self, lang):
+        """
+        Function to check if lang is a secondary name of any primary language
+        @param lang: language name
+        @return: primary name of a language if found otherwise False
+        """
+        for primary_name, secondary_names in GOOGLE_LANGUAGES_SECONDARY_NAMES.items():
+            if lang in secondary_names:
+                return primary_name
+        return False
+
     def _map_language_to_code(self, *languages):
         """
         map language to its corresponding code (abbreviation) if the language was passed by its full name by the user
@@ -63,7 +85,7 @@ class GoogleTranslator(BaseTranslator):
             elif language in self._languages.keys():
                 yield self._languages[language]
             else:
-                raise LanguageNotSupportedException(language)
+                yield self._languages[self.is_secondary(language)]
 
     def is_language_supported(self, *languages):
         """
@@ -74,7 +96,8 @@ class GoogleTranslator(BaseTranslator):
         for lang in languages:
             if lang != 'auto' and lang not in self._languages.keys():
                 if lang != 'auto' and lang not in self._languages.values():
-                    raise LanguageNotSupportedException(lang)
+                    if not self.is_secondary(lang):
+                        raise LanguageNotSupportedException(lang)
         return True
 
     def translate(self, text, **kwargs):
@@ -168,19 +191,14 @@ class GoogleTranslator(BaseTranslator):
         """
         if not batch:
             raise Exception("Enter your text list that you want to translate")
-
-        print("Please wait.. This may take a couple of seconds because deep_translator sleeps "
-              "for two seconds after each request in order to not spam the google server.")
         arr = []
         for i, text in enumerate(batch):
 
             translated = self.translate(text, **kwargs)
             arr.append(translated)
-            print("sentence number ", i+1, " has been translated successfully")
             sleep(2)
 
         return arr
-
 
 
 if __name__ == '__main__':

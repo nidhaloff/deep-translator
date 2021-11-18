@@ -29,9 +29,8 @@ GOOGLE_CODES_TO_LANGUAGES = {
     'ca': 'catalan',
     'ceb': 'cebuano',
     'ny': 'chichewa',
-    'zh': 'chinese',
-    'zh-cn': 'chinese (simplified)',
-    'zh-tw': 'chinese (traditional)',
+    'zh-CN': 'chinese (simplified)',
+    'zh-TW': 'chinese (traditional)',
     'co': 'corsican',
     'hr': 'croatian',
     'cs': 'czech',
@@ -66,8 +65,9 @@ GOOGLE_CODES_TO_LANGUAGES = {
     'kn': 'kannada',
     'kk': 'kazakh',
     'km': 'khmer',
+    'rw': 'kinyarwanda',
     'ko': 'korean',
-    'ku': 'kurdish (kurmanji)',
+    'ku': 'kurdish',
     'ky': 'kyrgyz',
     'lo': 'lao',
     'la': 'latin',
@@ -82,9 +82,10 @@ GOOGLE_CODES_TO_LANGUAGES = {
     'mi': 'maori',
     'mr': 'marathi',
     'mn': 'mongolian',
-    'my': 'myanmar (burmese)',
+    'my': 'myanmar',
     'ne': 'nepali',
     'no': 'norwegian',
+    'or': 'odia',
     'ps': 'pashto',
     'fa': 'persian',
     'pl': 'polish',
@@ -108,11 +109,14 @@ GOOGLE_CODES_TO_LANGUAGES = {
     'sv': 'swedish',
     'tg': 'tajik',
     'ta': 'tamil',
+    'tt': 'tatar',
     'te': 'telugu',
     'th': 'thai',
     'tr': 'turkish',
+    'tk': 'turkmen',
     'uk': 'ukrainian',
     'ur': 'urdu',
+    'ug': 'uyghur',
     'uz': 'uzbek',
     'vi': 'vietnamese',
     'cy': 'welsh',
@@ -120,11 +124,17 @@ GOOGLE_CODES_TO_LANGUAGES = {
     'yi': 'yiddish',
     'yo': 'yoruba',
     'zu': 'zulu',
-    'fil': 'Filipino',
-    'he': 'Hebrew'
 }
 
 GOOGLE_LANGUAGES_TO_CODES = {v: k for k, v in GOOGLE_CODES_TO_LANGUAGES.items()}
+
+# This dictionary maps the primary name of language to its secondary names in list manner (if any)
+GOOGLE_LANGUAGES_SECONDARY_NAMES = {
+    'myanmar': ['burmese'],
+    'odia': ['oriya'],
+    'kurdish':  ['kurmanji']
+}
+
 
 PONS_CODES_TO_LANGUAGES = {
     'ar': 'arabic',
