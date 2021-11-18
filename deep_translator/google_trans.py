@@ -196,12 +196,5 @@ class GoogleTranslator(BaseTranslator):
 
             translated = self.translate(text, **kwargs)
             arr.append(translated)
-            sleep(2)
-
         return arr
 
-
-if __name__ == '__main__':
-    translator = GoogleTranslator(source='ru', target='uk')
-    t = translator.translate("Я разработчик") # => "I am a developer"
-    print(t)
