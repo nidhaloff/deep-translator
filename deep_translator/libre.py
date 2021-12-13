@@ -10,7 +10,8 @@ from .constants import BASE_URLS,LIBRE_LANGUAGES_TO_CODES, LIBRE_CODES_TO_LANGUA
 from .exceptions import (ServerException,
                         TranslationNotFound,
                         LanguageNotSupportedException,
-                        AuthorizationException)
+                        AuthorizationException,
+                        NotValidPayload)
 
 
 class LibreTranslator(BaseTranslator):
@@ -31,7 +32,10 @@ class LibreTranslator(BaseTranslator):
             raise ServerException(401)
         self.__base_url = base_url
         self.api_key = api_key
-        self.source = self._map_language_to_code(source)
+        if source == "auto":
+            self.source = "auto"
+        else:
+            self.source = self._map_language_to_code(source)
         self.target = self._map_language_to_code(target)
 
 
@@ -62,7 +66,10 @@ class LibreTranslator(BaseTranslator):
         @param language: a string for 1 language
         @return: bool or raise an Exception
         """
-        return language == 'auto' or language in self._languages.keys() or language in self._languages.values()
+        if language == 'auto' or language in self._languages.keys() or language in self._languages.values():
+            return True
+        else:
+            raise LanguageNotSupportedException(language)
     
     def translate(self, text, **kwargs):
         """
@@ -71,6 +78,9 @@ class LibreTranslator(BaseTranslator):
         @return: str: translated text
         """
          # Create the request parameters.
+        if type(text) != str or text == "":
+            raise NotValidPayload(text)
+
         translate_endpoint = 'translate'
         params = {
             "q": text,
@@ -95,4 +105,3 @@ class LibreTranslator(BaseTranslator):
             raise TranslationNotFound(text)
         # Process and return the response.
         return res['translatedText']
-    
