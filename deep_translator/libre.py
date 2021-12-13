@@ -3,8 +3,6 @@ LibreTranslate API
 """
 
 import requests
-from bs4 import BeautifulSoup
-from requests.models import Response
 from .parent import BaseTranslator
 from .constants import BASE_URLS,LIBRE_LANGUAGES_TO_CODES, LIBRE_CODES_TO_LANGUAGES
 from .exceptions import (ServerException,
@@ -21,7 +19,7 @@ class LibreTranslator(BaseTranslator):
     _languages = LIBRE_LANGUAGES_TO_CODES
     supported_languages = list(_languages.keys())
 
-    def __init__(self, base_url = BASE_URLS.get("LIBRE_FREE"), api_key="", source="auto", target="en", **kwargs):
+    def __init__(self,source="auto", target="en", base_url = BASE_URLS.get("LIBRE_FREE"), api_key=None, **kwargs):
         """
         @param source: source language to translate from
         List of LibreTranslate nedpoints can be found at : https://github.com/LibreTranslate/LibreTranslate#mirrors
@@ -86,8 +84,11 @@ class LibreTranslator(BaseTranslator):
             "q": text,
             "source": self.source,
             "target": self.target,
-            "api_key": self.api_key
+            "format": 'text'
         }
+        # Add API Key if required
+        if self.api_key: 
+            params["api_key"] = self.api_key
         # Do the request and check the connection.
         try:
             response = requests.post(self.__base_url + translate_endpoint, params=params)
@@ -105,3 +106,32 @@ class LibreTranslator(BaseTranslator):
             raise TranslationNotFound(text)
         # Process and return the response.
         return res['translatedText']
+
+    def translate_file(self, path, **kwargs):
+        """
+        translate directly from file
+        @param path: path to the target file
+        @type path: str
+        @param kwargs: additional args
+        @return: str
+        """
+        try:
+            with open(path) as f:
+                text = f.read().strip()
+            return self.translate(text)
+        except Exception as e:
+            raise e
+
+    def translate_batch(self, batch=None, **kwargs):
+        """
+        translate a list of texts
+        @param batch: list of texts you want to translate
+        @return: list of translations
+        """
+        if not batch:
+            raise Exception("Enter your text list that you want to translate")
+        arr = []
+        for i, text in enumerate(batch):
+            translated = self.translate(text, **kwargs)
+            arr.append(translated)
+        return arr

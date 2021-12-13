@@ -4,7 +4,29 @@
 
 import pytest
 from deep_translator import exceptions, LibreTranslator
+from deep_translator.constants import LIBRE_CODES_TO_LANGUAGES
+import random
 
+test_text_standard = 'Hello world.'
+TRANSLATED_RESULTS = {
+    'English': 'Hello world.', 
+    'Arabic': 'مرحبا العالم.', 
+    'Chinese': '霍洛美世界。', 
+    'French': 'Bonjour.', 
+    'German': 'Hallo Welt.',
+    'Hindi': 'नमस्ते दुनिया।', 
+    'Indonesian': 'Halo dunia.', 
+    'Irish': 'Dia duit domhan.', 
+    'Italian': 'Ciao mondo.', 
+    'Japanese': 'こんにちは。',
+    'Korean': '안녕하세요.', 
+    'Polish': 'Hello world (ang.).', 
+    'Portuguese': 'Olá, mundo.', 
+    'Russian': 'Привет мир.', 
+    'Spanish': 'Hola mundo.', 
+    'Turkish': 'Merhaba dünya.', 
+    'Vietnamese': 'Xin chào.'
+}
 
 @pytest.fixture
 def libre():
@@ -17,6 +39,13 @@ def test_content(libre):
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
     assert libre.translate(text='good') is not None
 
+def test_random_tranlations_cases_multiple_names():
+    random_sample_size = 2
+    d = dict.fromkeys(list(TRANSLATED_RESULTS.keys()))
+    random_lang_names = random.sample(list(d.keys()), random_sample_size)
+    random_subset_dict = {k: TRANSLATED_RESULTS[k] for k in random_lang_names}
+    for lang, translation in random_subset_dict.items():
+        assert LibreTranslator(source='en', target=lang).translate(test_text_standard) == translation
 
 def test_inputs():
     with pytest.raises(exceptions.LanguageNotSupportedException):
@@ -25,11 +54,12 @@ def test_inputs():
     with pytest.raises(exceptions.LanguageNotSupportedException):
         LibreTranslator(source="auto", target="nothing")
 
-    l1 = LibreTranslator("en", "fr")
-    l2 = LibreTranslator("english", "french")
-    assert l1.source == l2.source
-    assert l1.target == l2.target
-
+def test_abbreviations_and_languages_mapping():
+    for abb, lang in LIBRE_CODES_TO_LANGUAGES.items():
+        if abb != 'en':
+            l1 = LibreTranslator(abb)
+            l2 = LibreTranslator(lang)
+            assert l1.source == l2.source
 
 def test_payload(libre):
     with pytest.raises(exceptions.NotValidPayload):
@@ -47,3 +77,13 @@ def test_payload(libre):
 
 def test_one_character_words():
     assert LibreTranslator(source='es', target='en').translate('y') == 'and'
+
+def test_translate_batch():
+    words_to_translate = ['How are you','Good','Thank You']
+    translated_words = ['¿Cómo estás?','Bien.','Gracias.']
+    assert LibreTranslator(source='en',target='es').translate_batch((words_to_translate)) == translated_words
+
+def test_translate_file():
+    filePath = 'examples/test.txt'
+    translatedText='Un párrafo es una serie de frases relacionadas que desarrollan una idea central, llamada el tema. Trate de pensar en los párrafos en términos de unidad temática: un párrafo es una frase o un grupo de oraciones que apoya una idea central y unificada. Los párrafos añaden una idea a la vez a su argumento más amplio.'
+    assert LibreTranslator(source='en',target='es').translate_file(filePath) == translatedText
