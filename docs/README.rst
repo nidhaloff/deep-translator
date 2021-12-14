@@ -533,7 +533,7 @@ Libre Translator
 
 .. note::
 
-    Libre translate has multiple  `mirrors <https://github.com/LibreTranslate/LibreTranslate#mirrors/>`_ which can be used for the API endpoint.
+    Libre translate has multiple  `mirrors <https://github.com/LibreTranslate/LibreTranslate#mirrors>`_ which can be used for the API endpoint.
     Some require an API key to be used. By default the base url is set to `libretranslate.de <https://libretranslate.de/>`_ . 
     This can be set using the "base_url" input parameter.
 
