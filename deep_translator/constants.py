@@ -11,7 +11,9 @@ BASE_URLS = {
     "DEEPL_FREE": "https://api-free.deepl.com/v2/",
     "MICROSOFT_TRANSLATE": "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0",
     "PAPAGO": "https://papago.naver.com/",
-    "PAPAGO_API": "https://openapi.naver.com/v1/papago/n2mt"
+    "PAPAGO_API": "https://openapi.naver.com/v1/papago/n2mt",
+    "LIBRE": "https://libretranslate.com/",
+    "LIBRE_FREE": "https://libretranslate.de/",
 }
 
 GOOGLE_CODES_TO_LANGUAGES = {
@@ -257,4 +259,28 @@ QCRI_CODE_TO_LANGUAGE = {
 
 QCRI_LANGUAGE_TO_CODE = {
     v: k for k, v in QCRI_CODE_TO_LANGUAGE.items()
+}
+
+LIBRE_CODES_TO_LANGUAGES = {
+    'en': 'English',
+    'ar': 'Arabic',
+    'zh': 'Chinese',
+    'fr': 'French',
+    'de': 'German',
+    'hi': 'Hindi',
+    'id': 'Indonesian',
+    'ga': 'Irish',
+    'it': 'Italian',
+    'ja': 'Japanese',
+    'ko': 'Korean',
+    'pl': 'Polish',
+    'pt': 'Portuguese',
+    'ru': 'Russian',
+    'es': 'Spanish',
+    'tr': 'Turkish',
+    'vi': 'Vietnamese'
+}
+
+LIBRE_LANGUAGES_TO_CODES = {
+    v: k for k, v in LIBRE_CODES_TO_LANGUAGES.items()
 }
