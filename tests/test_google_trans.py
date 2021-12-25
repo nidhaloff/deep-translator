@@ -5,8 +5,7 @@
 import pytest
 from deep_translator import exceptions, GoogleTranslator
 from deep_translator.constants import GOOGLE_CODES_TO_LANGUAGES
-#from test_data import test_text_standard, TRANSLATED_RESULTS
-import random
+
 
 test_text_standard = 'Hello world.'
 
@@ -128,15 +127,6 @@ def google_translator():
     See more at: http://doc.pytest.org/en/latest/fixture.html
     """
     return GoogleTranslator(target='en')
-
-
-def test_random_tranlations_cases_multiple_names():
-    random_sample_size = 2
-    d = dict.fromkeys(list(TRANSLATED_RESULTS.keys()))
-    random_lang_names = random.sample(d.keys(), random_sample_size)
-    random_subset_dict = {k: TRANSLATED_RESULTS[k] for k in random_lang_names}
-    for lang, translation in random_subset_dict.items():
-        assert GoogleTranslator(source='en', target=lang).translate(test_text_standard) == translation
 
 
 def test_content(google_translator):

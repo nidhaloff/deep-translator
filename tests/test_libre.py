@@ -5,7 +5,6 @@
 import pytest
 from deep_translator import exceptions, LibreTranslator
 from deep_translator.constants import LIBRE_CODES_TO_LANGUAGES
-import random
 
 test_text_standard = 'Hello world.'
 TRANSLATED_RESULTS = {
@@ -39,15 +38,6 @@ def test_content(libre):
     # from bs4 import BeautifulSoup
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
     assert libre.translate(text='good') is not None
-
-
-def test_random_tranlations_cases_multiple_names():
-    random_sample_size = 2
-    d = dict.fromkeys(list(TRANSLATED_RESULTS.keys()))
-    random_lang_names = random.sample(list(d.keys()), random_sample_size)
-    random_subset_dict = {k: TRANSLATED_RESULTS[k] for k in random_lang_names}
-    for lang, translation in random_subset_dict.items():
-        assert LibreTranslator(source='en', target=lang).translate(test_text_standard) == translation
 
 
 def test_inputs():
