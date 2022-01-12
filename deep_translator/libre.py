@@ -45,7 +45,7 @@ class LibreTranslator(BaseTranslator):
         @return: list or dict
         """
         return [*LibreTranslator._languages.keys()] if not as_dict else LibreTranslator._languages
-    
+
     def _map_language_to_code(self, language, **kwargs):
         """
         map language to its corresponding code (abbreviation) if the language was passed by its full name by the user
@@ -57,7 +57,7 @@ class LibreTranslator(BaseTranslator):
         elif language in self._languages.values():
             return language
         raise LanguageNotSupportedException(language)
-    
+
     def _is_language_supported(self, language, **kwargs):
         """
         check if the language is supported by the translator
@@ -68,7 +68,7 @@ class LibreTranslator(BaseTranslator):
             return True
         else:
             raise LanguageNotSupportedException(language)
-    
+
     def translate(self, text, **kwargs):
         """
         function that uses microsoft translate to translate a text
@@ -87,7 +87,7 @@ class LibreTranslator(BaseTranslator):
             "format": 'text'
         }
         # Add API Key if required
-        if self.api_key: 
+        if self.api_key:
             params["api_key"] = self.api_key
         # Do the request and check the connection.
         try:
@@ -95,7 +95,7 @@ class LibreTranslator(BaseTranslator):
         except ConnectionError:
             raise ServerException(503)
         # If the answer is not success, raise server exception.
-        
+
         if response.status_code == 403:
             raise AuthorizationException(self.api_key)
         elif response.status_code != 200:
@@ -116,7 +116,7 @@ class LibreTranslator(BaseTranslator):
         @return: str
         """
         try:
-            with open(path) as f:
+            with open(path, 'r', encoding='utf-8') as f:
                 text = f.read().strip()
             return self.translate(text)
         except Exception as e:
