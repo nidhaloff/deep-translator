@@ -1,16 +1,16 @@
 """Console script for deep_translator."""
 
 import click
-from .google_trans import GoogleTranslator
-from .mymemory import MyMemoryTranslator
-from .deepl import DeepL
-from .qcri import QCRI
-from .linguee import LingueeTranslator
-from .pons import PonsTranslator
-from .yandex import YandexTranslator
-from .microsoft import MicrosoftTranslator
-from .papago import PapagoTranslator
-from .libre import LibreTranslator
+from google_trans import GoogleTranslator
+from mymemory import MyMemoryTranslator
+from deepl import DeepL
+from qcri import QCRI
+from linguee import LingueeTranslator
+from pons import PonsTranslator
+from yandex import YandexTranslator
+from microsoft import MicrosoftTranslator
+from papago import PapagoTranslator
+from libre import LibreTranslator
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 @click.group()
