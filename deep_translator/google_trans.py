@@ -2,9 +2,9 @@
 google translator API
 """
 
-from constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES, GOOGLE_LANGUAGES_SECONDARY_NAMES
-from exceptions import TooManyRequests, LanguageNotSupportedException, TranslationNotFound, NotValidPayload, RequestError
-from parent import BaseTranslator
+from .constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES, GOOGLE_LANGUAGES_SECONDARY_NAMES
+from .exceptions import TooManyRequests, LanguageNotSupportedException, TranslationNotFound, NotValidPayload, RequestError
+from .parent import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
 from time import sleep
@@ -198,7 +198,3 @@ class GoogleTranslator(BaseTranslator):
             arr.append(translated)
         return arr
 
-
-if __name__ == '__main__':
-    res = GoogleTranslator('es', 'en').translate_file('./test.txt')
-    print("res: ", res)

@@ -3,8 +3,8 @@ pons translator API
 """
 from bs4 import BeautifulSoup
 import requests
-from constants import BASE_URLS, PONS_LANGUAGES_TO_CODES, PONS_CODES_TO_LANGUAGES
-from exceptions import (LanguageNotSupportedException,
+from .constants import BASE_URLS, PONS_LANGUAGES_TO_CODES, PONS_CODES_TO_LANGUAGES
+from .exceptions import (LanguageNotSupportedException,
                         TranslationNotFound,
                         NotValidPayload,
                         ElementNotFoundInGetRequest,
