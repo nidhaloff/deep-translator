@@ -15,10 +15,10 @@ def main():
                         '-trans',
                         default='google',
                         type=str,
-                        help="name of the translator you want to use",
-                        required=True)
+                        help="name of the translator you want to use")
     parser.add_argument('--source',
                         '-src',
+                        default='auto',
                         type=str,
                         help="source language to translate from")
     parser.add_argument('--target',
@@ -37,11 +37,11 @@ def main():
 
     args = parser.parse_args()
 
-    cli = CLI()
+    cli = CLI(args)
     if args.languages:
-        cli.get_supported_languages(args)
+        cli.get_supported_languages()
     else:
-        cli.translate(args)
+        cli.translate()
 
 
 if __name__ == "__main__":

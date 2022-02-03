@@ -16,8 +16,9 @@ from .libre import LibreTranslator
 class CLI(object):
 
     translators_dict = None
+    translator = None
 
-    def __init__(self):
+    def __init__(self, args):
         self.translators_dict = {
             'google': GoogleTranslator,
             'pons': PonsTranslator,
@@ -30,32 +31,32 @@ class CLI(object):
             'qcri': QCRI,
             'papago': PapagoTranslator
         }
+        self.args = args
+        translator_class = self.translators_dict.get(self.args.translator, None)
+        if not translator_class:
+            raise Exception(f"Translator {self.args.translator} is not supported."
+                            f"Supported translators: {list(self.translators_dict.keys())}")
+        self.translator = translator_class(source=args.source, target=args.target)
 
-    def _get_translator(self, name):
-        return self.translators_dict[name]
-
-    def translate(self, args):
+    def translate(self):
         """
         function used to provide translations from the parsed terminal arguments
-        @param args: parsed terminal arguments
         @return: None
         """
-        translator = self._get_translator(args.translator)
-        res = translator.translate(args.text)
-        print(" | Translation from {} to {} |".format(args.source, args.target))
-        print("Translated text: \n {}".format(res))
+        res = self.translator.translate(self.args.text)
+        print("Translation from {} to {}".format(self.args.source, self.args.target))
+        print("-"*50)
+        print("Translation result: {}".format(res))
 
-    def get_supported_languages(self, args):
+    def get_supported_languages(self):
         """
         function used to return the languages supported by the translator service from the parsed terminal arguments
-        @param args: parsed terminal arguments
         @return: None
         """
-        translator = self._get_translator(args.translator)
-        translator_supported_languages = translator.get_supported_languages(as_dict=True)
-        print(f'Languages supported by \'{args.translator}\' are :\n')
+
+        translator_supported_languages = self.translator.get_supported_languages(as_dict=True)
+        print(f'Languages supported by \'{self.args.translator}\' are :\n')
         print(translator_supported_languages)
-        sys.exit()
 
 
 
