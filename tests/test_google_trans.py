@@ -135,12 +135,14 @@ def test_content(google_translator):
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
     assert google_translator.translate(text='좋은') == "good"
 
+
 def test_abbreviations_and_languages_mapping():
     for abb, lang in GOOGLE_CODES_TO_LANGUAGES.items():
         if abb != 'en':
             g1 = GoogleTranslator(abb)
             g2 = GoogleTranslator(lang)
             assert g1._source == g2._source
+
 
 def test_inputs():
     with pytest.raises(exceptions.LanguageNotSupportedException):
