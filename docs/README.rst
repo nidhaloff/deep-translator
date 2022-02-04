@@ -156,7 +156,11 @@ or even directly from terminal:
 
 .. code-block:: console
 
-    $ deep-translator translate -src "en" -tgt "de" -txt "keep it up, you are awesome"
+    $ deep-translator -src "en" -tg "de" -txt "hello world"
+
+    or shorter
+
+    $ dt -tg de -txt "hello world"
 
 
 =====
@@ -534,7 +538,7 @@ Libre Translator
 .. note::
 
     Libre translate has multiple  `mirrors <https://github.com/LibreTranslate/LibreTranslate#mirrors>`_ which can be used for the API endpoint.
-    Some require an API key to be used. By default the base url is set to `libretranslate.de <https://libretranslate.de/>`_ . 
+    Some require an API key to be used. By default the base url is set to `libretranslate.de <https://libretranslate.de/>`_ .
     This can be set using the "base_url" input parameter.
 
 .. code-block:: python
@@ -565,8 +569,8 @@ Libre Translator
 .. code-block:: python
 
     translated = LibreTranslator(source='auto', target='en').translate_file('path/to/file')
-    
-    
+
+
 
 Proxy usage
 -------------

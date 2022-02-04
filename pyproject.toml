@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "deep-translator"
-version = "1.6.1"
+version = "1.7.0"
 description = "A flexible free and unlimited python tool to translate between different languages in a simple way using multiple translators"
 license = "MIT"
 authors = ["Nidhal Baccouri <nidhalbacc@gmail.com>"]
@@ -23,22 +23,17 @@ classifiers = [
     "Topic :: Text Processing :: Linguistic",
     "Operating System :: OS Independent"]
 packages = [{include="deep_translator"}]
-
-include = [  ]
-
 [tool.poetry.scripts]
-deep-translator = 'deep_translator.main:cli'
-dt = 'deep_translator.main:cli'
+deep-translator = 'deep_translator.__main__:main'
+dt = 'deep_translator.__main__:main'
 
 [tool.poetry.dependencies]
 python = "^3.7"
 beautifulsoup4 = "^4.9.1"
 requests = "^2.23.0"
-click = "^8.0.1"
 
 [tool.poetry.dev-dependencies]
 wheel = "flake8"
-#tox = "^3.24.0"
 coverage = "^5.5"
 Sphinx = "^4.1.1"
 twine = "^3.4.2"
