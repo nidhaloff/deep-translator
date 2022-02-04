@@ -156,7 +156,7 @@ or even directly from terminal:
 
 .. code-block:: console
 
-    $ deep-translator -src "en" -tg "de" -txt "hello world"
+    $ deep-translator --source "en" --target "de" --text "hello world"
 
     or shorter
 
