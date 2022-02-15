@@ -38,7 +38,6 @@ def engine(engine_name: str, *args, **kwargs) -> BaseTranslator:
     Return:
         A translation engine
     """
-    engine.translation_engines = {}
     try:
         return engine.translation_engines[engine_name.lower()](*args, **kwargs)
     except KeyError:
