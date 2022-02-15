@@ -1,39 +1,16 @@
 """Console script for deep_translator."""
-
-from .google_trans import GoogleTranslator
-from .mymemory import MyMemoryTranslator
-from .pons import PonsTranslator
-from .linguee import LingueeTranslator
-from .yandex import YandexTranslator
-from .deepl import DeepL
-from .qcri import QCRI
-from .papago import PapagoTranslator
-from .microsoft import MicrosoftTranslator
-from .libre import LibreTranslator
+from . import __engines__
 import argparse
 
 
 class CLI(object):
-
-    translators_dict = None
+    translators_dict = __engines__
     translator = None
 
     def __init__(self, custom_args=None):
-        self.translators_dict = {
-            'google': GoogleTranslator,
-            'pons': PonsTranslator,
-            'linguee': LingueeTranslator,
-            'mymemory': MyMemoryTranslator,
-            'deepl': DeepL,
-            'libre': LibreTranslator,
-            'yandex': YandexTranslator,
-            'microsoft': MicrosoftTranslator,
-            'qcri': QCRI,
-            'papago': PapagoTranslator
-        }
         self.custom_args = custom_args
         self.args = self.parse_args()
-
+        # print(f'{__engines__}')
         translator_class = self.translators_dict.get(self.args.translator, None)
         if not translator_class:
             raise Exception(f"Translator {self.args.translator} is not supported."
