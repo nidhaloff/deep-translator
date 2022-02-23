@@ -1,9 +1,10 @@
 import requests
 from .constants import BASE_URLS, DEEPL_LANGUAGE_TO_CODE
 from .exceptions import (ServerException,
-                        TranslationNotFound,
-                        LanguageNotSupportedException,
-                        AuthorizationException)
+                         TranslationNotFound,
+                         LanguageNotSupportedException,
+                         AuthorizationException)
+from .parent import BaseTranslator
 
 
 class DeepL(object):
@@ -26,9 +27,11 @@ class DeepL(object):
         self.source = self._map_language_to_code(source)
         self.target = self._map_language_to_code(target)
         if use_free_api:
-            self.__base_url = BASE_URLS.get("DEEPL_FREE").format(version=self.version)
+            self.__base_url = BASE_URLS.get(
+                "DEEPL_FREE").format(version=self.version)
         else:
-            self.__base_url = BASE_URLS.get("DEEPL").format(version=self.version)
+            self.__base_url = BASE_URLS.get(
+                "DEEPL").format(version=self.version)
 
     def translate(self, text, **kwargs):
         """
@@ -45,7 +48,8 @@ class DeepL(object):
         }
         # Do the request and check the connection.
         try:
-            response = requests.get(self.__base_url + translate_endpoint, params=params)
+            response = requests.get(
+                self.__base_url + translate_endpoint, params=params)
         except ConnectionError:
             raise ServerException(503)
         # If the answer is not success, raise server exception.
@@ -81,6 +85,9 @@ class DeepL(object):
         elif lang in self._languages.values():
             return lang
         raise LanguageNotSupportedException(lang)
+
+
+BaseTranslator.register(DeepL)
 
 
 if __name__ == '__main__':

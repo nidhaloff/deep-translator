@@ -4,6 +4,7 @@ google translator API
 import json
 from .constants import BASE_URLS, PAPAGO_LANGUAGE_TO_CODE
 from .exceptions import LanguageNotSupportedException, TranslationNotFound, NotValidPayload
+from .parent import BaseTranslator
 import requests
 import warnings
 import logging
@@ -22,13 +23,15 @@ class PapagoTranslator(object):
         @param target: target language to translate to
         """
         if not client_id or not secret_key:
-            raise Exception("Please pass your client id and secret key! visit the papago website for more infos")
+            raise Exception(
+                "Please pass your client id and secret key! visit the papago website for more infos")
 
         self.__base_url = BASE_URLS.get("PAPAGO_API")
         self.client_id = client_id
         self.secret_key = secret_key
         if self.is_language_supported(source, target):
-            self._source, self._target = self._map_language_to_code(source.lower(), target.lower())
+            self._source, self._target = self._map_language_to_code(
+                source.lower(), target.lower())
 
     @staticmethod
     def get_supported_languages(as_dict=False, **kwargs):
@@ -82,9 +85,11 @@ class PapagoTranslator(object):
             'X-Naver-Client-Secret': self.secret_key,
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         }
-        response = requests.post(self.__base_url, headers=headers, data=payload)
+        response = requests.post(
+            self.__base_url, headers=headers, data=payload)
         if response.status_code != 200:
-            raise Exception(f'Translation error! -> status code: {response.status_code}')
+            raise Exception(
+                f'Translation error! -> status code: {response.status_code}')
         res_body = json.loads(response.text)
         if "message" not in res_body:
             raise TranslationNotFound(text)
@@ -120,7 +125,8 @@ class PapagoTranslator(object):
         @param sentences: list of sentences to translate
         @return: list of all translated sentences
         """
-        warnings.warn("deprecated. Use the translate_batch function instead", DeprecationWarning, stacklevel=2)
+        warnings.warn("deprecated. Use the translate_batch function instead",
+                      DeprecationWarning, stacklevel=2)
         logging.warning("deprecated. Use the translate_batch function instead")
         if not sentences:
             raise NotValidPayload(sentences)
@@ -152,3 +158,4 @@ class PapagoTranslator(object):
         return arr
 
 
+BaseTranslator.register(PapagoTranslator)

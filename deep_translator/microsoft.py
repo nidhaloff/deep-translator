@@ -6,6 +6,7 @@ import sys
 
 from .constants import BASE_URLS, MICROSOFT_CODES_TO_LANGUAGES
 from .exceptions import LanguageNotSupportedException, ServerException, MicrosoftAPIerror
+from .parent import BaseTranslator
 
 
 class MicrosoftTranslator:
@@ -121,7 +122,8 @@ class MicrosoftTranslator:
             raise MicrosoftAPIerror(error_message)
         # Where it responds with a translation, its response.json() is a list e.g. [{'translations': [{'text': 'Hello world!', 'to': 'en'}]}]
         elif type(requested.json()) is list:
-            all_translations = [i['text'] for i in requested.json()[0]['translations']]
+            all_translations = [i['text']
+                                for i in requested.json()[0]['translations']]
             return "\n".join(all_translations)
 
     def translate_file(self, path, **kwargs):
@@ -144,3 +146,6 @@ class MicrosoftTranslator:
         @return: list of translations
         """
         return [self.translate(text, **kwargs) for text in batch]
+
+
+BaseTranslator.register(MicrosoftTranslator)

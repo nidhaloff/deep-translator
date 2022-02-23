@@ -2,6 +2,7 @@
 import requests
 from .constants import BASE_URLS, QCRI_LANGUAGE_TO_CODE
 from .exceptions import (ServerException, TranslationNotFound)
+from .parent import BaseTranslator
 
 
 class QCRI(object):
@@ -34,7 +35,8 @@ class QCRI(object):
         if not params:
             params = self.params
         try:
-            res = requests.get(self.__base_url.format(endpoint=self.api_endpoints[endpoint]), params=params)
+            res = requests.get(self.__base_url.format(
+                endpoint=self.api_endpoints[endpoint]), params=params)
             return res.text if return_text else res
         except Exception as e:
             raise e
@@ -90,3 +92,5 @@ class QCRI(object):
         """
         return [self.translate(domain, text, **kwargs) for text in batch]
 
+
+BaseTranslator.register(QCRI)

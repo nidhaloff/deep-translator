@@ -3,7 +3,9 @@ Yandex translator API
 """
 import requests
 from .constants import BASE_URLS
-from .exceptions import (RequestError, ServerException, TranslationNotFound, TooManyRequests)
+from .exceptions import (RequestError, ServerException,
+                         TranslationNotFound, TooManyRequests)
+from .parent import BaseTranslator
 
 
 class YandexTranslator(object):
@@ -47,9 +49,11 @@ class YandexTranslator(object):
     def dirs(self, proxies=None):
 
         try:
-            url = self.__base_url.format(version=self.api_version, endpoint="getLangs")
+            url = self.__base_url.format(
+                version=self.api_version, endpoint="getLangs")
             print("url: ", url)
-            response = requests.get(url, params={"key": self.api_key}, proxies=proxies)
+            response = requests.get(
+                url, params={"key": self.api_key}, proxies=proxies)
         except requests.exceptions.ConnectionError:
             raise ServerException(503)
         else:
@@ -67,7 +71,8 @@ class YandexTranslator(object):
             "key": self.api_key,
         }
         try:
-            url = self.__base_url.format(version=self.api_version, endpoint="detect")
+            url = self.__base_url.format(
+                version=self.api_version, endpoint="detect")
             response = requests.post(url, data=params, proxies=proxies)
 
         except RequestError:
@@ -94,7 +99,8 @@ class YandexTranslator(object):
             "key": self.api_key
         }
         try:
-            url = self.__base_url.format(version=self.api_version, endpoint="translate")
+            url = self.__base_url.format(
+                version=self.api_version, endpoint="translate")
             response = requests.post(url, data=params, proxies=proxies)
         except ConnectionError:
             raise ServerException(503)
@@ -133,3 +139,6 @@ class YandexTranslator(object):
         @return: list of translations
         """
         return [self.translate(text, **kwargs) for text in batch]
+
+
+BaseTranslator.register(YandexTranslator)
