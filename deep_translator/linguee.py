@@ -9,7 +9,7 @@ from .exceptions import (LanguageNotSupportedException,
                         ElementNotFoundInGetRequest,
                         RequestError,
                         TooManyRequests)
-from .parent import BaseTranslator
+from .base import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
 from requests.utils import requote_uri

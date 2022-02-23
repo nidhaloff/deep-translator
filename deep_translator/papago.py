@@ -4,7 +4,7 @@ google translator API
 import json
 from .constants import BASE_URLS, PAPAGO_LANGUAGE_TO_CODE
 from .exceptions import LanguageNotSupportedException, TranslationNotFound, NotValidPayload
-from .parent import BaseTranslator
+from .base import BaseTranslator
 import requests
 import warnings
 import logging

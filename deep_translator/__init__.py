@@ -15,7 +15,7 @@ from .engine import generate_engines_dict, engine
 
 __author__ = """Nidhal Baccouri"""
 __email__ = 'nidhalbacc@gmail.com'
-__version__ = '1.6.1'
+__version__ = '1.7.1'
 
 __all__ = [
     "GoogleTranslator",

@@ -69,7 +69,6 @@ class CLI(object):
                             help="all the languages available with the translator"
                                  "Run the command deep_translator -trans <translator service> -lang")
         parsed_args = parser.parse_args(self.custom_args) if self.custom_args else parser.parse_args()
-        print(f"parsed args: {parsed_args}")
         return parsed_args
 
     def run(self):

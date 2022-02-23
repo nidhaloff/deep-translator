@@ -6,7 +6,7 @@ import sys
 
 from .constants import BASE_URLS, MICROSOFT_CODES_TO_LANGUAGES
 from .exceptions import LanguageNotSupportedException, ServerException, MicrosoftAPIerror
-from .parent import BaseTranslator
+from .base import BaseTranslator
 
 
 class MicrosoftTranslator:

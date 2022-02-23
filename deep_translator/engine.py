@@ -1,16 +1,10 @@
-from .parent import BaseTranslator
-
-# BaseTranslator.register(YandexTranslator)
-# BaseTranslator.register(QCRI)
-# BaseTranslator.register(DeepL)
-# BaseTranslator.register(MicrosoftTranslator)
-# BaseTranslator.register(PapagoTranslator)
+from .base import BaseTranslator
 
 
 def generate_engines_dict(_all: list, _locals: dict) -> dict:
     base_translator_type = BaseTranslator
 
-    def is_translator(__object: object) -> bool:
+    def is_translator(__object) -> bool:
         try:
             return issubclass(__object, base_translator_type)
         except TypeError:

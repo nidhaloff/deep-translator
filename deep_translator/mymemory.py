@@ -10,7 +10,7 @@ from .exceptions import (NotValidPayload,
                         LanguageNotSupportedException,
                         RequestError,
                         TooManyRequests)
-from .parent import BaseTranslator
+from .base import BaseTranslator
 import requests
 from time import sleep
 

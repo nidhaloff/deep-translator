@@ -10,7 +10,7 @@ from .exceptions import (LanguageNotSupportedException,
                         ElementNotFoundInGetRequest,
                         RequestError,
                         TooManyRequests)
-from .parent import BaseTranslator
+from .base import BaseTranslator
 from requests.utils import requote_uri
 
 
@@ -104,7 +104,7 @@ class PonsTranslator(BaseTranslator):
             for el in elements:
                 temp = ''
                 for e in el.findAll('a'):
-                    if e.parent.name == 'div':
+                    if e.base.name == 'div':
                         if e and "/translate/{}-{}/".format(self._target, self._source) in e.get('href'):
                             temp += e.get_text() + ' '
                 filtered_elements.append(temp)

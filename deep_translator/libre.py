@@ -3,7 +3,7 @@ LibreTranslate API
 """
 
 import requests
-from .parent import BaseTranslator
+from .base import BaseTranslator
 from .constants import BASE_URLS,LIBRE_LANGUAGES_TO_CODES, LIBRE_CODES_TO_LANGUAGES
 from .exceptions import (ServerException,
                         TranslationNotFound,

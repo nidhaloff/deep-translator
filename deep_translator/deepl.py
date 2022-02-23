@@ -4,7 +4,7 @@ from .exceptions import (ServerException,
                          TranslationNotFound,
                          LanguageNotSupportedException,
                          AuthorizationException)
-from .parent import BaseTranslator
+from .base import BaseTranslator
 
 
 class DeepL(object):

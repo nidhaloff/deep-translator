@@ -5,7 +5,7 @@ import requests
 from .constants import BASE_URLS
 from .exceptions import (RequestError, ServerException,
                          TranslationNotFound, TooManyRequests)
-from .parent import BaseTranslator
+from .base import BaseTranslator
 
 
 class YandexTranslator(object):

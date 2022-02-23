@@ -2,7 +2,7 @@
 import requests
 from .constants import BASE_URLS, QCRI_LANGUAGE_TO_CODE
 from .exceptions import (ServerException, TranslationNotFound)
-from .parent import BaseTranslator
+from .base import BaseTranslator
 
 
 class QCRI(object):

@@ -1,4 +1,4 @@
-"""parent translator class"""
+"""base translator class"""
 
 from .exceptions import NotValidPayload, NotValidLength, InvalidSourceOrTargetLanguage
 from abc import ABC, abstractmethod
@@ -7,7 +7,7 @@ import string
 
 class BaseTranslator(ABC):
     """
-    Abstract class that serve as a parent translator for other different translators
+    Abstract class that serve as a base translator for other different translators
     """
     def __init__(self,
                  base_url=None,
