@@ -35,8 +35,8 @@ class MicrosoftTranslator(BaseTranslator):
         if region:
             self.region = region
             self.headers["Ocp-Apim-Subscription-Region"] = self.region
-        self._base_url = BASE_URLS.get("MICROSOFT_TRANSLATE")
         super().__init__(
+            base_url=BASE_URLS.get("MICROSOFT_TRANSLATE"),
             source=source,
             target=target,
             languages=MICROSOFT_CODES_TO_LANGUAGES,

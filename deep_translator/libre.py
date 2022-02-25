@@ -8,8 +8,8 @@ from .validate import is_empty
 from .base import BaseTranslator
 from .constants import BASE_URLS,LIBRE_LANGUAGES_TO_CODES
 from .exceptions import (ServerException,
-                        TranslationNotFound,
-                        AuthorizationException)
+                         TranslationNotFound,
+                         AuthorizationException)
 
 
 class LibreTranslator(BaseTranslator):
@@ -26,9 +26,9 @@ class LibreTranslator(BaseTranslator):
         """
         if not api_key:
             raise ServerException(401)
-        self._base_url = BASE_URLS.get("LIBRE")
         self.api_key = api_key
-        super().__init__(source=source,
+        super().__init__(base_url=BASE_URLS.get("LIBRE"),
+                         source=source,
                          target=target,
                          languages=LIBRE_LANGUAGES_TO_CODES)
 

@@ -20,10 +20,9 @@ class MyMemoryTranslator(BaseTranslator):
         @param source: source language to translate from
         @param target: target language to translate to
         """
-        self._base_url = BASE_URLS.get("MYMEMORY")
         self.proxies = proxies
         self.email = kwargs.get('email', None)
-        super(MyMemoryTranslator, self).__init__(base_url=self._base_url,
+        super(MyMemoryTranslator, self).__init__(base_url=BASE_URLS.get("MYMEMORY"),
                                                  source=self._source,
                                                  target=self._target,
                                                  payload_key='q',

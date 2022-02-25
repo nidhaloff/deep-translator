@@ -8,14 +8,14 @@ from .exceptions import (ServerException,
 from .base import BaseTranslator
 
 
-class DeepL(BaseTranslator):
+class DeeplTranslator(BaseTranslator):
     """
-    class that wraps functions, which use the DeepL translator under the hood to translate word(s)
+    class that wraps functions, which use the DeeplTranslator translator under the hood to translate word(s)
     """
 
     def __init__(self, api_key=None, source="de", target="en", use_free_api=True, **kwargs):
         """
-        @param api_key: your DeepL api key.
+        @param api_key: your DeeplTranslator api key.
         Get one here: https://www.deepl.com/docs-api/accessing-the-api/
         @param source: source language
         @param target: target language
@@ -80,6 +80,6 @@ class DeepL(BaseTranslator):
 
 
 if __name__ == '__main__':
-    d = DeepL(target="de")
+    d = DeeplTranslator(target="de")
     t = d.translate("I have no idea")
     print("text: ", t)

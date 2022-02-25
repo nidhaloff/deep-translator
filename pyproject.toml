@@ -9,7 +9,7 @@ readme = "docs/README.rst"
 homepage = "https://github.com/nidhaloff/deep_translator"
 repository = "https://github.com/nidhaloff/deep_translator"
 documentation = "https://deep-translator.readthedocs.io/en/latest/"
-keywords = ["deep_translator", "deepL", "DeepL", "translator", "translation", "automation", "web scraping", "google translator", "google translation", "google trans", "PONS", "YANDEX", "MyMemory translator", "Linguee", "QCRI", "Language", "Language detection", "detect language", "free translation", "unlimited translation", "translate for free"]
+keywords = ["deep_translator", "deepL", "DeeplTranslator", "translator", "translation", "automation", "web scraping", "google translator", "google translation", "google trans", "PONS", "YANDEX", "MyMemory translator", "Linguee", "QcriTranslator", "Language", "Language detection", "detect language", "free translation", "unlimited translation", "translate for free"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",

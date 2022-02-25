@@ -22,10 +22,10 @@ class PapagoTranslator(BaseTranslator):
             raise Exception(
                 "Please pass your client id and secret key! visit the papago website for more infos")
 
-        self._base_url = BASE_URLS.get("PAPAGO_API")
         self.client_id = client_id
         self.secret_key = secret_key
         super().__init__(
+            base_url=BASE_URLS.get("PAPAGO_API"),
             source=source,
             target=target,
             languages=PAPAGO_LANGUAGE_TO_CODE,

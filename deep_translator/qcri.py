@@ -5,7 +5,7 @@ from .exceptions import (ServerException, TranslationNotFound)
 from .base import BaseTranslator
 
 
-class QCRI(BaseTranslator):
+class QcriTranslator(BaseTranslator):
     """
     class that wraps functions, which use the QRCI translator under the hood to translate word(s)
     """
@@ -17,7 +17,6 @@ class QCRI(BaseTranslator):
 
         if not api_key:
             raise ServerException(401)
-        self._base_url = BASE_URLS.get("QCRI")
         self.api_key = api_key
         self.api_endpoints = {
             "get_languages": "getLanguagePairs",
@@ -29,6 +28,7 @@ class QCRI(BaseTranslator):
             "key": self.api_key
         }
         super().__init__(
+            base_url=BASE_URLS.get("QcriTranslator"),
             source=source,
             target=target,
             languages=QCRI_LANGUAGE_TO_CODE,

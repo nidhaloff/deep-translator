@@ -19,7 +19,6 @@ class YandexTranslator(BaseTranslator):
         """
         if not api_key:
             raise ServerException(401)
-        self._base_url = BASE_URLS.get("YANDEX")
         self.api_key = api_key
         self.api_version = "v1.5"
         self.api_endpoints = {
@@ -28,6 +27,7 @@ class YandexTranslator(BaseTranslator):
             "translate": "translate",
         }
         super().__init__(
+            base_url=BASE_URLS.get("YANDEX"),
             source=source,
             target=target,
             **kwargs

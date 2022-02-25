@@ -26,9 +26,8 @@ class PonsTranslator(BaseTranslator):
         @param source: source language to translate from
         @param target: target language to translate to
         """
-        self._base_url = BASE_URLS.get("PONS")
         self.proxies = proxies
-        super().__init__(base_url=self._base_url,
+        super().__init__(base_url=BASE_URLS.get("PONS"),
                          languages=PONS_CODES_TO_LANGUAGES,
                          source=source,
                          target=target,
