@@ -5,7 +5,7 @@ from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator
 
 english_text = 'happy coding'
 chinese_text = '這很好'
-translator = GoogleTranslator(source='english', target='german')
+translator = GoogleTranslator(source='auto', target='german')
 result1 = translator.translate(text=english_text)
 result2 = translator.translate(text=chinese_text)
 
