@@ -37,11 +37,10 @@ class GoogleTranslator(BaseTranslator):
         @param text: desired text to translate
         @return: str: translated text
         """
-        if self._same_source_target() or is_empty(text):
-            return text
-
         if validate_input(text):
             text = text.strip()
+            if self._same_source_target() or is_empty(text):
+                return text
             self._url_params['tl'] = self._target
             self._url_params['sl'] = self._source
 

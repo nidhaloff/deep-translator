@@ -37,9 +37,6 @@ def test_inputs():
 def test_payload(mymemory):
 
     with pytest.raises(exceptions.NotValidPayload):
-        mymemory.translate(text="")
-
-    with pytest.raises(exceptions.NotValidPayload):
         mymemory.translate(text=123)
 
     with pytest.raises(exceptions.NotValidPayload):

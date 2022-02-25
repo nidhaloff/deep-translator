@@ -4,7 +4,7 @@ LibreTranslate API
 
 import requests
 
-from .validate import is_empty
+from .validate import is_empty, validate_input
 from .base import BaseTranslator
 from .constants import BASE_URLS,LIBRE_LANGUAGES_TO_CODES
 from .exceptions import (ServerException,
@@ -38,36 +38,37 @@ class LibreTranslator(BaseTranslator):
         @param text: desired text to translate
         @return: str: translated text
         """
-        if self._same_source_target() or is_empty(text):
-            return text
+        if validate_input(text):
+            if self._same_source_target() or is_empty(text):
+                return text
 
-        translate_endpoint = 'translate'
-        params = {
-            "q": text,
-            "source": self._source,
-            "target": self._target,
-            "format": 'text'
-        }
-        # Add API Key if required
-        if self.api_key:
-            params["api_key"] = self.api_key
-        # Do the request and check the connection.
-        try:
-            response = requests.post(self._base_url + translate_endpoint, params=params)
-        except ConnectionError:
-            raise ServerException(503)
-        # If the answer is not success, raise server exception.
+            translate_endpoint = 'translate'
+            params = {
+                "q": text,
+                "source": self._source,
+                "target": self._target,
+                "format": 'text'
+            }
+            # Add API Key if required
+            if self.api_key:
+                params["api_key"] = self.api_key
+            # Do the request and check the connection.
+            try:
+                response = requests.post(self._base_url + translate_endpoint, params=params)
+            except ConnectionError:
+                raise ServerException(503)
+            # If the answer is not success, raise server exception.
 
-        if response.status_code == 403:
-            raise AuthorizationException(self.api_key)
-        elif response.status_code != 200:
-            raise ServerException(response.status_code)
-        # Get the response and check is not empty.
-        res = response.json()
-        if not res:
-            raise TranslationNotFound(text)
-        # Process and return the response.
-        return res['translatedText']
+            if response.status_code == 403:
+                raise AuthorizationException(self.api_key)
+            elif response.status_code != 200:
+                raise ServerException(response.status_code)
+            # Get the response and check is not empty.
+            res = response.json()
+            if not res:
+                raise TranslationNotFound(text)
+            # Process and return the response.
+            return res['translatedText']
 
     def translate_file(self, path, **kwargs):
         """

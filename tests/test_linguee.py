@@ -8,7 +8,7 @@ from deep_translator import exceptions, LingueeTranslator
 
 @pytest.fixture
 def linguee():
-    return LingueeTranslator(source="english", target='french')
+    return LingueeTranslator(source="english", target='german')
 
 
 def test_content(linguee):

@@ -46,10 +46,9 @@ class PonsTranslator(BaseTranslator):
         @type return_all: bool
         @return: str: translated word
         """
-        if self._same_source_target() or is_empty(word):
-            return word
-
         if validate_input(word, max_chars=50):
+            if self._same_source_target() or is_empty(word):
+                return word
             url = "{}{}-{}/{}".format(self._base_url, self._source, self._target, word)
             url = requote_uri(url)
             response = requests.get(url, proxies=self.proxies)

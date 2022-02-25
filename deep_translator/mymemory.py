@@ -22,11 +22,11 @@ class MyMemoryTranslator(BaseTranslator):
         """
         self.proxies = proxies
         self.email = kwargs.get('email', None)
-        super(MyMemoryTranslator, self).__init__(base_url=BASE_URLS.get("MYMEMORY"),
-                                                 source=self._source,
-                                                 target=self._target,
-                                                 payload_key='q',
-                                                 langpair='{}|{}'.format(self._source, self._target))
+        super().__init__(base_url=BASE_URLS.get("MYMEMORY"),
+                         source=source,
+                         target=target,
+                         payload_key='q',
+                        )
 
     def translate(self, text, return_all=False, **kwargs):
         """
@@ -36,13 +36,12 @@ class MyMemoryTranslator(BaseTranslator):
         @param return_all: set to True to return all synonym/similars of the translated text
         @return: str or list
         """
-
-        if self._same_source_target() or is_empty(text):
-            return text
-
         if validate_input(text, max_chars=500):
             text = text.strip()
+            if self._same_source_target() or is_empty(text):
+                return text
 
+            self._url_params['langpair'] = '{}|{}'.format(self._source, self._target)
             if self.payload_key:
                 self._url_params[self.payload_key] = text
             if self.email:

@@ -6,6 +6,7 @@ import sys
 from .constants import BASE_URLS
 from .exceptions import ServerException, MicrosoftAPIerror
 from .base import BaseTranslator
+from .validate import validate_input
 
 
 class MicrosoftTranslator(BaseTranslator):
@@ -61,29 +62,30 @@ class MicrosoftTranslator(BaseTranslator):
         # a body must be a list of dicts to process multiple texts;
         # I have not added multiple text processing here since it is covered by the translate_batch method
 
-        self._url_params['from'] = self._source
-        self._url_params['to'] = self._target
+        if validate_input(text):
+            self._url_params['from'] = self._source
+            self._url_params['to'] = self._target
 
-        valid_microsoft_json = [{'text': text}]
-        try:
-            requested = requests.post(self._base_url,
-                                      params=self._url_params,
-                                      headers=self.headers,
-                                      json=valid_microsoft_json,
-                                      proxies=self.proxies)
-        except requests.exceptions.RequestException:
-            exc_type, value, traceback = sys.exc_info()
-            logging.warning(f"Returned error: {exc_type.__name__}")
+            valid_microsoft_json = [{'text': text}]
+            try:
+                requested = requests.post(self._base_url,
+                                          params=self._url_params,
+                                          headers=self.headers,
+                                          json=valid_microsoft_json,
+                                          proxies=self.proxies)
+            except requests.exceptions.RequestException:
+                exc_type, value, traceback = sys.exc_info()
+                logging.warning(f"Returned error: {exc_type.__name__}")
 
-        # Where Microsoft API responds with an api error, it returns a dict in response.json()
-        if type(requested.json()) is dict:
-            error_message = requested.json()['error']
-            raise MicrosoftAPIerror(error_message)
-        # Where it responds with a translation, its response.json() is a list e.g. [{'translations': [{'text': 'Hello world!', 'to': 'en'}]}]
-        elif type(requested.json()) is list:
-            all_translations = [i['text']
-                                for i in requested.json()[0]['translations']]
-            return "\n".join(all_translations)
+            # Where Microsoft API responds with an api error, it returns a dict in response.json()
+            if type(requested.json()) is dict:
+                error_message = requested.json()['error']
+                raise MicrosoftAPIerror(error_message)
+            # Where it responds with a translation, its response.json() is a list e.g. [{'translations': [{'text': 'Hello world!', 'to': 'en'}]}]
+            elif type(requested.json()) is list:
+                all_translations = [i['text']
+                                    for i in requested.json()[0]['translations']]
+                return "\n".join(all_translations)
 
     def translate_file(self, path, **kwargs):
         """

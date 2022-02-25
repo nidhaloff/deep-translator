@@ -4,10 +4,10 @@ import string
 
 
 def is_empty(text: str):
-    return text.strip() == ""
+    return text == ""
 
 
-def validate_input(text: str, min_chars: int = 1, max_chars: int = 5000):
+def validate_input(text: str, min_chars: int = 0, max_chars: int = 5000):
     """
     validate the target text to translate
     @param min_chars: min characters
@@ -16,13 +16,8 @@ def validate_input(text: str, min_chars: int = 1, max_chars: int = 5000):
     @return: bool
     """
 
-    if not isinstance(text, str) or not text.strip() or text.isdigit():
+    if not isinstance(text, str) or text.isdigit():
         raise NotValidPayload(text)
-
-    # check if payload contains only symbols
-    if all(i in string.punctuation for i in text):
-        raise NotValidPayload(text)
-
     if not min_chars <= len(text) < max_chars:
         raise NotValidLength(text, min_chars, max_chars)
 

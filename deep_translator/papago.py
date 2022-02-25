@@ -7,6 +7,8 @@ from .exceptions import TranslationNotFound
 from .base import BaseTranslator
 import requests
 
+from .validate import validate_input
+
 
 class PapagoTranslator(BaseTranslator):
     """
@@ -38,32 +40,32 @@ class PapagoTranslator(BaseTranslator):
         @param text: desired text to translate
         @return: str: translated text
         """
+        if validate_input(text):
+            payload = {
+                "source": self._source,
+                "target": self._target,
+                "text": text
+            }
+            headers = {
+                'X-Naver-Client-Id': self.client_id,
+                'X-Naver-Client-Secret': self.secret_key,
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            }
+            response = requests.post(
+                self._base_url, headers=headers, data=payload)
+            if response.status_code != 200:
+                raise Exception(
+                    f'Translation error! -> status code: {response.status_code}')
+            res_body = json.loads(response.text)
+            if "message" not in res_body:
+                raise TranslationNotFound(text)
 
-        payload = {
-            "source": self._source,
-            "target": self._target,
-            "text": text
-        }
-        headers = {
-            'X-Naver-Client-Id': self.client_id,
-            'X-Naver-Client-Secret': self.secret_key,
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        }
-        response = requests.post(
-            self._base_url, headers=headers, data=payload)
-        if response.status_code != 200:
-            raise Exception(
-                f'Translation error! -> status code: {response.status_code}')
-        res_body = json.loads(response.text)
-        if "message" not in res_body:
-            raise TranslationNotFound(text)
-
-        msg = res_body.get("message")
-        result = msg.get("result", None)
-        if not result:
-            raise TranslationNotFound(text)
-        translated_text = result.get("translatedText")
-        return translated_text
+            msg = res_body.get("message")
+            result = msg.get("result", None)
+            if not result:
+                raise TranslationNotFound(text)
+            translated_text = result.get("translatedText")
+            return translated_text
 
     def translate_file(self, path, **kwargs):
         """

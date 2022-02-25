@@ -20,12 +20,12 @@ def test_microsoft_successful_post_mock(mock_request_post):
         r.json = json_func
         return r
     mock_request_post.return_value = res()
-    assert MicrosoftTranslator(api_key="an_api_key", target="en").translate("auf wiedersehen!") == "See you later!"
+    assert MicrosoftTranslator(api_key="an_api_key", source='de', target="en").translate("auf wiedersehen!") == "See you later!"
 
 
 def test_MicrosoftAPIerror():
     with pytest.raises(exceptions.MicrosoftAPIerror):
-        MicrosoftTranslator(api_key="empty", target="en").translate("text")
+        MicrosoftTranslator(api_key="empty", source='de', target="en").translate("text")
 
 
 # the remaining tests are actual requests to Microsoft API and use an api key
