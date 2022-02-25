@@ -3,6 +3,8 @@ pons translator API
 """
 from bs4 import BeautifulSoup
 import requests
+
+from validate import validate_input, is_empty
 from .constants import BASE_URLS, PONS_LANGUAGES_TO_CODES, PONS_CODES_TO_LANGUAGES
 from .exceptions import (LanguageNotSupportedException,
                         TranslationNotFound,
@@ -18,8 +20,6 @@ class PonsTranslator(BaseTranslator):
     """
     class that uses PONS translator to translate words
     """
-    _languages = PONS_LANGUAGES_TO_CODES
-    supported_languages = list(_languages.keys())
 
     def __init__(self, source, target="en", proxies=None, **kwargs):
         """
@@ -28,51 +28,14 @@ class PonsTranslator(BaseTranslator):
         """
         self.__base_url = BASE_URLS.get("PONS")
         self.proxies = proxies
-        if self.is_language_supported(source, target):
-            self._source, self._target = self._map_language_to_code(source, target)
-
         super().__init__(base_url=self.__base_url,
+                         languages=PONS_LANGUAGES_TO_CODES,
                          source=self._source,
                          target=self._target,
                          payload_key=None,
                          element_tag='div',
                          element_query={"class": "target"}
                          )
-
-    @staticmethod
-    def get_supported_languages(as_dict=False, **kwargs):
-        """
-          return the supported languages by the linguee translator
-          @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
-          @return: list or dict
-          """
-        return PonsTranslator.supported_languages if not as_dict else PonsTranslator._languages
-
-    def _map_language_to_code(self, *languages, **kwargs):
-        """
-           map language to its corresponding code (abbreviation) if the language was passed by its full name by the user
-           @param languages: list of languages
-           @return: mapped value of the language or raise an exception if the language is not supported
-        """
-        for language in languages:
-            if language in self._languages.values():
-                yield PONS_CODES_TO_LANGUAGES[language]
-            elif language in self._languages.keys():
-                yield language
-            else:
-                raise LanguageNotSupportedException(language)
-
-    def is_language_supported(self, *languages, **kwargs):
-        """
-         check if the language is supported by the translator
-         @param languages: list of languages
-         @return: bool or raise an Exception
-         """
-        for lang in languages:
-            if lang not in self._languages.keys():
-                if lang not in self._languages.values():
-                    raise LanguageNotSupportedException(lang)
-        return True
 
     def translate(self, word, return_all=False, **kwargs):
         """
@@ -83,7 +46,10 @@ class PonsTranslator(BaseTranslator):
         @type return_all: bool
         @return: str: translated word
         """
-        if self._validate_payload(word, max_chars=50):
+        if self._same_source_target() or is_empty(word):
+            return word
+
+        if validate_input(word, max_chars=50):
             url = "{}{}-{}/{}".format(self.__base_url, self._source, self._target, word)
             url = requote_uri(url)
             response = requests.get(url, proxies=self.proxies)

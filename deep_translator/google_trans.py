@@ -2,22 +2,18 @@
 google translator API
 """
 
-from .constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES, GOOGLE_LANGUAGES_SECONDARY_NAMES
-from .exceptions import TooManyRequests, LanguageNotSupportedException, TranslationNotFound, NotValidPayload, RequestError
+from .constants import BASE_URLS
+from .exceptions import TooManyRequests, TranslationNotFound, RequestError
 from .base import BaseTranslator
+from .validate import validate_input, is_empty
 from bs4 import BeautifulSoup
 import requests
-from time import sleep
-import warnings
-import logging
 
 
 class GoogleTranslator(BaseTranslator):
     """
     class that wraps functions, which use google translate under the hood to translate text(s)
     """
-    _languages = GOOGLE_LANGUAGES_TO_CODES
-    supported_languages = list(_languages.keys())
 
     def __init__(self, source="auto", target="en", proxies=None, **kwargs):
         """
@@ -26,79 +22,17 @@ class GoogleTranslator(BaseTranslator):
         """
         self.__base_url = BASE_URLS.get("GOOGLE_TRANSLATE")
         self.proxies = proxies
-
-        # code snipppet that converts the language into lower-case and skip lower-case conversion for abbreviations
-        # since abbreviations like zh-CN if converted to lower-case will result into error
-        #######################################
-        source_lower = source
-        target_lower = target
-        if not source in self._languages.values():
-            source_lower=source.lower()
-        if not target in self._languages.values():
-            target_lower=target.lower()
-        #######################################
-
-        if self.is_language_supported(source_lower, target_lower):
-            self._source, self._target = self._map_language_to_code(source_lower, target_lower)
-
-        super(GoogleTranslator, self).__init__(base_url=self.__base_url,
-                                               source=self._source,
-                                               target=self._target,
-                                               element_tag='div',
-                                               element_query={"class": "t0"},
-                                               payload_key='q',  # key of text in the url
-                                               tl=self._target,
-                                               sl=self._source,
-                                               **kwargs)
+        super().__init__(base_url=self.__base_url,
+                         source=source,
+                         target=target,
+                         element_tag='div',
+                         element_query={"class": "t0"},
+                         payload_key='q',  # key of text in the url
+                         tl=self._target,
+                         sl=self._source,
+                         **kwargs)
 
         self._alt_element_query = {"class": "result-container"}
-
-    @staticmethod
-    def get_supported_languages(as_dict=False, **kwargs):
-        """
-        return the supported languages by the google translator
-        @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
-        @return: list or dict
-        """
-        return GoogleTranslator.supported_languages if not as_dict else GoogleTranslator._languages
-
-    def is_secondary(self, lang):
-        """
-        Function to check if lang is a secondary name of any primary language
-        @param lang: language name
-        @return: primary name of a language if found otherwise False
-        """
-        for primary_name, secondary_names in GOOGLE_LANGUAGES_SECONDARY_NAMES.items():
-            if lang in secondary_names:
-                return primary_name
-        return False
-
-    def _map_language_to_code(self, *languages):
-        """
-        map language to its corresponding code (abbreviation) if the language was passed by its full name by the user
-        @param languages: list of languages
-        @return: mapped value of the language or raise an exception if the language is not supported
-        """
-        for language in languages:
-            if language in self._languages.values() or language == 'auto':
-                yield language
-            elif language in self._languages.keys():
-                yield self._languages[language]
-            else:
-                yield self._languages[self.is_secondary(language)]
-
-    def is_language_supported(self, *languages):
-        """
-        check if the language is supported by the translator
-        @param languages: list of languages
-        @return: bool or raise an Exception
-        """
-        for lang in languages:
-            if lang != 'auto' and lang not in self._languages.keys():
-                if lang != 'auto' and lang not in self._languages.values():
-                    if not self.is_secondary(lang):
-                        raise LanguageNotSupportedException(lang)
-        return True
 
     def translate(self, text, **kwargs):
         """
@@ -106,8 +40,10 @@ class GoogleTranslator(BaseTranslator):
         @param text: desired text to translate
         @return: str: translated text
         """
+        if self._same_source_target() or is_empty(text):
+            return text
 
-        if self._validate_payload(text):
+        if validate_input(text):
             text = text.strip()
 
             if self.payload_key:
@@ -151,37 +87,7 @@ class GoogleTranslator(BaseTranslator):
         @param kwargs: additional args
         @return: str
         """
-        try:
-            with open(path, 'r', encoding='utf-8') as f:
-                text = f.read().strip()
-            return self.translate(text)
-        except Exception as e:
-            raise e
-
-    def translate_sentences(self, sentences=None, **kwargs):
-        """
-        translate many sentences together. This makes sense if you have sentences with different languages
-        and you want to translate all to unified language. This is handy because it detects
-        automatically the language of each sentence and then translate it.
-
-        @param sentences: list of sentences to translate
-        @return: list of all translated sentences
-        """
-        warnings.warn("deprecated. Use the translate_batch function instead", DeprecationWarning, stacklevel=2)
-        logging.warning("deprecated. Use the translate_batch function instead")
-        if not sentences:
-            raise NotValidPayload(sentences)
-
-        translated_sentences = []
-        try:
-            for sentence in sentences:
-                translated = self.translate(text=sentence)
-                translated_sentences.append(translated)
-
-            return translated_sentences
-
-        except Exception as e:
-            raise e
+        return self._translate_file(path, **kwargs)
 
     def translate_batch(self, batch=None, **kwargs):
         """
@@ -189,12 +95,4 @@ class GoogleTranslator(BaseTranslator):
         @param batch: list of texts you want to translate
         @return: list of translations
         """
-        if not batch:
-            raise Exception("Enter your text list that you want to translate")
-        arr = []
-        for i, text in enumerate(batch):
-
-            translated = self.translate(text, **kwargs)
-            arr.append(translated)
-        return arr
-
+        return self._translate_batch(batch, **kwargs)

@@ -8,7 +8,7 @@ from .exceptions import (RequestError, ServerException,
 from .base import BaseTranslator
 
 
-class YandexTranslator(object):
+class YandexTranslator(BaseTranslator):
     """
     class that wraps functions, which use the yandex translator under the hood to translate word(s)
     """
@@ -20,9 +20,6 @@ class YandexTranslator(object):
         if not api_key:
             raise ServerException(401)
         self.__base_url = BASE_URLS.get("YANDEX")
-        self.source = source
-        self.target = target
-
         self.api_key = api_key
         self.api_version = "v1.5"
         self.api_endpoints = {
@@ -30,13 +27,11 @@ class YandexTranslator(object):
             "detect": "detect",
             "translate": "translate",
         }
-
-    @staticmethod
-    def get_supported_languages(as_dict=False, **kwargs):
-        """ this method is just for consistency."""
-        return """ this method is just for consistency. You need to create an instance of yandex and access
-                    supported languages using the languages property or call _get_supported_languages
-                """
+        super().__init__(
+            source=source,
+            target=target,
+            **kwargs
+        )
 
     def _get_supported_languages(self):
         return set(x.split("-")[0] for x in self.dirs)
@@ -95,7 +90,7 @@ class YandexTranslator(object):
         params = {
             "text": text,
             "format": "plain",
-            "lang": self.target if self.source == "auto" else "{}-{}".format(self.source, self.target),
+            "lang": self._target if self._source == "auto" else "{}-{}".format(self._source, self._target),
             "key": self.api_key
         }
         try:
@@ -124,13 +119,7 @@ class YandexTranslator(object):
         @param path: path to file
         @return: translated text
         """
-        try:
-            with open(path, 'r', encoding='utf-8') as f:
-                text = f.read()
-
-            return self.translate(text)
-        except Exception as e:
-            raise e
+        return self._translate_file(path, **kwargs)
 
     def translate_batch(self, batch, **kwargs):
         """
@@ -138,7 +127,5 @@ class YandexTranslator(object):
         @param batch: list of texts to translate
         @return: list of translations
         """
-        return [self.translate(text, **kwargs) for text in batch]
+        return self._translate_batch(batch, **kwargs)
 
-
-BaseTranslator.register(YandexTranslator)

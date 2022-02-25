@@ -1,8 +1,7 @@
 """base translator class"""
 
-from .exceptions import NotValidPayload, NotValidLength, InvalidSourceOrTargetLanguage
+from .constants import GOOGLE_LANGUAGES_TO_CODES
 from abc import ABC, abstractmethod
-import string
 
 
 class BaseTranslator(ABC):
@@ -16,55 +15,55 @@ class BaseTranslator(ABC):
                  payload_key=None,
                  element_tag=None,
                  element_query=None,
+                 languages=GOOGLE_LANGUAGES_TO_CODES,
                  **url_params):
         """
         @param source: source language to translate from
         @param target: target language to translate to
         """
-        if source == target:
-            raise InvalidSourceOrTargetLanguage(source)
-
         self.__base_url = base_url
-        self._source = source
-        self._target = target
+        self._source, self._target = self._map_language_to_code(source, target)
         self._url_params = url_params
         self._element_tag = element_tag
         self._element_query = element_query
         self.payload_key = payload_key
-        self.headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) '
-                                      'AppleWebit/535.19'
-                                      '(KHTML, like Gecko) Chrome/18.0.1025.168 Safari/535.19'}
-        super(BaseTranslator, self).__init__()
+        self.languages: dict = languages
+        self.supported_languages: list = list(self.languages.keys())
+        super().__init__()
 
-    @staticmethod
-    def _validate_payload(payload, min_chars=1, max_chars=5000):
+    def _map_language_to_code(self, *languages):
         """
-        validate the target text to translate
-        @param payload: text to translate
-        @return: bool
+        map language to its corresponding code (abbreviation) if the language was passed by its full name by the user
+        @param languages: list of languages
+        @return: mapped value of the language or raise an exception if the language is not supported
         """
+        for language in languages:
+            if language in self.languages.values() or language == 'auto':
+                yield language
+            elif language in self.languages.keys():
+                yield self.languages[language]
 
-        if not payload or not isinstance(payload, str) or not payload.strip() or payload.isdigit():
-            raise NotValidPayload(payload)
+    def _same_source_target(self):
+        return self._source == self._target
 
-        # check if payload contains only symbols
-        if all(i in string.punctuation for i in payload):
-            raise NotValidPayload(payload)
-
-        if not BaseTranslator.__check_length(payload, min_chars, max_chars):
-            raise NotValidLength(payload, min_chars, max_chars)
-        return True
-
-    @staticmethod
-    def __check_length(payload, min_chars, max_chars):
+    def get_supported_languages(self, as_dict=False, **kwargs):
         """
-        check length of the provided target text to translate
-        @param payload: text to translate
-        @param min_chars: minimum characters allowed
-        @param max_chars: maximum characters allowed
-        @return: bool
+        return the supported languages by the google translator
+        @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
+        @return: list or dict
         """
-        return True if min_chars <= len(payload) < max_chars else False
+        return self.supported_languages if not as_dict else self.languages
+
+    def is_language_supported(self, language, **kwargs):
+        """
+        check if the language is supported by the translator
+        @param language: a string for 1 language
+        @return: bool or raise an Exception
+        """
+        if language == 'auto' or language in self.languages.keys() or language in self.languages.values():
+            return True
+        else:
+            return False
 
     @abstractmethod
     def translate(self, text, **kwargs):
@@ -76,5 +75,31 @@ class BaseTranslator(ABC):
         """
         return NotImplemented('You need to implement the translate method!')
 
+    def _translate_file(self, path, **kwargs):
+        """
+        translate directly from file
+        @param path: path to the target file
+        @type path: str
+        @param kwargs: additional args
+        @return: str
+        """
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                text = f.read().strip()
+            return self.translate(text)
+        except Exception as e:
+            raise e
 
-
+    def _translate_batch(self, batch=None, **kwargs):
+        """
+        translate a list of texts
+        @param batch: list of texts you want to translate
+        @return: list of translations
+        """
+        if not batch:
+            raise Exception("Enter your text list that you want to translate")
+        arr = []
+        for i, text in enumerate(batch):
+            translated = self.translate(text, **kwargs)
+            arr.append(translated)
+        return arr

@@ -197,16 +197,6 @@ LINGUEE_LANGUAGES_TO_CODES = {
 
 LINGUEE_CODE_TO_LANGUAGE = {v: k for k, v in LINGUEE_LANGUAGES_TO_CODES.items()}
 
-# "72e9e2cc7c992db4dcbdd6fb9f91a0d1"
-
-# obtaining the current list of supported Microsoft languages for translation
-
-microsoft_languages_api_url = "https://api.cognitive.microsofttranslator.com/languages?api-version=3.0&scope=translation"
-microsoft_languages_response = requests.get(microsoft_languages_api_url)
-translation_dict = microsoft_languages_response.json()['translation']
-
-MICROSOFT_CODES_TO_LANGUAGES = {translation_dict[k]['name'].lower(): k for k in translation_dict.keys()}
-
 DEEPL_LANGUAGE_TO_CODE = {
     "bulgarian": "bg",
     "czech": "cs",

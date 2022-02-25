@@ -11,7 +11,6 @@ from .detection import single_detection, batch_detection
 from .microsoft import MicrosoftTranslator
 from .papago import PapagoTranslator
 from .libre import LibreTranslator
-from .engine import generate_engines_dict, engine
 
 __author__ = """Nidhal Baccouri"""
 __email__ = 'nidhalbacc@gmail.com'
@@ -31,7 +30,3 @@ __all__ = [
     "single_detection",
     "batch_detection"
 ]
-
-__engines__ = generate_engines_dict(__all__, locals())
-del generate_engines_dict
-engine.translation_engines = __engines__

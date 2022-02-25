@@ -1,16 +1,17 @@
 """Console script for deep_translator."""
-from . import __engines__
 import argparse
+from .base import BaseTranslator
 
 
 class CLI(object):
-    translators_dict = __engines__
+    translators_dict = BaseTranslator.__subclasses__()
     translator = None
 
     def __init__(self, custom_args=None):
         self.custom_args = custom_args
         self.args = self.parse_args()
-        # print(f'{__engines__}')
+        print(f'translators_dict: {self.translators_dict}')
+        exit()
         translator_class = self.translators_dict.get(self.args.translator, None)
         if not translator_class:
             raise Exception(f"Translator {self.args.translator} is not supported."

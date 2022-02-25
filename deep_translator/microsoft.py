@@ -3,19 +3,15 @@
 import requests
 import logging
 import sys
-
-from .constants import BASE_URLS, MICROSOFT_CODES_TO_LANGUAGES
-from .exceptions import LanguageNotSupportedException, ServerException, MicrosoftAPIerror
+from .constants import BASE_URLS
+from .exceptions import ServerException, MicrosoftAPIerror
 from .base import BaseTranslator
 
 
-class MicrosoftTranslator:
+class MicrosoftTranslator(BaseTranslator):
     """
     the class that wraps functions, which use the Microsoft translator under the hood to translate word(s)
     """
-
-    _languages = MICROSOFT_CODES_TO_LANGUAGES
-    supported_languages = list(_languages.values())
 
     def __init__(self, api_key=None, region=None, source=None, target=None, proxies=None, **kwargs):
         """
@@ -23,11 +19,13 @@ class MicrosoftTranslator:
         @param api_key: your Microsoft API key
         @param region: your Microsoft Location
         """
+
+        MICROSOFT_CODES_TO_LANGUAGES = self._get_supported_languages()
+
         if not api_key:
             raise ServerException(401)
-        else:
-            self.api_key = api_key
 
+        self.api_key = api_key
         self.proxies = proxies
         self.headers = {
             "Ocp-Apim-Subscription-Key": self.api_key,
@@ -37,65 +35,22 @@ class MicrosoftTranslator:
         if region:
             self.region = region
             self.headers["Ocp-Apim-Subscription-Region"] = self.region
-
-        if not target:
-            raise ServerException(401)
-        else:
-            if type(target) is str:
-                self.target = target.lower()
-            else:
-                self.target = [i.lower() for i in target]
-            if self.is_language_supported(self.target):
-                self.target = self._map_language_to_code(self.target)
-
-        self.url_params = {'to': self.target, **kwargs}
-
-        if source:
-            self.source = source.lower()
-            if self.is_language_supported(self.source):
-                self.source = self._map_language_to_code(self.source)
-            self.url_params['from'] = self.source
-
         self.__base_url = BASE_URLS.get("MICROSOFT_TRANSLATE")
+        super().__init__(
+            source=source,
+            target=target,
+            languages=MICROSOFT_CODES_TO_LANGUAGES,
+            **kwargs
+        )
 
-    @staticmethod
-    def get_supported_languages(as_dict=False, **kwargs):
-        """
-        return the languages supported by the microsoft translator
-        @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
-        @return: list or dict
-        """
-        return MicrosoftTranslator.supported_languages if not as_dict else MicrosoftTranslator._languages
+    def _get_supported_languages(self):
 
-    def _map_language_to_code(self, language, **kwargs):
-        """
-        map the language to its corresponding code (abbreviation) if the language was passed by its full name by the user
-        @param language: a string (if 1 lang) or a list (if multiple langs)
-        @return: mapped value of the language or raise an exception if the language is not supported
-        """
-        if type(language) is str:
-            language = [language]
-        for lang in language:
-            if lang in self._languages.values():
-                yield lang
-            elif lang in self._languages.keys():
-                yield self._languages[lang]
-            else:
-                raise LanguageNotSupportedException(lang)
+        microsoft_languages_api_url = \
+            "https://api.cognitive.microsofttranslator.com/languages?api-version=3.0&scope=translation"
+        microsoft_languages_response = requests.get(microsoft_languages_api_url)
+        translation_dict = microsoft_languages_response.json()['translation']
 
-    def is_language_supported(self, language, **kwargs):
-        """
-        check if the language is supported by the translator
-        @param language: a string (if 1 lang) or a list (if multiple langs)
-        @return: bool or raise an Exception
-        """
-        if type(language) is str:
-            language = [language]
-        for lang in language:
-            if lang not in self._languages.keys():
-                if lang not in self._languages.values():
-                    raise LanguageNotSupportedException(lang)
-        return True
+        return {translation_dict[k]['name'].lower(): k for k in translation_dict.keys()}
 
     def translate(self, text, **kwargs):
         """
@@ -105,10 +60,14 @@ class MicrosoftTranslator:
         """
         # a body must be a list of dicts to process multiple texts;
         # I have not added multiple text processing here since it is covered by the translate_batch method
+
+        self._url_params['from'] = self._source
+        self._url_params['to'] = self._target
+
         valid_microsoft_json = [{'text': text}]
         try:
             requested = requests.post(self.__base_url,
-                                      params=self.url_params,
+                                      params=self._url_params,
                                       headers=self.headers,
                                       json=valid_microsoft_json,
                                       proxies=self.proxies)
@@ -132,12 +91,7 @@ class MicrosoftTranslator:
         @param path: path to file
         @return: translated text
         """
-        try:
-            with open(path, 'r', encoding='utf-8') as f:
-                text = f.read().strip()
-            return self.translate(text)
-        except Exception as e:
-            raise e
+        return self._translate_file(path, **kwargs)
 
     def translate_batch(self, batch, **kwargs):
         """
@@ -145,7 +99,4 @@ class MicrosoftTranslator:
         @param batch: list of texts to translate
         @return: list of translations
         """
-        return [self.translate(text, **kwargs) for text in batch]
-
-
-BaseTranslator.register(MicrosoftTranslator)
+        return self._translate_batch(batch, **kwargs)
