@@ -4,14 +4,14 @@ from .base import BaseTranslator
 
 
 class CLI(object):
-    translators_dict = BaseTranslator.__subclasses__()
+    translators_dict = {
+        translator.__name__.replace('Translator', '').lower():
+        translator for translator in BaseTranslator.__subclasses__()}
     translator = None
 
     def __init__(self, custom_args=None):
         self.custom_args = custom_args
         self.args = self.parse_args()
-        print(f'translators_dict: {self.translators_dict}')
-        exit()
         translator_class = self.translators_dict.get(self.args.translator, None)
         if not translator_class:
             raise Exception(f"Translator {self.args.translator} is not supported."
@@ -25,7 +25,7 @@ class CLI(object):
         """
         res = self.translator.translate(self.args.text)
         print("Translation from {} to {}".format(self.args.source, self.args.target))
-        print("-"*50)
+        print("-" * 50)
         print("Translation result: {}".format(res))
 
     def get_supported_languages(self):

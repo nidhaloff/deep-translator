@@ -19,7 +19,7 @@ class YandexTranslator(BaseTranslator):
         """
         if not api_key:
             raise ServerException(401)
-        self.__base_url = BASE_URLS.get("YANDEX")
+        self._base_url = BASE_URLS.get("YANDEX")
         self.api_key = api_key
         self.api_version = "v1.5"
         self.api_endpoints = {
@@ -44,7 +44,7 @@ class YandexTranslator(BaseTranslator):
     def dirs(self, proxies=None):
 
         try:
-            url = self.__base_url.format(
+            url = self._base_url.format(
                 version=self.api_version, endpoint="getLangs")
             print("url: ", url)
             response = requests.get(
@@ -66,7 +66,7 @@ class YandexTranslator(BaseTranslator):
             "key": self.api_key,
         }
         try:
-            url = self.__base_url.format(
+            url = self._base_url.format(
                 version=self.api_version, endpoint="detect")
             response = requests.post(url, data=params, proxies=proxies)
 
@@ -94,7 +94,7 @@ class YandexTranslator(BaseTranslator):
             "key": self.api_key
         }
         try:
-            url = self.__base_url.format(
+            url = self._base_url.format(
                 version=self.api_version, endpoint="translate")
             response = requests.post(url, data=params, proxies=proxies)
         except ConnectionError:

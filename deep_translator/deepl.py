@@ -1,6 +1,6 @@
 import requests
 
-from validate import is_empty
+from .validate import is_empty
 from .constants import BASE_URLS, DEEPL_LANGUAGE_TO_CODE
 from .exceptions import (ServerException,
                          TranslationNotFound,
@@ -25,10 +25,10 @@ class DeepL(BaseTranslator):
         self.version = 'v2'
         self.api_key = api_key
         if use_free_api:
-            self.__base_url = BASE_URLS.get(
+            self._base_url = BASE_URLS.get(
                 "DEEPL_FREE").format(version=self.version)
         else:
-            self.__base_url = BASE_URLS.get(
+            self._base_url = BASE_URLS.get(
                 "DEEPL").format(version=self.version)
         super().__init__(source=source,
                          target=target,
@@ -53,7 +53,7 @@ class DeepL(BaseTranslator):
         # Do the request and check the connection.
         try:
             response = requests.get(
-                self.__base_url + translate_endpoint, params=params)
+                self._base_url + translate_endpoint, params=params)
         except ConnectionError:
             raise ServerException(503)
         # If the answer is not success, raise server exception.

@@ -3,11 +3,9 @@ google translator API
 """
 import json
 from .constants import BASE_URLS, PAPAGO_LANGUAGE_TO_CODE
-from .exceptions import LanguageNotSupportedException, TranslationNotFound, NotValidPayload
+from .exceptions import TranslationNotFound
 from .base import BaseTranslator
 import requests
-import warnings
-import logging
 
 
 class PapagoTranslator(BaseTranslator):
@@ -24,7 +22,7 @@ class PapagoTranslator(BaseTranslator):
             raise Exception(
                 "Please pass your client id and secret key! visit the papago website for more infos")
 
-        self.__base_url = BASE_URLS.get("PAPAGO_API")
+        self._base_url = BASE_URLS.get("PAPAGO_API")
         self.client_id = client_id
         self.secret_key = secret_key
         super().__init__(
@@ -52,7 +50,7 @@ class PapagoTranslator(BaseTranslator):
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         }
         response = requests.post(
-            self.__base_url, headers=headers, data=payload)
+            self._base_url, headers=headers, data=payload)
         if response.status_code != 200:
             raise Exception(
                 f'Translation error! -> status code: {response.status_code}')

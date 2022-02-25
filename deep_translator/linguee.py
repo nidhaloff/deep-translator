@@ -1,7 +1,7 @@
 """
 linguee translator API
 """
-from validate import validate_input, is_empty
+from .validate import validate_input, is_empty
 from .constants import BASE_URLS, LINGUEE_LANGUAGES_TO_CODES
 from .exceptions import (
                         TranslationNotFound,
@@ -25,9 +25,9 @@ class LingueeTranslator(BaseTranslator):
         @param source: source language to translate from
         @param target: target language to translate to
         """
-        self.__base_url = BASE_URLS.get("LINGUEE")
+        self._base_url = BASE_URLS.get("LINGUEE")
         self.proxies = proxies
-        super().__init__(base_url=self.__base_url,
+        super().__init__(base_url=self._base_url,
                          source=source,
                          target=target,
                          languages=LINGUEE_LANGUAGES_TO_CODES,
@@ -50,7 +50,7 @@ class LingueeTranslator(BaseTranslator):
 
         if validate_input(word, max_chars=50):
             # %s-%s/translation/%s.html
-            url = "{}{}-{}/translation/{}.html".format(self.__base_url, self._source, self._target, word)
+            url = "{}{}-{}/translation/{}.html".format(self._base_url, self._source, self._target, word)
             url = requote_uri(url)
             response = requests.get(url, proxies=self.proxies)
 

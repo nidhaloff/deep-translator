@@ -4,7 +4,7 @@ LibreTranslate API
 
 import requests
 
-from validate import is_empty
+from .validate import is_empty
 from .base import BaseTranslator
 from .constants import BASE_URLS,LIBRE_LANGUAGES_TO_CODES
 from .exceptions import (ServerException,
@@ -26,7 +26,7 @@ class LibreTranslator(BaseTranslator):
         """
         if not api_key:
             raise ServerException(401)
-        self.__base_url = BASE_URLS.get("LIBRE")
+        self._base_url = BASE_URLS.get("LIBRE")
         self.api_key = api_key
         super().__init__(source=source,
                          target=target,
@@ -53,7 +53,7 @@ class LibreTranslator(BaseTranslator):
             params["api_key"] = self.api_key
         # Do the request and check the connection.
         try:
-            response = requests.post(self.__base_url + translate_endpoint, params=params)
+            response = requests.post(self._base_url + translate_endpoint, params=params)
         except ConnectionError:
             raise ServerException(503)
         # If the answer is not success, raise server exception.

@@ -17,7 +17,7 @@ class QCRI(BaseTranslator):
 
         if not api_key:
             raise ServerException(401)
-        self.__base_url = BASE_URLS.get("QCRI")
+        self._base_url = BASE_URLS.get("QCRI")
         self.api_key = api_key
         self.api_endpoints = {
             "get_languages": "getLanguagePairs",
@@ -39,7 +39,7 @@ class QCRI(BaseTranslator):
         if not params:
             params = self.params
         try:
-            res = requests.get(self.__base_url.format(
+            res = requests.get(self._base_url.format(
                 endpoint=self.api_endpoints[endpoint]), params=params)
             return res.text if return_text else res
         except Exception as e:

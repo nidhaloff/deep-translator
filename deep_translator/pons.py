@@ -4,9 +4,9 @@ pons translator API
 from bs4 import BeautifulSoup
 import requests
 
-from validate import validate_input, is_empty
-from .constants import BASE_URLS, PONS_LANGUAGES_TO_CODES, PONS_CODES_TO_LANGUAGES
-from .exceptions import (LanguageNotSupportedException,
+from .validate import validate_input, is_empty
+from .constants import BASE_URLS, PONS_CODES_TO_LANGUAGES
+from .exceptions import (
                         TranslationNotFound,
                         NotValidPayload,
                         ElementNotFoundInGetRequest,
@@ -26,15 +26,16 @@ class PonsTranslator(BaseTranslator):
         @param source: source language to translate from
         @param target: target language to translate to
         """
-        self.__base_url = BASE_URLS.get("PONS")
+        self._base_url = BASE_URLS.get("PONS")
         self.proxies = proxies
-        super().__init__(base_url=self.__base_url,
-                         languages=PONS_LANGUAGES_TO_CODES,
-                         source=self._source,
-                         target=self._target,
+        super().__init__(base_url=self._base_url,
+                         languages=PONS_CODES_TO_LANGUAGES,
+                         source=source,
+                         target=target,
                          payload_key=None,
                          element_tag='div',
-                         element_query={"class": "target"}
+                         element_query={"class": "target"},
+                         **kwargs
                          )
 
     def translate(self, word, return_all=False, **kwargs):
@@ -50,7 +51,7 @@ class PonsTranslator(BaseTranslator):
             return word
 
         if validate_input(word, max_chars=50):
-            url = "{}{}-{}/{}".format(self.__base_url, self._source, self._target, word)
+            url = "{}{}-{}/{}".format(self._base_url, self._source, self._target, word)
             url = requote_uri(url)
             response = requests.get(url, proxies=self.proxies)
 
@@ -70,9 +71,7 @@ class PonsTranslator(BaseTranslator):
             for el in elements:
                 temp = ''
                 for e in el.findAll('a'):
-                    if e.base.name == 'div':
-                        if e and "/translate/{}-{}/".format(self._target, self._source) in e.get('href'):
-                            temp += e.get_text() + ' '
+                    temp += e.get_text() + ' '
                 filtered_elements.append(temp)
 
             if not filtered_elements:

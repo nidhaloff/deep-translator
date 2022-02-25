@@ -1,7 +1,7 @@
 """
 mymemory translator API
 """
-from validate import is_empty, validate_input
+from .validate import is_empty, validate_input
 from .constants import BASE_URLS
 from .exceptions import (
                         TranslationNotFound,
@@ -20,10 +20,10 @@ class MyMemoryTranslator(BaseTranslator):
         @param source: source language to translate from
         @param target: target language to translate to
         """
-        self.__base_url = BASE_URLS.get("MYMEMORY")
+        self._base_url = BASE_URLS.get("MYMEMORY")
         self.proxies = proxies
         self.email = kwargs.get('email', None)
-        super(MyMemoryTranslator, self).__init__(base_url=self.__base_url,
+        super(MyMemoryTranslator, self).__init__(base_url=self._base_url,
                                                  source=self._source,
                                                  target=self._target,
                                                  payload_key='q',
@@ -49,7 +49,7 @@ class MyMemoryTranslator(BaseTranslator):
             if self.email:
                 self._url_params['de'] = self.email
 
-            response = requests.get(self.__base_url,
+            response = requests.get(self._base_url,
                                     params=self._url_params,
                                     proxies=self.proxies)
 

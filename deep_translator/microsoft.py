@@ -35,7 +35,7 @@ class MicrosoftTranslator(BaseTranslator):
         if region:
             self.region = region
             self.headers["Ocp-Apim-Subscription-Region"] = self.region
-        self.__base_url = BASE_URLS.get("MICROSOFT_TRANSLATE")
+        self._base_url = BASE_URLS.get("MICROSOFT_TRANSLATE")
         super().__init__(
             source=source,
             target=target,
@@ -66,7 +66,7 @@ class MicrosoftTranslator(BaseTranslator):
 
         valid_microsoft_json = [{'text': text}]
         try:
-            requested = requests.post(self.__base_url,
+            requested = requests.post(self._base_url,
                                       params=self._url_params,
                                       headers=self.headers,
                                       json=valid_microsoft_json,

@@ -2,10 +2,10 @@
 google translator API
 """
 
-from .constants import BASE_URLS
-from .exceptions import TooManyRequests, TranslationNotFound, RequestError
-from .base import BaseTranslator
-from .validate import validate_input, is_empty
+from deep_translator.constants import BASE_URLS
+from deep_translator.exceptions import TooManyRequests, TranslationNotFound, RequestError
+from deep_translator.base import BaseTranslator
+from deep_translator.validate import validate_input, is_empty
 from bs4 import BeautifulSoup
 import requests
 
@@ -20,16 +20,13 @@ class GoogleTranslator(BaseTranslator):
         @param source: source language to translate from
         @param target: target language to translate to
         """
-        self.__base_url = BASE_URLS.get("GOOGLE_TRANSLATE")
         self.proxies = proxies
-        super().__init__(base_url=self.__base_url,
+        super().__init__(base_url=BASE_URLS.get("GOOGLE_TRANSLATE"),
                          source=source,
                          target=target,
                          element_tag='div',
                          element_query={"class": "t0"},
                          payload_key='q',  # key of text in the url
-                         tl=self._target,
-                         sl=self._source,
                          **kwargs)
 
         self._alt_element_query = {"class": "result-container"}
@@ -45,11 +42,13 @@ class GoogleTranslator(BaseTranslator):
 
         if validate_input(text):
             text = text.strip()
+            self._url_params['tl'] = self._target
+            self._url_params['sl'] = self._source
 
             if self.payload_key:
                 self._url_params[self.payload_key] = text
 
-            response = requests.get(self.__base_url,
+            response = requests.get(self._base_url,
                                     params=self._url_params,
                                     proxies=self.proxies)
             if response.status_code == 429:
@@ -96,3 +95,8 @@ class GoogleTranslator(BaseTranslator):
         @return: list of translations
         """
         return self._translate_batch(batch, **kwargs)
+
+
+if __name__ == '__main__':
+    t = GoogleTranslator().translate("hallo welt")
+    print("translation: ", t)

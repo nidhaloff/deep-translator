@@ -15,21 +15,25 @@ class BaseTranslator(ABC):
                  payload_key=None,
                  element_tag=None,
                  element_query=None,
-                 languages=GOOGLE_LANGUAGES_TO_CODES,
+                 languages=None,
                  **url_params):
         """
         @param source: source language to translate from
         @param target: target language to translate to
         """
-        self.__base_url = base_url
+        self._base_url = base_url
+        self.languages: dict = GOOGLE_LANGUAGES_TO_CODES if not languages else languages
+        self.supported_languages: list = list(self.languages.keys())
+
         self._source, self._target = self._map_language_to_code(source, target)
         self._url_params = url_params
         self._element_tag = element_tag
         self._element_query = element_query
         self.payload_key = payload_key
-        self.languages: dict = languages
-        self.supported_languages: list = list(self.languages.keys())
         super().__init__()
+
+    def _type(self):
+        return self.__class__.__name__
 
     def _map_language_to_code(self, *languages):
         """
