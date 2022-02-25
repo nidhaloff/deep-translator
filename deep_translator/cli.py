@@ -1,12 +1,10 @@
 """Console script for deep_translator."""
 import argparse
-from .base import BaseTranslator
+from .engines import __engines__
 
 
 class CLI(object):
-    translators_dict = {
-        translator.__name__.replace('Translator', '').lower():
-        translator for translator in BaseTranslator.__subclasses__()}
+    translators_dict = __engines__
     translator = None
 
     def __init__(self, custom_args=None):
