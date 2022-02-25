@@ -58,5 +58,5 @@ def test_incorrect_target_attributes():
 def test_abbreviations():
     m1 = MicrosoftTranslator(api_key=APIkey, source="en", target="fr")
     m2 = MicrosoftTranslator(api_key=APIkey, source="English", target="French")
-    assert ''.join(m1.source) == ''.join(m2.source)
-    assert ''.join(m1.target) == ''.join(m2.target)
+    assert ''.join(m1._source) == ''.join(m2._source)
+    assert ''.join(m1._target) == ''.join(m2._target)

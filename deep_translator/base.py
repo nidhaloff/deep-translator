@@ -1,6 +1,7 @@
 """base translator class"""
 
 from .constants import GOOGLE_LANGUAGES_TO_CODES
+from .exceptions import InvalidSourceOrTargetLanguage
 from abc import ABC, abstractmethod
 
 
@@ -24,6 +25,11 @@ class BaseTranslator(ABC):
         self._base_url = base_url
         self.languages: dict = GOOGLE_LANGUAGES_TO_CODES if not languages else languages
         self.supported_languages: list = list(self.languages.keys())
+        if not source:
+            raise InvalidSourceOrTargetLanguage(source)
+        if not target:
+            raise InvalidSourceOrTargetLanguage(target)
+
         self._source, self._target = self._map_language_to_code(source, target)
         self._url_params = url_params
         self._element_tag = element_tag
