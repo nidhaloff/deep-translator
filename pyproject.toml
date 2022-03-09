@@ -42,6 +42,20 @@ pytest-runner = "^5.3.1"
 toml = "^0.10.2"
 black = "^22.1.0"
 isort = "^5.10.1"
+python-semantic-release = "^7.26.0"
+
+[tool.semantic_release]
+version_variable = [
+    "deep_translator/__init__.py:__version__"
+]
+version_toml = [
+    "pyproject.toml:tool.poetry.version"
+]
+major_on_zero = false
+branch = "master"
+upload_to_PyPI = true
+upload_to_release = true
+build_command = "pip install poetry && poetry build"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

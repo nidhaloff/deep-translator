@@ -1,0 +1,30 @@
+name: Semantic Release
+
+on:
+    push:
+        branches:
+            - master
+        tags:
+            - 'v*'
+    workflow_run:
+        workflows:
+            - "test"
+        types:
+            - completed
+jobs:
+    release:
+        name: "Release on Pypi"
+        runs-on: ubuntu-latest
+        concurrency: release
+
+        steps:
+            -   uses: actions/checkout@v2
+                with:
+                    fetch-depth: 0
+
+            -   name: Python Semantic Release
+                uses: relekang/python-semantic-release@master
+                with:
+                    github_token: ${{ secrets.GITHUB_TOKEN }}
+                    repository_username: __token__
+                    repository_password: ${{ secrets.PYPI_TOKEN }}
