@@ -3,19 +3,20 @@
 """Tests for `deep_translator` package."""
 
 import pytest
-from deep_translator import exceptions, LingueeTranslator
+
+from deep_translator import LingueeTranslator, exceptions
 
 
 @pytest.fixture
 def linguee():
-    return LingueeTranslator(source="english", target='german')
+    return LingueeTranslator(source="english", target="german")
 
 
 def test_content(linguee):
     """Sample pytest test function with the pytest fixture as an argument."""
     # from bs4 import BeautifulSoup
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
-    assert linguee.translate(word='good') is not None
+    assert linguee.translate(word="good") is not None
 
 
 def test_inputs():
@@ -46,4 +47,4 @@ def test_payload(linguee):
         linguee.translate([])
 
     with pytest.raises(exceptions.NotValidLength):
-        linguee.translate("a"*51)
+        linguee.translate("a" * 51)

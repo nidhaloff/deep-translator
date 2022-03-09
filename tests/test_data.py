@@ -1,4 +1,4 @@
-test_text_standard = 'Hello world.'
+test_text_standard = "Hello world."
 
 TRANSLATED_RESULTS = {
     "afrikaans": "Hello Wêreld.",
@@ -108,5 +108,5 @@ TRANSLATED_RESULTS = {
     "xhosa": "Molo Lizwe.",
     "yiddish": "העלא וועלט.",
     "yoruba": "Mo ki O Ile Aiye.",
-    "zulu": "Sawubona Mhlaba."
+    "zulu": "Sawubona Mhlaba.",
 }

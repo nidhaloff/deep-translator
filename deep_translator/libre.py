@@ -2,14 +2,18 @@
 LibreTranslate API
 """
 
+from typing import List, Optional
+
 import requests
 
-from .validate import is_empty, validate_input
-from .base import BaseTranslator
-from .constants import BASE_URLS,LIBRE_LANGUAGES_TO_CODES
-from .exceptions import (ServerException,
-                         TranslationNotFound,
-                         AuthorizationException)
+from deep_translator.base import BaseTranslator
+from deep_translator.constants import BASE_URLS, LIBRE_LANGUAGES_TO_CODES
+from deep_translator.exceptions import (
+    AuthorizationException,
+    ServerException,
+    TranslationNotFound,
+)
+from deep_translator.validate import is_empty, is_input_valid
 
 
 class LibreTranslator(BaseTranslator):
@@ -17,7 +21,13 @@ class LibreTranslator(BaseTranslator):
     class that wraps functions, which use libre translator under the hood to translate text(s)
     """
 
-    def __init__(self, source="auto", target="en", api_key=None, **kwargs):
+    def __init__(
+        self,
+        api_key: Optional[str] = None,
+        source: str = "auto",
+        target: str = "en",
+        **kwargs
+    ):
         """
         @param source: source language to translate from
         List of LibreTranslate nedpoints can be found at : https://github.com/LibreTranslate/LibreTranslate#mirrors
@@ -27,34 +37,38 @@ class LibreTranslator(BaseTranslator):
         if not api_key:
             raise ServerException(401)
         self.api_key = api_key
-        super().__init__(base_url=BASE_URLS.get("LIBRE"),
-                         source=source,
-                         target=target,
-                         languages=LIBRE_LANGUAGES_TO_CODES)
+        super().__init__(
+            base_url=BASE_URLS.get("LIBRE"),
+            source=source,
+            target=target,
+            languages=LIBRE_LANGUAGES_TO_CODES,
+        )
 
-    def translate(self, text, **kwargs):
+    def translate(self, text: str, **kwargs) -> str:
         """
         function that uses microsoft translate to translate a text
         @param text: desired text to translate
         @return: str: translated text
         """
-        if validate_input(text):
+        if is_input_valid(text):
             if self._same_source_target() or is_empty(text):
                 return text
 
-            translate_endpoint = 'translate'
+            translate_endpoint = "translate"
             params = {
                 "q": text,
                 "source": self._source,
                 "target": self._target,
-                "format": 'text'
+                "format": "text",
             }
             # Add API Key if required
             if self.api_key:
                 params["api_key"] = self.api_key
             # Do the request and check the connection.
             try:
-                response = requests.post(self._base_url + translate_endpoint, params=params)
+                response = requests.post(
+                    self._base_url + translate_endpoint, params=params
+                )
             except ConnectionError:
                 raise ServerException(503)
             # If the answer is not success, raise server exception.
@@ -68,9 +82,9 @@ class LibreTranslator(BaseTranslator):
             if not res:
                 raise TranslationNotFound(text)
             # Process and return the response.
-            return res['translatedText']
+            return res["translatedText"]
 
-    def translate_file(self, path, **kwargs):
+    def translate_file(self, path: str, **kwargs) -> str:
         """
         translate directly from file
         @param path: path to the target file
@@ -80,7 +94,7 @@ class LibreTranslator(BaseTranslator):
         """
         return self._translate_file(path, **kwargs)
 
-    def translate_batch(self, batch=None, **kwargs):
+    def translate_batch(self, batch: List[str], **kwargs) -> List[str]:
         """
         translate a list of texts
         @param batch: list of texts you want to translate

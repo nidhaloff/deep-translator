@@ -2,30 +2,40 @@
 
 """Tests for `deep_translator` package."""
 
-import pytest
 from unittest.mock import patch
+
+import pytest
 import requests
 
-from deep_translator import exceptions, MicrosoftTranslator
+from deep_translator import MicrosoftTranslator, exceptions
 
 
 # mocked request.post
-@patch.object(requests, 'post')
+@patch.object(requests, "post")
 def test_microsoft_successful_post_mock(mock_request_post):
-    returned_json = [{'translations': [{'text': 'See you later!', 'to': 'en'}]}]
+    returned_json = [{"translations": [{"text": "See you later!", "to": "en"}]}]
+
     def res():
         r = requests.Response()
+
         def json_func():
             return returned_json
+
         r.json = json_func
         return r
+
     mock_request_post.return_value = res()
-    assert MicrosoftTranslator(api_key="an_api_key", source='de', target="en").translate("auf wiedersehen!") == "See you later!"
+    assert (
+        MicrosoftTranslator(api_key="an_api_key", source="de", target="en").translate(
+            "auf wiedersehen!"
+        )
+        == "See you later!"
+    )
 
 
 def test_MicrosoftAPIerror():
     with pytest.raises(exceptions.MicrosoftAPIerror):
-        MicrosoftTranslator(api_key="empty", source='de', target="en").translate("text")
+        MicrosoftTranslator(api_key="empty", source="de", target="en").translate("text")
 
 
 # the remaining tests are actual requests to Microsoft API and use an api key
@@ -36,13 +46,17 @@ APIkey = None
 
 @pytest.mark.skipif(APIkey is None, reason="api_key is not provided")
 def test_microsoft_successful_post_onetarget():
-    posted = MicrosoftTranslator(api_key=APIkey, target="en").translate("auf wiedersehen!")
+    posted = MicrosoftTranslator(api_key=APIkey, target="en").translate(
+        "auf wiedersehen!"
+    )
     assert isinstance(posted, str)
 
 
 @pytest.mark.skipif(APIkey is None, reason="api_key is not provided")
 def test_microsoft_successful_post_twotargets():
-    posted = MicrosoftTranslator(api_key=APIkey, target=["en", "ru"]).translate("auf wiedersehen!")
+    posted = MicrosoftTranslator(api_key=APIkey, target=["en", "ru"]).translate(
+        "auf wiedersehen!"
+    )
     assert isinstance(posted, str)
 
 
@@ -58,5 +72,5 @@ def test_incorrect_target_attributes():
 def test_abbreviations():
     m1 = MicrosoftTranslator(api_key=APIkey, source="en", target="fr")
     m2 = MicrosoftTranslator(api_key=APIkey, source="English", target="French")
-    assert ''.join(m1._source) == ''.join(m2._source)
-    assert ''.join(m1._target) == ''.join(m2._target)
+    assert "".join(m1._source) == "".join(m2._source)
+    assert "".join(m1._target) == "".join(m2._target)

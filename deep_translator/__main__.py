@@ -1,5 +1,4 @@
-
-from .cli import CLI
+from deep_translator.cli import CLI
 
 
 def main():

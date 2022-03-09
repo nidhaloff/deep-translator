@@ -1,11 +1,15 @@
+from typing import List, Optional
+
 import requests
 
-from deep_translator.validate import is_empty, validate_input
-from deep_translator.constants import BASE_URLS, DEEPL_LANGUAGE_TO_CODE
-from deep_translator.exceptions import (ServerException,
-                         TranslationNotFound,
-                         AuthorizationException)
 from deep_translator.base import BaseTranslator
+from deep_translator.constants import BASE_URLS, DEEPL_LANGUAGE_TO_CODE
+from deep_translator.exceptions import (
+    AuthorizationException,
+    ServerException,
+    TranslationNotFound,
+)
+from deep_translator.validate import is_empty, is_input_valid
 
 
 class DeeplTranslator(BaseTranslator):
@@ -13,7 +17,14 @@ class DeeplTranslator(BaseTranslator):
     class that wraps functions, which use the DeeplTranslator translator under the hood to translate word(s)
     """
 
-    def __init__(self, api_key=None, source="de", target="en", use_free_api=True, **kwargs):
+    def __init__(
+        self,
+        api_key: Optional[str] = None,
+        source: str = "de",
+        target: str = "en",
+        use_free_api: bool = True,
+        **kwargs
+    ):
         """
         @param api_key: your DeeplTranslator api key.
         Get one here: https://www.deepl.com/docs-api/accessing-the-api/
@@ -22,39 +33,43 @@ class DeeplTranslator(BaseTranslator):
         """
         if not api_key:
             raise ServerException(401)
-        self.version = 'v2'
+        self.version = "v2"
         self.api_key = api_key
-        url = BASE_URLS.get(
-                "DEEPL_FREE").format(version=self.version) if use_free_api else BASE_URLS.get(
-                "DEEPL").format(version=self.version)
+        url = (
+            BASE_URLS.get("DEEPL_FREE").format(version=self.version)
+            if use_free_api
+            else BASE_URLS.get("DEEPL").format(version=self.version)
+        )
         super().__init__(
             base_url=url,
             source=source,
             target=target,
             languages=DEEPL_LANGUAGE_TO_CODE,
-            **kwargs)
+            **kwargs
+        )
 
-    def translate(self, text, **kwargs):
+    def translate(self, text: str, **kwargs) -> str:
         """
         @param text: text to translate
         @return: translated text
         """
-        if validate_input(text):
+        if is_input_valid(text):
             if self._same_source_target() or is_empty(text):
                 return text
 
             # Create the request parameters.
-            translate_endpoint = 'translate'
+            translate_endpoint = "translate"
             params = {
                 "auth_key": self.api_key,
                 "source_lang": self._source,
                 "target_lang": self._target,
-                "text": text
+                "text": text,
             }
             # Do the request and check the connection.
             try:
                 response = requests.get(
-                    self._base_url + translate_endpoint, params=params)
+                    self._base_url + translate_endpoint, params=params
+                )
             except ConnectionError:
                 raise ServerException(503)
             # If the answer is not success, raise server exception.
@@ -67,12 +82,12 @@ class DeeplTranslator(BaseTranslator):
             if not res:
                 raise TranslationNotFound(text)
             # Process and return the response.
-            return res['translations'][0]['text']
+            return res["translations"][0]["text"]
 
-    def translate_file(self, path, **kwargs):
+    def translate_file(self, path: str, **kwargs) -> str:
         return self._translate_file(path, **kwargs)
 
-    def translate_batch(self, batch, **kwargs):
+    def translate_batch(self, batch: List[str], **kwargs) -> List[str]:
         """
         @param batch: list of texts to translate
         @return: list of translations
@@ -80,7 +95,7 @@ class DeeplTranslator(BaseTranslator):
         return self._translate_batch(batch, **kwargs)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     d = DeeplTranslator(target="en", api_key="some-key")
     t = d.translate("Ich habe keine ahnung")
     print("text: ", t)

@@ -19,6 +19,7 @@
 #
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('..'))
 
 # import deep_translator
@@ -58,6 +59,7 @@ author = "Nidhal Baccouri"
 #
 # The short X.Y version.
 import toml
+
 with open("../pyproject.toml", "r") as f:
     tom = toml.load(f)
 version = tom['tool']['poetry']['version']

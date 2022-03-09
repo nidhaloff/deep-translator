@@ -3,19 +3,20 @@
 """Tests for `deep_translator` package."""
 
 import pytest
-from deep_translator import exceptions, MyMemoryTranslator
+
+from deep_translator import MyMemoryTranslator, exceptions
 
 
 @pytest.fixture
 def mymemory():
-    return MyMemoryTranslator(source="en", target='fr')
+    return MyMemoryTranslator(source="en", target="fr")
 
 
 def test_content(mymemory):
     """Sample pytest test function with the pytest fixture as an argument."""
     # from bs4 import BeautifulSoup
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
-    assert mymemory.translate(text='good') is not None
+    assert mymemory.translate(text="good") is not None
 
 
 def test_inputs():
@@ -46,6 +47,4 @@ def test_payload(mymemory):
         mymemory.translate(text=[])
 
     with pytest.raises(exceptions.NotValidLength):
-        mymemory.translate(text="a"*501)
-
-
+        mymemory.translate(text="a" * 501)
