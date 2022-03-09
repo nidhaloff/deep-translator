@@ -22,8 +22,8 @@ Imports
                                  LingueeTranslator,
                                  MyMemoryTranslator,
                                  YandexTranslator,
-                                 DeepL,
-                                 QCRI,
+                                 DeeplTranslator,
+                                 QcriTranslator,
                                  single_detection,
                                  batch_detection)
 
@@ -140,12 +140,12 @@ Mymemory Translator
     translated = MyMemoryTranslator(source='en', target='fr').translate_file(path)
 
 
-DeepL Translator
+DeeplTranslator Translator
 -----------------
 
 .. note::
 
-    In order to use the DeepL translator, you need to generate an api key. Visit https://www.deepl.com/en/docs-api/
+    In order to use the DeeplTranslator translator, you need to generate an api key. Visit https://www.deepl.com/en/docs-api/
     for more information
 
 - Simple translation
@@ -154,7 +154,7 @@ DeepL Translator
 
     text = 'Keep it up. You are awesome'
 
-    translated = DeepL("your_api_key").translate(text)
+    translated = DeeplTranslator("your_api_key").translate(text)
 
 - Translate batch of texts
 
@@ -163,14 +163,14 @@ DeepL Translator
     texts = ["hallo welt", "guten morgen"]
 
     # the translate_sentences function is deprecated, use the translate_batch function instead
-    translated = DeepL("your_api_key").translate_batch(texts)
+    translated = DeeplTranslator("your_api_key").translate_batch(texts)
 
-QCRI Translator
+QcriTranslator Translator
 --------------------
 
 .. note::
 
-    In order to use the QCRI translator, you need to generate a free api key. Visit https://mt.qcri.org/api/
+    In order to use the QcriTranslator translator, you need to generate a free api key. Visit https://mt.qcri.org/api/
     for more information
 
 - Check languages
@@ -178,14 +178,14 @@ QCRI Translator
 .. code-block:: python
 
     # as a property
-    print("language pairs: ", QCRI("your_api_key").languages)
+    print("language pairs: ", QcriTranslator("your_api_key").languages)
 
 - Check domains
 
 .. code-block:: python
 
     # as a property
-    print("domains: ", QCRI("your_api_key").domains)
+    print("domains: ", QcriTranslator("your_api_key").domains)
 
 - Text translation
 
@@ -193,7 +193,7 @@ QCRI Translator
 
     text = 'Education is great'
 
-    translated = QCRI("your_api_key").translate(source='en', target='ar', domain="news", text=text)
+    translated = QcriTranslator("your_api_key").translate(source='en', target='ar', domain="news", text=text)
     # output -> التعليم هو عظيم
 
     # see docs for batch translation and more.
@@ -306,7 +306,7 @@ Libre Translator
 .. note::
 
     Libre translate has multiple  `mirrors <https://github.com/LibreTranslate/LibreTranslate#mirrors>`_ which can be used for the API endpoint.
-    Some require an API key to be used. By default the base url is set to `libretranslate.de <https://libretranslate.de/>`_ . 
+    Some require an API key to be used. By default the base url is set to `libretranslate.de <https://libretranslate.de/>`_ .
     This can be set using the "base_url" input parameter.
 
 .. code-block:: python

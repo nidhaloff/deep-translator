@@ -106,8 +106,8 @@ Features
 * Support for the `Linguee translator <https://www.linguee.com/>`_
 * Support for the `Mymemory translator <https://mymemory.translated.net/>`_
 * Support for the `Yandex translator <https://yandex.com/>`_ (version >= 1.2.1)
-* Support for the `QCRI translator <https://mt.qcri.org/api/>`_ (version >= 1.2.4)
-* Support for the `DeepL translator <https://www.deepl.com/en/translator/>`_ (version >= 1.2.5)
+* Support for the `QcriTranslator translator <https://mt.qcri.org/api/>`_ (version >= 1.2.4)
+* Support for the `DeeplTranslator translator <https://www.deepl.com/en/translator/>`_ (version >= 1.2.5)
 * Support for the `Papago translator <https://papago.naver.com/>`_ (version >= 1.4.4)
 * Support for the `Libre translator <https://libretranslate.com/>`_
 * Support for proxy usage
@@ -187,8 +187,8 @@ Imports
                                  MyMemoryTranslator,
                                  YandexTranslator,
                                  PapagoTranslator,
-                                 DeepL,
-                                 QCRI,
+                                 DeeplTranslator,
+                                 QcriTranslator,
                                  single_detection,
                                  batch_detection)
 
@@ -306,12 +306,12 @@ Mymemory Translator
     translated = MyMemoryTranslator(source='en', target='fr').translate_file(path)
 
 
-DeepL Translator
+DeeplTranslator Translator
 -----------------
 
 .. note::
 
-    In order to use the DeepL translator, you need to generate an api key. Deepl offers a Pro and a free API.
+    In order to use the DeeplTranslator translator, you need to generate an api key. Deepl offers a Pro and a free API.
     deep-translator supports both Pro and free APIs. Just check the examples below.
     Visit https://www.deepl.com/en/docs-api/ for more information on how to generate your Deepl api key
 
@@ -321,7 +321,7 @@ DeepL Translator
 
     text = 'Keep it up. You are awesome'
 
-    translated = DeepL(api_key="your_api_key", source="en", target="en", use_free_api=True).translate(text)
+    translated = DeeplTranslator(api_key="your_api_key", source="en", target="en", use_free_api=True).translate(text)
 
 .. note::
         deep-translator uses free deepl api by default. If you have the pro version then simply set the use_free_api to false.
@@ -334,14 +334,14 @@ DeepL Translator
     texts = ["hallo welt", "guten morgen"]
 
     # the translate_sentences function is deprecated, use the translate_batch function instead
-    translated = DeepL("your_api_key").translate_batch(texts)
+    translated = DeeplTranslator("your_api_key").translate_batch(texts)
 
-QCRI Translator
+QcriTranslator Translator
 --------------------
 
 .. note::
 
-    In order to use the QCRI translator, you need to generate a free api key. Visit https://mt.qcri.org/api/
+    In order to use the QcriTranslator translator, you need to generate a free api key. Visit https://mt.qcri.org/api/
     for more information
 
 - Check languages
@@ -349,14 +349,14 @@ QCRI Translator
 .. code-block:: python
 
     # as a property
-    print("language pairs: ", QCRI("your_api_key").languages)
+    print("language pairs: ", QcriTranslator("your_api_key").languages)
 
 - Check domains
 
 .. code-block:: python
 
     # as a property
-    print("domains: ", QCRI("your_api_key").domains)
+    print("domains: ", QcriTranslator("your_api_key").domains)
 
 - Text translation
 
@@ -364,7 +364,7 @@ QCRI Translator
 
     text = 'Education is great'
 
-    translated = QCRI("your_api_key").translate(source='en', target='ar', domain="news", text=text)
+    translated = QcriTranslator("your_api_key").translate(source='en', target='ar', domain="news", text=text)
     # output -> التعليم هو عظيم
 
     # see docs for batch translation and more.

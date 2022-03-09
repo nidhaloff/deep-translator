@@ -5,12 +5,16 @@ from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator
 
 english_text = 'happy coding'
 chinese_text = '這很好'
+translator = GoogleTranslator(source='auto', target='german')
+result1 = translator.translate(text=english_text)
+result2 = translator.translate(text=chinese_text)
 
-result_german = GoogleTranslator(source='english', target='german').translate(text=english_text)
-result_french = GoogleTranslator(source='auto', target='french').translate(text=chinese_text)
+print(f"original english text: {english_text} | translated text: {result1}")
+print(f"original chinese text: {chinese_text} | translated text: {result2}")
 
-print(f"original english text: {english_text} | translated text: {result_german}")  # result: fröhliche Codierung
-print(f"original chinese text: {chinese_text} | translated text: {result_french}")  # result: C' est bon
+# file translation
+result_file = translator.translate_file('./test.txt')
+print("file translation: ", result_file)
 
 # examples using linguee:
 text = 'cute'
@@ -19,5 +23,6 @@ print("Using Linguee ==> the translated text: ", translated)
 
 # examples using pons:
 text = 'good'
-translated = PonsTranslator(source='english', target='arabic').translate(word=text)
+translated = PonsTranslator(source='en', target='ar').translate(word=text)
 print("using Pons ==> the translated text: ", translated)
+

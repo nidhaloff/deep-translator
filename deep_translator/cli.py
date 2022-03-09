@@ -1,6 +1,6 @@
 """Console script for deep_translator."""
-from . import __engines__
 import argparse
+from .engines import __engines__
 
 
 class CLI(object):
@@ -10,7 +10,6 @@ class CLI(object):
     def __init__(self, custom_args=None):
         self.custom_args = custom_args
         self.args = self.parse_args()
-        # print(f'{__engines__}')
         translator_class = self.translators_dict.get(self.args.translator, None)
         if not translator_class:
             raise Exception(f"Translator {self.args.translator} is not supported."
@@ -24,7 +23,7 @@ class CLI(object):
         """
         res = self.translator.translate(self.args.text)
         print("Translation from {} to {}".format(self.args.source, self.args.target))
-        print("-"*50)
+        print("-" * 50)
         print("Translation result: {}".format(res))
 
     def get_supported_languages(self):
@@ -69,7 +68,6 @@ class CLI(object):
                             help="all the languages available with the translator"
                                  "Run the command deep_translator -trans <translator service> -lang")
         parsed_args = parser.parse_args(self.custom_args) if self.custom_args else parser.parse_args()
-        print(f"parsed args: {parsed_args}")
         return parsed_args
 
     def run(self):

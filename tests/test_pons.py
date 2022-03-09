@@ -19,11 +19,15 @@ def test_content(pons):
 
 
 def test_inputs():
-    with pytest.raises(exceptions.LanguageNotSupportedException):
+    with pytest.raises(exceptions.InvalidSourceOrTargetLanguage):
         PonsTranslator(source="", target="")
 
-    with pytest.raises(exceptions.LanguageNotSupportedException):
-        PonsTranslator(source="auto", target="nothing")
+    with pytest.raises(exceptions.InvalidSourceOrTargetLanguage):
+        PonsTranslator(source="auto", target="")
+
+    with pytest.raises(exceptions.InvalidSourceOrTargetLanguage):
+        PonsTranslator(source="", target="en")
+
     l1 = PonsTranslator("en", "fr")
     l2 = PonsTranslator("english", "french")
     assert l1._source == l2._source
@@ -31,10 +35,6 @@ def test_inputs():
 
 
 def test_payload(pons):
-
-    with pytest.raises(exceptions.NotValidPayload):
-        pons.translate("")
-
     with pytest.raises(exceptions.NotValidPayload):
         pons.translate(123)
 
@@ -47,11 +47,3 @@ def test_payload(pons):
     with pytest.raises(exceptions.NotValidLength):
         pons.translate("a" * 51)
 
-
-
-def test_translate_words(pons):
-    words = ['hello', 'world']
-    translated_words = pons.translate_words(words)
-
-def test_one_character_words(pons):
-    assert pons.translate('I')

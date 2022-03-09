@@ -19,11 +19,15 @@ def test_content(mymemory):
 
 
 def test_inputs():
-    with pytest.raises(exceptions.LanguageNotSupportedException):
+    with pytest.raises(exceptions.InvalidSourceOrTargetLanguage):
         MyMemoryTranslator(source="", target="")
 
-    with pytest.raises(exceptions.LanguageNotSupportedException):
-        MyMemoryTranslator(source="auto", target="nothing")
+    with pytest.raises(exceptions.InvalidSourceOrTargetLanguage):
+        MyMemoryTranslator(source="auto", target="")
+
+    with pytest.raises(exceptions.InvalidSourceOrTargetLanguage):
+        MyMemoryTranslator(source="", target="en")
+
     m1 = MyMemoryTranslator("en", "fr")
     m2 = MyMemoryTranslator("english", "french")
     assert m1._source == m2._source
@@ -31,9 +35,6 @@ def test_inputs():
 
 
 def test_payload(mymemory):
-
-    with pytest.raises(exceptions.NotValidPayload):
-        mymemory.translate(text="")
 
     with pytest.raises(exceptions.NotValidPayload):
         mymemory.translate(text=123)
@@ -47,7 +48,4 @@ def test_payload(mymemory):
     with pytest.raises(exceptions.NotValidLength):
         mymemory.translate(text="a"*501)
 
-
-def test_one_character_words(mymemory):
-    assert mymemory.translate('I')
 

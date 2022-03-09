@@ -20,7 +20,7 @@ Exceptions
     :undoc-members:
     :show-inheritance:
 
-    
+
 Language Detection Library
 ----------------------------------
 
@@ -40,7 +40,7 @@ Google Translator
     :undoc-members:
     :show-inheritance:
 
-DeepL
+DeeplTranslator
 ----------------------------------
 
 .. automodule:: deep_translator.deepl
@@ -88,7 +88,7 @@ Pons
     :undoc-members:
     :show-inheritance:
 
-QCRI
+QcriTranslator
 ----------------------------------
 
 .. automodule:: deep_translator.qcri

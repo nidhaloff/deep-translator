@@ -8,7 +8,7 @@ BASE_URLS = {
     "MYMEMORY": "http://api.mymemory.translated.net/get",
     "QCRI": "https://mt.qcri.org/api/v1/{endpoint}?",
     "DEEPL": "https://api.deepl.com/{version}/",
-    "DEEPL_FREE": "https://api-free.deepl.com/v2/",
+    "DEEPL_FREE": "https://api-free.deepl.com/{version}/",
     "MICROSOFT_TRANSLATE": "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0",
     "PAPAGO": "https://papago.naver.com/",
     "PAPAGO_API": "https://openapi.naver.com/v1/papago/n2mt",
@@ -196,16 +196,6 @@ LINGUEE_LANGUAGES_TO_CODES = {
 }
 
 LINGUEE_CODE_TO_LANGUAGE = {v: k for k, v in LINGUEE_LANGUAGES_TO_CODES.items()}
-
-# "72e9e2cc7c992db4dcbdd6fb9f91a0d1"
-
-# obtaining the current list of supported Microsoft languages for translation
-
-microsoft_languages_api_url = "https://api.cognitive.microsofttranslator.com/languages?api-version=3.0&scope=translation"
-microsoft_languages_response = requests.get(microsoft_languages_api_url)
-translation_dict = microsoft_languages_response.json()['translation']
-
-MICROSOFT_CODES_TO_LANGUAGES = {translation_dict[k]['name'].lower(): k for k in translation_dict.keys()}
 
 DEEPL_LANGUAGE_TO_CODE = {
     "bulgarian": "bg",

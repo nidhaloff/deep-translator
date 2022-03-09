@@ -43,9 +43,8 @@ class InvalidSourceOrTargetLanguage(BaseError):
 
     def __init__(self,
                  val,
-                 message="source and target language can't be the same"):
+                 message="Invalid source or target language!"):
         super(InvalidSourceOrTargetLanguage, self).__init__(val, message)
-
 
 
 class TranslationNotFound(BaseError):

@@ -8,7 +8,7 @@ from deep_translator import exceptions, LingueeTranslator
 
 @pytest.fixture
 def linguee():
-    return LingueeTranslator(source="english", target='french')
+    return LingueeTranslator(source="english", target='german')
 
 
 def test_content(linguee):
@@ -19,11 +19,14 @@ def test_content(linguee):
 
 
 def test_inputs():
-    with pytest.raises(exceptions.LanguageNotSupportedException):
+    with pytest.raises(exceptions.InvalidSourceOrTargetLanguage):
         LingueeTranslator(source="", target="")
 
-    with pytest.raises(exceptions.LanguageNotSupportedException):
-        LingueeTranslator(source="auto", target="nothing")
+    with pytest.raises(exceptions.InvalidSourceOrTargetLanguage):
+        LingueeTranslator(source="auto", target="")
+
+    with pytest.raises(exceptions.InvalidSourceOrTargetLanguage):
+        LingueeTranslator(source="", target="en")
 
     l1 = LingueeTranslator("en", "fr")
     l2 = LingueeTranslator("english", "french")
@@ -32,9 +35,6 @@ def test_inputs():
 
 
 def test_payload(linguee):
-
-    with pytest.raises(exceptions.NotValidPayload):
-        linguee.translate("")
 
     with pytest.raises(exceptions.NotValidPayload):
         linguee.translate(123)
@@ -47,12 +47,3 @@ def test_payload(linguee):
 
     with pytest.raises(exceptions.NotValidLength):
         linguee.translate("a"*51)
-
-
-
-def test_translate_words(linguee):
-    words = ['hello', 'world']
-    translated_words = linguee.translate_words(words)
-
-def test_one_character_words():
-    assert LingueeTranslator(source='es', target='en').translate('y') == 'and'
