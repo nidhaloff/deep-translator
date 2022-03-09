@@ -3,10 +3,10 @@
 import requests
 import logging
 import sys
-from .constants import BASE_URLS
-from .exceptions import ServerException, MicrosoftAPIerror
-from .base import BaseTranslator
-from .validate import validate_input
+from deep_translator.constants import BASE_URLS
+from deep_translator.exceptions import ServerException, MicrosoftAPIerror
+from deep_translator.base import BaseTranslator
+from deep_translator.validate import validate_input
 
 
 class MicrosoftTranslator(BaseTranslator):
@@ -14,7 +14,15 @@ class MicrosoftTranslator(BaseTranslator):
     the class that wraps functions, which use the Microsoft translator under the hood to translate word(s)
     """
 
-    def __init__(self, api_key=None, region=None, source=None, target=None, proxies=None, **kwargs):
+    def __init__(
+        self,
+        api_key=None,
+        region=None,
+        source=None,
+        target=None,
+        proxies=None,
+        **kwargs,
+    ):
         """
         @params api_key and target are the required params
         @param api_key: your Microsoft API key
@@ -41,17 +49,16 @@ class MicrosoftTranslator(BaseTranslator):
             source=source,
             target=target,
             languages=MICROSOFT_CODES_TO_LANGUAGES,
-            **kwargs
+            **kwargs,
         )
 
     def _get_supported_languages(self):
 
-        microsoft_languages_api_url = \
-            "https://api.cognitive.microsofttranslator.com/languages?api-version=3.0&scope=translation"
+        microsoft_languages_api_url = "https://api.cognitive.microsofttranslator.com/languages?api-version=3.0&scope=translation"
         microsoft_languages_response = requests.get(microsoft_languages_api_url)
-        translation_dict = microsoft_languages_response.json()['translation']
+        translation_dict = microsoft_languages_response.json()["translation"]
 
-        return {translation_dict[k]['name'].lower(): k for k in translation_dict.keys()}
+        return {translation_dict[k]["name"].lower(): k for k in translation_dict.keys()}
 
     def translate(self, text, **kwargs):
         """
@@ -63,28 +70,31 @@ class MicrosoftTranslator(BaseTranslator):
         # I have not added multiple text processing here since it is covered by the translate_batch method
 
         if validate_input(text):
-            self._url_params['from'] = self._source
-            self._url_params['to'] = self._target
+            self._url_params["from"] = self._source
+            self._url_params["to"] = self._target
 
-            valid_microsoft_json = [{'text': text}]
+            valid_microsoft_json = [{"text": text}]
             try:
-                requested = requests.post(self._base_url,
-                                          params=self._url_params,
-                                          headers=self.headers,
-                                          json=valid_microsoft_json,
-                                          proxies=self.proxies)
+                requested = requests.post(
+                    self._base_url,
+                    params=self._url_params,
+                    headers=self.headers,
+                    json=valid_microsoft_json,
+                    proxies=self.proxies,
+                )
             except requests.exceptions.RequestException:
                 exc_type, value, traceback = sys.exc_info()
                 logging.warning(f"Returned error: {exc_type.__name__}")
 
             # Where Microsoft API responds with an api error, it returns a dict in response.json()
             if type(requested.json()) is dict:
-                error_message = requested.json()['error']
+                error_message = requested.json()["error"]
                 raise MicrosoftAPIerror(error_message)
             # Where it responds with a translation, its response.json() is a list e.g. [{'translations': [{'text': 'Hello world!', 'to': 'en'}]}]
             elif type(requested.json()) is list:
-                all_translations = [i['text']
-                                    for i in requested.json()[0]['translations']]
+                all_translations = [
+                    i["text"] for i in requested.json()[0]["translations"]
+                ]
                 return "\n".join(all_translations)
 
     def translate_file(self, path, **kwargs):

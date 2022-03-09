@@ -4,12 +4,14 @@ LibreTranslate API
 
 import requests
 
-from .validate import is_empty, validate_input
-from .base import BaseTranslator
-from .constants import BASE_URLS,LIBRE_LANGUAGES_TO_CODES
-from .exceptions import (ServerException,
-                         TranslationNotFound,
-                         AuthorizationException)
+from deep_translator.validate import is_empty, validate_input
+from deep_translator.base import BaseTranslator
+from deep_translator.constants import BASE_URLS, LIBRE_LANGUAGES_TO_CODES
+from deep_translator.exceptions import (
+    ServerException,
+    TranslationNotFound,
+    AuthorizationException,
+)
 
 
 class LibreTranslator(BaseTranslator):
@@ -27,10 +29,12 @@ class LibreTranslator(BaseTranslator):
         if not api_key:
             raise ServerException(401)
         self.api_key = api_key
-        super().__init__(base_url=BASE_URLS.get("LIBRE"),
-                         source=source,
-                         target=target,
-                         languages=LIBRE_LANGUAGES_TO_CODES)
+        super().__init__(
+            base_url=BASE_URLS.get("LIBRE"),
+            source=source,
+            target=target,
+            languages=LIBRE_LANGUAGES_TO_CODES,
+        )
 
     def translate(self, text, **kwargs):
         """
@@ -42,19 +46,21 @@ class LibreTranslator(BaseTranslator):
             if self._same_source_target() or is_empty(text):
                 return text
 
-            translate_endpoint = 'translate'
+            translate_endpoint = "translate"
             params = {
                 "q": text,
                 "source": self._source,
                 "target": self._target,
-                "format": 'text'
+                "format": "text",
             }
             # Add API Key if required
             if self.api_key:
                 params["api_key"] = self.api_key
             # Do the request and check the connection.
             try:
-                response = requests.post(self._base_url + translate_endpoint, params=params)
+                response = requests.post(
+                    self._base_url + translate_endpoint, params=params
+                )
             except ConnectionError:
                 raise ServerException(503)
             # If the answer is not success, raise server exception.
@@ -68,7 +74,7 @@ class LibreTranslator(BaseTranslator):
             if not res:
                 raise TranslationNotFound(text)
             # Process and return the response.
-            return res['translatedText']
+            return res["translatedText"]
 
     def translate_file(self, path, **kwargs):
         """

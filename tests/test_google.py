@@ -12,12 +12,12 @@ def google_translator():
     """Sample pytest fixture.
     See more at: http://doc.pytest.org/en/latest/fixture.html
     """
-    return GoogleTranslator(target='en')
+    return GoogleTranslator(target="en")
 
 
 def test_content(google_translator):
     """Sample pytest test function with the pytest fixture as an argument."""
-    assert google_translator.translate(text='좋은') == "good"
+    assert google_translator.translate(text="좋은") == "good"
 
 
 def test_abbreviations_and_languages_mapping():
@@ -47,9 +47,9 @@ def test_empty_text(google_translator):
 def test_payload(google_translator):
 
     with pytest.raises(exceptions.NotValidPayload):
-        google_translator.translate(text='1234')
-        google_translator.translate(text='{}')
-        google_translator.translate(text='%@')
+        google_translator.translate(text="1234")
+        google_translator.translate(text="{}")
+        google_translator.translate(text="%@")
 
     with pytest.raises(exceptions.NotValidPayload):
         google_translator.translate(text=123)
@@ -61,8 +61,8 @@ def test_payload(google_translator):
         google_translator.translate(text=[])
 
     with pytest.raises(exceptions.NotValidLength):
-        google_translator.translate("a"*5001)
+        google_translator.translate("a" * 5001)
 
 
 def test_one_character_words():
-    assert GoogleTranslator(source='es', target='en').translate('o') == 'or'
+    assert GoogleTranslator(source="es", target="en").translate("o") == "or"

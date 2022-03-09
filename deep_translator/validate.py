@@ -1,6 +1,4 @@
-
-from .exceptions import NotValidPayload, NotValidLength
-import string
+from deep_translator.exceptions import NotValidPayload, NotValidLength
 
 
 def is_empty(text: str):

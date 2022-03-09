@@ -3,7 +3,11 @@ google translator API
 """
 
 from deep_translator.constants import BASE_URLS
-from deep_translator.exceptions import TooManyRequests, TranslationNotFound, RequestError
+from deep_translator.exceptions import (
+    TooManyRequests,
+    TranslationNotFound,
+    RequestError,
+)
 from deep_translator.base import BaseTranslator
 from deep_translator.validate import validate_input, is_empty
 from bs4 import BeautifulSoup
@@ -21,13 +25,15 @@ class GoogleTranslator(BaseTranslator):
         @param target: target language to translate to
         """
         self.proxies = proxies
-        super().__init__(base_url=BASE_URLS.get("GOOGLE_TRANSLATE"),
-                         source=source,
-                         target=target,
-                         element_tag='div',
-                         element_query={"class": "t0"},
-                         payload_key='q',  # key of text in the url
-                         **kwargs)
+        super().__init__(
+            base_url=BASE_URLS.get("GOOGLE_TRANSLATE"),
+            source=source,
+            target=target,
+            element_tag="div",
+            element_query={"class": "t0"},
+            payload_key="q",  # key of text in the url
+            **kwargs
+        )
 
         self._alt_element_query = {"class": "result-container"}
 
@@ -41,22 +47,22 @@ class GoogleTranslator(BaseTranslator):
             text = text.strip()
             if self._same_source_target() or is_empty(text):
                 return text
-            self._url_params['tl'] = self._target
-            self._url_params['sl'] = self._source
+            self._url_params["tl"] = self._target
+            self._url_params["sl"] = self._source
 
             if self.payload_key:
                 self._url_params[self.payload_key] = text
 
-            response = requests.get(self._base_url,
-                                    params=self._url_params,
-                                    proxies=self.proxies)
+            response = requests.get(
+                self._base_url, params=self._url_params, proxies=self.proxies
+            )
             if response.status_code == 429:
                 raise TooManyRequests()
 
             if response.status_code != 200:
                 raise RequestError()
 
-            soup = BeautifulSoup(response.text, 'html.parser')
+            soup = BeautifulSoup(response.text, "html.parser")
 
             element = soup.find(self._element_tag, self._element_query)
 
@@ -65,9 +71,15 @@ class GoogleTranslator(BaseTranslator):
                 if not element:
                     raise TranslationNotFound(text)
             if element.get_text(strip=True) == text.strip():
-                to_translate_alpha = ''.join(ch for ch in text.strip() if ch.isalnum())
-                translated_alpha = ''.join(ch for ch in element.get_text(strip=True) if ch.isalnum())
-                if to_translate_alpha and translated_alpha and to_translate_alpha == translated_alpha:
+                to_translate_alpha = "".join(ch for ch in text.strip() if ch.isalnum())
+                translated_alpha = "".join(
+                    ch for ch in element.get_text(strip=True) if ch.isalnum()
+                )
+                if (
+                    to_translate_alpha
+                    and translated_alpha
+                    and to_translate_alpha == translated_alpha
+                ):
                     self._url_params["tl"] = self._target
                     if "hl" not in self._url_params:
                         return text.strip()
@@ -96,6 +108,6 @@ class GoogleTranslator(BaseTranslator):
         return self._translate_batch(batch, **kwargs)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     t = GoogleTranslator().translate("hallo welt")
     print("translation: ", t)

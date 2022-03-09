@@ -1,7 +1,7 @@
 """base translator class"""
 
-from .constants import GOOGLE_LANGUAGES_TO_CODES
-from .exceptions import InvalidSourceOrTargetLanguage
+from deep_translator.constants import GOOGLE_LANGUAGES_TO_CODES
+from deep_translator.exceptions import InvalidSourceOrTargetLanguage
 from abc import ABC, abstractmethod
 
 
@@ -9,15 +9,18 @@ class BaseTranslator(ABC):
     """
     Abstract class that serve as a base translator for other different translators
     """
-    def __init__(self,
-                 base_url=None,
-                 source="auto",
-                 target="en",
-                 payload_key=None,
-                 element_tag=None,
-                 element_query=None,
-                 languages=None,
-                 **url_params):
+
+    def __init__(
+        self,
+        base_url=None,
+        source="auto",
+        target="en",
+        payload_key=None,
+        element_tag=None,
+        element_query=None,
+        languages=None,
+        **url_params
+    ):
         """
         @param source: source language to translate from
         @param target: target language to translate to
@@ -47,7 +50,7 @@ class BaseTranslator(ABC):
         @return: mapped value of the language or raise an exception if the language is not supported
         """
         for language in languages:
-            if language in self.languages.values() or language == 'auto':
+            if language in self.languages.values() or language == "auto":
                 yield language
             elif language in self.languages.keys():
                 yield self.languages[language]
@@ -69,7 +72,11 @@ class BaseTranslator(ABC):
         @param language: a string for 1 language
         @return: bool or raise an Exception
         """
-        if language == 'auto' or language in self.languages.keys() or language in self.languages.values():
+        if (
+            language == "auto"
+            or language in self.languages.keys()
+            or language in self.languages.values()
+        ):
             return True
         else:
             return False
@@ -82,7 +89,7 @@ class BaseTranslator(ABC):
         @param kwargs: additional arguments
         @return: str
         """
-        return NotImplemented('You need to implement the translate method!')
+        return NotImplemented("You need to implement the translate method!")
 
     def _translate_file(self, path, **kwargs):
         """
@@ -93,7 +100,7 @@ class BaseTranslator(ABC):
         @return: str
         """
         try:
-            with open(path, 'r', encoding='utf-8') as f:
+            with open(path, "r", encoding="utf-8") as f:
                 text = f.read().strip()
             return self.translate(text)
         except Exception as e:

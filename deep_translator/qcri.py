@@ -1,8 +1,7 @@
-
 import requests
-from .constants import BASE_URLS, QCRI_LANGUAGE_TO_CODE
-from .exceptions import (ServerException, TranslationNotFound)
-from .base import BaseTranslator
+from deep_translator.constants import BASE_URLS, QCRI_LANGUAGE_TO_CODE
+from deep_translator.exceptions import ServerException, TranslationNotFound
+from deep_translator.base import BaseTranslator
 
 
 class QcriTranslator(BaseTranslator):
@@ -24,23 +23,23 @@ class QcriTranslator(BaseTranslator):
             "translate": "translate",
         }
 
-        self.params = {
-            "key": self.api_key
-        }
+        self.params = {"key": self.api_key}
         super().__init__(
             base_url=BASE_URLS.get("QcriTranslator"),
             source=source,
             target=target,
             languages=QCRI_LANGUAGE_TO_CODE,
-            **kwargs
+            **kwargs,
         )
 
     def _get(self, endpoint, params=None, return_text=True):
         if not params:
             params = self.params
         try:
-            res = requests.get(self._base_url.format(
-                endpoint=self.api_endpoints[endpoint]), params=params)
+            res = requests.get(
+                self._base_url.format(endpoint=self.api_endpoints[endpoint]),
+                params=params,
+            )
             return res.text if return_text else res
         except Exception as e:
             raise e
@@ -60,9 +59,9 @@ class QcriTranslator(BaseTranslator):
     def translate(self, text, **kwargs):
         params = {
             "key": self.api_key,
-            "langpair": "{}-{}".format(self._source, self._target),
+            "langpair": f"{self._source}-{self._target}",
             "domain": kwargs["domain"],
-            "text": text
+            "text": text,
         }
         try:
             response = self._get("translate", params=params, return_text=False)

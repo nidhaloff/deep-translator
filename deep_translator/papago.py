@@ -2,12 +2,12 @@
 google translator API
 """
 import json
-from .constants import BASE_URLS, PAPAGO_LANGUAGE_TO_CODE
-from .exceptions import TranslationNotFound
-from .base import BaseTranslator
+from deep_translator.constants import BASE_URLS, PAPAGO_LANGUAGE_TO_CODE
+from deep_translator.exceptions import TranslationNotFound
+from deep_translator.base import BaseTranslator
 import requests
 
-from .validate import validate_input
+from deep_translator.validate import validate_input
 
 
 class PapagoTranslator(BaseTranslator):
@@ -15,14 +15,17 @@ class PapagoTranslator(BaseTranslator):
     class that wraps functions, which use google translate under the hood to translate text(s)
     """
 
-    def __init__(self, client_id=None, secret_key=None, source="auto", target="en", **kwargs):
+    def __init__(
+        self, client_id=None, secret_key=None, source="auto", target="en", **kwargs
+    ):
         """
         @param source: source language to translate from
         @param target: target language to translate to
         """
         if not client_id or not secret_key:
             raise Exception(
-                "Please pass your client id and secret key! visit the papago website for more infos")
+                "Please pass your client id and secret key! visit the papago website for more infos"
+            )
 
         self.client_id = client_id
         self.secret_key = secret_key
@@ -31,7 +34,7 @@ class PapagoTranslator(BaseTranslator):
             source=source,
             target=target,
             languages=PAPAGO_LANGUAGE_TO_CODE,
-            **kwargs
+            **kwargs,
         )
 
     def translate(self, text, **kwargs):
@@ -41,21 +44,17 @@ class PapagoTranslator(BaseTranslator):
         @return: str: translated text
         """
         if validate_input(text):
-            payload = {
-                "source": self._source,
-                "target": self._target,
-                "text": text
-            }
+            payload = {"source": self._source, "target": self._target, "text": text}
             headers = {
-                'X-Naver-Client-Id': self.client_id,
-                'X-Naver-Client-Secret': self.secret_key,
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                "X-Naver-Client-Id": self.client_id,
+                "X-Naver-Client-Secret": self.secret_key,
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
             }
-            response = requests.post(
-                self._base_url, headers=headers, data=payload)
+            response = requests.post(self._base_url, headers=headers, data=payload)
             if response.status_code != 200:
                 raise Exception(
-                    f'Translation error! -> status code: {response.status_code}')
+                    f"Translation error! -> status code: {response.status_code}"
+                )
             res_body = json.loads(response.text)
             if "message" not in res_body:
                 raise TranslationNotFound(text)

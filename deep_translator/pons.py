@@ -4,15 +4,16 @@ pons translator API
 from bs4 import BeautifulSoup
 import requests
 
-from .validate import validate_input, is_empty
-from .constants import BASE_URLS, PONS_CODES_TO_LANGUAGES
-from .exceptions import (
-                        TranslationNotFound,
-                        NotValidPayload,
-                        ElementNotFoundInGetRequest,
-                        RequestError,
-                        TooManyRequests)
-from .base import BaseTranslator
+from deep_translator.validate import validate_input, is_empty
+from deep_translator.constants import BASE_URLS, PONS_CODES_TO_LANGUAGES
+from deep_translator.exceptions import (
+    TranslationNotFound,
+    NotValidPayload,
+    ElementNotFoundInGetRequest,
+    RequestError,
+    TooManyRequests,
+)
+from deep_translator.base import BaseTranslator
 from requests.utils import requote_uri
 
 
@@ -27,15 +28,16 @@ class PonsTranslator(BaseTranslator):
         @param target: target language to translate to
         """
         self.proxies = proxies
-        super().__init__(base_url=BASE_URLS.get("PONS"),
-                         languages=PONS_CODES_TO_LANGUAGES,
-                         source=source,
-                         target=target,
-                         payload_key=None,
-                         element_tag='div',
-                         element_query={"class": "target"},
-                         **kwargs
-                         )
+        super().__init__(
+            base_url=BASE_URLS.get("PONS"),
+            languages=PONS_CODES_TO_LANGUAGES,
+            source=source,
+            target=target,
+            payload_key=None,
+            element_tag="div",
+            element_query={"class": "target"},
+            **kwargs,
+        )
 
     def translate(self, word, return_all=False, **kwargs):
         """
@@ -49,7 +51,7 @@ class PonsTranslator(BaseTranslator):
         if validate_input(word, max_chars=50):
             if self._same_source_target() or is_empty(word):
                 return word
-            url = "{}{}-{}/{}".format(self._base_url, self._source, self._target, word)
+            url = f"{self._base_url}{self._source}-{self._target}/{word}"
             url = requote_uri(url)
             response = requests.get(url, proxies=self.proxies)
 
@@ -59,7 +61,7 @@ class PonsTranslator(BaseTranslator):
             if response.status_code != 200:
                 raise RequestError()
 
-            soup = BeautifulSoup(response.text, 'html.parser')
+            soup = BeautifulSoup(response.text, "html.parser")
             elements = soup.findAll(self._element_tag, self._element_query)
 
             if not elements:
@@ -67,9 +69,9 @@ class PonsTranslator(BaseTranslator):
 
             filtered_elements = []
             for el in elements:
-                temp = ''
-                for e in el.findAll('a'):
-                    temp += e.get_text() + ' '
+                temp = ""
+                for e in el.findAll("a"):
+                    temp += e.get_text() + " "
                 filtered_elements.append(temp)
 
             if not filtered_elements:
@@ -96,4 +98,3 @@ class PonsTranslator(BaseTranslator):
         for word in words:
             translated_words.append(self.translate(word=word, **kwargs))
         return translated_words
-

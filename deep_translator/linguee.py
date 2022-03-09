@@ -1,15 +1,16 @@
 """
 linguee translator API
 """
-from .validate import validate_input, is_empty
-from .constants import BASE_URLS, LINGUEE_LANGUAGES_TO_CODES
-from .exceptions import (
-                        TranslationNotFound,
-                        NotValidPayload,
-                        ElementNotFoundInGetRequest,
-                        RequestError,
-                        TooManyRequests)
-from .base import BaseTranslator
+from deep_translator.validate import validate_input, is_empty
+from deep_translator.constants import BASE_URLS, LINGUEE_LANGUAGES_TO_CODES
+from deep_translator.exceptions import (
+    TranslationNotFound,
+    NotValidPayload,
+    ElementNotFoundInGetRequest,
+    RequestError,
+    TooManyRequests,
+)
+from deep_translator.base import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
 from requests.utils import requote_uri
@@ -26,14 +27,15 @@ class LingueeTranslator(BaseTranslator):
         @param target: target language to translate to
         """
         self.proxies = proxies
-        super().__init__(base_url=BASE_URLS.get("LINGUEE"),
-                         source=source,
-                         target=target,
-                         languages=LINGUEE_LANGUAGES_TO_CODES,
-                         element_tag='a',
-                         element_query={'class': 'dictLink featured'},
-                         payload_key=None,  # key of text in the url
-                        )
+        super().__init__(
+            base_url=BASE_URLS.get("LINGUEE"),
+            source=source,
+            target=target,
+            languages=LINGUEE_LANGUAGES_TO_CODES,
+            element_tag="a",
+            element_query={"class": "dictLink featured"},
+            payload_key=None,  # key of text in the url
+        )
 
     def translate(self, word, return_all=False, **kwargs):
         """
@@ -49,7 +51,9 @@ class LingueeTranslator(BaseTranslator):
 
         if validate_input(word, max_chars=50):
             # %s-%s/translation/%s.html
-            url = "{}{}-{}/translation/{}.html".format(self._base_url, self._source, self._target, word)
+            url = (
+                f"{self._base_url}{self._source}-{self._target}/translation/{word}.html"
+            )
             url = requote_uri(url)
             response = requests.get(url, proxies=self.proxies)
 
@@ -58,7 +62,7 @@ class LingueeTranslator(BaseTranslator):
 
             if response.status_code != 200:
                 raise RequestError()
-            soup = BeautifulSoup(response.text, 'html.parser')
+            soup = BeautifulSoup(response.text, "html.parser")
             elements = soup.find_all(self._element_tag, self._element_query)
             if not elements:
                 raise ElementNotFoundInGetRequest(elements)
@@ -66,10 +70,12 @@ class LingueeTranslator(BaseTranslator):
             filtered_elements = []
             for el in elements:
                 try:
-                    pronoun = el.find('span', {'class': 'placeholder'}).get_text(strip=True)
+                    pronoun = el.find("span", {"class": "placeholder"}).get_text(
+                        strip=True
+                    )
                 except AttributeError:
-                    pronoun = ''
-                filtered_elements.append(el.get_text(strip=True).replace(pronoun, ''))
+                    pronoun = ""
+                filtered_elements.append(el.get_text(strip=True).replace(pronoun, ""))
 
             if not filtered_elements:
                 raise TranslationNotFound(word)
@@ -90,4 +96,3 @@ class LingueeTranslator(BaseTranslator):
         for word in words:
             translated_words.append(self.translate(word=word, **kwargs))
         return translated_words
-
