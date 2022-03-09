@@ -306,7 +306,7 @@ Mymemory Translator
     translated = MyMemoryTranslator(source='en', target='fr').translate_file(path)
 
 
-DeeplTranslator Translator
+DeeplTranslator
 -----------------
 
 .. note::
@@ -336,7 +336,7 @@ DeeplTranslator Translator
     # the translate_sentences function is deprecated, use the translate_batch function instead
     translated = DeeplTranslator("your_api_key").translate_batch(texts)
 
-QcriTranslator Translator
+QcriTranslator
 --------------------
 
 .. note::
@@ -657,9 +657,8 @@ You can always help the development of this project by:
 - Create issues and pull requests
 - Sponsor the project
 
-==========
 Next Steps
-==========
+===========
 
 Take a look in the examples folder for more :)
 Contributions are always welcome.

@@ -44,7 +44,7 @@ Check Supported Languages
     langs_dict = GoogleTranslator.get_supported_languages(as_dict=True)  # output: {arabic: ar, french: fr, english:en etc...}
 
 Language Detection
-------------------
+-------------------
 
 .. note::
 
@@ -140,7 +140,7 @@ Mymemory Translator
     translated = MyMemoryTranslator(source='en', target='fr').translate_file(path)
 
 
-DeeplTranslator Translator
+DeeplTranslator
 -----------------
 
 .. note::
@@ -165,7 +165,7 @@ DeeplTranslator Translator
     # the translate_sentences function is deprecated, use the translate_batch function instead
     translated = DeeplTranslator("your_api_key").translate_batch(texts)
 
-QcriTranslator Translator
+QcriTranslator
 --------------------
 
 .. note::

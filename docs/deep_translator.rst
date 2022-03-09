@@ -4,6 +4,22 @@ deep\_translator package
 Submodules
 ----------
 
+deep\_translator.base module
+----------------------------
+
+.. automodule:: deep_translator.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+deep\_translator.cli module
+---------------------------
+
+.. automodule:: deep_translator.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 deep\_translator.constants module
 ---------------------------------
 
@@ -28,6 +44,14 @@ deep\_translator.detection module
    :undoc-members:
    :show-inheritance:
 
+deep\_translator.engines module
+-------------------------------
+
+.. automodule:: deep_translator.engines
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 deep\_translator.exceptions module
 ----------------------------------
 
@@ -36,10 +60,10 @@ deep\_translator.exceptions module
    :undoc-members:
    :show-inheritance:
 
-deep\_translator.google\_trans module
--------------------------------------
+deep\_translator.google module
+------------------------------
 
-.. automodule:: deep_translator.google_trans
+.. automodule:: deep_translator.google
    :members:
    :undoc-members:
    :show-inheritance:
@@ -56,14 +80,6 @@ deep\_translator.linguee module
 -------------------------------
 
 .. automodule:: deep_translator.linguee
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-deep\_translator.main module
-----------------------------
-
-.. automodule:: deep_translator.main
    :members:
    :undoc-members:
    :show-inheritance:
@@ -92,14 +108,6 @@ deep\_translator.papago module
    :undoc-members:
    :show-inheritance:
 
-deep\_translator.parent module
-------------------------------
-
-.. automodule:: deep_translator.parent
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 deep\_translator.pons module
 ----------------------------
 
@@ -112,6 +120,14 @@ deep\_translator.qcri module
 ----------------------------
 
 .. automodule:: deep_translator.qcri
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+deep\_translator.validate module
+--------------------------------
+
+.. automodule:: deep_translator.validate
    :members:
    :undoc-members:
    :show-inheritance:
