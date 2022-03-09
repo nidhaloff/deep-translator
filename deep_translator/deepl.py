@@ -1,6 +1,6 @@
 import requests
 from typing import Optional, List
-from deep_translator.validate import is_empty, validate_input
+from deep_translator.validate import is_empty, is_input_valid
 from deep_translator.constants import BASE_URLS, DEEPL_LANGUAGE_TO_CODE
 from deep_translator.exceptions import (
     ServerException,
@@ -51,7 +51,7 @@ class DeeplTranslator(BaseTranslator):
         @param text: text to translate
         @return: translated text
         """
-        if validate_input(text):
+        if is_input_valid(text):
             if self._same_source_target() or is_empty(text):
                 return text
 

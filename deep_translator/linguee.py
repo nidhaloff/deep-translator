@@ -1,7 +1,7 @@
 """
 linguee translator API
 """
-from deep_translator.validate import validate_input, is_empty
+from deep_translator.validate import is_input_valid, is_empty
 from deep_translator.constants import BASE_URLS, LINGUEE_LANGUAGES_TO_CODES
 from deep_translator.exceptions import (
     TranslationNotFound,
@@ -54,7 +54,7 @@ class LingueeTranslator(BaseTranslator):
         if self._same_source_target() or is_empty(word):
             return word
 
-        if validate_input(word, max_chars=50):
+        if is_input_valid(word, max_chars=50):
             # %s-%s/translation/%s.html
             url = (
                 f"{self._base_url}{self._source}-{self._target}/translation/{word}.html"

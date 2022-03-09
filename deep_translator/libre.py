@@ -4,7 +4,7 @@ LibreTranslate API
 
 import requests
 from typing import Optional, List
-from deep_translator.validate import is_empty, validate_input
+from deep_translator.validate import is_empty, is_input_valid
 from deep_translator.base import BaseTranslator
 from deep_translator.constants import BASE_URLS, LIBRE_LANGUAGES_TO_CODES
 from deep_translator.exceptions import (
@@ -48,7 +48,7 @@ class LibreTranslator(BaseTranslator):
         @param text: desired text to translate
         @return: str: translated text
         """
-        if validate_input(text):
+        if is_input_valid(text):
             if self._same_source_target() or is_empty(text):
                 return text
 

@@ -5,7 +5,7 @@ def is_empty(text: str) -> bool:
     return text == ""
 
 
-def validate_input(text: str, min_chars: int = 0, max_chars: int = 5000) -> bool:
+def is_input_valid(text: str, min_chars: int = 0, max_chars: int = 5000) -> bool:
     """
     validate the target text to translate
     @param min_chars: min characters

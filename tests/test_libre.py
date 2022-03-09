@@ -4,7 +4,7 @@
 
 import pytest
 from deep_translator import exceptions, LibreTranslator
-from deep_translator.constants import LIBRE_CODES_TO_LANGUAGES
+from deep_translator.constants import LIBRE_LANGUAGES_TO_CODES
 
 
 @pytest.fixture
@@ -24,9 +24,9 @@ def test_inputs():
 
 
 def test_abbreviations_and_languages_mapping():
-    for abb, lang in LIBRE_CODES_TO_LANGUAGES.items():
-        l1 = LibreTranslator(abb, api_key="some_key")
-        l2 = LibreTranslator(lang, api_key="some_key")
+    for abb, lang in LIBRE_LANGUAGES_TO_CODES.items():
+        l1 = LibreTranslator(source=abb, api_key="some_key")
+        l2 = LibreTranslator(source=lang, api_key="some_key")
         assert l1._source == l2._source
 
 

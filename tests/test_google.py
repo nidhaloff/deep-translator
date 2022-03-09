@@ -4,7 +4,7 @@
 
 import pytest
 from deep_translator import exceptions, GoogleTranslator
-from deep_translator.constants import GOOGLE_CODES_TO_LANGUAGES
+from deep_translator.constants import GOOGLE_LANGUAGES_TO_CODES
 
 
 @pytest.fixture
@@ -21,7 +21,7 @@ def test_content(google_translator):
 
 
 def test_abbreviations_and_languages_mapping():
-    for abb, lang in GOOGLE_CODES_TO_LANGUAGES.items():
+    for abb, lang in GOOGLE_LANGUAGES_TO_CODES.items():
         g1 = GoogleTranslator(abb)
         g2 = GoogleTranslator(lang)
         assert g1._source == g2._source

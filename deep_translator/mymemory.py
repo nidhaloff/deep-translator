@@ -1,7 +1,7 @@
 """
 mymemory translator API
 """
-from deep_translator.validate import is_empty, validate_input
+from deep_translator.validate import is_empty, is_input_valid
 from deep_translator.constants import BASE_URLS
 from deep_translator.exceptions import (
     TranslationNotFound,
@@ -48,7 +48,7 @@ class MyMemoryTranslator(BaseTranslator):
         @param return_all: set to True to return all synonym/similars of the translated text
         @return: str or list
         """
-        if validate_input(text, max_chars=500):
+        if is_input_valid(text, max_chars=500):
             text = text.strip()
             if self._same_source_target() or is_empty(text):
                 return text

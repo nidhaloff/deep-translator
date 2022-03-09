@@ -10,7 +10,7 @@ from deep_translator.exceptions import (
     TooManyRequests,
 )
 from deep_translator.base import BaseTranslator
-from deep_translator.validate import validate_input
+from deep_translator.validate import is_input_valid
 from typing import Optional, List
 
 
@@ -93,7 +93,7 @@ class YandexTranslator(BaseTranslator):
         return language
 
     def translate(self, text: str, proxies: Optional[dict] = None, **kwargs) -> str:
-        if validate_input(text):
+        if is_input_valid(text):
             params = {
                 "text": text,
                 "format": "plain",

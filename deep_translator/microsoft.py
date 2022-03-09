@@ -6,7 +6,7 @@ import sys
 from deep_translator.constants import BASE_URLS
 from deep_translator.exceptions import ServerException, MicrosoftAPIerror
 from deep_translator.base import BaseTranslator
-from deep_translator.validate import validate_input
+from deep_translator.validate import is_input_valid
 from typing import Optional, List
 
 
@@ -70,7 +70,7 @@ class MicrosoftTranslator(BaseTranslator):
         # a body must be a list of dicts to process multiple texts;
         # I have not added multiple text processing here since it is covered by the translate_batch method
 
-        if validate_input(text):
+        if is_input_valid(text):
             self._url_params["from"] = self._source
             self._url_params["to"] = self._target
 

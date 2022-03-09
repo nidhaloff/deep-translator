@@ -7,7 +7,7 @@ from deep_translator.exceptions import TranslationNotFound
 from deep_translator.base import BaseTranslator
 import requests
 from typing import Optional, List
-from deep_translator.validate import validate_input
+from deep_translator.validate import is_input_valid
 
 
 class PapagoTranslator(BaseTranslator):
@@ -48,7 +48,7 @@ class PapagoTranslator(BaseTranslator):
         @param text: desired text to translate
         @return: str: translated text
         """
-        if validate_input(text):
+        if is_input_valid(text):
             payload = {"source": self._source, "target": self._target, "text": text}
             headers = {
                 "X-Naver-Client-Id": self.client_id,

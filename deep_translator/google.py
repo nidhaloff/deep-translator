@@ -9,7 +9,7 @@ from deep_translator.exceptions import (
     RequestError,
 )
 from deep_translator.base import BaseTranslator
-from deep_translator.validate import validate_input, is_empty
+from deep_translator.validate import is_input_valid, is_empty
 from bs4 import BeautifulSoup
 import requests
 from typing import Optional, List
@@ -17,7 +17,7 @@ from typing import Optional, List
 
 class GoogleTranslator(BaseTranslator):
     """
-    class that wraps functions, which use google translate under the hood to translate text(s)
+    class that wraps functions, which use Google Translate under the hood to translate text(s)
     """
 
     def __init__(
@@ -46,11 +46,11 @@ class GoogleTranslator(BaseTranslator):
 
     def translate(self, text: str, **kwargs) -> str:
         """
-        function that uses google translate to translate a text
+        function to translate a text
         @param text: desired text to translate
         @return: str: translated text
         """
-        if validate_input(text):
+        if is_input_valid(text):
             text = text.strip()
             if self._same_source_target() or is_empty(text):
                 return text
