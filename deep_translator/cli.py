@@ -1,13 +1,14 @@
 """Console script for deep_translator."""
 import argparse
 from deep_translator.engines import __engines__
+from typing import Optional
 
 
 class CLI(object):
     translators_dict = __engines__
     translator = None
 
-    def __init__(self, custom_args=None):
+    def __init__(self, custom_args: Optional[list] = None):
         self.custom_args = custom_args
         self.args = self.parse_args()
         translator_class = self.translators_dict.get(self.args.translator, None)
@@ -20,7 +21,7 @@ class CLI(object):
             source=self.args.source, target=self.args.target
         )
 
-    def translate(self):
+    def translate(self) -> None:
         """
         function used to provide translations from the parsed terminal arguments
         @return: None
@@ -30,7 +31,7 @@ class CLI(object):
         print("-" * 50)
         print(f"Translation result: {res}")
 
-    def get_supported_languages(self):
+    def get_supported_languages(self) -> None:
         """
         function used to return the languages supported by the translator service from the parsed terminal arguments
         @return: None
@@ -42,7 +43,7 @@ class CLI(object):
         print(f"Languages supported by '{self.args.translator}' are :\n")
         print(translator_supported_languages)
 
-    def parse_args(self):
+    def parse_args(self) -> argparse.Namespace:
         """
         function responsible for parsing terminal arguments and provide them for further use in the translation process
         """
@@ -86,7 +87,7 @@ class CLI(object):
         )
         return parsed_args
 
-    def run(self):
+    def run(self) -> None:
         if self.args.languages:
             self.get_supported_languages()
         else:

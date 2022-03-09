@@ -6,7 +6,7 @@ from deep_translator.constants import BASE_URLS, PAPAGO_LANGUAGE_TO_CODE
 from deep_translator.exceptions import TranslationNotFound
 from deep_translator.base import BaseTranslator
 import requests
-
+from typing import Optional, List
 from deep_translator.validate import validate_input
 
 
@@ -16,7 +16,12 @@ class PapagoTranslator(BaseTranslator):
     """
 
     def __init__(
-        self, client_id=None, secret_key=None, source="auto", target="en", **kwargs
+        self,
+        client_id: Optional[str] = None,
+        secret_key: Optional[str] = None,
+        source: str = "auto",
+        target: str = "en",
+        **kwargs,
     ):
         """
         @param source: source language to translate from
@@ -37,7 +42,7 @@ class PapagoTranslator(BaseTranslator):
             **kwargs,
         )
 
-    def translate(self, text, **kwargs):
+    def translate(self, text: str, **kwargs) -> str:
         """
         function that uses google translate to translate a text
         @param text: desired text to translate
@@ -66,7 +71,7 @@ class PapagoTranslator(BaseTranslator):
             translated_text = result.get("translatedText")
             return translated_text
 
-    def translate_file(self, path, **kwargs):
+    def translate_file(self, path: str, **kwargs) -> str:
         """
         translate directly from file
         @param path: path to the target file
@@ -76,7 +81,7 @@ class PapagoTranslator(BaseTranslator):
         """
         return self._translate_file(path, **kwargs)
 
-    def translate_batch(self, batch=None, **kwargs):
+    def translate_batch(self, batch: List[str], **kwargs) -> List[str]:
         """
         translate a list of texts
         @param batch: list of texts you want to translate

@@ -7,6 +7,7 @@ from deep_translator.constants import BASE_URLS
 from deep_translator.exceptions import ServerException, MicrosoftAPIerror
 from deep_translator.base import BaseTranslator
 from deep_translator.validate import validate_input
+from typing import Optional, List
 
 
 class MicrosoftTranslator(BaseTranslator):
@@ -16,11 +17,11 @@ class MicrosoftTranslator(BaseTranslator):
 
     def __init__(
         self,
-        api_key=None,
-        region=None,
-        source=None,
-        target=None,
-        proxies=None,
+        api_key: Optional[str] = None,
+        region: Optional[str] = None,
+        source: str = "auto",
+        target: str = "en",
+        proxies: Optional[dict] = None,
         **kwargs,
     ):
         """
@@ -60,7 +61,7 @@ class MicrosoftTranslator(BaseTranslator):
 
         return {translation_dict[k]["name"].lower(): k for k in translation_dict.keys()}
 
-    def translate(self, text, **kwargs):
+    def translate(self, text: str, **kwargs) -> str:
         """
         function that uses microsoft translate to translate a text
         @param text: desired text to translate
@@ -97,7 +98,7 @@ class MicrosoftTranslator(BaseTranslator):
                 ]
                 return "\n".join(all_translations)
 
-    def translate_file(self, path, **kwargs):
+    def translate_file(self, path: str, **kwargs) -> str:
         """
         translate from a file
         @param path: path to file
@@ -105,7 +106,7 @@ class MicrosoftTranslator(BaseTranslator):
         """
         return self._translate_file(path, **kwargs)
 
-    def translate_batch(self, batch, **kwargs):
+    def translate_batch(self, batch: List[str], **kwargs) -> List[str]:
         """
         translate a batch of texts
         @param batch: list of texts to translate

@@ -3,6 +3,7 @@
 from deep_translator.constants import GOOGLE_LANGUAGES_TO_CODES
 from deep_translator.exceptions import InvalidSourceOrTargetLanguage
 from abc import ABC, abstractmethod
+from typing import Optional, List, Union
 
 
 class BaseTranslator(ABC):
@@ -12,13 +13,13 @@ class BaseTranslator(ABC):
 
     def __init__(
         self,
-        base_url=None,
-        source="auto",
-        target="en",
-        payload_key=None,
-        element_tag=None,
-        element_query=None,
-        languages=None,
+        base_url: str,
+        languages: dict = GOOGLE_LANGUAGES_TO_CODES,
+        source: str = "auto",
+        target: str = "en",
+        payload_key: Optional[str] = None,
+        element_tag: Optional[str] = None,
+        element_query: Optional[dict] = None,
         **url_params
     ):
         """
@@ -26,8 +27,8 @@ class BaseTranslator(ABC):
         @param target: target language to translate to
         """
         self._base_url = base_url
-        self.languages: dict = GOOGLE_LANGUAGES_TO_CODES if not languages else languages
-        self.supported_languages: list = list(self.languages.keys())
+        self.languages = languages
+        self.supported_languages = list(self.languages.keys())
         if not source:
             raise InvalidSourceOrTargetLanguage(source)
         if not target:
@@ -55,18 +56,20 @@ class BaseTranslator(ABC):
             elif language in self.languages.keys():
                 yield self.languages[language]
 
-    def _same_source_target(self):
+    def _same_source_target(self) -> bool:
         return self._source == self._target
 
-    def get_supported_languages(self, as_dict=False, **kwargs):
+    def get_supported_languages(
+        self, as_dict: bool = False, **kwargs
+    ) -> Union[list, dict]:
         """
-        return the supported languages by the google translator
+        return the supported languages by the Google translator
         @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
         @return: list or dict
         """
         return self.supported_languages if not as_dict else self.languages
 
-    def is_language_supported(self, language, **kwargs):
+    def is_language_supported(self, language: str, **kwargs) -> bool:
         """
         check if the language is supported by the translator
         @param language: a string for 1 language
@@ -82,7 +85,7 @@ class BaseTranslator(ABC):
             return False
 
     @abstractmethod
-    def translate(self, text, **kwargs):
+    def translate(self, text: str, **kwargs) -> str:
         """
         translate a text using a translator under the hood and return the translated text
         @param text: text to translate
@@ -91,7 +94,7 @@ class BaseTranslator(ABC):
         """
         return NotImplemented("You need to implement the translate method!")
 
-    def _translate_file(self, path, **kwargs):
+    def _translate_file(self, path: str, **kwargs) -> str:
         """
         translate directly from file
         @param path: path to the target file
@@ -106,7 +109,7 @@ class BaseTranslator(ABC):
         except Exception as e:
             raise e
 
-    def _translate_batch(self, batch=None, **kwargs):
+    def _translate_batch(self, batch: List[str], **kwargs) -> List[str]:
         """
         translate a list of texts
         @param batch: list of texts you want to translate

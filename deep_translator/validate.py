@@ -1,11 +1,11 @@
 from deep_translator.exceptions import NotValidPayload, NotValidLength
 
 
-def is_empty(text: str):
+def is_empty(text: str) -> bool:
     return text == ""
 
 
-def validate_input(text: str, min_chars: int = 0, max_chars: int = 5000):
+def validate_input(text: str, min_chars: int = 0, max_chars: int = 5000) -> bool:
     """
     validate the target text to translate
     @param min_chars: min characters

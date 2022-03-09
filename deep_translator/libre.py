@@ -3,7 +3,7 @@ LibreTranslate API
 """
 
 import requests
-
+from typing import Optional, List
 from deep_translator.validate import is_empty, validate_input
 from deep_translator.base import BaseTranslator
 from deep_translator.constants import BASE_URLS, LIBRE_LANGUAGES_TO_CODES
@@ -19,7 +19,13 @@ class LibreTranslator(BaseTranslator):
     class that wraps functions, which use libre translator under the hood to translate text(s)
     """
 
-    def __init__(self, source="auto", target="en", api_key=None, **kwargs):
+    def __init__(
+        self,
+        api_key: Optional[str] = None,
+        source: str = "auto",
+        target: str = "en",
+        **kwargs
+    ):
         """
         @param source: source language to translate from
         List of LibreTranslate nedpoints can be found at : https://github.com/LibreTranslate/LibreTranslate#mirrors
@@ -36,7 +42,7 @@ class LibreTranslator(BaseTranslator):
             languages=LIBRE_LANGUAGES_TO_CODES,
         )
 
-    def translate(self, text, **kwargs):
+    def translate(self, text: str, **kwargs) -> str:
         """
         function that uses microsoft translate to translate a text
         @param text: desired text to translate
@@ -76,7 +82,7 @@ class LibreTranslator(BaseTranslator):
             # Process and return the response.
             return res["translatedText"]
 
-    def translate_file(self, path, **kwargs):
+    def translate_file(self, path: str, **kwargs) -> str:
         """
         translate directly from file
         @param path: path to the target file
@@ -86,7 +92,7 @@ class LibreTranslator(BaseTranslator):
         """
         return self._translate_file(path, **kwargs)
 
-    def translate_batch(self, batch=None, **kwargs):
+    def translate_batch(self, batch: List[str], **kwargs) -> List[str]:
         """
         translate a list of texts
         @param batch: list of texts you want to translate

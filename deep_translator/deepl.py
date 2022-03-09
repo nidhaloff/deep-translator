@@ -1,5 +1,5 @@
 import requests
-
+from typing import Optional, List
 from deep_translator.validate import is_empty, validate_input
 from deep_translator.constants import BASE_URLS, DEEPL_LANGUAGE_TO_CODE
 from deep_translator.exceptions import (
@@ -16,7 +16,12 @@ class DeeplTranslator(BaseTranslator):
     """
 
     def __init__(
-        self, api_key=None, source="de", target="en", use_free_api=True, **kwargs
+        self,
+        api_key: Optional[str] = None,
+        source: str = "de",
+        target: str = "en",
+        use_free_api: bool = True,
+        **kwargs
     ):
         """
         @param api_key: your DeeplTranslator api key.
@@ -41,7 +46,7 @@ class DeeplTranslator(BaseTranslator):
             **kwargs
         )
 
-    def translate(self, text, **kwargs):
+    def translate(self, text: str, **kwargs) -> str:
         """
         @param text: text to translate
         @return: translated text
@@ -77,10 +82,10 @@ class DeeplTranslator(BaseTranslator):
             # Process and return the response.
             return res["translations"][0]["text"]
 
-    def translate_file(self, path, **kwargs):
+    def translate_file(self, path: str, **kwargs) -> str:
         return self._translate_file(path, **kwargs)
 
-    def translate_batch(self, batch, **kwargs):
+    def translate_batch(self, batch: List[str], **kwargs) -> List[str]:
         """
         @param batch: list of texts to translate
         @return: list of translations

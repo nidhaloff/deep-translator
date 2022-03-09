@@ -11,6 +11,7 @@ from deep_translator.exceptions import (
 )
 from deep_translator.base import BaseTranslator
 from deep_translator.validate import validate_input
+from typing import Optional, List
 
 
 class YandexTranslator(BaseTranslator):
@@ -18,7 +19,13 @@ class YandexTranslator(BaseTranslator):
     class that wraps functions, which use the yandex translator under the hood to translate word(s)
     """
 
-    def __init__(self, api_key=None, source="en", target="de", **kwargs):
+    def __init__(
+        self,
+        api_key: Optional[str] = None,
+        source: str = "en",
+        target: str = "de",
+        **kwargs
+    ):
         """
         @param api_key: your yandex api key
         """
@@ -43,7 +50,7 @@ class YandexTranslator(BaseTranslator):
         return self.get_supported_languages()
 
     @property
-    def dirs(self, proxies=None):
+    def dirs(self, proxies: Optional[dict] = None):
 
         try:
             url = self._base_url.format(version=self.api_version, endpoint="getLangs")
@@ -58,7 +65,7 @@ class YandexTranslator(BaseTranslator):
             raise ServerException(response.status_code)
         return data.get("dirs")
 
-    def detect(self, text, proxies=None):
+    def detect(self, text: str, proxies: Optional[dict] = None):
         response = None
         params = {
             "text": text,
@@ -85,7 +92,7 @@ class YandexTranslator(BaseTranslator):
             raise ServerException(501)
         return language
 
-    def translate(self, text, proxies=None, **kwargs):
+    def translate(self, text: str, proxies: Optional[dict] = None, **kwargs) -> str:
         if validate_input(text):
             params = {
                 "text": text,
@@ -116,7 +123,7 @@ class YandexTranslator(BaseTranslator):
 
             return response["text"]
 
-    def translate_file(self, path, **kwargs):
+    def translate_file(self, path: str, **kwargs) -> str:
         """
         translate from a file
         @param path: path to file
@@ -124,7 +131,7 @@ class YandexTranslator(BaseTranslator):
         """
         return self._translate_file(path, **kwargs)
 
-    def translate_batch(self, batch, **kwargs):
+    def translate_batch(self, batch: List[str], **kwargs) -> List[str]:
         """
         translate a batch of texts
         @param batch: list of texts to translate

@@ -14,6 +14,7 @@ from deep_translator.base import BaseTranslator
 from bs4 import BeautifulSoup
 import requests
 from requests.utils import requote_uri
+from typing import Optional, List, Union
 
 
 class LingueeTranslator(BaseTranslator):
@@ -21,7 +22,9 @@ class LingueeTranslator(BaseTranslator):
     class that wraps functions, which use the linguee translator under the hood to translate word(s)
     """
 
-    def __init__(self, source, target="en", proxies=None, **kwargs):
+    def __init__(
+        self, source: str, target: str = "en", proxies: Optional[dict] = None, **kwargs
+    ):
         """
         @param source: source language to translate from
         @param target: target language to translate to
@@ -37,7 +40,9 @@ class LingueeTranslator(BaseTranslator):
             payload_key=None,  # key of text in the url
         )
 
-    def translate(self, word, return_all=False, **kwargs):
+    def translate(
+        self, word: str, return_all: bool = False, **kwargs
+    ) -> Union[str, List[str]]:
         """
         function that uses linguee to translate a word
         @param word: word to translate
@@ -82,7 +87,7 @@ class LingueeTranslator(BaseTranslator):
 
             return filtered_elements if return_all else filtered_elements[0]
 
-    def translate_words(self, words, **kwargs):
+    def translate_words(self, words: List[str], **kwargs) -> List[str]:
         """
         translate a batch of words together by providing them in a list
         @param words: list of words you want to translate

@@ -3,6 +3,8 @@ language detection API
 """
 import requests
 from requests.exceptions import HTTPError
+from typing import Optional, List, Union
+
 
 # Module global config
 config = {
@@ -14,7 +16,7 @@ config = {
 }
 
 
-def get_request_body(text, api_key, *args, **kwargs):
+def get_request_body(text: Union[str, List[str]], api_key: str, *args, **kwargs):
     """
     send a request and return the response body parsed as dictionary
 
@@ -46,7 +48,9 @@ def get_request_body(text, api_key, *args, **kwargs):
             raise e
 
 
-def single_detection(text, api_key=None, detailed=False, *args, **kwargs):
+def single_detection(
+    text: str, api_key: Optional[str] = None, detailed: bool = False, *args, **kwargs
+):
     """
     function responsible for detecting the language from a text
 
@@ -66,7 +70,9 @@ def single_detection(text, api_key=None, detailed=False, *args, **kwargs):
         return lang
 
 
-def batch_detection(text_list, api_key, detailed=False, *args, **kwargs):
+def batch_detection(
+    text_list: List[str], api_key: str, detailed: bool = False, *args, **kwargs
+):
     """
     function responsible for detecting the language from a text
 

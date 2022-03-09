@@ -10,6 +10,7 @@ from deep_translator.exceptions import (
 )
 from deep_translator.base import BaseTranslator
 import requests
+from typing import Optional, List, Union
 
 
 class MyMemoryTranslator(BaseTranslator):
@@ -17,7 +18,13 @@ class MyMemoryTranslator(BaseTranslator):
     class that uses the mymemory translator to translate texts
     """
 
-    def __init__(self, source="auto", target="en", proxies=None, **kwargs):
+    def __init__(
+        self,
+        source: str = "auto",
+        target: str = "en",
+        proxies: Optional[dict] = None,
+        **kwargs,
+    ):
         """
         @param source: source language to translate from
         @param target: target language to translate to
@@ -31,7 +38,9 @@ class MyMemoryTranslator(BaseTranslator):
             payload_key="q",
         )
 
-    def translate(self, text, return_all=False, **kwargs):
+    def translate(
+        self, text: str, return_all: bool = False, **kwargs
+    ) -> Union[str, List[str]]:
         """
         function that uses the mymemory translator to translate a text
         @param text: desired text to translate
@@ -73,7 +82,7 @@ class MyMemoryTranslator(BaseTranslator):
                 next_match = next(matches)
                 return next_match if not return_all else list(all_matches)
 
-    def translate_file(self, path, **kwargs):
+    def translate_file(self, path: str, **kwargs) -> str:
         """
         translate directly from file
         @param path: path to the target file
@@ -83,7 +92,7 @@ class MyMemoryTranslator(BaseTranslator):
         """
         return self._translate_file(path, **kwargs)
 
-    def translate_batch(self, batch=None, **kwargs):
+    def translate_batch(self, batch: List[str], **kwargs) -> List[str]:
         """
         translate a list of texts
         @param batch: list of texts you want to translate

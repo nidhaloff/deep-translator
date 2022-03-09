@@ -12,6 +12,7 @@ from deep_translator.base import BaseTranslator
 from deep_translator.validate import validate_input, is_empty
 from bs4 import BeautifulSoup
 import requests
+from typing import Optional, List
 
 
 class GoogleTranslator(BaseTranslator):
@@ -19,7 +20,13 @@ class GoogleTranslator(BaseTranslator):
     class that wraps functions, which use google translate under the hood to translate text(s)
     """
 
-    def __init__(self, source="auto", target="en", proxies=None, **kwargs):
+    def __init__(
+        self,
+        source: str = "auto",
+        target: str = "en",
+        proxies: Optional[dict] = None,
+        **kwargs
+    ):
         """
         @param source: source language to translate from
         @param target: target language to translate to
@@ -37,7 +44,7 @@ class GoogleTranslator(BaseTranslator):
 
         self._alt_element_query = {"class": "result-container"}
 
-    def translate(self, text, **kwargs):
+    def translate(self, text: str, **kwargs) -> str:
         """
         function that uses google translate to translate a text
         @param text: desired text to translate
@@ -89,7 +96,7 @@ class GoogleTranslator(BaseTranslator):
             else:
                 return element.get_text(strip=True)
 
-    def translate_file(self, path, **kwargs):
+    def translate_file(self, path: str, **kwargs) -> str:
         """
         translate directly from file
         @param path: path to the target file
@@ -99,7 +106,7 @@ class GoogleTranslator(BaseTranslator):
         """
         return self._translate_file(path, **kwargs)
 
-    def translate_batch(self, batch=None, **kwargs):
+    def translate_batch(self, batch: List[str], **kwargs) -> List[str]:
         """
         translate a list of texts
         @param batch: list of texts you want to translate

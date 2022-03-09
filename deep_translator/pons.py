@@ -15,6 +15,7 @@ from deep_translator.exceptions import (
 )
 from deep_translator.base import BaseTranslator
 from requests.utils import requote_uri
+from typing import Optional, Union, List
 
 
 class PonsTranslator(BaseTranslator):
@@ -22,7 +23,9 @@ class PonsTranslator(BaseTranslator):
     class that uses PONS translator to translate words
     """
 
-    def __init__(self, source, target="en", proxies=None, **kwargs):
+    def __init__(
+        self, source: str, target: str = "en", proxies: Optional[dict] = None, **kwargs
+    ):
         """
         @param source: source language to translate from
         @param target: target language to translate to
@@ -39,7 +42,9 @@ class PonsTranslator(BaseTranslator):
             **kwargs,
         )
 
-    def translate(self, word, return_all=False, **kwargs):
+    def translate(
+        self, word: str, return_all: bool = False, **kwargs
+    ) -> Union[str, List[str]]:
         """
         function that uses PONS to translate a word
         @param word: word to translate
@@ -84,7 +89,7 @@ class PonsTranslator(BaseTranslator):
 
             return word_list if return_all else word_list[0]
 
-    def translate_words(self, words, **kwargs):
+    def translate_words(self, words: List[str], **kwargs) -> List[str]:
         """
         translate a batch of words together by providing them in a list
         @param words: list of words you want to translate
