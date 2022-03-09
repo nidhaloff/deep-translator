@@ -2,11 +2,13 @@ name: "tagged-release"
 
 on:
   push:
-    tags:
+      branches:
+      - master
+      tags:
       - "v*"
   workflow_run:
       workflows:
-          - "build"
+          - "test"
       types:
           - completed
 

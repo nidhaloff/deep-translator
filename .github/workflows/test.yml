@@ -1,9 +1,14 @@
-name: build
+name: test
 
-on: [push, pull_request]
+on:
+    push:
+        branches:
+            - master
+            - dev
+    pull_request: {}
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
