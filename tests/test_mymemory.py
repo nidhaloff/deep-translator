@@ -3,7 +3,8 @@
 """Tests for `deep_translator` package."""
 
 import pytest
-from deep_translator import exceptions, MyMemoryTranslator
+
+from deep_translator import MyMemoryTranslator, exceptions
 
 
 @pytest.fixture

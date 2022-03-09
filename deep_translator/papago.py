@@ -2,11 +2,13 @@
 google translator API
 """
 import json
+from typing import List, Optional
+
+import requests
+
+from deep_translator.base import BaseTranslator
 from deep_translator.constants import BASE_URLS, PAPAGO_LANGUAGE_TO_CODE
 from deep_translator.exceptions import TranslationNotFound
-from deep_translator.base import BaseTranslator
-import requests
-from typing import Optional, List
 from deep_translator.validate import is_input_valid
 
 

@@ -2,17 +2,19 @@
 google translator API
 """
 
+from typing import List, Optional
+
+import requests
+from bs4 import BeautifulSoup
+
+from deep_translator.base import BaseTranslator
 from deep_translator.constants import BASE_URLS
 from deep_translator.exceptions import (
+    RequestError,
     TooManyRequests,
     TranslationNotFound,
-    RequestError,
 )
-from deep_translator.base import BaseTranslator
-from deep_translator.validate import is_input_valid, is_empty
-from bs4 import BeautifulSoup
-import requests
-from typing import Optional, List
+from deep_translator.validate import is_empty, is_input_valid
 
 
 class GoogleTranslator(BaseTranslator):

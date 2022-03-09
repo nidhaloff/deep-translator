@@ -1,5 +1,7 @@
-import pytest
 from unittest.mock import Mock, patch
+
+import pytest
+
 from deep_translator.deepl import DeeplTranslator
 from deep_translator.exceptions import AuthorizationException
 

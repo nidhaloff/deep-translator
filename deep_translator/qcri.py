@@ -1,8 +1,10 @@
+from typing import List, Optional
+
 import requests
+
+from deep_translator.base import BaseTranslator
 from deep_translator.constants import BASE_URLS, QCRI_LANGUAGE_TO_CODE
 from deep_translator.exceptions import ServerException, TranslationNotFound
-from deep_translator.base import BaseTranslator
-from typing import Optional, List
 
 
 class QcriTranslator(BaseTranslator):

@@ -2,9 +2,11 @@
 
 """Tests for the CLI interface."""
 
-from deep_translator.cli import CLI
-import pytest
 import sys
+
+import pytest
+
+from deep_translator.cli import CLI
 
 
 @pytest.fixture

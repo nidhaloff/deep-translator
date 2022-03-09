@@ -3,7 +3,8 @@
 """Tests for `deep_translator` package."""
 
 import pytest
-from deep_translator import exceptions, GoogleTranslator
+
+from deep_translator import GoogleTranslator, exceptions
 from deep_translator.constants import GOOGLE_LANGUAGES_TO_CODES
 
 

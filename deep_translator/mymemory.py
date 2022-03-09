@@ -1,16 +1,18 @@
 """
 mymemory translator API
 """
-from deep_translator.validate import is_empty, is_input_valid
+from typing import List, Optional, Union
+
+import requests
+
+from deep_translator.base import BaseTranslator
 from deep_translator.constants import BASE_URLS
 from deep_translator.exceptions import (
-    TranslationNotFound,
     RequestError,
     TooManyRequests,
+    TranslationNotFound,
 )
-from deep_translator.base import BaseTranslator
-import requests
-from typing import Optional, List, Union
+from deep_translator.validate import is_empty, is_input_valid
 
 
 class MyMemoryTranslator(BaseTranslator):

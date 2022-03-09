@@ -3,7 +3,8 @@
 """Tests for `deep_translator` package."""
 
 import pytest
-from deep_translator import exceptions, PonsTranslator
+
+from deep_translator import PonsTranslator, exceptions
 
 
 @pytest.fixture

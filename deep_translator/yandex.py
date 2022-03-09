@@ -1,17 +1,19 @@
 """
 Yandex translator API
 """
+from typing import List, Optional
+
 import requests
+
+from deep_translator.base import BaseTranslator
 from deep_translator.constants import BASE_URLS
 from deep_translator.exceptions import (
     RequestError,
     ServerException,
-    TranslationNotFound,
     TooManyRequests,
+    TranslationNotFound,
 )
-from deep_translator.base import BaseTranslator
 from deep_translator.validate import is_input_valid
-from typing import Optional, List
 
 
 class YandexTranslator(BaseTranslator):

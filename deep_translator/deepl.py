@@ -1,13 +1,15 @@
+from typing import List, Optional
+
 import requests
-from typing import Optional, List
-from deep_translator.validate import is_empty, is_input_valid
+
+from deep_translator.base import BaseTranslator
 from deep_translator.constants import BASE_URLS, DEEPL_LANGUAGE_TO_CODE
 from deep_translator.exceptions import (
+    AuthorizationException,
     ServerException,
     TranslationNotFound,
-    AuthorizationException,
 )
-from deep_translator.base import BaseTranslator
+from deep_translator.validate import is_empty, is_input_valid
 
 
 class DeeplTranslator(BaseTranslator):

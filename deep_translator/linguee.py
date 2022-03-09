@@ -1,20 +1,22 @@
 """
 linguee translator API
 """
-from deep_translator.validate import is_input_valid, is_empty
+from typing import List, Optional, Union
+
+import requests
+from bs4 import BeautifulSoup
+from requests.utils import requote_uri
+
+from deep_translator.base import BaseTranslator
 from deep_translator.constants import BASE_URLS, LINGUEE_LANGUAGES_TO_CODES
 from deep_translator.exceptions import (
-    TranslationNotFound,
-    NotValidPayload,
     ElementNotFoundInGetRequest,
+    NotValidPayload,
     RequestError,
     TooManyRequests,
+    TranslationNotFound,
 )
-from deep_translator.base import BaseTranslator
-from bs4 import BeautifulSoup
-import requests
-from requests.utils import requote_uri
-from typing import Optional, List, Union
+from deep_translator.validate import is_empty, is_input_valid
 
 
 class LingueeTranslator(BaseTranslator):

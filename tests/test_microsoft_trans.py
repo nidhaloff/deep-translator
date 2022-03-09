@@ -2,11 +2,12 @@
 
 """Tests for `deep_translator` package."""
 
-import pytest
 from unittest.mock import patch
+
+import pytest
 import requests
 
-from deep_translator import exceptions, MicrosoftTranslator
+from deep_translator import MicrosoftTranslator, exceptions
 
 
 # mocked request.post

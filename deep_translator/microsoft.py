@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
-import requests
 import logging
 import sys
-from deep_translator.constants import BASE_URLS
-from deep_translator.exceptions import ServerException, MicrosoftAPIerror
+from typing import List, Optional
+
+import requests
+
 from deep_translator.base import BaseTranslator
+from deep_translator.constants import BASE_URLS
+from deep_translator.exceptions import MicrosoftAPIerror, ServerException
 from deep_translator.validate import is_input_valid
-from typing import Optional, List
 
 
 class MicrosoftTranslator(BaseTranslator):

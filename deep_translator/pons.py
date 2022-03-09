@@ -1,21 +1,22 @@
 """
 pons translator API
 """
-from bs4 import BeautifulSoup
-import requests
+from typing import List, Optional, Union
 
-from deep_translator.validate import is_input_valid, is_empty
+import requests
+from bs4 import BeautifulSoup
+from requests.utils import requote_uri
+
+from deep_translator.base import BaseTranslator
 from deep_translator.constants import BASE_URLS, PONS_CODES_TO_LANGUAGES
 from deep_translator.exceptions import (
-    TranslationNotFound,
-    NotValidPayload,
     ElementNotFoundInGetRequest,
+    NotValidPayload,
     RequestError,
     TooManyRequests,
+    TranslationNotFound,
 )
-from deep_translator.base import BaseTranslator
-from requests.utils import requote_uri
-from typing import Optional, Union, List
+from deep_translator.validate import is_empty, is_input_valid
 
 
 class PonsTranslator(BaseTranslator):

@@ -2,16 +2,18 @@
 LibreTranslate API
 """
 
+from typing import List, Optional
+
 import requests
-from typing import Optional, List
-from deep_translator.validate import is_empty, is_input_valid
+
 from deep_translator.base import BaseTranslator
 from deep_translator.constants import BASE_URLS, LIBRE_LANGUAGES_TO_CODES
 from deep_translator.exceptions import (
+    AuthorizationException,
     ServerException,
     TranslationNotFound,
-    AuthorizationException,
 )
+from deep_translator.validate import is_empty, is_input_valid
 
 
 class LibreTranslator(BaseTranslator):

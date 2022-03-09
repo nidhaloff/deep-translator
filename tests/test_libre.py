@@ -3,7 +3,8 @@
 """Tests for `deep_translator` package."""
 
 import pytest
-from deep_translator import exceptions, LibreTranslator
+
+from deep_translator import LibreTranslator, exceptions
 from deep_translator.constants import LIBRE_LANGUAGES_TO_CODES
 
 

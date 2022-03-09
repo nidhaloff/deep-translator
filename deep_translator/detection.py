@@ -1,10 +1,10 @@
 """
 language detection API
 """
+from typing import List, Optional, Union
+
 import requests
 from requests.exceptions import HTTPError
-from typing import Optional, List, Union
-
 
 # Module global config
 config = {

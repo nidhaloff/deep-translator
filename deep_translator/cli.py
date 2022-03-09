@@ -1,7 +1,8 @@
 """Console script for deep_translator."""
 import argparse
-from deep_translator.engines import __engines__
 from typing import Optional
+
+from deep_translator.engines import __engines__
 
 
 class CLI(object):

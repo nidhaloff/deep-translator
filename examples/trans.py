@@ -1,5 +1,4 @@
-from deep_translator import GoogleTranslator, PonsTranslator, LingueeTranslator
-
+from deep_translator import GoogleTranslator, LingueeTranslator, PonsTranslator
 
 # examples using google translate
 

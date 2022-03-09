@@ -1,9 +1,10 @@
 """base translator class"""
 
+from abc import ABC, abstractmethod
+from typing import List, Optional, Union
+
 from deep_translator.constants import GOOGLE_LANGUAGES_TO_CODES
 from deep_translator.exceptions import InvalidSourceOrTargetLanguage
-from abc import ABC, abstractmethod
-from typing import Optional, List, Union
 
 
 class BaseTranslator(ABC):
