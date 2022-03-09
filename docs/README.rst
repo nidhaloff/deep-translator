@@ -657,6 +657,7 @@ You can always help the development of this project by:
 - Create issues and pull requests
 - Sponsor the project
 
+===========
 Next Steps
 ===========
 
