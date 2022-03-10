@@ -1,13 +1,16 @@
-name: test
+name: production-tests
 
-on: [push, pull_request]
+on:
+    push:
+        tags:
+            - 'v*'
 
 jobs:
     test:
         strategy:
             matrix:
                 python-version: [ "3.7", "3.8", "3.9" ]
-                os: [ubuntu-latest]  # we can add other os like macOS-latest
+                os: [ubuntu-latest, macOS-latest]  # we can add other os like windows if we want
         runs-on: ${{ matrix.os }}
         steps:
             -   uses: actions/checkout@v2
