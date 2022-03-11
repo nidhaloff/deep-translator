@@ -20,10 +20,18 @@ jobs:
                 with:
                     fetch-depth: 0
 
-            -   name: Test release on test pypi
-                uses: relekang/python-semantic-release@master
+            -   name: Build package
+                run: |
+                    source "$HOME/.poetry/env"
+                    poetry config virtualenvs.in-project true
+                    poetry install
+                    poetry build
+                    echo "list dir"
+                    ls
+
+            -   name: Publish package to TestPyPI
+                uses: pypa/gh-action-pypi-publish@release/v1
                 with:
-                    github_token: ${{ secrets.GITHUB_TOKEN }}
-                    repository_username: __token__
-                    repository_password: ${{ secrets.TEST_PYPI_TOKEN }}
+                    user: __token__
+                    password: ${{ secrets.TEST_PYPI_TOKEN }}
                     repository_url: https://test.pypi.org/legacy/
