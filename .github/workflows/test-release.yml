@@ -24,11 +24,10 @@ jobs:
 
             -   name: Build package
                 run: |
-                    poetry shell
-                    poetry install
-                    poetry build
                     echo "list dir"
                     ls
+                    poetry build
+
 
             -   name: Publish package to TestPyPI
                 uses: pypa/gh-action-pypi-publish@release/v1
