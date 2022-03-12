@@ -23,13 +23,13 @@ jobs:
                 run: poetry --version
             -   name: Update poetry
                 run: poetry update
+            -   name: Update version
+                run: poetry version patch
             -   name: Install dependencies
                 run: poetry install
 
             -   name: Build package
-                run: |
-                    poetry build
-                    ls
+                run: poetry build
 
             -   name: Publish package to TestPyPI
                 uses: pypa/gh-action-pypi-publish@release/v1
