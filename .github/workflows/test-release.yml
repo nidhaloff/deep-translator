@@ -21,19 +21,15 @@ jobs:
                 uses: abatilo/actions-poetry@v2.0.0
             -   name: View poetry version
                 run: poetry --version
-
+            -   name: Update poetry
+                run: poetry update
             -   name: Install dependencies
-                run: |
-                    echo "Installing dependencies..."
-                    poetry update
-                    poetry install
+                run: poetry install
 
             -   name: Build package
                 run: |
-                    echo "list dir"
-                    ls
                     poetry build
-
+                    ls
 
             -   name: Publish package to TestPyPI
                 uses: pypa/gh-action-pypi-publish@release/v1
