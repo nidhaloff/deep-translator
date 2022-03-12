@@ -22,6 +22,12 @@ jobs:
             -   name: View poetry version
                 run: poetry --version
 
+            -   name: Install dependencies
+                run: |
+                    echo "Installing dependencies..."
+                    poetry update
+                    poetry install
+
             -   name: Build package
                 run: |
                     echo "list dir"
