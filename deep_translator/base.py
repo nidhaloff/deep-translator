@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from typing import List, Optional, Union
 
 from deep_translator.constants import GOOGLE_LANGUAGES_TO_CODES
-from deep_translator.exceptions import InvalidSourceOrTargetLanguage
+from deep_translator.exceptions import InvalidSourceOrTargetLanguage, LanguageNotSupportedException
 
 
 class BaseTranslator(ABC):
@@ -56,6 +56,12 @@ class BaseTranslator(ABC):
                 yield language
             elif language in self.languages.keys():
                 yield self.languages[language]
+            else:
+                raise LanguageNotSupportedException(
+                    language,
+                    message=f"No support for the provided language.\n"
+                            f"Please select on of the supported languages:\n"
+                            f"{self.languages}")
 
     def _same_source_target(self) -> bool:
         return self._source == self._target
