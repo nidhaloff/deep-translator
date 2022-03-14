@@ -24,21 +24,25 @@ class LibreTranslator(BaseTranslator):
     def __init__(
         self,
         api_key: Optional[str] = None,
-        source: str = "auto",
-        target: str = "en",
+        source: str = "en",
+        target: str = "es",
+        use_free_api: bool = True,
+        custom_url:  Optional[str] = None,
         **kwargs
     ):
         """
+        @param api_key: your api key
         @param source: source language to translate from
-        List of LibreTranslate nedpoints can be found at : https://github.com/LibreTranslate/LibreTranslate#mirrors
+        List of LibreTranslate endpoint can be found at : https://github.com/LibreTranslate/LibreTranslate#mirrors
         Some require an API key
         @param target: target language to translate to
+        @param use_free_api: set True if you want to use the free api. This means a url that does not require and api key would be used
+        @param custom_url: you can use a custom endpoint
         """
-        if not api_key:
-            raise ServerException(401)
         self.api_key = api_key
+        url = BASE_URLS.get("LIBRE") if not use_free_api else BASE_URLS.get('LIBRE_FREE')
         super().__init__(
-            base_url=BASE_URLS.get("LIBRE"),
+            base_url=url if not custom_url else custom_url,
             source=source,
             target=target,
             languages=LIBRE_LANGUAGES_TO_CODES,
@@ -101,3 +105,9 @@ class LibreTranslator(BaseTranslator):
         @return: list of translations
         """
         return self._translate_batch(batch, **kwargs)
+
+
+if __name__ == '__main__':
+    l = LibreTranslator(source="en", target="de")
+    res = l.translate("good")
+    print("res: ", res)
