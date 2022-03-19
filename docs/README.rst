@@ -688,6 +688,7 @@ The Translator++ mobile app
     :width: 100
     :alt: Icon of the app
 
+You can download and try the app on play store https://play.google.com/store/apps/details?id=org.translator.translator&hl=en_US&gl=US
 
 After developing the deep-translator, I realized how cool this would be if I can use it as an app on my mobile phone.
 Sure, there is google translate, pons and linguee apps etc.. but isn't it cooler to make an app where all these
