@@ -261,20 +261,22 @@ Google Translate
 
 .. code-block:: python
 
+    # let's say first you need to translate from auto to german
     my_translator = GoogleTranslator(source='auto', target='german')
-    # let's say first you need to translate to german:
-    g_res = my_translator.translate(text=text)
-    print(f"Translation using source = {my_translator.source} and target = {my_translator.target} -> {g_res}")
+    result = my_translator.translate(text=text)
+    print(f"Translation using source = {my_translator.source} and target = {my_translator.target} -> {result}")
 
     # let's say later you want to reuse the class but your target is french now
+    # This is the best practice and how you should use deep-translator.
+    # Please don't over-instantiate translator objects without a good reason, otherwise you will run into performance issues
     my_translator.target = 'fr'  # this will override the target 'german' passed previously
-    f_res = my_translator.translate(text=text)
-    print(f"Translation using source = {my_translator.source} and target = {my_translator.target} -> {f_res}")
+    result = my_translator.translate(text=text)
+    print(f"Translation using source = {my_translator.source} and target = {my_translator.target} -> {result}")
 
     # you can also update the source language as well
-    my_translator.source = 'en'  # this will override the target 'german' passed previously
-    f_res = my_translator.translate(text=text)
-    print(f"Translation using source = {my_translator.source} and target = {my_translator.target} -> {f_res}")
+    my_translator.source = 'en'  # this will override the source 'auto' passed previously
+    result = my_translator.translate(text=text)
+    print(f"Translation using source = {my_translator.source} and target = {my_translator.target} -> {result}")
 
 
 - Translate batch of texts
