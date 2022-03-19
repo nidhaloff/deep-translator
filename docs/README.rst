@@ -256,6 +256,27 @@ Google Translate
     # Alternatively, you can pass languages by their abbreviation:
     translated = GoogleTranslator(source='en', target='de').translate(text=text)
 
+- You can also reuse the Translator class and change/update its properties.
+(Notice that this is important for performance too since instantiating new objects is expensive)
+
+.. code-block:: python
+
+    my_translator = GoogleTranslator(source='auto', target='german')
+    # let's say first you need to translate to german:
+    g_res = my_translator.translate(text=text)
+    print(f"Translation using source = {my_translator.source} and target = {my_translator.target} -> {g_res}")
+
+    # let's say later you want to reuse the class but your target is french now
+    my_translator.target = 'fr'  # this will override the target 'german' passed previously
+    f_res = my_translator.translate(text=text)
+    print(f"Translation using source = {my_translator.source} and target = {my_translator.target} -> {f_res}")
+
+    # you can also update the source language as well
+    my_translator.source = 'en'  # this will override the target 'german' passed previously
+    f_res = my_translator.translate(text=text)
+    print(f"Translation using source = {my_translator.source} and target = {my_translator.target} -> {f_res}")
+
+
 - Translate batch of texts
 
 .. code-block:: python
@@ -728,3 +749,10 @@ Here are some screenshots:
     :width: 100%
     :height: 300
     :alt: screenshot3
+
+===========================
+Website & Desktop app
+===========================
+
+Currently, there are propositions for a website and/or dekstop app based on deep-translator.
+You can follow the issue here: https://github.com/nidhaloff/deep-translator/issues/144
