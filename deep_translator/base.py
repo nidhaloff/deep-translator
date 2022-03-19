@@ -42,6 +42,22 @@ class BaseTranslator(ABC):
         self.payload_key = payload_key
         super().__init__()
 
+    @property
+    def source(self):
+        return self._source
+
+    @source.setter
+    def source(self, lang):
+        self._source = lang
+
+    @property
+    def target(self):
+        return self._target
+
+    @target.setter
+    def target(self, lang):
+        self._target = lang
+
     def _type(self):
         return self.__class__.__name__
 

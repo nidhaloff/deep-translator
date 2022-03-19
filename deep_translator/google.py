@@ -118,5 +118,8 @@ class GoogleTranslator(BaseTranslator):
 
 
 if __name__ == "__main__":
-    t = GoogleTranslator().translate("hallo welt")
-    print("translation: ", t)
+    trans = GoogleTranslator(source='auto', target='de')
+    res = trans.translate("cute")
+    print("translation: ", res)
+    trans.target = "fr"
+    print(f"changed target to: {trans.target} => translation changed: {trans.translate('cute')}")
