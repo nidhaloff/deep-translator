@@ -1,4 +1,4 @@
-pip==20.2.2
+pip==21.1
 bump2version==1.0.0
 wheel==0.35.1
 argh
