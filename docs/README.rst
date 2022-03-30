@@ -44,7 +44,7 @@ A flexible **FREE** and **UNLIMITED** tool to translate between different langua
 
 * Free software: MIT license
 * Documentation: https://deep-translator.readthedocs.io.
-
+* Swagger API: https://deep-translator-api.azurewebsites.net/docs
 
 |
 |
@@ -701,6 +701,16 @@ License
 MIT license
 
 Copyright (c) 2020-present, Nidhal Baccouri
+
+===========
+Swagger UI
+===========
+
+deep-translator offers an api server for easy integration with other applications. Non python applications
+can communicate with the api directly and leverage the features of deep-translator
+
+Access the api here: https://deep-translator-api.azurewebsites.net/docs
+
 
 
 ===========================
