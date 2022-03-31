@@ -28,8 +28,8 @@ class BaseTranslator(ABC):
         @param target: target language to translate to
         """
         self._base_url = base_url
-        self.languages = languages
-        self.supported_languages = list(self.languages.keys())
+        self._languages = languages
+        self._supported_languages = list(self._languages.keys())
         if not source:
             raise InvalidSourceOrTargetLanguage(source)
         if not target:
@@ -68,16 +68,16 @@ class BaseTranslator(ABC):
         @return: mapped value of the language or raise an exception if the language is not supported
         """
         for language in languages:
-            if language in self.languages.values() or language == "auto":
+            if language in self._languages.values() or language == "auto":
                 yield language
-            elif language in self.languages.keys():
-                yield self.languages[language]
+            elif language in self._languages.keys():
+                yield self._languages[language]
             else:
                 raise LanguageNotSupportedException(
                     language,
                     message=f"No support for the provided language.\n"
                             f"Please select on of the supported languages:\n"
-                            f"{self.languages}")
+                            f"{self._languages}")
 
     def _same_source_target(self) -> bool:
         return self._source == self._target
@@ -90,7 +90,7 @@ class BaseTranslator(ABC):
         @param as_dict: if True, the languages will be returned as a dictionary mapping languages to their abbreviations
         @return: list or dict
         """
-        return self.supported_languages if not as_dict else self.languages
+        return self._supported_languages if not as_dict else self._languages
 
     def is_language_supported(self, language: str, **kwargs) -> bool:
         """
@@ -100,8 +100,8 @@ class BaseTranslator(ABC):
         """
         if (
             language == "auto"
-            or language in self.languages.keys()
-            or language in self.languages.values()
+            or language in self._languages.keys()
+            or language in self._languages.values()
         ):
             return True
         else:

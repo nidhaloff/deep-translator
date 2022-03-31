@@ -34,7 +34,7 @@ class QcriTranslator(BaseTranslator):
 
         self.params = {"key": self.api_key}
         super().__init__(
-            base_url=BASE_URLS.get("QcriTranslator"),
+            base_url=BASE_URLS.get("QCRI"),
             source=source,
             target=target,
             languages=QCRI_LANGUAGE_TO_CODE,
