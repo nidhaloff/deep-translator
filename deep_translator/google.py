@@ -118,6 +118,6 @@ class GoogleTranslator(BaseTranslator):
 
 
 if __name__ == "__main__":
-    trans = GoogleTranslator(source='auto', target='zh-CN')
+    trans = GoogleTranslator(source="auto", target="zh-CN")
     res = trans.translate("good")
     print("translation: ", res)

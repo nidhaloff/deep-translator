@@ -199,15 +199,16 @@ Check Supported Languages
 .. note::
 
     You can check the supported languages of each translator by calling the
-    get_supported_languages function as a static method.
+    get_supported_languages function.
 
 .. code-block:: python
 
     # default return type is a list
-    langs_list = GoogleTranslator.get_supported_languages()  # output: [arabic, french, english etc...]
+    langs_list = GoogleTranslator().get_supported_languages()  # output: [arabic, french, english etc...]
 
     # alternatively, you can the dictionary containing languages mapped to their abbreviation
-    langs_dict = GoogleTranslator.get_supported_languages(as_dict=True)  # output: {arabic: ar, french: fr, english:en etc...}
+    langs_dict = GoogleTranslator().get_supported_languages(as_dict=True)  # output: {arabic: ar, french: fr, english:en etc...}
+
 
 Language Detection
 ------------------
