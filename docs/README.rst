@@ -44,7 +44,7 @@ A flexible **FREE** and **UNLIMITED** tool to translate between different langua
 
 * Free software: MIT license
 * Documentation: https://deep-translator.readthedocs.io.
-* Swagger API: https://deep-translator-api.azurewebsites.net/docs
+* Swagger API: https://deep-translator-api.azurewebsites.net/docs.
 
 |
 |
@@ -209,7 +209,6 @@ Check Supported Languages
     # alternatively, you can the dictionary containing languages mapped to their abbreviation
     langs_dict = GoogleTranslator().get_supported_languages(as_dict=True)  # output: {arabic: ar, french: fr, english:en etc...}
 
-
 Language Detection
 ------------------
 
@@ -258,7 +257,9 @@ Google Translate
     translated = GoogleTranslator(source='en', target='de').translate(text=text)
 
 - You can also reuse the Translator class and change/update its properties.
+
 (Notice that this is important for performance too since instantiating new objects is expensive)
+
 
 .. code-block:: python
 
