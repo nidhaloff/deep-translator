@@ -27,6 +27,8 @@ jobs:
             -   name: Install dependencies
                 run: |
                     poetry shell
+                    poetry env info --path
+                    ls
                     poetry install
 
             -   name: Run tests
