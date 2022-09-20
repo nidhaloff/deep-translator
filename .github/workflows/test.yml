@@ -26,12 +26,11 @@ jobs:
                     key: venv-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}-${{ hashFiles('poetry.lock') }}
             -   name: Install dependencies
                 run: |
-                    poetry shell
-                    poetry env info --path
-                    ls
+                    source "$HOME/.poetry/env"
+                    poetry config virtualenvs.in-project true
                     poetry install
 
             -   name: Run tests
                 run: |
-                    poetry shell
+                    source "$HOME/.poetry/env"
                     poetry run pytest
