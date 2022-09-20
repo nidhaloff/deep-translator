@@ -33,7 +33,7 @@ beautifulsoup4 = "^4.9.1"
 requests = "^2.23.0"
 
 [tool.poetry.dev-dependencies]
-wheel = "flake8"
+wheel = "^0.36.2"
 coverage = "^5.5"
 Sphinx = "^4.1.1"
 twine = "^3.4.2"
