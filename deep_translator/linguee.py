@@ -25,7 +25,7 @@ class LingueeTranslator(BaseTranslator):
     """
 
     def __init__(
-        self, source: str, target: str = "en", proxies: Optional[dict] = None, **kwargs
+        self, source: str = "en", target: str = "de", proxies: Optional[dict] = None, **kwargs
     ):
         """
         @param source: source language to translate from
