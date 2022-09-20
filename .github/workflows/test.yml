@@ -19,6 +19,9 @@ jobs:
             -   name: Install poetry
                 run: curl -sSL https://install.python-poetry.org | python3 -
 
+            -   name: Check workdir
+                run: ls -a
+
             -   name: Install dependencies
                 run: |
 
