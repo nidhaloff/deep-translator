@@ -24,10 +24,9 @@ jobs:
 
             -   name: Install dependencies
                 run: |
-                    poetry shell
+                    poetry config virtualenvs.in-project true
                     poetry install
 
             -   name: Run tests
                 run: |
-                    poetry shell
                     poetry run pytest
