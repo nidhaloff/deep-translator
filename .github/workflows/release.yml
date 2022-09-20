@@ -1,6 +1,11 @@
 name: Semantic Release
 
 on:
+    workflow_dispatch:
+      inputs:
+        version:
+            description: Bump version
+            required: true
     workflow_run:
         workflows:
             - "production-tests"
