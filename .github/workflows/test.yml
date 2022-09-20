@@ -28,7 +28,7 @@ jobs:
             -   name: Check env
                 run: |
                     echo $HOME
-                    ls $HOME/.poetry -a
+                    ls $HOME -a
 
             -   name: Install dependencies
                 run: |
