@@ -20,12 +20,15 @@ jobs:
                 run: curl -sSL https://install.python-poetry.org | python3 -
 
             -   name: Check workdir
-                run: ls -a
+                run: |
+                    ls -a
+                    poetry shell
+                    poetry env info --path
 
             -   name: Install dependencies
                 run: |
-
-                    poetry shell && poetry env info --path && poetry install
+                
+                    poetry install
 
             -   name: Run tests
                 run: |
