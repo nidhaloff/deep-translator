@@ -22,11 +22,6 @@ jobs:
             -   name: Install poetry
                 run: curl -sSL https://install.python-poetry.org | python3 -
 
-            -   name: Set up cache
-                uses: actions/cache@v2.1.3
-                with:
-                    path: .venv
-                    key: venv-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}-${{ hashFiles('poetry.lock') }}
             -   name: Install dependencies
                 run: |
                     poetry shell
