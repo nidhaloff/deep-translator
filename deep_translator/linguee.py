@@ -71,6 +71,8 @@ class LingueeTranslator(BaseTranslator):
                 raise RequestError()
             soup = BeautifulSoup(response.text, "html.parser")
             elements = soup.find_all(self._element_tag, self._element_query)
+            response.close()
+            
             if not elements:
                 raise ElementNotFoundInGetRequest(elements)
 
