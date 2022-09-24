@@ -74,6 +74,7 @@ class MyMemoryTranslator(BaseTranslator):
             if not data:
                 TranslationNotFound(text)
 
+            response.close()
             translation = data.get("responseData").get("translatedText")
             if translation:
                 return translation
