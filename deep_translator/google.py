@@ -74,6 +74,7 @@ class GoogleTranslator(BaseTranslator):
             soup = BeautifulSoup(response.text, "html.parser")
 
             element = soup.find(self._element_tag, self._element_query)
+            response.close()
 
             if not element:
                 element = soup.find(self._element_tag, self._alt_element_query)
