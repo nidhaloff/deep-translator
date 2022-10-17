@@ -65,14 +65,14 @@ class GoogleTranslator(BaseTranslator):
             response = requests.get(
                 self._base_url, params=self._url_params, proxies=self.proxies
             )
-            if response.status_code == 429:
+            if response.status_code == 429 or response.status_code == 403:
                 raise TooManyRequests()
 
             if response.status_code != 200:
                 raise RequestError()
 
             soup = BeautifulSoup(response.text, "html.parser")
-
+            response.close()
             element = soup.find(self._element_tag, self._element_query)
 
             if not element:
