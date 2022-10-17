@@ -214,7 +214,7 @@ Linguee Translator
     # pass language by their abbreviation
     translated_word = LingueeTranslator(source='en', target='fr').translate(word)
 
-- Return all synonyms or words that matches
+- Return all synonyms or words that match
 
 .. code-block:: python
 
@@ -248,7 +248,7 @@ PONS Translator
     # pass language by their abbreviation
     translated_word = PonsTranslator(source='en', target='fr').translate(word)
 
-- Return all synonyms or words that matches
+- Return all synonyms or words that match
 
 .. code-block:: python
 
@@ -266,8 +266,8 @@ Yandex Translator
 
 .. note::
 
-    You need to require an **private api key** if you want to use the yandex translator.
-    visit the official website for more information about how to get one
+    You need to require n **private api key** if you want to use the yandex translator.
+    Visit the official website for more information about how to get one
 
 - Language detection
 
@@ -345,7 +345,7 @@ For a quick access, you can use the deep_translator from terminal. For this to w
 the right arguments, which are the translator you want to use, source language, target language and the text
 you want to translate.
 
-For example, provide "google" as an argument to use the google translator. Alternatively you can use
+For example, provide "google" as an argument to use the google translator. Alternatively, you can use
 the other supported translators. Just read the documentation to have an overview about the supported
 translators in this library.
 

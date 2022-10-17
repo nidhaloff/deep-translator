@@ -98,7 +98,7 @@ Before you submit a pull request, check that it meets these guidelines:
 
 1. The pull request should include any relevant tests (located under :file:`.deep_translator/tests`)
 2. If the pull request adds functionality, the docs should be updated. Put your new functionality into a function with a docstring, and add the feature to the list in README.rst.
-3. Pull requests are automatically tested on GitHub for compatability with Python version 3.7, 3.8, and 3.9. Please review your test results and ensure your request passes all tests.
+3. Pull requests are automatically tested on GitHub for compatibility with Python version 3.7, 3.8, and 3.9. Please review your test results and ensure your request passes all tests.
 
 Tips
 ----

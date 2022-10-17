@@ -64,7 +64,7 @@ I needed to translate a text using python. It was hard to find a simple way to d
 There are other libraries that can be used for this task, but most of them
 are **buggy, not free, limited, not supported anymore or complex to use.**
 
-Therefore, I decided to build this simple tool. It is 100% free, unlimited, easy to use and provide
+Therefore, I decided to build this simple tool. It is 100% free, unlimited, easy to use and provides
 support for all languages.
 
 Basically, my goal was to integrate support for multiple famous translators
@@ -86,8 +86,8 @@ Why you should use it
 ======================
 
 - It's the only python tool that integrates many translators
-- multi language support
-- supports batch translation
+- Multi language support
+- Supports batch translation
 - High level of abstraction
 - Automatic language detection
 - Easy to use and extend
@@ -258,7 +258,7 @@ Google Translate
 
 - You can also reuse the Translator class and change/update its properties.
 
-(Notice that this is important for performance too since instantiating new objects is expensive)
+(Notice that this is important for performance too, since instantiating new objects is expensive)
 
 
 .. code-block:: python
@@ -410,7 +410,7 @@ Linguee Translator
     # pass language by their abbreviation
     translated_word = LingueeTranslator(source='en', target='fr').translate(word)
 
-- Return all synonyms or words that matches
+- Return all synonyms or words that match
 
 .. code-block:: python
 
@@ -444,7 +444,7 @@ PONS Translator
     # pass language by their abbreviation
     translated_word = PonsTranslator(source='en', target='fr').translate(word)
 
-- Return all synonyms or words that matches
+- Return all synonyms or words that match
 
 .. code-block:: python
 
@@ -462,8 +462,8 @@ Yandex Translator
 
 .. note::
 
-    You need to require an **private api key** if you want to use the yandex translator.
-    visit the official website for more information about how to get one
+    You need to require a **private api key** if you want to use the yandex translator.
+    Visit the official website for more information about how to get one
 
 - Language detection
 
@@ -503,7 +503,7 @@ Microsoft Translator
 .. note::
 
     You need to require an **api key** if you want to use the microsoft translator.
-    visit the official website for more information about how to get one.
+    Visit the official website for more information about how to get one.
     Microsoft offers a free tier 0 subscription (2 million characters per month).
 
 - Required and optional attributes
@@ -549,7 +549,7 @@ Papago Translator
 .. note::
 
     You need to require a **client id** and **client secret key** if you want to use the papago translator.
-    visit the official website for more information about how to get one.
+    Visit the official website for more information about how to get one.
 
 .. code-block:: python
 
@@ -600,8 +600,8 @@ Libre Translator
 Proxy usage
 -------------
 
-deep-translator provide out of the box usage of proxies. Just define your proxies config as a dictionary
-and pass it to the corresponding translator. Below is an example using the GoogleTranslator but this feature
+deep-translator provides out of the box usage of proxies. Just define your proxies config as a dictionary
+and pass it to the corresponding translator. Below is an example using the GoogleTranslator, but this feature
 can be used with all supported translators.
 
 .. code-block:: python
@@ -768,5 +768,5 @@ Here are some screenshots:
 Website & Desktop app
 ===========================
 
-Currently, there are propositions for a website and/or dekstop app based on deep-translator.
+Currently, there are propositions for a website and/or desktop app based on deep-translator.
 You can follow the issue here: https://github.com/nidhaloff/deep-translator/issues/144
