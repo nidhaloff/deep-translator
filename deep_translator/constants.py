@@ -27,7 +27,7 @@ GOOGLE_LANGUAGES_TO_CODES = {
     "basque": "eu",
     "belarusian": "be",
     "bengali": "bn",
-    "bhojpuri": "bho"
+    "bhojpuri": "bho",
     "bosnian": "bs",
     "bulgarian": "bg",
     "catalan": "ca",
