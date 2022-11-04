@@ -31,6 +31,8 @@ dt = 'deep_translator.__main__:main'
 python = "^3.7"
 beautifulsoup4 = "^4.9.1"
 requests = "^2.23.0"
+faster-than-requests = "^21.3.3"
+nimporter = "^2.0.0"
 
 [tool.poetry.dev-dependencies]
 wheel = "^0.37.1"

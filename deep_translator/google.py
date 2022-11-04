@@ -15,6 +15,7 @@ from deep_translator.exceptions import (
     TranslationNotFound,
 )
 from deep_translator.validate import is_empty, is_input_valid
+from urllib import request, parse
 
 
 class GoogleTranslator(BaseTranslator):
@@ -62,16 +63,22 @@ class GoogleTranslator(BaseTranslator):
             if self.payload_key:
                 self._url_params[self.payload_key] = text
 
-            response = requests.get(
-                self._base_url, params=self._url_params, proxies=self.proxies
-            )
-            if response.status_code == 429:
-                raise TooManyRequests()
+            url = f"{self._base_url}?{parse.urlencode(self._url_params)}"
+            print("url: ", url)
+            req = request.Request(url)
+            response = request.urlopen(req)
+            # response = requests.get(
+            #     self._base_url, params=self._url_params, proxies=self.proxies
+            # )
+            # print(response.url)
+            # exit()
+            # if response.status_code == 429:
+            #     raise TooManyRequests()
 
-            if response.status_code != 200:
-                raise RequestError()
+            # if response.status_code != 200:
+            #     raise RequestError()
 
-            soup = BeautifulSoup(response.text, "html.parser")
+            soup = BeautifulSoup(response, "html.parser")
 
             element = soup.find(self._element_tag, self._element_query)
 
@@ -118,6 +125,9 @@ class GoogleTranslator(BaseTranslator):
 
 
 if __name__ == "__main__":
-    trans = GoogleTranslator(source="auto", target="zh-CN")
-    res = trans.translate("good")
-    print("translation: ", res)
+    from time import time
+    trans = GoogleTranslator(source="auto", target="de")
+    t0 = time()
+    res = trans.translate("good morning")
+    t1 = time()
+    print(f"translation: {res} | time: {t1 - t0}")
