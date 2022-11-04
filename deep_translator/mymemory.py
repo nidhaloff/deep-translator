@@ -76,11 +76,17 @@ class MyMemoryTranslator(BaseTranslator):
 
             response.close()
             translation = data.get("responseData").get("translatedText")
+            all_matches = data.get("matches", [])
+
             if translation:
-                return translation
+                if not return_all:
+                    return translation
+                else:
+                    # append translation at the start of the matches list
+                    return [translation] + list(all_matches)
+
 
             elif not translation:
-                all_matches = data.get("matches")
                 matches = (match["translation"] for match in all_matches)
                 next_match = next(matches)
                 return next_match if not return_all else list(all_matches)
