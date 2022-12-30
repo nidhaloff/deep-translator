@@ -20,7 +20,7 @@ class MicrosoftTranslator(BaseTranslator):
     def __init__(
         self,
         api_key: Optional[str] = None,
-        region: Optional[str] = None,
+        region: Optional[str] = "global",
         source: str = "auto",
         target: str = "en",
         proxies: Optional[dict] = None,
@@ -80,7 +80,8 @@ class MicrosoftTranslator(BaseTranslator):
         # I have not added multiple text processing here since it is covered by the translate_batch method
         response = None
         if is_input_valid(text):
-            self._url_params["from"] = self._source
+            if self._source != 'auto':
+                self._url_params["from"] = self._source
             self._url_params["to"] = self._target
 
             valid_microsoft_json = [{"text": text}]
