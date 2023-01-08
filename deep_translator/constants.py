@@ -217,6 +217,7 @@ DEEPL_LANGUAGE_TO_CODE = {
     "finnish": "fi",
     "french": "fr",
     "hungarian": "hu",
+    "indonesian": "id",
     "italian": "it",
     "japanese": "ja",
     "lithuanian": "lt",
@@ -229,7 +230,9 @@ DEEPL_LANGUAGE_TO_CODE = {
     "slovak": "sk",
     "slovenian": "sl",
     "swedish": "sv",
-    "chinese": "zh",
+    "turkish": "tr",
+    "ukrainian": "uk",
+    "chinese": "zh",    
 }
 
 PAPAGO_LANGUAGE_TO_CODE = {
