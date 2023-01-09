@@ -407,9 +407,6 @@ Linguee Translator
 
     translated_word = LingueeTranslator(source='english', target='french').translate(word)
 
-    # pass language by their abbreviation
-    translated_word = LingueeTranslator(source='en', target='fr').translate(word)
-
 - Return all synonyms or words that match
 
 .. code-block:: python
