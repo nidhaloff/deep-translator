@@ -656,7 +656,7 @@ Finally, to retrieve a list of available languages for a given translator:
 Tests
 ======
 
-Developers can install the development version of deep-translator and execute unit tests to verify functionality. For more information on doing this, see `the contribution guidelines <https://deep-translator.readthedocs.io/en/latest/contributing.html/>`_
+Developers can install the development version of deep-translator and execute unit tests to verify functionality. For more information on doing this, see `the contribution guidelines <https://deep-translator.readthedocs.io/en/latest/contributing.html#get-started>`_
 
 ========
 Links
