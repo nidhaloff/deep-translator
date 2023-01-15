@@ -688,7 +688,7 @@ Next Steps
 
 Take a look in the examples folder for more :)
 Contributions are always welcome.
-Read the Contribution guidelines `Here <https://deep-translator.readthedocs.io/en/latest/contributing.html/>`_
+Read the Contribution guidelines `Here <https://deep-translator.readthedocs.io/en/latest/contributing.html#get-started>`_
 
 ==========
 Credits
