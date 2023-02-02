@@ -62,7 +62,7 @@ class LingueeTranslator(BaseTranslator):
         if is_input_valid(word, max_chars=50):
             # %s-%s/translation/%s.html
             url = (
-                f"{self._base_url}{self._source}-{self._target}/translation/{word}.html"
+                f"{self._base_url}{self._source}-{self._target}/search/?source={self._source}&query={word}"
             )
             url = requote_uri(url)
             response = requests.get(url, proxies=self.proxies)

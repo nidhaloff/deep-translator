@@ -407,9 +407,6 @@ Linguee Translator
 
     translated_word = LingueeTranslator(source='english', target='french').translate(word)
 
-    # pass language by their abbreviation
-    translated_word = LingueeTranslator(source='en', target='fr').translate(word)
-
 - Return all synonyms or words that match
 
 .. code-block:: python
@@ -656,7 +653,7 @@ Finally, to retrieve a list of available languages for a given translator:
 Tests
 ======
 
-Developers can install the development version of deep-translator and execute unit tests to verify functionality. For more information on doing this, see `the contribution guidelines <https://deep-translator.readthedocs.io/en/latest/contributing.html/>`_
+Developers can install the development version of deep-translator and execute unit tests to verify functionality. For more information on doing this, see `the contribution guidelines <https://deep-translator.readthedocs.io/en/latest/contributing.html#get-started>`_
 
 ========
 Links
@@ -688,7 +685,7 @@ Next Steps
 
 Take a look in the examples folder for more :)
 Contributions are always welcome.
-Read the Contribution guidelines `Here <https://deep-translator.readthedocs.io/en/latest/contributing.html/>`_
+Read the Contribution guidelines `Here <https://deep-translator.readthedocs.io/en/latest/contributing.html#get-started>`_
 
 ==========
 Credits
