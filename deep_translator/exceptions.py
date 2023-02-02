@@ -1,3 +1,6 @@
+
+__copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
+
 class BaseError(Exception):
     """
     base error structure class

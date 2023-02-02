@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+__copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
+
 import logging
 import sys
 from typing import List, Optional
@@ -41,7 +43,7 @@ class MicrosoftTranslator(BaseTranslator):
             "Ocp-Apim-Subscription-Key": self.api_key,
             "Content-type": "application/json",
         }
-        # region is not required but very common and goes to headers if passed
+        #region is not required but very common and goes to headers if passed
         if region:
             self.region = region
             self.headers["Ocp-Apim-Subscription-Region"] = self.region

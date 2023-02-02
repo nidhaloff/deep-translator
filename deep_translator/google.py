@@ -2,6 +2,8 @@
 google translator API
 """
 
+__copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
+
 from typing import List, Optional
 
 import requests

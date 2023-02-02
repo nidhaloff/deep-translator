@@ -1,3 +1,7 @@
+
+__copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
+
+
 BASE_URLS = {
     "GOOGLE_TRANSLATE": "https://translate.google.com/m",
     "PONS": "https://en.pons.com/translate/",
@@ -232,7 +236,7 @@ DEEPL_LANGUAGE_TO_CODE = {
     "swedish": "sv",
     "turkish": "tr",
     "ukrainian": "uk",
-    "chinese": "zh",    
+    "chinese": "zh",
 }
 
 PAPAGO_LANGUAGE_TO_CODE = {

@@ -1,6 +1,9 @@
 """
 linguee translator API
 """
+
+__copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
+
 from typing import List, Optional, Union
 
 import requests
@@ -72,7 +75,7 @@ class LingueeTranslator(BaseTranslator):
             soup = BeautifulSoup(response.text, "html.parser")
             elements = soup.find_all(self._element_tag, self._element_query)
             response.close()
-            
+
             if not elements:
                 raise ElementNotFoundInGetRequest(elements)
 

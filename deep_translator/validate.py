@@ -1,3 +1,6 @@
+
+__copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
+
 from deep_translator.exceptions import NotValidLength, NotValidPayload
 
 

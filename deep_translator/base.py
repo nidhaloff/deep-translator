@@ -1,5 +1,7 @@
 """base translator class"""
 
+__copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
+
 from abc import ABC, abstractmethod
 from typing import List, Optional, Union
 

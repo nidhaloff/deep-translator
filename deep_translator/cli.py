@@ -1,4 +1,7 @@
 """Console script for deep_translator."""
+
+__copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
+
 import argparse
 from typing import Optional
 

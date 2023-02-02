@@ -1,6 +1,9 @@
 """
-google translator API
+papago translator API
 """
+
+__copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
+
 import json
 from typing import List, Optional
 
