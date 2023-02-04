@@ -80,8 +80,7 @@ class MicrosoftTranslator(BaseTranslator):
         # I have not added multiple text processing here since it is covered by the translate_batch method
         response = None
         if is_input_valid(text):
-            if self._source != 'auto':
-                self._url_params["from"] = self._source
+            self._url_params["from"] = self._source
             self._url_params["to"] = self._target
 
             valid_microsoft_json = [{"text": text}]
