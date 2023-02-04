@@ -10,6 +10,8 @@ from deep_translator.exceptions import (
     InvalidSourceOrTargetLanguage,
     LanguageNotSupportedException,
 )
+from pathlib import Path
+from bs4 import BeautifulSoup as bs
 
 
 class BaseTranslator(ABC):
@@ -123,6 +125,17 @@ class BaseTranslator(ABC):
         """
         return NotImplemented("You need to implement the translate method!")
 
+    def _read_docx(self, f: str):
+        import docx2txt
+        return docx2txt.process(f)
+
+    def _read_pdf(self, f: str):
+        import pypdf
+
+        reader = pypdf.PdfReader(f)
+        page = reader.pages[0]
+        return page.extract_text()
+
     def _translate_file(self, path: str, **kwargs) -> str:
         """
         translate directly from file
@@ -131,12 +144,25 @@ class BaseTranslator(ABC):
         @param kwargs: additional args
         @return: str
         """
-        try:
+        if not isinstance(path, Path):
+            path = Path(path)
+
+        if not path.exists():
+            print("Path to the file is wrong!")
+            exit(1)
+
+        ext = path.suffix
+        
+        if ext == '.docx':
+            text = self._read_docx(f=str(path))
+
+        elif ext == '.pdf':
+            text = self._read_pdf(f=str(path))
+        else:
             with open(path, "r", encoding="utf-8") as f:
                 text = f.read().strip()
-            return self.translate(text)
-        except Exception as e:
-            raise e
+
+        return self.translate(text)
 
     def _translate_batch(self, batch: List[str], **kwargs) -> List[str]:
         """

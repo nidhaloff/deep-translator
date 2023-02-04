@@ -121,6 +121,6 @@ class GoogleTranslator(BaseTranslator):
 
 
 if __name__ == "__main__":
-    trans = GoogleTranslator(source="auto", target="zh-CN")
-    res = trans.translate("good")
+    trans = GoogleTranslator(source="auto", target="de")
+    res = trans.translate_file(path='/home/nidhal/Documents/translate.pdf')
     print("translation: ", res)
