@@ -31,6 +31,8 @@ dt = 'deep_translator.__main__:main'
 python = "^3.7"
 beautifulsoup4 = "^4.9.1"
 requests = "^2.23.0"
+docx2txt = {version = "^0.8", extras = ["docx"]}
+pypdf = {version = "^3.3.0", extras = ["pdf"]}
 
 [tool.poetry.dev-dependencies]
 wheel = "^0.38.4"
