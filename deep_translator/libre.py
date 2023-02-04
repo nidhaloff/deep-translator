@@ -108,9 +108,3 @@ class LibreTranslator(BaseTranslator):
         @return: list of translations
         """
         return self._translate_batch(batch, **kwargs)
-
-
-if __name__ == "__main__":
-    l = LibreTranslator(source="en", target="de")
-    res = l.translate("good")
-    print("res: ", res)

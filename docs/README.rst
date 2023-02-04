@@ -114,6 +114,8 @@ Features
 * Automatic single language detection
 * Batch language detection
 * Translate directly from a text file
+* Translate docx files (version >= 1.9.4)
+* Translate PDF files (version >= 1.9.4)
 * Get multiple translation for a word
 * Automate the translation of different paragraphs in different languages
 * Translate directly from terminal (version >= 1.1.0)
@@ -129,6 +131,14 @@ Install the stable release:
     $ pip install -U deep-translator
 
 take a look at the docs if you want to install from source.
+
+Also, you can install extras if you want support for specific use case. For example, translating Docx and PDF files
+
+.. code-block:: console
+
+    $ pip install -U deep-translator[docx]  # add support for docx translation
+
+    $ pip install -U deep-translator[pdf]  # add support for pdf translation
 
 ============
 Quick Start
@@ -613,6 +623,23 @@ can be used with all supported translators.
     translated = GoogleTranslator(source='auto', target='de', proxies=proxies_example).translate("this package is awesome")
 
 
+File Translation
+--------------------
+
+Deep-translator (version >= 1.9.4) supports not only text file translation, but docx and PDF files too.
+However, you need to install deep-translator using the specific extras.
+
+For docx translation:
+
+.. code-block:: console
+
+    pip install deep-translator[docx]
+
+For PDF translation:
+
+.. code-block:: console
+
+    pip install deep-translator[pdf]
 
 
 Usage from Terminal
