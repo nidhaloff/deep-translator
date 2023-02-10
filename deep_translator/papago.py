@@ -54,13 +54,19 @@ class PapagoTranslator(BaseTranslator):
         @return: str: translated text
         """
         if is_input_valid(text):
-            payload = {"source": self._source, "target": self._target, "text": text}
+            payload = {
+                "source": self._source,
+                "target": self._target,
+                "text": text,
+            }
             headers = {
                 "X-Naver-Client-Id": self.client_id,
                 "X-Naver-Client-Secret": self.secret_key,
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
             }
-            response = requests.post(self._base_url, headers=headers, data=payload)
+            response = requests.post(
+                self._base_url, headers=headers, data=payload
+            )
             if response.status_code != 200:
                 raise Exception(
                     f"Translation error! -> status code: {response.status_code}"

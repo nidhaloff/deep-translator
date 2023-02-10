@@ -1,5 +1,3 @@
-
-
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
 from typing import List, Optional
@@ -18,7 +16,8 @@ from deep_translator.validate import is_empty, is_input_valid
 
 class DeeplTranslator(BaseTranslator):
     """
-    class that wraps functions, which use the DeeplTranslator translator under the hood to translate word(s)
+    class that wraps functions, which use the DeeplTranslator translator
+    under the hood to translate word(s)
     """
 
     def __init__(

@@ -28,7 +28,11 @@ class PonsTranslator(BaseTranslator):
     """
 
     def __init__(
-        self, source: str, target: str = "en", proxies: Optional[dict] = None, **kwargs
+        self,
+        source: str,
+        target: str = "en",
+        proxies: Optional[dict] = None,
+        **kwargs,
     ):
         """
         @param source: source language to translate from
@@ -87,7 +91,9 @@ class PonsTranslator(BaseTranslator):
             if not filtered_elements:
                 raise ElementNotFoundInGetRequest(word)
 
-            word_list = [word for word in filtered_elements if word and len(word) > 1]
+            word_list = [
+                word for word in filtered_elements if word and len(word) > 1
+            ]
 
             if not word_list:
                 raise TranslationNotFound(word)

@@ -83,7 +83,9 @@ class GoogleTranslator(BaseTranslator):
                 if not element:
                     raise TranslationNotFound(text)
             if element.get_text(strip=True) == text.strip():
-                to_translate_alpha = "".join(ch for ch in text.strip() if ch.isalnum())
+                to_translate_alpha = "".join(
+                    ch for ch in text.strip() if ch.isalnum()
+                )
                 translated_alpha = "".join(
                     ch for ch in element.get_text(strip=True) if ch.isalnum()
                 )

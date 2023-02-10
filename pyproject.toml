@@ -28,7 +28,7 @@ deep-translator = 'deep_translator.__main__:main'
 dt = 'deep_translator.__main__:main'
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = ">=3.8,<4.0"
 beautifulsoup4 = "^4.9.1"
 requests = "^2.23.0"
 docx2txt = {version = "^0.8", extras = ["docx"]}
@@ -45,6 +45,36 @@ toml = "^0.10.2"
 black = "^22.1.0"
 isort = "^5.10.1"
 python-semantic-release = "^7.26.0"
+pre-commit = "^3.0.4"
+autoflake = "^2.0.1"
+
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+line_length = 79
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+
+[tool.pycln]
+all = true
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

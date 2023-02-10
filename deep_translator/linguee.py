@@ -28,7 +28,11 @@ class LingueeTranslator(BaseTranslator):
     """
 
     def __init__(
-        self, source: str = "en", target: str = "de", proxies: Optional[dict] = None, **kwargs
+        self,
+        source: str = "en",
+        target: str = "de",
+        proxies: Optional[dict] = None,
+        **kwargs,
     ):
         """
         @param source: source language to translate from
@@ -61,9 +65,7 @@ class LingueeTranslator(BaseTranslator):
 
         if is_input_valid(word, max_chars=50):
             # %s-%s/translation/%s.html
-            url = (
-                f"{self._base_url}{self._source}-{self._target}/search/?source={self._source}&query={word}"
-            )
+            url = f"{self._base_url}{self._source}-{self._target}/search/?source={self._source}&query={word}"
             url = requote_uri(url)
             response = requests.get(url, proxies=self.proxies)
 
@@ -82,12 +84,14 @@ class LingueeTranslator(BaseTranslator):
             filtered_elements = []
             for el in elements:
                 try:
-                    pronoun = el.find("span", {"class": "placeholder"}).get_text(
-                        strip=True
-                    )
+                    pronoun = el.find(
+                        "span", {"class": "placeholder"}
+                    ).get_text(strip=True)
                 except AttributeError:
                     pronoun = ""
-                filtered_elements.append(el.get_text(strip=True).replace(pronoun, ""))
+                filtered_elements.append(
+                    el.get_text(strip=True).replace(pronoun, "")
+                )
 
             if not filtered_elements:
                 raise TranslationNotFound(word)

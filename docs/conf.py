@@ -146,7 +146,13 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, "deep_translator", "deep_translator Documentation", [author], 1)
+    (
+        master_doc,
+        "deep_translator",
+        "deep_translator Documentation",
+        [author],
+        1,
+    )
 ]
 
 
@@ -162,7 +168,7 @@ texinfo_documents = [
         "deep_translator Documentation",
         author,
         "deep_translator",
-        "A flexible free and unlimited python tool to translate between different languages in a simple way using multiple translators.",
+        "A flexible free and unlimited python tool to translate between different languages in a simple way using multiple translators.",  # noqa
         "Miscellaneous",
     ),
 ]

@@ -1,4 +1,3 @@
-
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
 from typing import List, Optional
@@ -23,7 +22,8 @@ class QcriTranslator(BaseTranslator):
         **kwargs,
     ):
         """
-        @param api_key: your qrci api key. Get one for free here https://mt.qcri.org/api/v1/ref
+        @param api_key: your qrci api key.
+        Get one for free here https://mt.qcri.org/api/v1/ref
         """
 
         if not api_key:
@@ -45,7 +45,10 @@ class QcriTranslator(BaseTranslator):
         )
 
     def _get(
-        self, endpoint: str, params: Optional[dict] = None, return_text: bool = True
+        self,
+        endpoint: str,
+        params: Optional[dict] = None,
+        return_text: bool = True,
     ):
         if not params:
             params = self.params

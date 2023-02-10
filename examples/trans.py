@@ -17,7 +17,9 @@ print("file translation: ", result_file)
 
 # examples using linguee:
 text = "cute"
-translated = LingueeTranslator(source="english", target="german").translate(word=text)
+translated = LingueeTranslator(source="english", target="german").translate(
+    word=text
+)
 print("Using Linguee ==> the translated text: ", translated)
 
 # examples using pons:
