@@ -43,7 +43,7 @@ class MicrosoftTranslator(BaseTranslator):
             "Ocp-Apim-Subscription-Key": self.api_key,
             "Content-type": "application/json",
         }
-        #region is not required but very common and goes to headers if passed
+        # region is not required but very common and goes to headers if passed
         if region:
             self.region = region
             self.headers["Ocp-Apim-Subscription-Region"] = self.region
@@ -59,12 +59,13 @@ class MicrosoftTranslator(BaseTranslator):
     # the keys are the abbreviations and the values are the languages
     # a common variable used in the other translators would be: MICROSOFT_CODES_TO_LANGUAGES
     def _get_supported_languages(self):
-
         microsoft_languages_api_url = (
             "https://api.cognitive.microsofttranslator.com/languages?api-version=3.0&scope"
             "=translation "
         )
-        microsoft_languages_response = requests.get(microsoft_languages_api_url)
+        microsoft_languages_response = requests.get(
+            microsoft_languages_api_url
+        )
         translation_dict = microsoft_languages_response.json()["translation"]
 
         return {

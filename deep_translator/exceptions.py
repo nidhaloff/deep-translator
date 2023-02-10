@@ -1,5 +1,5 @@
-
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
+
 
 class BaseError(Exception):
     """
@@ -21,10 +21,13 @@ class BaseError(Exception):
 
 class LanguageNotSupportedException(BaseError):
     """
-    exception thrown if the user uses a language that is not supported by the deep_translator
+    exception thrown if the user uses a language
+    that is not supported by the deep_translator
     """
 
-    def __init__(self, val, message="There is no support for the chosen language"):
+    def __init__(
+        self, val, message="There is no support for the chosen language"
+    ):
         super().__init__(val, message)
 
 
@@ -36,7 +39,7 @@ class NotValidPayload(BaseError):
     def __init__(
         self,
         val,
-        message="text must be a valid text with maximum 5000 character, otherwise it cannot be translated",
+        message="text must be a valid text with maximum 5000 character, otherwise it cannot be translated",  # noqa
     ):
         super(NotValidPayload, self).__init__(val, message)
 
@@ -80,9 +83,7 @@ class NotValidLength(BaseError):
     """
 
     def __init__(self, val, min_chars, max_chars):
-        message = (
-            f"Text length need to be between {min_chars} and {max_chars} characters"
-        )
+        message = f"Text length need to be between {min_chars} and {max_chars} characters"
         super(NotValidLength, self).__init__(val, message)
 
 
@@ -122,7 +123,7 @@ class TooManyRequests(Exception):
 
     def __init__(
         self,
-        message="Server Error: You made too many requests to the server. According to google, you are allowed to make 5 requests per second and up to 200k requests per day. You can wait and try again later or you can try the translate_batch function",
+        message="Server Error: You made too many requests to the server. According to google, you are allowed to make 5 requests per second and up to 200k requests per day. You can wait and try again later or you can try the translate_batch function",  # noqa
     ):
         self.message = message
 

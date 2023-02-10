@@ -13,7 +13,9 @@ from deep_translator import MicrosoftTranslator, exceptions
 # mocked request.post
 @patch.object(requests, "post")
 def test_microsoft_successful_post_mock(mock_request_post):
-    returned_json = [{"translations": [{"text": "See you later!", "to": "en"}]}]
+    returned_json = [
+        {"translations": [{"text": "See you later!", "to": "en"}]}
+    ]
 
     def res():
         r = requests.Response()
@@ -26,16 +28,18 @@ def test_microsoft_successful_post_mock(mock_request_post):
 
     mock_request_post.return_value = res()
     assert (
-        MicrosoftTranslator(api_key="an_api_key", source="de", target="en").translate(
-            "auf wiedersehen!"
-        )
+        MicrosoftTranslator(
+            api_key="an_api_key", source="de", target="en"
+        ).translate("auf wiedersehen!")
         == "See you later!"
     )
 
 
 def test_MicrosoftAPIerror():
     with pytest.raises(exceptions.MicrosoftAPIerror):
-        MicrosoftTranslator(api_key="empty", source="de", target="en").translate("text")
+        MicrosoftTranslator(
+            api_key="empty", source="de", target="en"
+        ).translate("text")
 
 
 # the remaining tests are actual requests to Microsoft API and use an api key
@@ -54,9 +58,9 @@ def test_microsoft_successful_post_onetarget():
 
 @pytest.mark.skipif(APIkey is None, reason="api_key is not provided")
 def test_microsoft_successful_post_twotargets():
-    posted = MicrosoftTranslator(api_key=APIkey, target=["en", "ru"]).translate(
-        "auf wiedersehen!"
-    )
+    posted = MicrosoftTranslator(
+        api_key=APIkey, target=["en", "ru"]
+    ).translate("auf wiedersehen!")
     assert isinstance(posted, str)
 
 

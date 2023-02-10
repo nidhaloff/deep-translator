@@ -88,7 +88,6 @@ class MyMemoryTranslator(BaseTranslator):
                     # append translation at the start of the matches list
                     return [translation] + list(all_matches)
 
-
             elif not translation:
                 matches = (match["translation"] for match in all_matches)
                 next_match = next(matches)

@@ -1,4 +1,3 @@
-
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
 
@@ -11,7 +10,7 @@ BASE_URLS = {
     "QCRI": "https://mt.qcri.org/api/v1/{endpoint}?",
     "DEEPL": "https://api.deepl.com/{version}/",
     "DEEPL_FREE": "https://api-free.deepl.com/{version}/",
-    "MICROSOFT_TRANSLATE": "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0",
+    "MICROSOFT_TRANSLATE": "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0",  # noqa
     "PAPAGO": "https://papago.naver.com/",
     "PAPAGO_API": "https://openapi.naver.com/v1/papago/n2mt",
     "LIBRE": "https://libretranslate.com/",

@@ -34,15 +34,19 @@ class LibreTranslator(BaseTranslator):
         """
         @param api_key: your api key
         @param source: source language to translate from
-        List of LibreTranslate endpoint can be found at : https://github.com/LibreTranslate/LibreTranslate#mirrors
+        List of LibreTranslate endpoint can be found at :
+        https://github.com/LibreTranslate/LibreTranslate#mirrors
         Some require an API key
         @param target: target language to translate to
-        @param use_free_api: set True if you want to use the free api. This means a url that does not require and api key would be used
+        @param use_free_api: set True if you want to use the free api.
+        This means a url that does not require and api key would be used
         @param custom_url: you can use a custom endpoint
         """
         self.api_key = api_key
         url = (
-            BASE_URLS.get("LIBRE") if not use_free_api else BASE_URLS.get("LIBRE_FREE")
+            BASE_URLS.get("LIBRE")
+            if not use_free_api
+            else BASE_URLS.get("LIBRE_FREE")
         )
         super().__init__(
             base_url=url if not custom_url else custom_url,

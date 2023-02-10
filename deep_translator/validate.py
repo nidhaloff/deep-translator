@@ -1,4 +1,3 @@
-
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
 from deep_translator.exceptions import NotValidLength, NotValidPayload
@@ -8,7 +7,9 @@ def is_empty(text: str) -> bool:
     return text == ""
 
 
-def is_input_valid(text: str, min_chars: int = 0, max_chars: int = 5000) -> bool:
+def is_input_valid(
+    text: str, min_chars: int = 0, max_chars: int = 5000
+) -> bool:
     """
     validate the target text to translate
     @param min_chars: min characters

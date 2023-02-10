@@ -21,7 +21,8 @@ from deep_translator.validate import is_input_valid
 
 class YandexTranslator(BaseTranslator):
     """
-    class that wraps functions, which use the yandex translator under the hood to translate word(s)
+    class that wraps functions, which use the yandex translator
+    under the hood to translate word(s)
     """
 
     def __init__(
@@ -44,7 +45,10 @@ class YandexTranslator(BaseTranslator):
             "translate": "translate",
         }
         super().__init__(
-            base_url=BASE_URLS.get("YANDEX"), source=source, target=target, **kwargs
+            base_url=BASE_URLS.get("YANDEX"),
+            source=source,
+            target=target,
+            **kwargs
         )
 
     def _get_supported_languages(self):
@@ -56,11 +60,14 @@ class YandexTranslator(BaseTranslator):
 
     @property
     def dirs(self, proxies: Optional[dict] = None):
-
         try:
-            url = self._base_url.format(version=self.api_version, endpoint="getLangs")
+            url = self._base_url.format(
+                version=self.api_version, endpoint="getLangs"
+            )
             print("url: ", url)
-            response = requests.get(url, params={"key": self.api_key}, proxies=proxies)
+            response = requests.get(
+                url, params={"key": self.api_key}, proxies=proxies
+            )
         except requests.exceptions.ConnectionError:
             raise ServerException(503)
         else:
@@ -78,7 +85,9 @@ class YandexTranslator(BaseTranslator):
             "key": self.api_key,
         }
         try:
-            url = self._base_url.format(version=self.api_version, endpoint="detect")
+            url = self._base_url.format(
+                version=self.api_version, endpoint="detect"
+            )
             response = requests.post(url, data=params, proxies=proxies)
 
         except RequestError:
@@ -97,7 +106,9 @@ class YandexTranslator(BaseTranslator):
             raise ServerException(501)
         return language
 
-    def translate(self, text: str, proxies: Optional[dict] = None, **kwargs) -> str:
+    def translate(
+        self, text: str, proxies: Optional[dict] = None, **kwargs
+    ) -> str:
         if is_input_valid(text):
             params = {
                 "text": text,
