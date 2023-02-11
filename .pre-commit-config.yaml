@@ -1,20 +1,25 @@
+default_language_version:
+    python: python3.7
+
+default_stages: [commit, push]
+
 repos:
-  - repo: https://github.com/psf/black
-    rev: 23.1.0
-    hooks:
-      - id: black
-  - repo: https://github.com/PyCQA/flake8.git
-    rev: 6.0.0
-    hooks:
-      - id: flake8
-  - repo: https://github.com/hadialqattan/pycln
-    rev: v2.1.3
-    hooks:
-      - id: pycln
-        args: [--config=pyproject.toml]
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        files: "\\.(py)$"
-        args: ["--profile", "black"]
+    - repo: https://github.com/psf/black
+      rev: 23.1.0
+      hooks:
+          - id: black
+    - repo: https://github.com/PyCQA/flake8.git
+      rev: 16c371d41cd742f975171826de0ad5d707162c1d
+      hooks:
+          - id: flake8
+    - repo: https://github.com/hadialqattan/pycln
+      rev: v2.1.3
+      hooks:
+          - id: pycln
+            args: [--config=pyproject.toml]
+    - repo: https://github.com/pycqa/isort
+      rev: 5.11.5
+      hooks:
+          - id: isort
+            files: "\\.(py)$"
+            args: ["--profile", "black"]
