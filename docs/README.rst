@@ -130,15 +130,19 @@ Install the stable release:
 
     $ pip install -U deep-translator
 
+    $ poetry add deep-translator   # for poetry usage
+
 take a look at the docs if you want to install from source.
 
 Also, you can install extras if you want support for specific use case. For example, translating Docx and PDF files
 
 .. code-block:: console
 
-    $ pip install -U deep-translator[docx]  # add support for docx translation
+    $ pip install deep-translator[docx]  # add support for docx translation
 
-    $ pip install -U deep-translator[pdf]  # add support for pdf translation
+    $ pip install deep-translator[pdf]  # add support for pdf translation
+
+    $ poetry add deep-translator --extras "docx pdf"   # for poetry usage
 
 ============
 Quick Start
