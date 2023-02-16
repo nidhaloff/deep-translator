@@ -25,14 +25,16 @@ jobs:
 
         steps:
             -   uses: actions/checkout@v2
-            -   name: Run image
-                uses: abatilo/actions-poetry@v2.0.0
+
+            -   name: Install poetry
+                run: curl -sSL https://install.python-poetry.org | python3 -
+
             -   name: View poetry version
                 run: poetry --version
-            -   name: Update poetry
-                run: poetry update
-            -   name: Install dependencies
+
+            -   name: Run install
                 run: poetry install
+
             -   name: Build package
                 run: poetry build
 
