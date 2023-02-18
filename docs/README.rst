@@ -30,6 +30,9 @@ deep-translator
 .. image:: https://img.shields.io/pypi/wheel/deep-translator
         :target: https://pypi.python.org/pypi/deep-translator
 
+.. image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit
+        :target: https://github.com/pre-commit/pre-commit
+
 .. image:: https://img.shields.io/twitter/url?url=https%3A%2F%2Ftwitter.com%2FNidhalBaccouri
         :alt: Twitter URL
         :target: https://twitter.com/NidhalBaccouri

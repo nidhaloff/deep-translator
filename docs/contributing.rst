@@ -70,6 +70,7 @@ Ready to contribute? Here's how to set up `deep_translator` for local developmen
     $ cd path/to/project
     $ poetry shell
     $ poetry install
+    $ pre-commit install
 
  .. note::
 
