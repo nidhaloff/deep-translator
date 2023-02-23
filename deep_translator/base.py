@@ -27,6 +27,7 @@ class BaseTranslator(ABC):
         payload_key: Optional[str] = None,
         element_tag: Optional[str] = None,
         element_query: Optional[dict] = None,
+        already_translated: dict[str, str] = {},
         **url_params,
     ):
         """
@@ -35,6 +36,7 @@ class BaseTranslator(ABC):
         """
         self._base_url = base_url
         self._languages = languages
+        self._already_translated = already_translated
         self._supported_languages = list(self._languages.keys())
         if not source:
             raise InvalidSourceOrTargetLanguage(source)
@@ -177,7 +179,11 @@ class BaseTranslator(ABC):
         if not batch:
             raise Exception("Enter your text list that you want to translate")
         arr = []
-        for i, text in enumerate(batch):
-            translated = self.translate(text, **kwargs)
+        for _i, text in enumerate(batch):
+            if text in self._already_translated.keys:
+                translated = self._already_translated[text]
+            else:
+                translated = self.translate(text, **kwargs)
+                self._already_translated[text] = translated
             arr.append(translated)
         return arr
