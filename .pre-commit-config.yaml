@@ -1,3 +1,6 @@
+default_language_version:
+    python: python3
+
 default_stages: [commit, push]
 
 ci:
@@ -13,6 +16,17 @@ ci:
     submodules: false
 
 repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v4.4.0
+      hooks:
+        - id: check-toml
+        - id: check-yaml
+        - id: end-of-file-fixer
+        - id: trailing-whitespace
+        - id: mixed-line-ending
+        - id: detect-private-key
+        - id: name-tests-test
+          args: [--pytest-test-first]
     - repo: https://github.com/psf/black
       rev: 23.1.0
       hooks:
@@ -32,3 +46,16 @@ repos:
           - id: isort
             files: "\\.(py)$"
             args: ["--profile", "black"]
+    - repo: https://github.com/tox-dev/pyproject-fmt
+      rev: 0.9.0
+      hooks:
+        - id: pyproject-fmt
+    - repo: https://github.com/pre-commit/pygrep-hooks
+      rev: v1.10.0
+      hooks:
+        - id: python-check-blanket-noqa
+        - id: python-check-mock-methods
+        - id: python-no-eval
+        - id: python-no-log-warn
+        - id: rst-backticks
+        - id: rst-directive-colons
