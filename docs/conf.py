@@ -168,7 +168,7 @@ texinfo_documents = [
         "deep_translator Documentation",
         author,
         "deep_translator",
-        "A flexible free and unlimited python tool to translate between different languages in a simple way using multiple translators.",  # noqa
+        "A flexible free and unlimited python tool to translate between different languages in a simple way using multiple translators.",  # noqa: E501
         "Miscellaneous",
     ),
 ]

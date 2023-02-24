@@ -23,7 +23,7 @@ jobs:
 
             -   name: View poetry version
                 run: poetry --version
-                
+
             -   name: Update version
                 run: poetry version patch
 
