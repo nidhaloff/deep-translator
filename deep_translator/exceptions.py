@@ -39,7 +39,8 @@ class NotValidPayload(BaseError):
     def __init__(
         self,
         val,
-        message="text must be a valid text with maximum 5000 character, otherwise it cannot be translated",  # noqa: E501
+        message="text must be a valid text with maximum 5000 character,"
+        "otherwise it cannot be translated",
     ):
         super(NotValidPayload, self).__init__(val, message)
 
@@ -123,7 +124,10 @@ class TooManyRequests(Exception):
 
     def __init__(
         self,
-        message="Server Error: You made too many requests to the server. According to google, you are allowed to make 5 requests per second and up to 200k requests per day. You can wait and try again later or you can try the translate_batch function",  # noqa: E501
+        message="Server Error: You made too many requests to the server."
+        "According to google, you are allowed to make 5 requests per second"
+        "and up to 200k requests per day. You can wait and try again later or"
+        "you can try the translate_batch function",
     ):
         self.message = message
 
