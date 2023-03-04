@@ -75,7 +75,9 @@ class PonsTranslator(BaseTranslator):
                 raise RequestError()
 
             soup = BeautifulSoup(response.text, "html.parser")
-            elements = soup.findAll(self._element_tag, self._element_query)
+            elements = soup.find("div", {"class": "result_list"}).findAll(
+                self._element_tag, self._element_query
+            )
             response.close()
 
             if not elements:
@@ -83,10 +85,10 @@ class PonsTranslator(BaseTranslator):
 
             filtered_elements = []
             for el in elements:
-                temp = ""
+                temp = []
                 for e in el.findAll("a"):
-                    temp += e.get_text() + " "
-                filtered_elements.append(temp)
+                    temp.append(e.get_text())
+                filtered_elements.append(" ".join(temp))
 
             if not filtered_elements:
                 raise ElementNotFoundInGetRequest(word)
