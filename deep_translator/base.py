@@ -2,9 +2,13 @@
 
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
+import asyncio
 from abc import ABC, abstractmethod
+from functools import lru_cache
 from pathlib import Path
 from typing import List, Optional, Union
+
+import aiohttp
 
 from deep_translator.constants import GOOGLE_LANGUAGES_TO_CODES
 from deep_translator.exceptions import (
@@ -128,6 +132,23 @@ class BaseTranslator(ABC):
         """
         return NotImplemented("You need to implement the translate method!")
 
+    @abstractmethod
+    @lru_cache(maxsize=128)
+    async def _async_translate(
+        self, text: str, session: aiohttp.ClientSession, **kwargs
+    ) -> str:
+        """
+        translate a text using a async_translator under the hood and return
+        the translated text
+        @param text: text to translate
+        @param session: a network ClientSession object of anyiohttp
+        @param kwargs: additional arguments
+        @return: str
+        """
+        return NotImplemented(
+            "You need to implement the _async_translate method!"
+        )
+
     def _read_docx(self, f: str):
         import docx2txt
 
@@ -181,3 +202,14 @@ class BaseTranslator(ABC):
             translated = self.translate(text, **kwargs)
             arr.append(translated)
         return arr
+
+    async def async_translate_batch(
+        self, batch: List[str], **kwargs
+    ) -> List[str]:
+        if not batch:
+            raise Exception("Enter your text list that you want to translate")
+        async with aiohttp.ClientSession() as session:
+            translation_tasks = [
+                self._async_translate(text, session) for text in batch
+            ]
+            return await asyncio.gather(*translation_tasks)
