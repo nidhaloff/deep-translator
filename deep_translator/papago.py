@@ -5,8 +5,10 @@ papago translator API
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
 import json
+from functools import lru_cache
 from typing import List, Optional
 
+import aiohttp
 import requests
 
 from deep_translator.base import BaseTranslator
@@ -81,6 +83,12 @@ class PapagoTranslator(BaseTranslator):
                 raise TranslationNotFound(text)
             translated_text = result.get("translatedText")
             return translated_text
+
+    @lru_cache(maxsize=None)
+    async def _async_translate(
+        self, text: str, session: aiohttp.ClientSession, **kwargs
+    ):
+        ...
 
     def translate_file(self, path: str, **kwargs) -> str:
         """

@@ -4,8 +4,10 @@ linguee translator API
 
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
+from functools import lru_cache
 from typing import List, Optional, Union
 
+import aiohttp
 import requests
 from bs4 import BeautifulSoup
 from requests.utils import requote_uri
@@ -97,6 +99,12 @@ class LingueeTranslator(BaseTranslator):
                 raise TranslationNotFound(word)
 
             return filtered_elements if return_all else filtered_elements[0]
+
+    @lru_cache(maxsize=None)
+    async def _async_translate(
+        self, text: str, session: aiohttp.ClientSession, **kwargs
+    ):
+        ...
 
     def translate_words(self, words: List[str], **kwargs) -> List[str]:
         """

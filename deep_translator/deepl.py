@@ -1,7 +1,9 @@
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
+from functools import lru_cache
 from typing import List, Optional
 
+import aiohttp
 import requests
 
 from deep_translator.base import BaseTranslator
@@ -86,6 +88,12 @@ class DeeplTranslator(BaseTranslator):
                 raise TranslationNotFound(text)
             # Process and return the response.
             return res["translations"][0]["text"]
+
+    @lru_cache(maxsize=None)
+    async def _async_translate(
+        self, text: str, session: aiohttp.ClientSession, **kwargs
+    ):
+        ...
 
     def translate_file(self, path: str, **kwargs) -> str:
         return self._translate_file(path, **kwargs)

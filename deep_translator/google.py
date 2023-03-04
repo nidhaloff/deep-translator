@@ -4,11 +4,14 @@ google translator API
 
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
+from functools import lru_cache
 from typing import List, Optional
 
+import aiohttp
 import requests
 from bs4 import BeautifulSoup
 
+from deep_translator.async_requests import async_get_request
 from deep_translator.base import BaseTranslator
 from deep_translator.constants import BASE_URLS
 from deep_translator.exceptions import (
@@ -120,3 +123,53 @@ class GoogleTranslator(BaseTranslator):
         @return: list of translations
         """
         return self._translate_batch(batch, **kwargs)
+
+    @lru_cache(maxsize=None)
+    async def _async_translate(
+        self, text: str, session: aiohttp.ClientSession, **kwargs
+    ):
+        if is_input_valid(text):
+            text = text.strip()
+            if self._same_source_target() or is_empty(text):
+                return text
+            self._url_params["tl"] = self._target
+            self._url_params["sl"] = self._source
+
+            if self.payload_key:
+                self._url_params[self.payload_key] = text
+
+            response_text = await async_get_request(
+                session,
+                url=self._base_url,
+                params=self._url_params,
+                proxies=self.proxies,
+            )
+
+            soup = BeautifulSoup(response_text, "html.parser")
+
+            element = soup.find(self._element_tag, self._element_query)
+
+            if not element:
+                element = soup.find(self._element_tag, self._alt_element_query)
+                if not element:
+                    raise TranslationNotFound(text)
+            if element.get_text(strip=True) == text.strip():
+                to_translate_alpha = "".join(
+                    ch for ch in text.strip() if ch.isalnum()
+                )
+                translated_alpha = "".join(
+                    ch for ch in element.get_text(strip=True) if ch.isalnum()
+                )
+                if (
+                    to_translate_alpha
+                    and translated_alpha
+                    and to_translate_alpha == translated_alpha
+                ):
+                    self._url_params["tl"] = self._target
+                    if "hl" not in self._url_params:
+                        return text.strip()
+                    del self._url_params["hl"]
+                    return self.translate(text)
+
+            else:
+                return element.get_text(strip=True)

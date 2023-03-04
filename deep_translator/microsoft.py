@@ -4,8 +4,10 @@ __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
 import logging
 import sys
+from functools import lru_cache
 from typing import List, Optional
 
+import aiohttp
 import requests
 
 from deep_translator.base import BaseTranslator
@@ -110,6 +112,12 @@ class MicrosoftTranslator(BaseTranslator):
                     i["text"] for i in response.json()[0]["translations"]
                 ]
                 return "\n".join(all_translations)
+
+    @lru_cache(maxsize=None)
+    async def _async_translate(
+        self, text: str, session: aiohttp.ClientSession, **kwargs
+    ):
+        ...
 
     def translate_file(self, path: str, **kwargs) -> str:
         """
