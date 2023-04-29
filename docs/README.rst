@@ -145,7 +145,7 @@ Also, you can install extras if you want support for specific use case. For exam
 
     $ pip install deep-translator[pdf]  # add support for pdf translation
 
-    $ nidhal add deep-translator --extras "docx pdf"   # for poetry usage
+    $ poetry add deep-translator --extras "docx pdf"   # for poetry usage
 
 ============
 Quick Start
