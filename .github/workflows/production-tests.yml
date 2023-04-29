@@ -22,11 +22,16 @@ jobs:
             -   name: Install poetry
                 run: curl -sSL https://install.python-poetry.org | python3 -
 
-            -   name: Install dependencies
+            -   name: Create venv
+                run: poetry env use ${{ matrix.python-version }}
+
+            -   name: Venv info
                 run: |
-                    poetry config virtualenvs.in-project true
-                    poetry install
+                    poetry env list
+                    poetry env info
+
+            -   name: Install dependencies
+                run: poetry install
 
             -   name: Run tests
-                run: |
-                    poetry run pytest
+                run: poetry run pytest
