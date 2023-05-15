@@ -259,7 +259,7 @@ PONS Translator
 
 .. code-block:: python
 
-    translated_words = LingueeTranslator(source='english', target='french').translate_words(["good", "awesome"])
+    translated_words = PonsTranslator(source='english', target='french').translate_words(["good", "awesome"])
 
 Yandex Translator
 ------------------
