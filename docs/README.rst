@@ -576,8 +576,14 @@ ChatGpt Translator
 
 .. note::
 
+    You need to install the openai support extra. `pip install deep-translator[ai]`
+
+.. note::
+
     You need to require an **api key** if you want to use the ChatGpt translator.
     If you have an openai account, you can create an api key (https://platform.openai.com/account/api-keys).
+
+
 
 - Required and optional attributes
 
