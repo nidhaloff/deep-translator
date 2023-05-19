@@ -68,13 +68,3 @@ class ChatGptTranslator(BaseTranslator):
         @return: list of translations
         """
         return self._translate_batch(batch, **kwargs)
-
-
-if __name__ == "__main__":
-    T = ChatGptTranslator(
-        target="german",
-    )
-    r = T.translate_batch(
-        ["you are awesome", "Thanks for having me", "Nice to meet you!"]
-    )
-    print("result: ", r)

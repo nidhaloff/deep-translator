@@ -81,6 +81,7 @@ When you should use it
 - If you want to translate from a file
 - If you want to get translations from many sources and not only one
 - If you want to automate translations
+- If you want to use ChatGpt for translations
 - If you want to compare different translations
 - If you want to detect language automatically
 
@@ -90,6 +91,7 @@ Why you should use it
 
 - It's the only python tool that integrates many translators
 - Multi language support
+- Support for ChatGpt (version >= 1.11.0)
 - Supports batch translation
 - High level of abstraction
 - Automatic language detection
@@ -113,6 +115,7 @@ Features
 * Support for the `DeeplTranslator translator <https://www.deepl.com/en/translator/>`_ (version >= 1.2.5)
 * Support for the `Papago translator <https://papago.naver.com/>`_ (version >= 1.4.4)
 * Support for the `Libre translator <https://libretranslate.com/>`_
+* Support for ChatGpt
 * Support for proxy usage
 * Automatic single language detection
 * Batch language detection
@@ -145,7 +148,9 @@ Also, you can install extras if you want support for specific use case. For exam
 
     $ pip install deep-translator[pdf]  # add support for pdf translation
 
-    $ poetry add deep-translator --extras "docx pdf"   # for poetry usage
+    $ pip install deep-translator[ai]   # add support for ChatGpt
+
+    $ poetry add deep-translator --extras "docx pdf ai"   # for poetry usage
 
 ============
 Quick Start
@@ -154,6 +159,8 @@ Quick Start
 .. code-block:: python
 
     from deep_translator import GoogleTranslator
+
+    # Use any translator you like, in this example GoogleTranslator
     translated = GoogleTranslator(source='auto', target='de').translate("keep it up, you are awesome")  # output -> Weiter so, du bist großartig
 
 or using proxies:
@@ -192,12 +199,20 @@ In this section, demos on how to use all different integrated translators in thi
 
     *Example*: If you want to use english as a source or target language, you can pass **english** or **en** as an argument
 
+.. note::
+
+    For all translators that require an ApiKey, you can either specify it as an argument to the translator class
+    or you can export it as an environment variable, this way you won't have to provide it to the class.
+
+    *Example*: export OPENAI_API_KEY="your_key"
+
 Imports
 --------
 
 .. code-block:: python
 
     from deep_translator import (GoogleTranslator,
+                                 ChatGptTranslator,
                                  MicrosoftTranslator,
                                  PonsTranslator,
                                  LingueeTranslator,
@@ -555,6 +570,40 @@ Microsoft Translator
 .. code-block:: python
 
     translated = MicrosoftTranslator(api_key='some-key', target='german').translate_file('path/to/file')
+
+ChatGpt Translator
+---------------------
+
+.. note::
+
+    You need to require an **api key** if you want to use the ChatGpt translator.
+    If you have an openai account, you can create an api key (https://platform.openai.com/account/api-keys).
+
+- Required and optional attributes
+
+    There are two required attributes, namely "api_key" (string) and "target" (string or list).
+    Attribute "source" is optional.
+
+    You can provide your api key as an argument or you can export it as an env var
+    e.g. `export OPENAI_API_KEY="your_key"`
+
+.. code-block:: python
+
+    text = 'happy coding'
+    translated = ChatGptTranslator(api_key='your_key', target='german').translate(text=text)
+
+- Translate batch of texts
+
+.. code-block:: python
+
+    texts = ["hallo welt", "guten morgen"]
+    translated = ChatGptTranslator(api_key='some-key', target='english').translate_batch(texts)
+
+- Translate from a file:
+
+.. code-block:: python
+
+    translated = ChatGptTranslator(api_key='some-key', target='german').translate_file('path/to/file')
 
 
 Papago Translator
