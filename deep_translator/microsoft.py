@@ -3,14 +3,15 @@
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
 import logging
+import os
 import sys
 from typing import List, Optional
 
 import requests
 
 from deep_translator.base import BaseTranslator
-from deep_translator.constants import BASE_URLS
-from deep_translator.exceptions import MicrosoftAPIerror, ServerException
+from deep_translator.constants import BASE_URLS, MSFT_ENV_VAR
+from deep_translator.exceptions import ApiKeyException, MicrosoftAPIerror
 from deep_translator.validate import is_input_valid
 
 
@@ -21,10 +22,10 @@ class MicrosoftTranslator(BaseTranslator):
 
     def __init__(
         self,
-        api_key: Optional[str] = None,
-        region: Optional[str] = None,
         source: str = "auto",
         target: str = "en",
+        api_key: Optional[str] = os.getenv(MSFT_ENV_VAR, None),
+        region: Optional[str] = None,
         proxies: Optional[dict] = None,
         **kwargs,
     ):
@@ -35,7 +36,7 @@ class MicrosoftTranslator(BaseTranslator):
         """
 
         if not api_key:
-            raise ServerException(401)
+            raise ApiKeyException(env_var=MSFT_ENV_VAR)
 
         self.api_key = api_key
         self.proxies = proxies

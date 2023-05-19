@@ -1,6 +1,14 @@
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
 
+OPEN_AI_ENV_VAR = "OPEN_API_KEY"
+DEEPL_ENV_VAR = "DEEPL_API_KEY"
+LIBRE_ENV_VAR = "LIBRE_API_KEY"
+MSFT_ENV_VAR = "MICROSOFT_API_KEY"
+QCRI_ENV_VAR = "QCRI_API_KEY"
+YANDEX_ENV_VAR = "YANDEX_API_KEY"
+
+
 BASE_URLS = {
     "GOOGLE_TRANSLATE": "https://translate.google.com/m",
     "PONS": "https://en.pons.com/translate/",

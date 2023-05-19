@@ -1,12 +1,21 @@
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
+import os
 from typing import List, Optional
 
 import requests
 
 from deep_translator.base import BaseTranslator
-from deep_translator.constants import BASE_URLS, QCRI_LANGUAGE_TO_CODE
-from deep_translator.exceptions import ServerException, TranslationNotFound
+from deep_translator.constants import (
+    BASE_URLS,
+    QCRI_ENV_VAR,
+    QCRI_LANGUAGE_TO_CODE,
+)
+from deep_translator.exceptions import (
+    ApiKeyException,
+    ServerException,
+    TranslationNotFound,
+)
 
 
 class QcriTranslator(BaseTranslator):
@@ -16,9 +25,9 @@ class QcriTranslator(BaseTranslator):
 
     def __init__(
         self,
-        api_key: Optional[str] = None,
         source: str = "en",
         target: str = "en",
+        api_key: Optional[str] = os.getenv(QCRI_ENV_VAR, None),
         **kwargs,
     ):
         """
@@ -27,7 +36,8 @@ class QcriTranslator(BaseTranslator):
         """
 
         if not api_key:
-            raise ServerException(401)
+            raise ApiKeyException(QCRI_ENV_VAR)
+
         self.api_key = api_key
         self.api_endpoints = {
             "get_languages": "getLanguagePairs",

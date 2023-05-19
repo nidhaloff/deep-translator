@@ -4,13 +4,15 @@ Yandex translator API
 
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
+import os
 from typing import List, Optional
 
 import requests
 
 from deep_translator.base import BaseTranslator
-from deep_translator.constants import BASE_URLS
+from deep_translator.constants import BASE_URLS, YANDEX_ENV_VAR
 from deep_translator.exceptions import (
+    ApiKeyException,
     RequestError,
     ServerException,
     TooManyRequests,
@@ -27,16 +29,16 @@ class YandexTranslator(BaseTranslator):
 
     def __init__(
         self,
-        api_key: Optional[str] = None,
         source: str = "en",
         target: str = "de",
+        api_key: Optional[str] = os.getenv(YANDEX_ENV_VAR, None),
         **kwargs
     ):
         """
         @param api_key: your yandex api key
         """
         if not api_key:
-            raise ServerException(401)
+            raise ApiKeyException(YANDEX_ENV_VAR)
         self.api_key = api_key
         self.api_version = "v1.5"
         self.api_endpoints = {

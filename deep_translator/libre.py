@@ -3,13 +3,19 @@ LibreTranslate API
 """
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
+import os
 from typing import List, Optional
 
 import requests
 
 from deep_translator.base import BaseTranslator
-from deep_translator.constants import BASE_URLS, LIBRE_LANGUAGES_TO_CODES
+from deep_translator.constants import (
+    BASE_URLS,
+    LIBRE_ENV_VAR,
+    LIBRE_LANGUAGES_TO_CODES,
+)
 from deep_translator.exceptions import (
+    ApiKeyException,
     AuthorizationException,
     ServerException,
     TranslationNotFound,
@@ -24,9 +30,9 @@ class LibreTranslator(BaseTranslator):
 
     def __init__(
         self,
-        api_key: Optional[str] = None,
         source: str = "en",
         target: str = "es",
+        api_key: Optional[str] = os.getenv(LIBRE_ENV_VAR, None),
         use_free_api: bool = True,
         custom_url: Optional[str] = None,
         **kwargs
@@ -42,6 +48,9 @@ class LibreTranslator(BaseTranslator):
         This means a url that does not require and api key would be used
         @param custom_url: you can use a custom endpoint
         """
+        if not api_key:
+            raise ApiKeyException(env_var=LIBRE_ENV_VAR)
+
         self.api_key = api_key
         url = (
             BASE_URLS.get("LIBRE")
