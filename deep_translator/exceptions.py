@@ -159,6 +159,23 @@ class ServerException(Exception):
         super(ServerException, self).__init__(message, *args)
 
 
+class ApiKeyException(BaseError):
+    """
+    exception thrown if no ApiKey was provided
+    """
+
+    def __init__(self, env_var):
+        msg = f"""
+You have to pass your api_key!
+You can do this by passing the key as a parameter/argument to the translator class
+or by setting the environment variable {env_var}
+
+Example: export {env_var}="your_api_key"
+"""
+
+        super().__init__(None, msg)
+
+
 class AuthorizationException(Exception):
     def __init__(self, api_key, *args):
         msg = "Unauthorized access with the api key " + api_key
