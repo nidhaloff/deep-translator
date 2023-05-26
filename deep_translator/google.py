@@ -54,7 +54,7 @@ class GoogleTranslator(BaseTranslator):
         @param text: desired text to translate
         @return: str: translated text
         """
-        if is_input_valid(text):
+        if is_input_valid(text, max_chars=5000):
             text = text.strip()
             if self._same_source_target() or is_empty(text):
                 return text
