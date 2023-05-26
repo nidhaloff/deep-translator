@@ -1,5 +1,7 @@
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
+from typing import Optional
+
 from deep_translator.exceptions import NotValidLength, NotValidPayload
 
 
@@ -8,7 +10,7 @@ def is_empty(text: str) -> bool:
 
 
 def is_input_valid(
-    text: str, min_chars: int = 0, max_chars: int = 5000
+    text: str, min_chars: int = 0, max_chars: Optional[int] = None
 ) -> bool:
     """
     validate the target text to translate
@@ -20,7 +22,7 @@ def is_input_valid(
 
     if not isinstance(text, str) or text.isdigit():
         raise NotValidPayload(text)
-    if not min_chars <= len(text) < max_chars:
+    if max_chars and (not min_chars <= len(text) < max_chars):
         raise NotValidLength(text, min_chars, max_chars)
 
     return True
