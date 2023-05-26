@@ -13,6 +13,7 @@ from deep_translator.mymemory import MyMemoryTranslator
 from deep_translator.papago import PapagoTranslator
 from deep_translator.pons import PonsTranslator
 from deep_translator.qcri import QcriTranslator
+from deep_translator.tencent import TencentTranslator
 from deep_translator.yandex import YandexTranslator
 
 __author__ = """Nidhal Baccouri"""
@@ -31,6 +32,7 @@ __all__ = [
     "LibreTranslator",
     "PapagoTranslator",
     "ChatGptTranslator",
+    "TencentTranslator",
     "single_detection",
     "batch_detection",
 ]

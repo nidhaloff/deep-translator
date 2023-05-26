@@ -7,6 +7,8 @@ LIBRE_ENV_VAR = "LIBRE_API_KEY"
 MSFT_ENV_VAR = "MICROSOFT_API_KEY"
 QCRI_ENV_VAR = "QCRI_API_KEY"
 YANDEX_ENV_VAR = "YANDEX_API_KEY"
+TENCENT_ID_VAR = "TENCENT_ID"
+TENCENT_KEY_VAR = "TENCENT_KEY"
 
 
 BASE_URLS = {
@@ -23,6 +25,7 @@ BASE_URLS = {
     "PAPAGO_API": "https://openapi.naver.com/v1/papago/n2mt",
     "LIBRE": "https://libretranslate.com/",
     "LIBRE_FREE": "https://libretranslate.de/",
+    "TENENT": "https://tmt.tencentcloudapi.com",
 }
 
 GOOGLE_LANGUAGES_TO_CODES = {
@@ -279,4 +282,24 @@ LIBRE_LANGUAGES_TO_CODES = {
     "Spanish": "es",
     "Turkish": "tr",
     "Vietnamese": "vi",
+}
+
+TENCENT_LANGUAGE_TO_CODE = {
+    "arabic": "ar",
+    "chinese (simplified)": "zh",
+    "chinese (traditional)": "zh-TW",
+    "english": "en",
+    "french": "fr",
+    "german": "de",
+    "hindi": "hi",
+    "indonesian": "id",
+    "japanese": "ja",
+    "korean": "ko",
+    "malay": "ms",
+    "portuguese": "pt",
+    "russian": "ru",
+    "spanish": "es",
+    "thai": "th",
+    "turkish": "tr",
+    "vietnamese": "vi",
 }
