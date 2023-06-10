@@ -9,7 +9,7 @@ from typing import List, Optional, Union
 import requests
 
 from deep_translator.base import BaseTranslator
-from deep_translator.constants import BASE_URLS
+from deep_translator.constants import BASE_URLS, MY_MEMORY_LANGUAGES_TO_CODES
 from deep_translator.exceptions import (
     RequestError,
     TooManyRequests,
@@ -41,6 +41,7 @@ class MyMemoryTranslator(BaseTranslator):
             source=source,
             target=target,
             payload_key="q",
+            languages=MY_MEMORY_LANGUAGES_TO_CODES,
         )
 
     def translate(
