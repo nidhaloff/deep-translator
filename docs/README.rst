@@ -664,6 +664,35 @@ Libre Translator
 
     translated = LibreTranslator(source='auto', target='en').translate_file('path/to/file')
 
+TencentTranslator
+-----------------
+
+.. note::
+
+    In order to use the TencentTranslator translator, you need to generate a secret_id and a secret_key.
+    deep-translator supports both Pro and free APIs. Just check the examples below.
+    Visit https://cloud.tencent.com/document/api/551/15619 for more information on how to generate your Tencent secret_id
+    and secret_key.
+
+- Simple translation
+
+.. code-block:: python
+
+    text = 'Hello world'
+    translated = TencentTranslator(secret_id="your-secret_id", secret_key="your-secret_key" source="en", target="zh").translate(text)
+
+- Translate batch of texts
+
+.. code-block:: python
+
+    texts = ["Hello world", "How are you?"]
+    translated = TencentTranslator(secret_id="your-secret_id", secret_key="your-secret_key" source="en", target="zh").translate_batch(texts)
+
+- Translate from a file:
+
+.. code-block:: python
+
+    translated = TencentTranslator(secret_id="your-secret_id", secret_key="your-secret_key" source="en", target="zh").translate_file('path/to/file')
 
 
 Proxy usage
