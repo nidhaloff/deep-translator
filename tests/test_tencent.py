@@ -54,3 +54,21 @@ def test_wrong_api_key(mock_requests):
     mock_requests.get.return_value = mock_response
     with pytest.raises(TencentAPIerror):
         translator.translate("Hello")
+
+
+# the remaining tests are actual requests to Tencent translator API and use secret_id and secret_key
+# if secret_id and secret_key variable is None, they are skipped
+
+secret_id = None
+secret_key = None
+
+
+@pytest.mark.skipif(
+    secret_id is None or secret_key,
+    reason="secret_id or secret_key is not provided",
+)
+def test_tencent_successful_post_onetarget():
+    posted = TencentTranslator(
+        secret_id=secret_id, secret_key=secret_key, source="en", target="zh"
+    ).translate("Hello! How are you?")
+    assert isinstance(posted, str)
