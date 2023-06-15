@@ -22,7 +22,6 @@ from deep_translator.constants import (
 )
 from deep_translator.exceptions import (
     ApiKeyException,
-    AuthorizationException,
     ServerException,
     TencentAPIerror,
     TranslationNotFound,
@@ -108,9 +107,7 @@ class TencentTranslator(BaseTranslator):
             except ConnectionError:
                 raise ServerException(503)
             # If the answer is not success, raise server exception.
-            if response.status_code == 403:
-                raise AuthorizationException(self.secret_id)
-            elif response.status_code != 200:
+            if response.status_code != 200:
                 raise ServerException(response.status_code)
             # Get the response and check is not empty.
             res = response.json()
@@ -136,5 +133,5 @@ if __name__ == "__main__":
     d = TencentTranslator(
         target="zh", secret_id="some-id", secret_key="some-key"
     )
-    t = d.translate("Ich habe keine ahnung")
+    t = d.translate("Hello\nHow are you?")
     print("text: ", t)
