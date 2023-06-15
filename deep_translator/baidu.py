@@ -20,8 +20,8 @@ from deep_translator.constants import (
 )
 from deep_translator.exceptions import (
     ApiKeyException,
+    BaiduAPIerror,
     ServerException,
-    TencentAPIerror,
     TranslationNotFound,
 )
 from deep_translator.validate import is_empty, is_input_valid
@@ -97,6 +97,7 @@ class BaiduTranslator(BaseTranslator):
                 )
             except ConnectionError:
                 raise ServerException(503)
+            print(response)
             if response.status_code != 200:
                 raise ServerException(response.status_code)
             # Get the response and check is not empty.
@@ -105,8 +106,11 @@ class BaiduTranslator(BaseTranslator):
                 raise TranslationNotFound(text)
             # Process and return the response.
             if "error_code" in res:
-                raise TencentAPIerror(res["error_msg"])
-            return res["trans_result"]["dst"]
+                raise BaiduAPIerror(res["error_msg"])
+            if "trans_result" in res:
+                return "\n".join([s["dst"] for s in res["trans_result"]])
+            else:
+                raise TranslationNotFound(text)
 
     def translate_file(self, path: str, **kwargs) -> str:
         return self._translate_file(path, **kwargs)
@@ -123,5 +127,5 @@ if __name__ == "__main__":
     d = BaiduTranslator(
         target="zh", secret_id="some-id", secret_key="some-key"
     )
-    t = d.translate("Ich habe keine ahnung")
+    t = d.translate("Hello\nHow are you?")
     print("text: ", t)
