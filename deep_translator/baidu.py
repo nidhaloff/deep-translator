@@ -13,8 +13,8 @@ import requests
 
 from deep_translator.base import BaseTranslator
 from deep_translator.constants import (
-    BAIDU_APPID_VAR,
-    BAIDU_APPKEY_VAR,
+    BAIDU_APPID_ENV_VAR,
+    BAIDU_APPKEY_ENV_VAR,
     BAIDU_LANGUAGE_TO_CODE,
     BASE_URLS,
 )
@@ -37,8 +37,8 @@ class BaiduTranslator(BaseTranslator):
         self,
         source: str = "en",
         target: str = "zh",
-        appid: Optional[str] = os.getenv(BAIDU_APPID_VAR, None),
-        appkey: Optional[str] = os.getenv(BAIDU_APPKEY_VAR, None),
+        appid: Optional[str] = os.getenv(BAIDU_APPID_ENV_VAR, None),
+        appkey: Optional[str] = os.getenv(BAIDU_APPKEY_ENV_VAR, None),
         **kwargs
     ):
         """
@@ -49,10 +49,10 @@ class BaiduTranslator(BaseTranslator):
         @param target: target language
         """
         if not appid:
-            raise ApiKeyException(env_var=BAIDU_APPID_VAR)
+            raise ApiKeyException(env_var=BAIDU_APPID_ENV_VAR)
 
         if not appkey:
-            raise ApiKeyException(env_var=BAIDU_APPKEY_VAR)
+            raise ApiKeyException(env_var=BAIDU_APPKEY_ENV_VAR)
 
         self.appid = appid
         self.appkey = appkey
@@ -122,8 +122,6 @@ class BaiduTranslator(BaseTranslator):
 
 
 if __name__ == "__main__":
-    d = BaiduTranslator(
-        target="zh", appid="some-appid", appkey="some-appkey"
-    )
+    d = BaiduTranslator(target="zh", appid="some-appid", appkey="some-appkey")
     t = d.translate("Hello\nHow are you?")
     print("text: ", t)
