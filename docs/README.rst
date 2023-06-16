@@ -695,6 +695,36 @@ BaiduTranslator
 
     translated = BaiduTranslator(appid="your-appid", appkey="your-appkey" source="en", target="zh").translate_file('path/to/file')
 
+BaiduTranslator
+-----------------
+
+.. note::
+
+    In order to use the BaiduTranslator translator, you need to generate a secret_id and a secret_key.
+    deep-translator supports both Pro and free APIs. Just check the examples below.
+    Visit http://api.fanyi.baidu.com/product/113 for more information on how to generate your Baidu appid
+    and appkey.
+
+- Simple translation
+
+.. code-block:: python
+
+    text = 'Hello world'
+    translated = BaiduTranslator(appid="your-appid", appkey="your-appkey" source="en", target="zh").translate(text)
+
+- Translate batch of texts
+
+.. code-block:: python
+=
+    texts = ["Hello world", "How are you?"]
+    translated = BaiduTranslator(appid="your-appid", appkey="your-appkey" source="en", target="zh").translate_batch(texts)
+
+- Translate from a file:
+
+.. code-block:: python
+
+    translated = BaiduTranslator(appid="your-appid", appkey="your-appkey" source="en", target="zh").translate_file('path/to/file')
+
 
 Proxy usage
 -------------
