@@ -9,8 +9,8 @@ from deep_translator.exceptions import BaiduAPIerror
 @patch("deep_translator.baidu.requests")
 def test_simple_translation(mock_requests):
     translator = BaiduTranslator(
-        secret_id="this-is-an-valid-api-id",
-        secret_key="this-is-an-valid-api-key",
+        appid="this-is-an-valid-appid",
+        appkey="this-is-an-valid-appkey",
         source="en",
         target="zh",
     )
@@ -30,8 +30,8 @@ def test_simple_translation(mock_requests):
 @patch("deep_translator.baidu.requests.get")
 def test_wrong_api_key(mock_requests):
     translator = BaiduTranslator(
-        secret_id="this-is-a-wrong-api-id",
-        secret_key="this-is-a-wrong-api-key",
+        appid="this-is-a-wrong-appid",
+        appkey="this-is-a-wrong-appkey",
         source="en",
         target="zh",
     )
@@ -45,3 +45,21 @@ def test_wrong_api_key(mock_requests):
     mock_requests.post.return_value = mock_response
     with pytest.raises(BaiduAPIerror):
         translator.translate("Hello")
+
+
+# the remaining tests are actual requests to Baidu translator API and use appid and appkey
+# if appid and appkey variable is None, they are skipped
+
+appid = None
+appkey = None
+
+
+@pytest.mark.skipif(
+    appid is None or appkey is None,
+    reason="appid or appkey is not provided",
+)
+def test_baidu_successful_post_onetarget():
+    posted = BaiduTranslator(
+        appid=appid, appkey=appkey, source="en", target="zh"
+    ).translate("Hello! How are you?")
+    assert isinstance(posted, str)

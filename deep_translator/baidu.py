@@ -13,8 +13,8 @@ import requests
 
 from deep_translator.base import BaseTranslator
 from deep_translator.constants import (
-    BAIDU_ID_VAR,
-    BAIDU_KEY_VAR,
+    BAIDU_APPID_VAR,
+    BAIDU_APPKEY_VAR,
     BAIDU_LANGUAGE_TO_CODE,
     BASE_URLS,
 )
@@ -29,7 +29,7 @@ from deep_translator.validate import is_empty, is_input_valid
 
 class BaiduTranslator(BaseTranslator):
     """
-    class that wraps functions, which use the TentCentTranslator translator
+    class that wraps functions, which use the BaiduTranslator translator
     under the hood to translate word(s)
     """
 
@@ -37,25 +37,25 @@ class BaiduTranslator(BaseTranslator):
         self,
         source: str = "en",
         target: str = "zh",
-        secret_id: Optional[str] = os.getenv(BAIDU_ID_VAR, None),
-        secret_key: Optional[str] = os.getenv(BAIDU_KEY_VAR, None),
+        appid: Optional[str] = os.getenv(BAIDU_APPID_VAR, None),
+        appkey: Optional[str] = os.getenv(BAIDU_APPKEY_VAR, None),
         **kwargs
     ):
         """
-        @param secret_id: your baidu cloud api secret id.
+        @param appid: your baidu cloud api appid.
         Get one here: https://fanyi-api.baidu.com/choose
-        @param secret_key: your baidu cloud api secret key.
+        @param appkey: your baidu cloud api appkey.
         @param source: source language
         @param target: target language
         """
-        if not secret_id:
-            raise ApiKeyException(env_var=BAIDU_ID_VAR)
+        if not appid:
+            raise ApiKeyException(env_var=BAIDU_APPID_VAR)
 
-        if not secret_key:
-            raise ApiKeyException(env_var=BAIDU_KEY_VAR)
+        if not appkey:
+            raise ApiKeyException(env_var=BAIDU_APPKEY_VAR)
 
-        self.secret_id = secret_id
-        self.secret_key = secret_key
+        self.appid = appid
+        self.appkey = appkey
         super().__init__(
             base_url=BASE_URLS.get("BAIDU"),
             source=source,
@@ -76,13 +76,11 @@ class BaiduTranslator(BaseTranslator):
             # Create the request parameters.
             salt = random.randint(32768, 65536)
             sign = hashlib.md5(
-                (self.secret_id + text + str(salt) + self.secret_key).encode(
-                    "utf-8"
-                )
+                (self.appid + text + str(salt) + self.appkey).encode("utf-8")
             ).hexdigest()
             headers = {"Content-Type": "application/x-www-form-urlencoded"}
             payload = {
-                "appid": self.secret_id,
+                "appid": self.appid,
                 "q": text,
                 "from": self.source,
                 "to": self.target,
@@ -125,7 +123,7 @@ class BaiduTranslator(BaseTranslator):
 
 if __name__ == "__main__":
     d = BaiduTranslator(
-        target="zh", secret_id="some-id", secret_key="some-key"
+        target="zh", appid="some-appid", appkey="some-appkey"
     )
     t = d.translate("Hello\nHow are you?")
     print("text: ", t)
