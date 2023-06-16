@@ -16,9 +16,9 @@ import requests
 from deep_translator.base import BaseTranslator
 from deep_translator.constants import (
     BASE_URLS,
-    TENCENT_ID_VAR,
-    TENCENT_KEY_VAR,
     TENCENT_LANGUAGE_TO_CODE,
+    TENCENT_SECRET_ID_ENV_VAR,
+    TENCENT_SECRET_KEY_ENV_VAR,
 )
 from deep_translator.exceptions import (
     ApiKeyException,
@@ -39,8 +39,10 @@ class TencentTranslator(BaseTranslator):
         self,
         source: str = "en",
         target: str = "zh",
-        secret_id: Optional[str] = os.getenv(TENCENT_ID_VAR, None),
-        secret_key: Optional[str] = os.getenv(TENCENT_KEY_VAR, None),
+        secret_id: Optional[str] = os.getenv(TENCENT_SECRET_ID_ENV_VAR, None),
+        secret_key: Optional[str] = os.getenv(
+            TENCENT_SECRET_KEY_ENV_VAR, None
+        ),
         **kwargs
     ):
         """
@@ -51,10 +53,10 @@ class TencentTranslator(BaseTranslator):
         @param target: target language
         """
         if not secret_id:
-            raise ApiKeyException(env_var=TENCENT_ID_VAR)
+            raise ApiKeyException(env_var=TENCENT_SECRET_ID_ENV_VAR)
 
         if not secret_key:
-            raise ApiKeyException(env_var=TENCENT_KEY_VAR)
+            raise ApiKeyException(env_var=TENCENT_SECRET_KEY_ENV_VAR)
 
         self.secret_id = secret_id
         self.secret_key = secret_key
