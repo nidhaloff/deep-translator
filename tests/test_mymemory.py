@@ -9,7 +9,7 @@ from deep_translator import MyMemoryTranslator, exceptions
 
 @pytest.fixture
 def mymemory():
-    return MyMemoryTranslator(source="en", target="fr")
+    return MyMemoryTranslator(source="en-GB", target="fr-FR")
 
 
 def test_content(mymemory):
@@ -27,9 +27,9 @@ def test_inputs():
         MyMemoryTranslator(source="auto", target="")
 
     with pytest.raises(exceptions.InvalidSourceOrTargetLanguage):
-        MyMemoryTranslator(source="", target="en")
+        MyMemoryTranslator(source="", target="en-GB")
 
-    m1 = MyMemoryTranslator("en", "fr")
+    m1 = MyMemoryTranslator("en-GB", "fr-FR")
     m2 = MyMemoryTranslator("english", "french")
     assert m1._source == m2._source
     assert m1._target == m2._target
