@@ -20,7 +20,7 @@ def is_input_valid(
     @return: bool
     """
 
-    if not isinstance(text, str) or text.isdigit():
+    if not isinstance(text, str):
         raise NotValidPayload(text)
     if max_chars and (not min_chars <= len(text) < max_chars):
         raise NotValidLength(text, min_chars, max_chars)
