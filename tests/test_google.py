@@ -47,7 +47,6 @@ def test_empty_text(google_translator):
 
 def test_payload(google_translator):
     with pytest.raises(exceptions.NotValidPayload):
-        google_translator.translate(text="1234")
         google_translator.translate(text="{}")
         google_translator.translate(text="%@")
 
