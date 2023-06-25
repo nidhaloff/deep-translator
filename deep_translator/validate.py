@@ -9,6 +9,21 @@ def is_empty(text: str) -> bool:
     return text == ""
 
 
+def request_failed(status_code: int) -> bool:
+    """Check if a request has failed or not.
+    A request is considered successfull if the status code is in the 2** range.
+
+    Args:
+        status_code (int): status code of the request
+
+    Returns:
+        bool: indicates request failure
+    """
+    if status_code > 299 or status_code < 200:
+        return True
+    return False
+
+
 def is_input_valid(
     text: str, min_chars: int = 0, max_chars: Optional[int] = None
 ) -> bool:
