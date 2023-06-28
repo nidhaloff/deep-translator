@@ -95,7 +95,6 @@ class BaiduTranslator(BaseTranslator):
                 )
             except ConnectionError:
                 raise ServerException(503)
-            print(response)
             if response.status_code != 200:
                 raise ServerException(response.status_code)
             # Get the response and check is not empty.
@@ -119,9 +118,3 @@ class BaiduTranslator(BaseTranslator):
         @return: list of translations
         """
         return self._translate_batch(batch, **kwargs)
-
-
-if __name__ == "__main__":
-    d = BaiduTranslator(target="zh", appid="some-appid", appkey="some-appkey")
-    t = d.translate("Hello\nHow are you?")
-    print("text: ", t)
