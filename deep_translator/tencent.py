@@ -79,7 +79,7 @@ class TencentTranslator(BaseTranslator):
                 return text
 
             # Create the request parameters.
-            translate_endpoint = "tmt.tencentcloudapi.com"
+            translate_endpoint = self._base_url.replace("https://", "")
             params = {
                 "Action": "TextTranslate",
                 "Nonce": 11886,
@@ -89,7 +89,7 @@ class TencentTranslator(BaseTranslator):
                 "Source": self.source,
                 "SourceText": text,
                 "Target": self.target,
-                "Timestamp": int(time.time()),  # int(time.time())
+                "Timestamp": int(time.time()),
                 "Version": "2018-03-21",
             }
             s = "GET" + translate_endpoint + "/?"
@@ -129,11 +129,3 @@ class TencentTranslator(BaseTranslator):
         @return: list of translations
         """
         return self._translate_batch(batch, **kwargs)
-
-
-if __name__ == "__main__":
-    d = TencentTranslator(
-        target="zh", secret_id="some-id", secret_key="some-key"
-    )
-    t = d.translate("Hello\nHow are you?")
-    print("text: ", t)

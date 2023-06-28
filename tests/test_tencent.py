@@ -64,7 +64,7 @@ secret_key = None
 
 
 @pytest.mark.skipif(
-    secret_id is None or secret_key,
+    secret_id is None or secret_key is None,
     reason="secret_id or secret_key is not provided",
 )
 def test_tencent_successful_post_onetarget():
