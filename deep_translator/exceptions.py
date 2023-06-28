@@ -180,3 +180,16 @@ class AuthorizationException(Exception):
     def __init__(self, api_key, *args):
         msg = "Unauthorized access with the api key " + api_key
         super().__init__(msg, *args)
+
+
+class BaiduAPIerror(Exception):
+    """
+    exception thrown if Baidu API returns one of its errors
+    """
+
+    def __init__(self, api_message):
+        self.api_message = str(api_message)
+        self.message = "Baidu API returned the following error"
+
+    def __str__(self):
+        return "{}: {}".format(self.message, self.api_message)

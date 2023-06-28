@@ -7,6 +7,8 @@ LIBRE_ENV_VAR = "LIBRE_API_KEY"
 MSFT_ENV_VAR = "MICROSOFT_API_KEY"
 QCRI_ENV_VAR = "QCRI_API_KEY"
 YANDEX_ENV_VAR = "YANDEX_API_KEY"
+BAIDU_APPID_ENV_VAR = "BAIDU_APPID"
+BAIDU_APPKEY_ENV_VAR = "BAIDU_APPKEY"
 
 
 BASE_URLS = {
@@ -23,6 +25,7 @@ BASE_URLS = {
     "PAPAGO_API": "https://openapi.naver.com/v1/papago/n2mt",
     "LIBRE": "https://libretranslate.com/",
     "LIBRE_FREE": "https://libretranslate.de/",
+    "BAIDU": "https://fanyi-api.baidu.com/api/trans/vip/translate",
 }
 
 GOOGLE_LANGUAGES_TO_CODES = {
@@ -604,4 +607,35 @@ LIBRE_LANGUAGES_TO_CODES = {
     "Spanish": "es",
     "Turkish": "tr",
     "Vietnamese": "vi",
+}
+
+BAIDU_LANGUAGE_TO_CODE = {
+    "arabic": "ara",
+    "bulgarian": "bul",
+    "chinese (classical)": "wyw",
+    "chinese (simplified)": "zh",
+    "chinese (traditional)": "cht",
+    "czech": "cs",
+    "danish": "dan",
+    "dutch": "nl",
+    "english": "en",
+    "estonian": "est",
+    "finnish": "fin",
+    "french": "fra",
+    "german": "de",
+    "greek": "el",
+    "hungarian": "hu",
+    "italian": "it",
+    "japanese": "jp",
+    "korean": "kor",
+    "polish": "pl",
+    "portuguese": "pt",
+    "romanian": "ro",
+    "russian": "ru",
+    "slovenian": "slo",
+    "spanish": "spa",
+    "swedish": "swe",
+    "thai": "th",
+    "vietnamese": "vie",
+    "yueyu": "yue",
 }
