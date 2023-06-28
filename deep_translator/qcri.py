@@ -16,6 +16,7 @@ from deep_translator.exceptions import (
     ServerException,
     TranslationNotFound,
 )
+from deep_translator.validate import request_failed
 
 
 class QcriTranslator(BaseTranslator):
@@ -96,7 +97,7 @@ class QcriTranslator(BaseTranslator):
             raise ServerException(503)
 
         else:
-            if response.status_code != 200:
+            if request_failed(status_code=response.status_code):
                 ServerException(response.status_code)
             else:
                 res = response.json()

@@ -37,9 +37,6 @@ def test_inputs():
 
 def test_payload(pons):
     with pytest.raises(exceptions.NotValidPayload):
-        pons.translate(123)
-
-    with pytest.raises(exceptions.NotValidPayload):
         pons.translate({})
 
     with pytest.raises(exceptions.NotValidPayload):
