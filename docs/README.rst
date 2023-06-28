@@ -685,7 +685,7 @@ BaiduTranslator
 - Translate batch of texts
 
 .. code-block:: python
-=
+
     texts = ["Hello world", "How are you?"]
     translated = BaiduTranslator(appid="your-appid", appkey="your-appkey" source="en", target="zh").translate_batch(texts)
 
@@ -715,7 +715,7 @@ BaiduTranslator
 - Translate batch of texts
 
 .. code-block:: python
-=
+
     texts = ["Hello world", "How are you?"]
     translated = BaiduTranslator(appid="your-appid", appkey="your-appkey" source="en", target="zh").translate_batch(texts)
 
