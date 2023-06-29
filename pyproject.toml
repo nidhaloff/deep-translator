@@ -25,7 +25,7 @@ ensure_newline_before_comments = true
 
 [tool.poetry]
 name = "deep-translator"
-version = "1.11.0"
+version = "1.11.4"
 description = "A flexible free and unlimited python tool to translate between different languages in a simple way using multiple translators"
 license = "MIT"
 authors = ["Nidhal Baccouri <nidhalbacc@gmail.com>"]

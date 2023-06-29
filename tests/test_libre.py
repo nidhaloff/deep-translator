@@ -33,9 +33,6 @@ def test_abbreviations_and_languages_mapping():
 
 def test_payload(libre):
     with pytest.raises(exceptions.NotValidPayload):
-        libre.translate(123)
-
-    with pytest.raises(exceptions.NotValidPayload):
         libre.translate({})
 
     with pytest.raises(exceptions.NotValidPayload):

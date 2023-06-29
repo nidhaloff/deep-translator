@@ -2,6 +2,7 @@
 
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
 
+from deep_translator.baidu import BaiduTranslator
 from deep_translator.chatgpt import ChatGptTranslator
 from deep_translator.deepl import DeeplTranslator
 from deep_translator.detection import batch_detection, single_detection
@@ -33,6 +34,7 @@ __all__ = [
     "PapagoTranslator",
     "ChatGptTranslator",
     "TencentTranslator",
+    "BaiduTranslator",
     "single_detection",
     "batch_detection",
 ]

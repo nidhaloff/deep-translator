@@ -18,7 +18,7 @@ from deep_translator.exceptions import (
     TooManyRequests,
     TranslationNotFound,
 )
-from deep_translator.validate import is_input_valid
+from deep_translator.validate import is_input_valid, request_failed
 
 
 class YandexTranslator(BaseTranslator):
@@ -75,7 +75,7 @@ class YandexTranslator(BaseTranslator):
         else:
             data = response.json()
 
-        if response.status_code != 200:
+        if request_failed(status_code=response.status_code):
             raise ServerException(response.status_code)
         return data.get("dirs")
 

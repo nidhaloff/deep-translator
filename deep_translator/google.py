@@ -16,7 +16,7 @@ from deep_translator.exceptions import (
     TooManyRequests,
     TranslationNotFound,
 )
-from deep_translator.validate import is_empty, is_input_valid
+from deep_translator.validate import is_empty, is_input_valid, request_failed
 
 
 class GoogleTranslator(BaseTranslator):
@@ -54,7 +54,7 @@ class GoogleTranslator(BaseTranslator):
         @param text: desired text to translate
         @return: str: translated text
         """
-        if is_input_valid(text):
+        if is_input_valid(text, max_chars=5000):
             text = text.strip()
             if self._same_source_target() or is_empty(text):
                 return text
@@ -70,7 +70,7 @@ class GoogleTranslator(BaseTranslator):
             if response.status_code == 429:
                 raise TooManyRequests()
 
-            if response.status_code != 200:
+            if request_failed(status_code=response.status_code):
                 raise RequestError()
 
             soup = BeautifulSoup(response.text, "html.parser")

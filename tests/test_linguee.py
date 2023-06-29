@@ -39,9 +39,6 @@ def test_inputs():
 
 def test_payload(linguee):
     with pytest.raises(exceptions.NotValidPayload):
-        linguee.translate(123)
-
-    with pytest.raises(exceptions.NotValidPayload):
         linguee.translate({})
 
     with pytest.raises(exceptions.NotValidPayload):

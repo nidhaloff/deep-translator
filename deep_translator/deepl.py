@@ -17,7 +17,7 @@ from deep_translator.exceptions import (
     ServerException,
     TranslationNotFound,
 )
-from deep_translator.validate import is_empty, is_input_valid
+from deep_translator.validate import is_empty, is_input_valid, request_failed
 
 
 class DeeplTranslator(BaseTranslator):
@@ -85,7 +85,7 @@ class DeeplTranslator(BaseTranslator):
             # If the answer is not success, raise server exception.
             if response.status_code == 403:
                 raise AuthorizationException(self.api_key)
-            elif response.status_code != 200:
+            if request_failed(status_code=response.status_code):
                 raise ServerException(response.status_code)
             # Get the response and check is not empty.
             res = response.json()
