@@ -322,11 +322,13 @@ Google Translate
     # the translate_sentences function is deprecated, use the translate_batch function instead
     translated = GoogleTranslator('de', 'en').translate_batch(texts)
 
-- Translate from a file:
+- Translate text from txt/docx/pdf:
 
 .. code-block:: python
 
-    translated = GoogleTranslator(source='auto', target='german').translate_file('path/to/file')
+    path = "your_file.txt"
+
+    translated = GoogleTranslator(source='auto', target='german').translate_file(path)
 
 Mymemory Translator
 --------------------
@@ -354,7 +356,7 @@ Mymemory Translator
     # the translate_sentences function is deprecated, use the translate_batch function instead
     translated = MyMemoryTranslator('de', 'en').translate_batch(texts)
 
-- Translate from file
+- Translate text from txt/docx/pdf:
 
 .. code-block:: python
 
@@ -791,6 +793,16 @@ For PDF translation:
 .. code-block:: console
 
     pip install deep-translator[pdf]
+
+- Translate text from txt/docx/pdf:
+
+Here is sample code for translating text directly from files
+
+.. code-block:: python
+
+    path = "example/test.pdf"
+
+    translated = GoogleTranslator(source='auto', target='german').translate_file(path)
 
 
 Usage from Terminal
