@@ -10,14 +10,14 @@ import requests
 from bs4 import BeautifulSoup
 
 from deep_translator.base import BaseTranslator
-from deep_translator.constants import BASE_URLS
+from deep_translator.constants import BASE_URLS, GOOGLE_LANGUAGES_TO_CODES
 from deep_translator.exceptions import (
     RequestError,
     TooManyRequests,
     TranslationNotFound,
 )
 from deep_translator.validate import is_empty, is_input_valid, request_failed
-
+from googletrans import Translator as trans_detect
 
 class GoogleTranslator(BaseTranslator):
     """
@@ -47,6 +47,7 @@ class GoogleTranslator(BaseTranslator):
         )
 
         self._alt_element_query = {"class": "result-container"}
+        self.translator = trans_detect()
 
     def translate(self, text: str, **kwargs) -> str:
         """
@@ -102,6 +103,17 @@ class GoogleTranslator(BaseTranslator):
 
             else:
                 return element.get_text(strip=True)
+    
+    def detect_language(self, text: str, **kwargs):
+        """
+        function to detect language from text
+        @param text: desired text to translate
+        @return: str: translated text
+        """
+        detected_lang_code = self.translator.detect(text).lang
+        detected_lang = [lang for lang, lang_code in GOOGLE_LANGUAGES_TO_CODES.items() if lang_code == detected_lang_code]
+        
+        return detected_lang[0]
 
     def translate_file(self, path: str, **kwargs) -> str:
         """
