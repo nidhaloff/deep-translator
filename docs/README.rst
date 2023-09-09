@@ -294,6 +294,11 @@ Google Translate
 
 
 .. code-block:: python
+    # let's first detect the language of input text
+    from deep_translator.google import GoogleTranslate
+    my_detector = GoogleTranslator()
+    result = my_detector.detect_language(text=text)
+    print(f"Detected Language is {result}")
 
     # let's say first you need to translate from auto to german
     my_translator = GoogleTranslator(source='auto', target='german')
