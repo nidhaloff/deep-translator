@@ -101,12 +101,12 @@ class MicrosoftTranslator(BaseTranslator):
                 logging.warning(f"Returned error: {exc_type.__name__}")
 
             # Where Microsoft API responds with an api error, it returns a dict in response.json()
-            if type(response.json()) is dict:
+            if type(response.json()) is dict and response:
                 error_message = response.json()["error"]
                 raise MicrosoftAPIerror(error_message)
             # Where it responds with a translation, its response.json() is a list
             # e.g. [{'translations': [{'text':'Hello world!', 'to': 'en'}]}]
-            elif type(response.json()) is list:
+            elif type(response.json()) is list and response:
                 all_translations = [
                     i["text"] for i in response.json()[0]["translations"]
                 ]
