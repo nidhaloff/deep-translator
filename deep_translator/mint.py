@@ -81,7 +81,6 @@ class WikimediaMinTMachineTranslator(BaseTranslator):
             elif response.status_code == 429:
                 raise TooManyRequests()
 
-            import pdb;pdb.set_trace()
             if request_failed(status_code=response.status_code):
                 raise RequestError()
 
