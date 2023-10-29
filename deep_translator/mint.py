@@ -1,5 +1,5 @@
 """
-google translator API
+Wikimedia MinT translator API
 """
 
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
@@ -28,7 +28,7 @@ class WikimediaMinTMachineTranslator(BaseTranslator):
     def __init__(
         self,
         source: str = "en",
-        target: str = "pl",
+        target: str = "es",
         proxies: Optional[dict] = None,
         **kwargs
     ):

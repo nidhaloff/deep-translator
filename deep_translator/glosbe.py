@@ -1,5 +1,5 @@
 """
-google translator API
+Glosbe translator API
 """
 
 __copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
