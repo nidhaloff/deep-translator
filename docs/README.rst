@@ -115,6 +115,8 @@ Features
 * Support for the `DeeplTranslator translator <https://www.deepl.com/en/translator/>`_ (version >= 1.2.5)
 * Support for the `Papago translator <https://papago.naver.com/>`_ (version >= 1.4.4)
 * Support for the `Libre translator <https://libretranslate.com/>`_
+* Support for the `Glosbe translator <https://glosbe.com/>`_
+* Support for the `Wikimedia MinT Machine translator <https://translate.wmcloud.org/>`_
 * Support for ChatGpt
 * Support for proxy usage
 * Automatic single language detection
@@ -221,6 +223,8 @@ Imports
                                  PapagoTranslator,
                                  DeeplTranslator,
                                  QcriTranslator,
+                                 GlosbeTranslator,
+                                 WikimediaMinTMachineTranslator,
                                  single_detection,
                                  batch_detection)
 
@@ -756,6 +760,71 @@ BaiduTranslator
 
     translated = BaiduTranslator(appid="your-appid", appkey="your-appkey" source="en", target="zh").translate_file('path/to/file')
 
+Glosbe Translator
+--------------------
+
+.. note::
+
+    In Glosbe translate, you can use any language as an argument for the source language.
+    There are more than 190 lanugages are Supported by the GlosbeTranslator.
+
+- Simple translation
+
+.. code-block:: python
+
+    text = 'Keep it up. You are awesome'
+
+    translated = GlosbeTranslator(source='english', target='french').translate(text)
+
+- Translate batch of texts
+
+.. code-block:: python
+
+    texts = ["hallo welt", "guten morgen"]
+
+    # the translate_sentences function is deprecated, use the translate_batch function instead
+    translated = GlosbeTranslator('de', 'en').translate_batch(texts)
+
+- Translate text from txt/docx/pdf:
+
+.. code-block:: python
+
+    path = "your_file.txt"
+
+    translated = GlosbeTranslator(source='en', target='fr').translate_file(path)
+
+Wikimedia MinT Machine Translator
+--------------------
+
+.. note::
+
+    In Wikimedia MinT Machine translate, you can use any language as an argument for the source language.
+    There are more than 200 lanugages are Supported by the WikimediaMinTMachineTranslator.
+
+- Simple translation
+
+.. code-block:: python
+
+    text = 'Keep it up. You are awesome'
+
+    translated = WikimediaMinTMachineTranslator(source='english', target='french').translate(text)
+
+- Translate batch of texts
+
+.. code-block:: python
+
+    texts = ["hallo welt", "guten morgen"]
+
+    # the translate_sentences function is deprecated, use the translate_batch function instead
+    translated = WikimediaMinTMachineTranslator('de', 'en').translate_batch(texts)
+
+- Translate text from txt/docx/pdf:
+
+.. code-block:: python
+
+    path = "your_file.txt"
+
+    translated = GlosbeTranslator(source='en', target='fr').translate_file(path)
 
 Proxy usage
 -------------

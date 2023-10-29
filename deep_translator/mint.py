@@ -57,6 +57,7 @@ class WikimediaMinTMachineTranslator(BaseTranslator):
             if self._same_source_target() or is_empty(text):
                 return text
             
+            self._base_url = BASE_URLS.get("WIKIMEDIA_MINT") # reinitializing since in batch translation it appends the source and target to url in every iteration
             self._base_url += "/" + self._source
             self._base_url += "/" + self._target
 
@@ -80,6 +81,7 @@ class WikimediaMinTMachineTranslator(BaseTranslator):
             elif response.status_code == 429:
                 raise TooManyRequests()
 
+            import pdb;pdb.set_trace()
             if request_failed(status_code=response.status_code):
                 raise RequestError()
 
