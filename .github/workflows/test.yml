@@ -19,7 +19,7 @@ jobs:
             -   name: Install poetry
                 run: |
                     which python
-                    curl -sSL https://install.python-poetry.org | python3 -
+                    curl -sSL https://install.python-poetry.org | python{{ matrix.python-version }} -
 
             -   name: Install dependencies
                 run: |
