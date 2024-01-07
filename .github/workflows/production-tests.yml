@@ -23,7 +23,8 @@ jobs:
             -   name: Install poetry
                 run: |
                     which python
-                    curl -sSL https://install.python-poetry.org | python${{ matrix.python-version }} -
+                    which pipx
+                    pipx install poetry
 
             -   name: Install dependencies
                 run: |

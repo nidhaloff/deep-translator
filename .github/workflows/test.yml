@@ -6,7 +6,7 @@ jobs:
     test:
         strategy:
             matrix:
-                python-version: ["3.7"]
+                python-version: [ "3.7", "3.8", "3.9" ]
                 os: [ubuntu-latest]  # we can add other os like macOS-latest
         runs-on: ${{ matrix.os }}
         steps:

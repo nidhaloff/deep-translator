@@ -36,10 +36,10 @@ def test_microsoft_successful_post_mock(mock_request_post):
 
 
 def test_MicrosoftAPIerror():
-    with pytest.raises(exceptions.MicrosoftAPIerror):
-        MicrosoftTranslator(
-            api_key="empty", source="de", target="en"
-        ).translate("text")
+    with pytest.raises(exceptions.ApiKeyException):
+        MicrosoftTranslator(api_key="", source="de", target="en").translate(
+            "text"
+        )
 
 
 # the remaining tests are actual requests to Microsoft API and use an api key
