@@ -27,7 +27,9 @@ jobs:
             -   uses: actions/checkout@v2
 
             -   name: Install poetry
-                run: curl -sSL https://install.python-poetry.org | python3 -
+                run: |
+                    which python
+                    curl -sSL https://install.python-poetry.org | python3 -
 
             -   name: View poetry version
                 run: poetry --version
