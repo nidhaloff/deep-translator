@@ -19,7 +19,7 @@ jobs:
             -   name: Install poetry
                 run: |
                     which python
-                    curl -sSL https://install.python-poetry.org | sed 's/symlinks=False/symlinks=True/' | python3 -
+                    curl -sSL https://install.python-poetry.org | python3.7 -
 
             -   name: Install dependencies
                 run: |
