@@ -177,7 +177,12 @@ class BaseTranslator(ABC):
         if not batch:
             raise Exception("Enter your text list that you want to translate")
         arr = []
-        for i, text in enumerate(batch):
-            translated = self.translate(text, **kwargs)
+        already_translated = {}
+        for _i, text in enumerate(batch):
+            if text in already_translated:
+                translated = already_translated[text]
+            else:
+                translated = self.translate(text, **kwargs)
+                already_translated[text] = translated
             arr.append(translated)
         return arr
