@@ -119,4 +119,9 @@ class GoogleTranslator(BaseTranslator):
         @param batch: list of texts you want to translate
         @return: list of translations
         """
-        return self._translate_batch(batch, **kwargs)
+        if not batch:
+            raise Exception("Enter your text list that you want to translate")
+        text = '\n'.join(batch)
+        translated = self.translate(text, **kwargs)
+        arr = translated.split('\n')
+        return arr
