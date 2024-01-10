@@ -35,6 +35,7 @@ class GoogleTranslator(BaseTranslator):
         @param source: source language to translate from
         @param target: target language to translate to
         """
+        self.headers = None
         self.proxies = proxies
         super().__init__(
             base_url=BASE_URLS.get("GOOGLE_TRANSLATE"),
@@ -60,12 +61,18 @@ class GoogleTranslator(BaseTranslator):
                 return text
             self._url_params["tl"] = self._target
             self._url_params["sl"] = self._source
-
+            self.headers = {
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77"
+                    " Safari/537.36"
+                )
+            }
             if self.payload_key:
                 self._url_params[self.payload_key] = text
 
             response = requests.get(
-                self._base_url, params=self._url_params, proxies=self.proxies
+                self._base_url, params=self._url_params, headers=self.headers, proxies=self.proxies
             )
             if response.status_code == 429:
                 raise TooManyRequests()
