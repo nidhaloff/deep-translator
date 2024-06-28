@@ -130,11 +130,11 @@ Features
 Installation
 =============
 
-Install the stable release:
+Install this release:
 
 .. code-block:: console
 
-    $ pip install -U deep-translator
+    $ pip install git+https://github.com/beethogedeon/deep-translator.git
 
     $ poetry add deep-translator   # for poetry usage
 
@@ -277,16 +277,16 @@ Google Translate
 
 .. code-block:: python
 
-    translated = GoogleTranslator(source='auto', target='de').translate(text=text)
+    translated = GoogleTranslator(source='auto', target='fon').translate(text=text)
 
 - You can pass languages by name or by abbreviation:
 
 .. code-block:: python
 
-    translated = GoogleTranslator(source='auto', target='german').translate(text=text)
+    translated = GoogleTranslator(source='auto', target='fongbe').translate(text=text)
 
     # Alternatively, you can pass languages by their abbreviation:
-    translated = GoogleTranslator(source='en', target='de').translate(text=text)
+    translated = GoogleTranslator(source='fon', target='fr').translate(text=text)
 
 - You can also reuse the Translator class and change/update its properties.
 
@@ -295,15 +295,15 @@ Google Translate
 
 .. code-block:: python
 
-    # let's say first you need to translate from auto to german
-    my_translator = GoogleTranslator(source='auto', target='german')
+    # let's say first you need to translate from auto to Fongbe
+    my_translator = GoogleTranslator(source='auto', target='fongbe')
     result = my_translator.translate(text=text)
     print(f"Translation using source = {my_translator.source} and target = {my_translator.target} -> {result}")
 
     # let's say later you want to reuse the class but your target is french now
     # This is the best practice and how you should use deep-translator.
     # Please don't over-instantiate translator objects without a good reason, otherwise you will run into performance issues
-    my_translator.target = 'fr'  # this will override the target 'german' passed previously
+    my_translator.target = 'fr'  # this will override the target 'fongbe' passed previously
     result = my_translator.translate(text=text)
     print(f"Translation using source = {my_translator.source} and target = {my_translator.target} -> {result}")
 

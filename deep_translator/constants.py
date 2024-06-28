@@ -65,6 +65,7 @@ GOOGLE_LANGUAGES_TO_CODES = {
     "ewe": "ee",
     "filipino": "tl",
     "finnish": "fi",
+    "fongbe":"fon",
     "french": "fr",
     "frisian": "fy",
     "galician": "gl",
