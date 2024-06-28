@@ -951,6 +951,28 @@ Here are some screenshots:
     :height: 300
     :alt: screenshot3
 
+Glosbe Translator
+=================
+
+.. code-block:: python
+
+    from deep_translator import GlosbeTranslator
+
+    translated = GlosbeTranslator(source='en', target='es').translate("hello")
+    print(translated)  # Should print the translation of "hello" in Spanish
+
+
+Wikimedia Translator
+=====================
+
+.. code-block:: python
+
+    from deep_translator import WikimediaTranslator
+
+    translated = WikimediaTranslator(source='en', target='fr').translate("hello")
+    print(translated)  # Should print the translation of "hello" in French
+
+
 ===========================
 Website & Desktop app
 ===========================

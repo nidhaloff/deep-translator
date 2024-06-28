@@ -17,6 +17,9 @@ from deep_translator.qcri import QcriTranslator
 from deep_translator.tencent import TencentTranslator
 from deep_translator.yandex import YandexTranslator
 
+from .glosbe import GlosbeTranslator
+from .wikimedia import WikimediaTranslator
+
 __author__ = """Nidhal Baccouri"""
 __email__ = "nidhalbacc@gmail.com"
 __version__ = "1.9.1"
