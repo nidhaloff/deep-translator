@@ -57,6 +57,14 @@ def test_payload(google_translator):
 
 
 def test_one_character_words():
-    assert (
-        GoogleTranslator(source="es", target="en").translate("o") is not None
-    )
+    assert GoogleTranslator(source="es", target="en").translate("o") is not None
+
+
+def test_european_portuguese():
+    engine_pt = GoogleTranslator(source="en", target="pt-PT")
+    translation_pt = engine_pt.translate("The bus arrived late")
+    assert translation_pt == "O autocarro chegou atrasado"
+
+    engine_br = GoogleTranslator(source="en", target="pt")
+    translation_br = engine_br.translate("The bus arrived late")
+    assert translation_br == "O ônibus chegou atrasado"

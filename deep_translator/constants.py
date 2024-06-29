@@ -125,6 +125,7 @@ GOOGLE_LANGUAGES_TO_CODES = {
     "persian": "fa",
     "polish": "pl",
     "portuguese": "pt",
+    "portuguese (portugal)": "pt-PT",
     "punjabi": "pa",
     "quechua": "qu",
     "romanian": "ro",
