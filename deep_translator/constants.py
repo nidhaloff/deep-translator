@@ -165,6 +165,7 @@ GOOGLE_LANGUAGES_TO_CODES = {
     "yiddish": "yi",
     "yoruba": "yo",
     "zulu": "zu",
+    "wolof":"wo"
 }
 
 PONS_CODES_TO_LANGUAGES = {
