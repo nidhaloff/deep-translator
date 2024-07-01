@@ -16,6 +16,7 @@ from deep_translator.pons import PonsTranslator
 from deep_translator.qcri import QcriTranslator
 from deep_translator.tencent import TencentTranslator
 from deep_translator.yandex import YandexTranslator
+from .new_translator import NewTranslator
 
 __author__ = """Nidhal Baccouri"""
 __email__ = "nidhalbacc@gmail.com"
