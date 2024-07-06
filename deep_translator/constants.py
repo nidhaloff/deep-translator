@@ -32,6 +32,7 @@ BASE_URLS = {
 }
 
 GOOGLE_LANGUAGES_TO_CODES = {
+    "afar": "aa",  
     "afrikaans": "af",
     "albanian": "sq",
     "amharic": "am",
@@ -48,6 +49,7 @@ GOOGLE_LANGUAGES_TO_CODES = {
     "bosnian": "bs",
     "bulgarian": "bg",
     "catalan": "ca",
+    "Cantonese":"yue",
     "cebuano": "ceb",
     "chichewa": "ny",
     "chinese (simplified)": "zh-CN",
@@ -118,6 +120,7 @@ GOOGLE_LANGUAGES_TO_CODES = {
     "mongolian": "mn",
     "myanmar": "my",
     "nepali": "ne",
+    "n'ko":"bm-Nkoo",
     "norwegian": "no",
     "odia (oriya)": "or",
     "oromo": "om",
@@ -165,6 +168,7 @@ GOOGLE_LANGUAGES_TO_CODES = {
     "yiddish": "yi",
     "yoruba": "yo",
     "zulu": "zu",
+    "wolof": "wo"
 }
 
 PONS_CODES_TO_LANGUAGES = {
