@@ -44,7 +44,10 @@ class ChatGptTranslator(BaseTranslator):
 
         openai.api_key = self.api_key
 
-        prompt = f"Translate the text below into {self.target}.\n"
+        if self.source == "auto":
+            prompt = f"Translate the text below into {self.target}.\n"
+        else:
+            prompt = f"Translate the text below from {self.source} into {self.target}.\n"
         prompt += f'Text: "{text}"'
 
         response = openai.ChatCompletion.create(
