@@ -891,6 +891,8 @@ MIT license
 
 Copyright (c) 2020-present, Nidhal Baccouri
 
+Please note that the above license solely covers the right to use this open source software.  This software calls other translation services and your use of those translation services is subject to their license terms.  
+
 ===========
 Swagger UI
 ===========
