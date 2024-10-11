@@ -20,6 +20,8 @@ class ChatGptTranslator(BaseTranslator):
         target: str = "english",
         api_key: Optional[str] = os.getenv(OPEN_AI_ENV_VAR, None),
         model: Optional[str] = "gpt-3.5-turbo",
+        base_url: Optional[str] = None,
+        system_prompt: Optional[str] = None,
         **kwargs,
     ):
         """
@@ -43,18 +45,25 @@ class ChatGptTranslator(BaseTranslator):
         import openai
 
         openai.api_key = self.api_key
+        openai.base_url = self.base_url
 
         prompt = f"Translate the text below into {self.target}.\n"
         prompt += f'Text: "{text}"'
+        messages = []
+
+        if system_prompt:
+            messages.append({"role": "system", "content": self.system_prompt})
+
+        messages.append(
+            {
+                "role": "user",
+                "content": prompt,
+            }
+        )
 
         response = openai.ChatCompletion.create(
             model=self.model,
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt,
-                }
-            ],
+            messages=messages,
         )
 
         return response.choices[0].message.content
