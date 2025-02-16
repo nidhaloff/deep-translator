@@ -1,8 +1,5 @@
-"""
-Yandex translator API
-"""
 
-__copyright__ = "Copyright (C) 2020 Nidhal Baccouri"
+# (C)oded by .NetXCore
 
 import os
 from typing import List, Optional
@@ -23,8 +20,7 @@ from deep_translator.validate import is_input_valid, request_failed
 
 class YandexTranslator(BaseTranslator):
     """
-    class that wraps functions, which use the yandex translator
-    under the hood to translate word(s)
+    Class that wraps functions to use the Yandex Translator API v2.
     """
 
     def __init__(
@@ -32,20 +28,19 @@ class YandexTranslator(BaseTranslator):
         source: str = "en",
         target: str = "de",
         api_key: Optional[str] = os.getenv(YANDEX_ENV_VAR, None),
+        folder_id: Optional[str] = None,  # Required for Yandex v2 API
         **kwargs
     ):
         """
-        @param api_key: your yandex api key
+        @param api_key: Your Yandex API key.
+        @param folder_id: Your Yandex folder ID
         """
         if not api_key:
             raise ApiKeyException(YANDEX_ENV_VAR)
         self.api_key = api_key
-        self.api_version = "v1.5"
-        self.api_endpoints = {
-            "langs": "getLangs",
-            "detect": "detect",
-            "translate": "translate",
-        }
+        self.folder_id = folder_id
+        self.api_version = "v2"
+        self.api_endpoint = "translate"
         super().__init__(
             base_url=BASE_URLS.get("YANDEX"),
             source=source,
@@ -53,106 +48,51 @@ class YandexTranslator(BaseTranslator):
             **kwargs
         )
 
-    def _get_supported_languages(self):
-        return set(x.split("-")[0] for x in self.dirs)
-
-    @property
-    def languages(self):
-        return self.get_supported_languages()
-
-    @property
-    def dirs(self, proxies: Optional[dict] = None):
-        try:
-            url = self._base_url.format(
-                version=self.api_version, endpoint="getLangs"
-            )
-            print("url: ", url)
-            response = requests.get(
-                url, params={"key": self.api_key}, proxies=proxies
-            )
-        except requests.exceptions.ConnectionError:
-            raise ServerException(503)
-        else:
-            data = response.json()
-
-        if request_failed(status_code=response.status_code):
-            raise ServerException(response.status_code)
-        return data.get("dirs")
-
-    def detect(self, text: str, proxies: Optional[dict] = None):
-        response = None
-        params = {
-            "text": text,
-            "format": "plain",
-            "key": self.api_key,
-        }
-        try:
-            url = self._base_url.format(
-                version=self.api_version, endpoint="detect"
-            )
-            response = requests.post(url, data=params, proxies=proxies)
-
-        except RequestError:
-            raise
-        except ConnectionError:
-            raise ServerException(503)
-        except ValueError:
-            raise ServerException(response.status_code)
-        else:
-            response = response.json()
-        language = response["lang"]
-        status_code = response["code"]
-        if status_code != 200:
-            raise RequestError()
-        elif not language:
-            raise ServerException(501)
-        return language
-
     def translate(
         self, text: str, proxies: Optional[dict] = None, **kwargs
     ) -> str:
         if is_input_valid(text):
-            params = {
-                "text": text,
-                "format": "plain",
-                "lang": self._target
-                if self._source == "auto"
-                else "{}-{}".format(self._source, self._target),
-                "key": self.api_key,
+
+            url = f"{self._base_url}/{self.api_version}/{self.api_endpoint}"
+
+            headers = {
+                "Authorization": f"Api-Key {self.api_key}",
+                "Content-Type": "application/json",
             }
+            body = {
+                "sourceLanguageCode": self._source,
+                "targetLanguageCode": self._target,
+                "texts": [text],
+                "folderId": self.folder_id,  # Required for v2 API
+            }
+
             try:
-                url = self._base_url.format(
-                    version=self.api_version, endpoint="translate"
+                response = requests.post(
+                    url, json=body, headers=headers, proxies=proxies
                 )
-                response = requests.post(url, data=params, proxies=proxies)
-            except ConnectionError:
-                raise ServerException(503)
-            else:
-                response = response.json()
+                response.raise_for_status()  # Raise an exception for HTTP errors
+            except requests.exceptions.RequestException as e:
+                raise ServerException(str(e))
 
-            if response["code"] == 429:
-                raise TooManyRequests()
+            data = response.json()
 
-            if response["code"] != 200:
-                raise ServerException(response["code"])
-
-            if not response["text"]:
+            if "translations" not in data:
                 raise TranslationNotFound()
 
-            return response["text"]
+            return data["translations"][0]["text"]
 
     def translate_file(self, path: str, **kwargs) -> str:
         """
-        translate from a file
-        @param path: path to file
-        @return: translated text
+        Translate from a file.
+        @param path: Path to file.
+        @return: Translated text.
         """
         return self._translate_file(path, **kwargs)
 
     def translate_batch(self, batch: List[str], **kwargs) -> List[str]:
         """
-        translate a batch of texts
-        @param batch: list of texts to translate
-        @return: list of translations
+        Translate a batch of texts.
+        @param batch: List of texts to translate.
+        @return: List of translations.
         """
         return self._translate_batch(batch, **kwargs)

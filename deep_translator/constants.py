@@ -16,7 +16,8 @@ BAIDU_APPKEY_ENV_VAR = "BAIDU_APPKEY"
 BASE_URLS = {
     "GOOGLE_TRANSLATE": "https://translate.google.com/m",
     "PONS": "https://en.pons.com/translate/",
-    "YANDEX": "https://translate.yandex.net/api/{version}/tr.json/{endpoint}",
+    #"YANDEX": "https://translate.yandex.net/api/{version}/tr.json/{endpoint}",
+    "YANDEX": "https://translate.api.cloud.yandex.net/translate",
     "LINGUEE": "https://www.linguee.com/",
     "MYMEMORY": "http://api.mymemory.translated.net/get",
     "QCRI": "https://mt.qcri.org/api/v1/{endpoint}?",
