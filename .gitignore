@@ -105,3 +105,4 @@ ENV/
 
 # IDE settings
 .vscode/
+.history

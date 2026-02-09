@@ -69,16 +69,18 @@ class DeeplTranslator(BaseTranslator):
 
             # Create the request parameters.
             translate_endpoint = "translate"
-            params = {
-                "auth_key": self.api_key,
+            headers = {
+                "Authorization": f"DeepL-Auth-Key {self.api_key}"
+            }
+            data = {
                 "source_lang": self._source,
                 "target_lang": self._target,
                 "text": text,
             }
             # Do the request and check the connection.
             try:
-                response = requests.get(
-                    self._base_url + translate_endpoint, params=params
+                response = requests.post(
+                    self._base_url + translate_endpoint, data=data, headers=headers
                 )
             except ConnectionError:
                 raise ServerException(503)
