@@ -76,7 +76,7 @@ class MyMemoryTranslator(BaseTranslator):
 
             data = response.json()
             if not data:
-                TranslationNotFound(text)
+                raise TranslationNotFound(text)
 
             response.close()
             translation = data.get("responseData").get("translatedText")
